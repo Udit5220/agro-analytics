@@ -11,20 +11,20 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom premium scrollbar */
+/* Custom premium scrollbar - Sleek, modern, and eye-friendly */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #132a13;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #4f772d;
+  background: #cbd5e1; /* slate-300 */
   border-radius: 9999px;
-  border: 2px solid #132a13;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #90a955;
+  background: #94a3b8; /* slate-400 */
 }
 
 /* Animations definitions */

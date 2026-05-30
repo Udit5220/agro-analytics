@@ -123,8 +123,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Grid Layout of Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Grid Layout of Cards - Dynamic 4 to 5 columns on widescreen */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             {aiTools.map((card) => (
               <Aitoolcard
                 key={card.id}
@@ -134,6 +134,7 @@ export default function Home() {
                 badgeText={card.badgeText}
                 badgeColor={card.badgeColor}
                 linkUrl={card.linkUrl}
+                highlighted={card.highlighted}
               />
             ))}
           </div>
@@ -183,10 +184,10 @@ export default function Home() {
               <div className="p-1.5 bg-brand-accent/20 rounded-lg">
                 <LucideIcons.Sprout className="h-5 w-5 text-brand-accent" />
               </div>
-              <span className="text-base font-bold text-white tracking-tight">AgroSense.</span>
+              <span className="text-base font-bold text-white tracking-tight">AgroIndia.</span>
             </div>
             <p className="text-xs text-slate-500">
-              &copy; {new Date().getFullYear()} AgroSense Inc. All rights reserved. Precision algorithms for global soil optimization.
+              &copy; {new Date().getFullYear()} AgroIndia Inc. All rights reserved. Precision algorithms for global soil optimization.
             </p>
             <div className="flex space-x-6 text-xs font-semibold text-slate-400 hover:text-white transition-colors duration-200">
               <a href="#privacy">Privacy Policy</a>

@@ -1,5 +1,5 @@
 /**
- * Static Content Layer for AgroSense Landing Page
+ * Static Content Layer for AgroIndia Landing Page
  * Decouples static marketing texts, navigation paths, and platform flow details from the component layout.
  */
 export const homeContent = {
@@ -16,7 +16,7 @@ export const homeContent = {
     badge: 'AI-Powered Agriculture Platform',
     titlePrefix: 'New Era of Farming —',
     titleHighlight: 'Powered by AI',
-    subtitle: 'Optimize your crops, identify crop diseases in seconds, and secure premium yields with AgroSense\'s cloud-native multi-model farming intelligence. Built by leading agronomists and AI researchers.',
+    subtitle: 'Optimize your crops, identify crop diseases in seconds, and secure premium yields with AgroIndia\'s cloud-native multi-model farming intelligence. Built by leading agronomists and AI researchers.',
     ctaPrimary: 'Get Started Free',
     ctaSecondary: 'Watch Demo'
   },
@@ -49,34 +49,87 @@ export const homeContent = {
     }
   ],
 
-  // AI Tools Module Grid Data (3 Cards)
+  // AI Tools Module Grid Data (10 Cards representing the exact layout in Image 1)
   aiTools: [
     {
-      id: 'crop-rec',
-      title: 'Smart Crop Recommendation',
-      description: 'Analyze soil nitrogen, phosphorus, potassium, temperature, humidity, and pH levels to determine the highest yielding crop for your unique field topology.',
-      badgeText: '20 Features',
-      badgeColor: 'brand-accent',
-      icon: 'Sprout',
-      linkUrl: '/module/crop-recommendation'
+      id: 'ai-assistant',
+      title: 'AI Agriculture Assistant',
+      description: '24/7 conversational AI, 12 languages',
+      icon: 'Bot',
+      linkUrl: '/module/ai-suggestion',
+      badgeText: 'Conversational'
+    },
+    {
+      id: 'market-intel',
+      title: 'Commodity Market Intelligence',
+      description: '100+ crops, all exchanges + intl',
+      icon: 'TrendingUp',
+      linkUrl: '/module/market-intelligence',
+      badgeText: 'Live Mandi'
+    },
+    {
+      id: 'weather-intel',
+      title: 'Weather & Reservoir Intel',
+      description: 'Hyperlocal forecasts, 250+ reservoirs',
+      icon: 'CloudSun',
+      linkUrl: '/module/weather-reservoir',
+      badgeText: 'Hyperlocal'
+    },
+    {
+      id: 'gov-schemes',
+      title: 'Government Scheme Center',
+      description: '200+ schemes, eligibility AI',
+      icon: 'FileText',
+      linkUrl: '/module/gov-schemes',
+      badgeText: 'Eligibility'
+    },
+    {
+      id: 'research-ai',
+      title: 'White Paper & Research AI',
+      description: 'PDF analysis, RAG, multilingual',
+      icon: 'Leaf',
+      linkUrl: '/module/research-ai',
+      badgeText: 'Pathology'
     },
     {
       id: 'disease-det',
-      title: 'Disease Detection',
-      description: 'Upload high-resolution leaf photos to instantly diagnose bacterial, fungal, or viral infections using our custom convolutional neural networks.',
-      badgeText: '15 Features',
-      badgeColor: 'brand-light',
-      icon: 'ShieldAlert',
-      linkUrl: '/module/disease-detection'
+      title: 'Disease Detection Module',
+      description: 'CV model, 2,000+ diseases, 94% accuracy',
+      icon: 'Bug',
+      linkUrl: '/module/disease-detection',
+      badgeText: 'Computer Vision'
     },
     {
-      id: 'agri-sugg',
-      title: 'AI Agriculture Suggestion',
-      description: 'Receive real-time micro-climate warnings, irrigation timing insights, fertilizer schedules, and general agronomic guidelines powered by LLM agents.',
-      badgeText: 'Beta Active',
-      badgeColor: 'brand-accent',
-      icon: 'Brain',
-      linkUrl: '/module/ai-suggestion'
+      id: 'crop-rec',
+      title: 'Smart Crop Recommendation',
+      description: 'Soil + climate + market optimization',
+      icon: 'Sprout',
+      linkUrl: '/module/crop-recommendation',
+      badgeText: 'Agronomic AI'
+    },
+    {
+      id: 'news-intel',
+      title: 'News Intelligence Module',
+      description: '200+ sources, AI market impact',
+      icon: 'Newspaper',
+      linkUrl: '/module/news-intel',
+      badgeText: 'Real-time'
+    },
+    {
+      id: 'marketplace',
+      title: 'Marketplace Module',
+      description: 'B2B/B2C produce & input trading',
+      icon: 'Store',
+      linkUrl: '/module/marketplace',
+      badgeText: 'Produce Trade'
+    },
+    {
+      id: 'learning-hub',
+      title: 'Learning Hub',
+      description: '5,000+ videos, 12 languages',
+      icon: 'GraduationCap',
+      linkUrl: '/module/learning-hub',
+      badgeText: 'Training'
     }
   ],
 

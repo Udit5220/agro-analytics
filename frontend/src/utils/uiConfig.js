@@ -1,10 +1,10 @@
 /**
- * UI Configuration & Shared Style Constants for AgroSense
+ * UI Configuration & Shared Style Constants for AgroIndia
  * Manages global UI flags, standard layout classes, animations, and typography tokens.
  */
 export const uiConfig = {
   // Global App metadata
-  appName: 'AgroSense',
+  appName: 'AgroIndia',
   appTagline: 'AI-Powered Agriculture Platform',
 
   // Layout standardizations

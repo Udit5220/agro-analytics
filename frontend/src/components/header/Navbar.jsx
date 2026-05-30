@@ -1,15 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Sprout, Globe, Sun, Moon, Bell, User, Menu, X, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Sprout, Globe, Sun, Moon, Bell, User, Menu, X, ChevronDown, LogOut, Settings, UserCircle, Tractor } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { uiConfig } from '../../utils/uiConfig';
 import { homeContent } from '../../content/homeContent';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('English');
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef(null);
+
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Monitor scroll for transition styles
   useEffect(() => {
@@ -57,7 +72,7 @@ export default function Navbar() {
               <Sprout className="h-6 w-6 text-brand-accent" />
             </div>
             <span className="text-xl font-bold tracking-tight text-white">
-              AgroSense<span className="text-brand-accent font-extrabold">.</span>
+              AgroIndia<span className="text-brand-accent font-extrabold">.</span>
             </span>
           </a>
 
@@ -146,10 +161,63 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* User Profile */}
-            <button className="h-9 w-9 rounded-full bg-brand-accent/20 border border-brand-accent/30 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-brand-darkest transition-all duration-300">
-              <User className="h-4.5 w-4.5" />
-            </button>
+            {/* User Profile Dropdown */}
+            <div className="relative" ref={profileRef}>
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="h-9 w-9 rounded-full bg-brand-accent/20 border border-brand-accent/30 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-brand-darkest transition-all duration-300 text-xs font-bold"
+              >
+                SK
+              </button>
+
+              {isProfileOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-brand-darkest rounded-xl shadow-xl border border-gray-100 dark:border-brand-dark/30 z-50 p-3 animate-fadeIn">
+                  
+                  {/* Top: User Info */}
+                  <div className="flex items-center gap-3 pb-3">
+                    <div className="h-10 w-10 rounded-xl bg-[#31572c] flex items-center justify-center text-[#ecf39e] font-bold text-sm shrink-0 shadow-inner">
+                      SK
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-gray-900 dark:text-white">Suresh Kumar</h4>
+                      <p className="text-[10px] text-gray-500 dark:text-slate-400 font-medium">Farmer / किसान</p>
+                    </div>
+                    <span className="ml-auto h-2 w-2 rounded-full bg-emerald-500 shrink-0 ring-2 ring-emerald-500/20" title="Active" />
+                  </div>
+
+                  {/* Divider */}
+                  <div className="border-t border-gray-100 dark:border-brand-dark/20 my-2" />
+
+                  {/* Quick Links */}
+                  <div className="space-y-0.5">
+                    <button className="w-full text-left text-gray-700 dark:text-slate-300 hover:bg-[#f4f7f4] dark:hover:bg-brand-dark/20 rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                      <UserCircle className="h-3.5 w-3.5 text-[#90a955]" />
+                      My Profile
+                    </button>
+                    <button className="w-full text-left text-gray-700 dark:text-slate-300 hover:bg-[#f4f7f4] dark:hover:bg-brand-dark/20 rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                      <Tractor className="h-3.5 w-3.5 text-[#90a955]" />
+                      Farm Configurations
+                    </button>
+                    <button className="w-full text-left text-gray-700 dark:text-slate-300 hover:bg-[#f4f7f4] dark:hover:bg-brand-dark/20 rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                      <Settings className="h-3.5 w-3.5 text-[#90a955]" />
+                      Settings
+                    </button>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="border-t border-gray-100 dark:border-brand-dark/20 my-2" />
+
+                  {/* Logout */}
+                  <button
+                    onClick={() => { setIsProfileOpen(false); navigate('/'); }}
+                    className="w-full flex items-center justify-center gap-2 bg-red-50 dark:bg-red-500/10 hover:bg-red-100 dark:hover:bg-red-500/20 text-red-600 dark:text-red-400 font-bold text-xs py-2 rounded-lg transition-all duration-200"
+                  >
+                    <LogOut className="h-3.5 w-3.5" />
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right: Hamburger Mobile Button */}

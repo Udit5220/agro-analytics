@@ -13,18 +13,18 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
   const currentMenu = sidebarMenus[activeModuleKey];
 
   return (
-    <aside className="w-72 bg-brand-darkest text-white border-r border-brand-dark/25 flex flex-col justify-between shrink-0 select-none h-full p-4">
+    <aside className="w-60 bg-[#132a13] border-r border-[#132a13]/25 flex flex-col justify-between shrink-0 select-none h-full p-3 text-white">
       
       <div>
         {/* Top Header & Collapsible Close Button */}
-        <div className="flex items-center justify-between pb-4 border-b border-brand-dark/20">
+        <div className="flex items-center justify-between pb-3 border-b border-white/10">
           <div className="flex items-center space-x-2">
-            <LucideIcons.Sprout className="h-5 w-5 text-brand-accent animate-pulse" />
-            <span className="text-sm font-extrabold tracking-wide text-white">Navigation</span>
+            <LucideIcons.Sprout className="h-4 w-4 text-[#ecf39e]" />
+            <span className="text-[10px] font-bold tracking-widest uppercase text-slate-300">Navigation</span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(false)}
-            className="p-1.5 rounded-lg bg-brand-dark/30 hover:bg-brand-medium text-slate-300 hover:text-brand-accent transition-all duration-200 active:scale-[0.95]"
+            className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all duration-200 active:scale-[0.95]"
             title="Close Navigation Panel"
           >
             <LucideIcons.X className="h-4 w-4" />
@@ -32,11 +32,11 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
         </div>
 
         {/* Dynamic Nav List (Compact & Clean spacing) */}
-        <nav className="space-y-1 mt-4 overflow-y-auto max-h-[calc(100vh-240px)] scroll-thin">
+        <nav className="space-y-0.5 mt-3 overflow-y-auto max-h-[calc(100vh-220px)] scroll-thin">
           {currentMenu.map((item, idx) => {
             const IconComponent = LucideIcons[item.icon] || LucideIcons.HelpCircle;
-            // Build the absolute routing link to avoid subpath mismatch errors
-            const pathUrl = `/module/${activeModuleKey}/${item.path}`;
+            // Build the absolute routing link to avoid subpath mismatch errors and trailing slash issues
+            const pathUrl = item.path ? `/module/${activeModuleKey}/${item.path}` : `/module/${activeModuleKey}`;
             
             return (
               <NavLink
@@ -44,22 +44,17 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
                 to={pathUrl}
                 end
                 className={({ isActive }) =>
-                  `flex items-center space-x-3.5 px-4 py-3 rounded-xl transition-all duration-200 font-semibold text-sm relative group ${
+                  `flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 font-semibold text-[11px] tracking-wide relative group ${
                     isActive
-                      ? 'bg-brand-medium text-white shadow-lg shadow-brand-medium/10'
-                      : 'text-slate-300/80 hover:text-white hover:bg-brand-dark/30'
+                      ? 'bg-white/10 text-white font-bold border-l-[3px] border-[#ecf39e]'
+                      : 'text-slate-300 hover:bg-white/10 hover:text-white'
                   }`
                 }
               >
                 {({ isActive }) => (
                   <>
-                    {/* Left Active border bar */}
-                    {isActive && (
-                      <span className="absolute left-0 top-3 bottom-3 w-1.5 bg-brand-accent rounded-r-full" />
-                    )}
-                    
-                    <IconComponent className={`h-5 w-5 shrink-0 transition-transform duration-200 group-hover:scale-110 ${
-                      isActive ? 'text-brand-accent' : 'text-brand-light'
+                    <IconComponent className={`h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${
+                      isActive ? 'text-[#ecf39e]' : 'text-slate-400'
                     }`} />
                     
                     <span>{item.label}</span>
@@ -72,32 +67,32 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
       </div>
 
       {/* Fixed Bottom Profile Block (Isolated at bottom) */}
-      <div className="border-t border-[#31572c]/40 pt-4 bg-brand-darkest/90 backdrop-blur-md">
+      <div className="border-t border-white/10 pt-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2.5">
             {/* Avatar Emblems */}
-            <div className="h-10 w-10 rounded-xl bg-brand-accent/25 border border-brand-accent/30 text-brand-accent font-bold flex items-center justify-center text-sm shadow-inner shrink-0">
+            <div className="h-8 w-8 rounded-lg bg-white/10 border border-white/15 text-[#ecf39e] font-bold flex items-center justify-center text-[11px] shrink-0">
               {userProfile.avatar}
             </div>
             <div>
-              <h4 className="text-xs font-bold text-white tracking-wide">
+              <h4 className="text-[11px] font-bold text-white tracking-wide">
                 {userProfile.name}
               </h4>
-              <p className="text-[10px] font-medium text-slate-300 flex items-center space-x-1 mt-0.5">
+              <p className="text-[9px] font-medium text-slate-300 flex items-center space-x-1 mt-0.5">
                 <span>{userProfile.role}</span>
-                <span className="text-brand-accent/50">•</span>
-                <span className="text-[9px] font-semibold bg-brand-medium/20 text-brand-accent px-1.5 py-0.5 rounded-md">
+                <span className="text-slate-500">•</span>
+                <span className="text-[9px] font-semibold bg-[#4f772d]/30 text-[#ecf39e] px-1.5 py-0.5 rounded-md">
                   {userProfile.hindiRole}
                 </span>
               </p>
             </div>
           </div>
 
-          {/* Pinned Exit Button (Subtle & space-efficient scaled container) */}
+          {/* Pinned Exit Button */}
           <Link
             to="/"
             title="Sign Out"
-            className="p-1.5 rounded-lg bg-brand-dark/20 text-slate-400 hover:text-brand-accent hover:bg-brand-medium/20 border border-brand-light/10 transition-all duration-300 active:scale-[0.92]"
+            className="p-1.5 rounded-lg bg-white/10 hover:bg-red-950/40 text-slate-300 hover:text-red-400 border border-white/10 transition-all duration-300 active:scale-[0.92]"
           >
             <LucideIcons.LogOut className="h-3.5 w-3.5" />
           </Link>

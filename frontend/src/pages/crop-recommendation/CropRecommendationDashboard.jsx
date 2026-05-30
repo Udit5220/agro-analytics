@@ -19,60 +19,60 @@ export default function CropRecommendationDashboard() {
     <div className="space-y-8 animate-fadeIn">
       
       {/* 1. HEADER DESCRIPTION */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white flex items-center gap-2">
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-gray-950 flex items-center gap-2">
             <span>Crop Recommendation Dashboard</span>
-            <span className="text-[#132a13] font-bold text-lg md:text-xl ml-3 border-l-2 border-[#31572c] pl-3 bg-transparent uppercase">
+            <span className="text-[#132a13] font-bold text-sm md:text-base border-l-2 border-gray-300 pl-3 ml-3 bg-transparent">
               फसल अनुशंसा
             </span>
           </h1>
-          <p className="text-sm text-slate-700 dark:text-slate-300 mt-1 font-medium">
+          <p className="text-gray-500 text-[11px] md:text-xs tracking-normal mt-1 font-medium">
             AI-powered recommendations for your farm based on real-time soil chemistry and weather models.
           </p>
         </div>
 
         {/* Sync Trigger Icon */}
-        <button className="self-start md:self-auto flex items-center space-x-2 px-4 py-2 bg-white dark:bg-brand-darkest hover:bg-brand-medium hover:text-white text-slate-700 dark:text-slate-300 font-bold text-xs uppercase tracking-wider rounded-xl border border-slate-200 dark:border-brand-dark/25 shadow-sm transition-all duration-300 active:scale-[0.98]">
-          <LucideIcons.RefreshCw className="h-4 w-4" />
+        <button className="self-start md:self-auto flex items-center space-x-1.5 text-[11px] font-bold tracking-wider uppercase border border-gray-200 bg-white rounded-lg px-3 py-1.5 shadow-sm hover:bg-gray-50 transition-colors text-gray-700 active:scale-[0.98]">
+          <LucideIcons.RefreshCw className="h-3.5 w-3.5" />
           <span>Sync Soil Data</span>
         </button>
       </div>
 
-      {/* 2. AUTO-DETECTED BANNER */}
-      <div className="bg-brand-dark border border-brand-light/20 text-white rounded-3xl p-6 shadow-md relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      {/* 2. AUTO-DETECTED BANNER — Light-Tint Premium Canvas */}
+      <div className="w-full bg-[#4f772d]/[0.08] border border-[#4f772d]/20 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 mt-1 transition-all">
         
-        {/* Floating gradient details */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-brand-accent/5 to-transparent pointer-events-none" />
-
-        <div className="flex items-center space-x-4">
-          <div className="p-3 bg-brand-accent/20 rounded-2xl text-brand-accent border border-brand-accent/25 shrink-0 animate-pulse">
-            <LucideIcons.CloudRainWind className="h-6 w-6" />
+        <div className="flex items-start gap-4">
+          {/* Left Icon Panel */}
+          <div className="p-3 bg-white rounded-xl border border-[#4f772d]/20 text-[#31572c] shadow-sm shrink-0">
+            <LucideIcons.CloudRainWind className="h-5 w-5" />
           </div>
+
+          {/* Typography Content */}
           <div>
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="text-xs uppercase font-extrabold tracking-widest text-brand-accent">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-[#132a13] font-bold text-xs tracking-wide">
                 {detectedBanner.titleHindi}
               </span>
-              <span className="text-[10px] font-bold bg-brand-accent text-brand-darkest px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              <span className="bg-[#132a13] text-[#ecf39e] text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md">
                 {detectedBanner.badgeText}
               </span>
             </div>
-            <h3 className="text-lg font-black tracking-tight mt-1 flex items-center gap-2">
-              <span>{detectedBanner.titleEnglish}</span>
-              <span className="text-slate-300/80 font-medium text-xs">•</span>
-              <span className="text-slate-200 text-sm font-medium">{detectedBanner.location}</span>
-            </h3>
-            <p className="text-xs text-slate-300/90 leading-relaxed mt-0.5 max-w-xl">
+            
+            <h2 className="text-[#132a13] font-extrabold text-base md:text-lg mt-1 flex items-center gap-1.5">
+              {detectedBanner.titleEnglish} <span className="text-gray-400 font-light">•</span> <span className="text-gray-700 text-sm font-medium">{detectedBanner.location}</span>
+            </h2>
+            
+            <p className="text-gray-600 text-xs font-medium mt-0.5">
               {detectedBanner.details}
             </p>
           </div>
         </div>
 
-        {/* Badge Checkmark */}
-        <div className="flex items-center space-x-2 px-4 py-2 bg-brand-medium/55 border border-brand-light/30 rounded-2xl text-xs font-bold text-brand-accent">
-          <LucideIcons.Check className="h-4 w-4" />
-          <span>Telemetry Active</span>
+        {/* Right: Telemetry Active Indicator */}
+        <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-3 py-1.5 shadow-sm self-start md:self-auto text-xs font-bold text-[#132a13]">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          Telemetry Active
         </div>
 
       </div>
@@ -92,11 +92,11 @@ export default function CropRecommendationDashboard() {
             return (
               <div
                 key={crop.id}
-                className={`relative bg-white dark:bg-brand-darkest border ${
+                className={`relative bg-white border ${
                   crop.isBestMatch 
-                    ? 'border-brand-medium dark:border-brand-accent shadow-xl' 
-                    : 'border-slate-200 dark:border-brand-dark/20'
-                } rounded-3xl p-6 flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 mt-4`}
+                    ? 'border-[#4f772d]/40 shadow-xl' 
+                    : 'border-gray-200/60'
+                } rounded-2xl p-5 flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 mt-4`}
               >
                 {/* Recommended Top Tag */}
                 {crop.isBestMatch && (
@@ -111,11 +111,11 @@ export default function CropRecommendationDashboard() {
                   <div className="flex items-center justify-between mb-6">
                     <div>
                       <div className="flex items-baseline space-x-1.5">
-                        <h3 className="text-xl font-extrabold text-slate-800 dark:text-white">
+                        <h3 className="text-lg font-extrabold text-gray-900">
                           {crop.name}
                         </h3>
                       </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wide text-brand-medium dark:text-brand-accent mt-0.5 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wide text-[#4f772d] mt-0.5 block">
                         {crop.hindiName}
                       </span>
                     </div>
@@ -130,7 +130,7 @@ export default function CropRecommendationDashboard() {
                           r={radius}
                           fill="transparent"
                           stroke="currentColor"
-                          className="text-slate-100 dark:text-brand-dark/15"
+                          className="text-slate-100"
                           strokeWidth={strokeWidth}
                         />
                         {/* Dynamic score outline circle */}
@@ -140,7 +140,7 @@ export default function CropRecommendationDashboard() {
                           r={radius}
                           fill="transparent"
                           stroke="currentColor"
-                          className={crop.isBestMatch ? 'text-brand-medium dark:text-brand-accent' : 'text-brand-light'}
+                          className={crop.isBestMatch ? 'text-[#31572c]' : 'text-[#90a955]'}
                           strokeWidth={strokeWidth}
                           strokeDasharray={circumference}
                           strokeDashoffset={offset}
@@ -148,34 +148,34 @@ export default function CropRecommendationDashboard() {
                         />
                       </svg>
                       {/* Percent Tag centered */}
-                      <span className="absolute text-[10px] font-black text-slate-800 dark:text-white">
+                      <span className="absolute text-[10px] font-black text-gray-800">
                         {crop.matchScore}%
                       </span>
                     </div>
                   </div>
 
                   {/* Crop Description (Typography update - Slate 600 -> Slate 700) */}
-                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                  <p className="text-xs text-gray-600 leading-relaxed mb-5">
                     {crop.details}
                   </p>
 
-                  {/* Primary Parameters (Typography update - Slate 500 -> Slate 600) */}
-                  <div className="space-y-3.5 border-t border-slate-200 dark:border-brand-dark/10 pt-4 mb-6">
+                  {/* Primary Parameters */}
+                  <div className="space-y-3 border-t border-gray-100 pt-4 mb-5">
                     
                     {/* Parameter: Yield */}
                     <div className="flex justify-between items-center text-xs">
-                      <span className="text-slate-600 dark:text-slate-400 font-medium flex items-center gap-1.5">
-                        <LucideIcons.Wheat className="h-4 w-4 text-brand-light" /> Yield Prediction
+                      <span className="text-gray-500 font-medium flex items-center gap-1.5">
+                        <LucideIcons.Wheat className="h-4 w-4 text-[#90a955]" /> Yield Prediction
                       </span>
-                      <span className="font-bold text-slate-800 dark:text-white">{crop.estimatedYield}</span>
+                      <span className="font-bold text-gray-800">{crop.estimatedYield}</span>
                     </div>
                     
                     {/* Parameter: ROI */}
                     <div className="flex justify-between items-center text-xs">
-                      <span className="text-slate-600 dark:text-slate-400 font-medium flex items-center gap-1.5">
-                        <LucideIcons.Coins className="h-4 w-4 text-brand-light" /> Estimated Profit
+                      <span className="text-gray-500 font-medium flex items-center gap-1.5">
+                        <LucideIcons.Coins className="h-4 w-4 text-[#90a955]" /> Estimated Profit
                       </span>
-                      <span className="font-semibold text-emerald-700 dark:text-brand-accent">{crop.roiEstimate}</span>
+                      <span className="font-semibold text-emerald-700">{crop.roiEstimate}</span>
                     </div>
 
                   </div>
@@ -183,7 +183,7 @@ export default function CropRecommendationDashboard() {
                 </div>
 
                 {/* Bottom Footer: Risk Badge and Navigation Link */}
-                <div className="flex items-center justify-between mt-2 pt-3 border-t border-slate-200 dark:border-brand-dark/10">
+                <div className="flex items-center justify-between mt-2 pt-3 border-t border-gray-100">
                   <span className={`px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide uppercase shadow-sm ${
                     crop.riskLevel === 'Low Risk' 
                       ? 'bg-emerald-100 text-emerald-950 border border-emerald-200' 
@@ -194,7 +194,7 @@ export default function CropRecommendationDashboard() {
                   
                   <a
                     href="#details"
-                    className="text-[#31572c] hover:text-[#132a13] dark:text-brand-accent dark:hover:text-white font-bold text-xs uppercase flex items-center gap-1 transition-colors duration-200"
+                    className="text-[#31572c] hover:text-[#132a13] font-bold text-xs uppercase flex items-center gap-1 transition-colors duration-200"
                   >
                     <span>View Recipe &rarr;</span>
                   </a>
@@ -206,11 +206,11 @@ export default function CropRecommendationDashboard() {
       </div>
 
       {/* 4. WEATHER SUMMARY ROW */}
-      <div className="bg-white dark:bg-brand-darkest/25 border border-slate-100 dark:border-brand-dark/25 rounded-3xl p-6 shadow-sm">
+      <div className="bg-white border border-gray-200/60 rounded-2xl p-5 shadow-sm">
         
         {/* Weather Title */}
-        <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider mb-6 flex items-center gap-2">
-          <LucideIcons.CloudSun className="h-5 w-5 text-brand-medium dark:text-brand-accent" />
+        <h3 className="text-sm font-bold text-gray-800 uppercase tracking-wider mb-5 flex items-center gap-2">
+          <LucideIcons.CloudSun className="h-5 w-5 text-[#4f772d]" />
           <span>Weather Sensor Array Summary</span>
         </h3>
 
@@ -218,50 +218,50 @@ export default function CropRecommendationDashboard() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           
           {/* Temperature */}
-          <div className="p-4 rounded-2xl bg-[#f4f7f4]/60 dark:bg-brand-darkest/50 border border-slate-50 dark:border-brand-dark/10 flex items-start space-x-3.5 hover:scale-[1.02] transition-all duration-300">
+          <div className="p-4 rounded-2xl bg-white border border-gray-100 flex items-start space-x-3.5 hover:shadow-sm transition-all duration-300">
             <div className="p-2.5 bg-red-500/10 text-red-500 rounded-xl">
               <LucideIcons.Thermometer className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-medium">Temperature</p>
-              <h4 className="text-lg font-black text-slate-800 dark:text-white mt-0.5">{weatherSummary.temperature}</h4>
-              <p className="text-[10px] text-slate-400 mt-0.5">{weatherSummary.temperatureSub}</p>
+              <p className="text-xs text-gray-500 font-medium">Temperature</p>
+              <h4 className="text-lg font-black text-gray-800 mt-0.5">{weatherSummary.temperature}</h4>
+              <p className="text-[10px] text-gray-400 mt-0.5">{weatherSummary.temperatureSub}</p>
             </div>
           </div>
 
           {/* Humidity */}
-          <div className="p-4 rounded-2xl bg-[#f4f7f4]/60 dark:bg-brand-darkest/50 border border-slate-50 dark:border-brand-dark/10 flex items-start space-x-3.5 hover:scale-[1.02] transition-all duration-300">
+          <div className="p-4 rounded-2xl bg-white border border-gray-100 flex items-start space-x-3.5 hover:shadow-sm transition-all duration-300">
             <div className="p-2.5 bg-blue-500/10 text-blue-500 rounded-xl">
               <LucideIcons.Droplet className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-medium">Humidity</p>
-              <h4 className="text-lg font-black text-slate-800 dark:text-white mt-0.5">{weatherSummary.humidity}</h4>
-              <p className="text-[10px] text-slate-400 mt-0.5">{weatherSummary.humiditySub}</p>
+              <p className="text-xs text-gray-500 font-medium">Humidity</p>
+              <h4 className="text-lg font-black text-gray-800 mt-0.5">{weatherSummary.humidity}</h4>
+              <p className="text-[10px] text-gray-400 mt-0.5">{weatherSummary.humiditySub}</p>
             </div>
           </div>
 
           {/* Rainfall */}
-          <div className="p-4 rounded-2xl bg-[#f4f7f4]/60 dark:bg-brand-darkest/50 border border-slate-50 dark:border-brand-dark/10 flex items-start space-x-3.5 hover:scale-[1.02] transition-all duration-300">
+          <div className="p-4 rounded-2xl bg-white border border-gray-100 flex items-start space-x-3.5 hover:shadow-sm transition-all duration-300">
             <div className="p-2.5 bg-emerald-500/10 text-emerald-500 rounded-xl">
               <LucideIcons.CloudRain className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-medium">Rainfall</p>
-              <h4 className="text-lg font-black text-slate-800 dark:text-white mt-0.5">{weatherSummary.rainfall}</h4>
-              <p className="text-[10px] text-slate-400 mt-0.5">{weatherSummary.rainfallSub}</p>
+              <p className="text-xs text-gray-500 font-medium">Rainfall</p>
+              <h4 className="text-lg font-black text-gray-800 mt-0.5">{weatherSummary.rainfall}</h4>
+              <p className="text-[10px] text-gray-400 mt-0.5">{weatherSummary.rainfallSub}</p>
             </div>
           </div>
 
           {/* Wind Speed */}
-          <div className="p-4 rounded-2xl bg-[#f4f7f4]/60 dark:bg-brand-darkest/50 border border-slate-50 dark:border-brand-dark/10 flex items-start space-x-3.5 hover:scale-[1.02] transition-all duration-300">
+          <div className="p-4 rounded-2xl bg-white border border-gray-100 flex items-start space-x-3.5 hover:shadow-sm transition-all duration-300">
             <div className="p-2.5 bg-indigo-500/10 text-indigo-500 rounded-xl">
               <LucideIcons.Wind className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-medium">Wind Speed</p>
-              <h4 className="text-lg font-black text-slate-800 dark:text-white mt-0.5">{weatherSummary.windSpeed}</h4>
-              <p className="text-[10px] text-slate-400 mt-0.5">{weatherSummary.windSpeedSub}</p>
+              <p className="text-xs text-gray-500 font-medium">Wind Speed</p>
+              <h4 className="text-lg font-black text-gray-800 mt-0.5">{weatherSummary.windSpeed}</h4>
+              <p className="text-[10px] text-gray-400 mt-0.5">{weatherSummary.windSpeedSub}</p>
             </div>
           </div>
 

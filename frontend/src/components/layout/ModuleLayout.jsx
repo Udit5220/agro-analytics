@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Outlet, Link, useParams } from 'react-router-dom';
-import { Sprout, Globe, Sun, Moon, Bell, ChevronDown, Menu } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Outlet, Link, useParams, useNavigate } from 'react-router-dom';
+import { Sprout, Globe, Sun, Moon, Bell, ChevronDown, Menu, LogOut, Settings, UserCircle, Tractor } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import GenericSidebar from '../sidebar/GenericSidebar';
 import { uiConfig } from '../../utils/uiConfig';
@@ -8,12 +8,26 @@ import { dashboardContent } from '../../content/dashboardContent';
 
 export default function ModuleLayout() {
   const { moduleId } = useParams();
+  const navigate = useNavigate();
   const { userProfile } = dashboardContent;
   const [darkMode, setDarkMode] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('English');
   const [notificationCount, setNotificationCount] = useState(2);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef(null);
+
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Sync dark mode toggle
   const toggleDarkMode = () => {
@@ -32,24 +46,24 @@ export default function ModuleLayout() {
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[#f4f7f4] dark:bg-brand-darkest text-slate-800 dark:text-white transition-colors duration-300 font-sans">
+    <div className="flex flex-col h-screen overflow-hidden bg-[#f4f7f4] text-[#132a13] antialiased font-sans">
       
-      {/* 1. TOP STICKY HEADER */}
-      <header className="h-16 bg-brand-darkest text-white border-b border-brand-dark/30 z-30 flex items-center justify-between px-6 shrink-0 shadow-md">
+      {/* 1. TOP STICKY HEADER — Premium Primary Darkest Green Canvas */}
+      <header className="h-16 bg-[#132a13] border-b border-[#31572c]/20 z-30 flex items-center justify-between px-6 shrink-0 shadow-md">
         
-        {/* Left: Branding Logo (Matched to Home page) */}
+        {/* Left: Branding Logo */}
         <Link to="/" className="flex items-center space-x-2.5 group">
-          <div className="p-2 bg-brand-accent/25 rounded-xl border border-brand-accent/20 group-hover:scale-110 transition-transform duration-300">
-            <Sprout className="h-6 w-6 text-brand-accent" />
+          <div className="p-2 bg-white/10 rounded-xl border border-white/15 group-hover:scale-110 transition-transform duration-300">
+            <Sprout className="h-6 w-6 text-[#ecf39e]" />
           </div>
           <span className="text-xl font-bold tracking-tight text-white">
-            AgroSense<span className="text-brand-accent font-extrabold">.</span>
+            AgroIndia<span className="text-[#ecf39e] font-extrabold">.</span>
           </span>
         </Link>
 
         {/* Center: Module Title */}
-        <div className="hidden sm:flex items-center space-x-2 text-xs font-bold text-slate-300">
-          <span className="bg-brand-medium/30 border border-brand-light/20 text-brand-accent px-2.5 py-0.5 rounded-full uppercase tracking-wider text-[10px]">
+        <div className="hidden sm:flex items-center space-x-2 text-xs font-bold">
+          <span className="bg-white/10 border border-white/15 text-[#ecf39e] px-2.5 py-0.5 rounded-full uppercase tracking-wider text-[10px] font-bold">
             {moduleId ? moduleId.replace('-', ' ') : 'Agri AI'}
           </span>
         </div>
@@ -61,7 +75,7 @@ export default function ModuleLayout() {
           <div className="relative">
             <button
               onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs text-slate-200 hover:text-white hover:bg-white/10 transition-all duration-200"
             >
               <Globe className="h-3.5 w-3.5" />
               <span className="font-semibold">{selectedLang}</span>
@@ -69,7 +83,7 @@ export default function ModuleLayout() {
             </button>
 
             {langDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-brand-darkest border border-slate-100 dark:border-brand-dark/20 rounded-xl shadow-xl py-1 text-slate-800 dark:text-white z-50 animate-fadeIn">
+              <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-100 rounded-xl shadow-xl py-1 text-gray-800 z-50 animate-fadeIn">
                 {['English', 'Español', 'Français', 'हिन्दी'].map((lang) => (
                   <button
                     key={lang}
@@ -86,13 +100,13 @@ export default function ModuleLayout() {
           {/* Theme Toggle */}
           <button
             onClick={toggleDarkMode}
-            className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+            className="p-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-all duration-200"
             title="Toggle Light/Dark Mode"
           >
             {darkMode ? (
-              <Sun className="h-4.5 w-4.5 text-brand-accent" />
+              <Sun className="h-4.5 w-4.5 text-[#ecf39e]" />
             ) : (
-              <Moon className="h-4.5 w-4.5 hover:text-brand-accent" />
+              <Moon className="h-4.5 w-4.5" />
             )}
           </button>
 
@@ -100,22 +114,72 @@ export default function ModuleLayout() {
           <div className="relative">
             <button
               onClick={() => setNotificationCount(0)}
-              className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 relative transition-all duration-200"
+              className="p-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 relative transition-all duration-200"
             >
               <Bell className="h-4.5 w-4.5" />
               {notificationCount > 0 && (
-                <span className="absolute top-1 right-1 h-4 w-4 bg-brand-light text-brand-darkest rounded-full text-[9px] font-extrabold flex items-center justify-center border border-brand-darkest">
+                <span className="absolute top-1 right-1 h-4 w-4 bg-red-500 text-white rounded-full text-[9px] font-extrabold flex items-center justify-center border-2 border-[#132a13]">
                   {notificationCount}
                 </span>
               )}
             </button>
           </div>
 
-          {/* Avatar (SK Initials only) */}
-          <div className="flex items-center pl-2 border-l border-brand-dark/45">
-            <div className="h-8 w-8 rounded-full bg-brand-medium flex items-center justify-center font-bold text-white text-xs hover:scale-105 transition-transform duration-200 shadow-md cursor-pointer" title={`${userProfile.name} (${userProfile.hindiRole})`}>
+          {/* Avatar with Profile Dropdown */}
+          <div className="flex items-center pl-2 border-l border-white/20 relative" ref={profileRef}>
+            <button
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              className="h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center font-bold text-[#ecf39e] text-xs hover:scale-105 transition-transform duration-200 shadow-md cursor-pointer"
+              title={`${userProfile.name} (${userProfile.hindiRole})`}
+            >
               {userProfile.avatar}
-            </div>
+            </button>
+
+            {isProfileOpen && (
+              <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-50 p-3 animate-fadeIn text-gray-800">
+                
+                {/* Top: User Info */}
+                <div className="flex items-center gap-3 pb-3">
+                  <div className="h-10 w-10 rounded-xl bg-[#132a13] flex items-center justify-center text-[#ecf39e] font-bold text-sm shrink-0 shadow-inner">
+                    {userProfile.avatar}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900">{userProfile.name}</h4>
+                    <p className="text-[10px] text-gray-500 font-medium">{userProfile.role} / {userProfile.hindiRole}</p>
+                  </div>
+                  <span className="ml-auto h-2 w-2 rounded-full bg-emerald-500 shrink-0 ring-2 ring-emerald-500/20" title="Active" />
+                </div>
+
+                <div className="border-t border-gray-100 my-2" />
+
+                {/* Quick Links */}
+                <div className="space-y-0.5">
+                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                    <UserCircle className="h-3.5 w-3.5 text-[#90a955]" />
+                    My Profile
+                  </button>
+                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                    <Tractor className="h-3.5 w-3.5 text-[#90a955]" />
+                    Farm Configurations
+                  </button>
+                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                    <Settings className="h-3.5 w-3.5 text-[#90a955]" />
+                    Settings
+                  </button>
+                </div>
+
+                <div className="border-t border-gray-100 my-2" />
+
+                {/* Logout */}
+                <button
+                  onClick={() => { setIsProfileOpen(false); navigate('/'); }}
+                  className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs py-2 rounded-lg transition-all duration-200"
+                >
+                  <LogOut className="h-3.5 w-3.5" />
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
 
         </div>
@@ -126,7 +190,7 @@ export default function ModuleLayout() {
       <div className="flex flex-1 overflow-hidden relative">
         
         {/* Left Column: Collapsible Sidebar */}
-        <div className={`transition-all duration-300 ease-in-out h-full overflow-hidden shrink-0 ${isSidebarOpen ? 'w-72' : 'w-0'}`}>
+        <div className={`transition-all duration-300 ease-in-out h-full overflow-hidden shrink-0 ${isSidebarOpen ? 'w-60' : 'w-0'}`}>
           <GenericSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         </div>
 
@@ -134,15 +198,15 @@ export default function ModuleLayout() {
         {!isSidebarOpen && (
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="fixed top-20 left-4 z-40 p-2.5 bg-brand-darkest hover:bg-brand-medium text-white border border-brand-light/20 rounded-xl shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center animate-fadeIn"
+            className="fixed top-20 left-4 z-40 p-2.5 bg-white hover:bg-[#f4f7f4] text-[#132a13] border border-gray-200 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center animate-fadeIn"
             title="Open Navigation"
           >
-            <LucideIcons.Menu className="h-5 w-5 text-brand-accent" />
+            <LucideIcons.Menu className="h-5 w-5 text-[#132a13]" />
           </button>
         )}
 
         {/* Right Column: Dynamic Outlet Page (Dynamic Padding transition when sidebar is closed) */}
-        <main className={`flex-1 bg-[#f4f7f4] dark:bg-brand-darkest/95 overflow-y-auto p-6 lg:p-8 scroll-thin transition-all duration-300 ${!isSidebarOpen ? 'pl-20 sm:pl-24 lg:pl-28' : ''}`}>
+        <main className={`flex-1 bg-[#f4f7f4] overflow-y-auto p-6 lg:p-8 scroll-thin transition-all duration-300 ${!isSidebarOpen ? 'pl-20 sm:pl-24 lg:pl-28' : ''}`}>
           <Outlet />
         </main>
 
