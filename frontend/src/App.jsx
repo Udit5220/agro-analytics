@@ -28,7 +28,7 @@ import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoi
 import GovSchemesDashboard from "./pages/gov-schemes/GovSchemesDashboard";
 import ResearchAiDashboard from "./pages/research-ai/ResearchAiDashboard";
 import NewsIntelDashboard from "./pages/news-intel/NewsIntelDashboard";
-import MarketplaceDashboard from "./pages/marketplace/MarketplaceDashboard";
+// import MarketplaceDashboard from "./pages/marketplace/MarketplaceDashboard";
 import LearningHubDashboard from "./pages/learning-hub/LearningHubDashboard";
 import ScrollToTop from "./components/utils/ScrollToTop";
 import * as LucideIcons from "lucide-react";
@@ -37,6 +37,7 @@ import IrrigationScheduler from "./pages/ai-suggestion/IrrigationScheduler";
 import FertilizerPlanner from "./pages/ai-suggestion/FertilizerPlanner";
 import MandiPriceTracker from "./pages/ai-suggestion/MandiPriceTracker";
 import LifecyclePredictor from "./pages/ai-suggestion/LifecyclePredictor";
+import Profile from "./pages/home/Profile";
 
 // ─── Commodity Market Intelligence Pages ─────────────────────────────────────
 import MarketDashboard from "./pages/market-intelligence/MarketDashboard";
@@ -78,6 +79,10 @@ function LandingPage() {
 // Router switcher to dynamic active sub-views with interactive mock alerts
 function DashboardSwitcher() {
   const { moduleId, "*": subPath } = useParams();
+
+  if (moduleId === "profile") {
+    return <Profile />;
+  }
 
   // Crop Recommendation module — sub-page routing
   if (moduleId === "crop-recommendation") {

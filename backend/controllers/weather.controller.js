@@ -9,35 +9,83 @@ const tryMongo = async (fn, fallback = null) => {
   catch (e) { console.warn('[Weather] MongoDB unavailable:', e.message); return fallback; }
 };
 
+// ─── Proximity Euclidean Distance Helper ──────────────────────────────────────
+const getDistance = (lat1, lng1, lat2, lng2) => {
+  const dLat = lat2 - lat1;
+  const dLng = lng2 - lng1;
+  return Math.sqrt(dLat * dLat + dLng * dLng);
+};
+
 // ─── GET /api/weather/current ─────────────────────────────────────────────────
 export const getCurrentWeather = async (req, res) => {
   try {
-    const { district = 'Indore', state = 'Madhya Pradesh' } = req.query;
+    const { district = 'Indore', state = 'Madhya Pradesh', lat, lng } = req.query;
     const now = new Date();
+
+    let targetDistrict = district;
+
+    // Resolve nearest district based on coordinates if passed
+    if (lat !== undefined && lng !== undefined) {
+      const parsedLat = parseFloat(lat);
+      const parsedLng = parseFloat(lng);
+      if (!isNaN(parsedLat) && !isNaN(parsedLng)) {
+        const distinctWeatherStations = await tryMongo(() => WeatherForecast.find({ forecastType: 'current' }), []);
+        if (distinctWeatherStations && distinctWeatherStations.length > 0) {
+          // Filter unique stations
+          const stations = [];
+          const seen = new Set();
+          for (const s of distinctWeatherStations) {
+            if (s.coordinates && s.coordinates.lat && s.coordinates.lng && !seen.has(s.district)) {
+              seen.add(s.district);
+              stations.push(s);
+            }
+          }
+
+          if (stations.length > 0) {
+            let closest = stations[0];
+            let minDist = getDistance(parsedLat, parsedLng, closest.coordinates.lat, closest.coordinates.lng);
+            for (let i = 1; i < stations.length; i++) {
+              const d = getDistance(parsedLat, parsedLng, stations[i].coordinates.lat, stations[i].coordinates.lng);
+              if (d < minDist) {
+                minDist = d;
+                closest = stations[i];
+              }
+            }
+            targetDistrict = closest.district;
+            console.log(`[Weather Controller] Geolocation proximity match: (${parsedLat}, ${parsedLng}) resolved to closest station: ${targetDistrict}`);
+          }
+        }
+      }
+    }
 
     // Get today's forecast
     let current = await tryMongo(() => WeatherForecast.findOne({
-      district: { $regex: district, $options: 'i' },
+      district: { $regex: targetDistrict, $options: 'i' },
       forecastType: 'current',
       forecastDate: { $gte: new Date(now.setHours(0, 0, 0, 0)) },
     }).sort({ createdAt: -1 }));
 
     if (!current) {
       current = await tryMongo(() => WeatherForecast.findOne({
-        district: { $regex: district, $options: 'i' },
+        district: { $regex: targetDistrict, $options: 'i' },
       }).sort({ forecastDate: -1 }));
+    }
+
+    // Ultimate fallback if no match found
+    if (!current) {
+      current = await tryMongo(() => WeatherForecast.findOne({ forecastType: 'current' }).sort({ createdAt: -1 }));
     }
 
     const alerts = await tryMongo(() => WeatherAlert.find({
       $or: [
-        { district: { $regex: district, $options: 'i' } },
+        { district: { $regex: targetDistrict, $options: 'i' } },
         { district: 'All' },
       ],
       status: 'active',
       endTime: { $gte: new Date() },
     }).limit(3)) || [];
 
-    res.json({ success: true, data: current, alerts, district, state });
+    res.json({ success: true, data: current, alerts, district: current ? current.district : targetDistrict, state: current ? current.state : state });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -110,7 +158,7 @@ export const getWeatherAlerts = async (req, res) => {
 // ─── GET /api/reservoirs ──────────────────────────────────────────────────────
 export const getReservoirs = async (req, res) => {
   try {
-    const { state, status, page = 1, limit = 20 } = req.query;
+    const { state, status, page = 1, limit = 20, lat, lng } = req.query;
     const filter = { isActive: true };
     if (state) filter.state = { $regex: state, $options: 'i' };
     if (status) filter.status = status;
@@ -121,6 +169,26 @@ export const getReservoirs = async (req, res) => {
       .sort({ storagePercentage: 1 })
       .skip(skip)
       .limit(parseInt(limit))) || [];
+
+    // Sort by proximity to farmer's location if coordinates are provided
+    if (lat !== undefined && lng !== undefined) {
+      const parsedLat = parseFloat(lat);
+      const parsedLng = parseFloat(lng);
+      if (!isNaN(parsedLat) && !isNaN(parsedLng)) {
+        reservoirs.sort((a, b) => {
+          // Reservoir coordinates are in location.coordinates: [longitude, latitude] format
+          const latA = a.location?.coordinates?.[1] || 0;
+          const lngA = a.location?.coordinates?.[0] || 0;
+          const latB = b.location?.coordinates?.[1] || 0;
+          const lngB = b.location?.coordinates?.[0] || 0;
+
+          const distA = getDistance(parsedLat, parsedLng, latA, lngA);
+          const distB = getDistance(parsedLat, parsedLng, latB, lngB);
+          return distA - distB;
+        });
+        console.log(`[Reservoir Controller] Proximity sort applied relative to coordinates: (${parsedLat}, ${parsedLng})`);
+      }
+    }
 
     const summaryArr = await tryMongo(() => Reservoir.aggregate([
       { $match: { isActive: true } },

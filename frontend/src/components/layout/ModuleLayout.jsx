@@ -25,8 +25,8 @@ export default function ModuleLayout() {
         setIsProfileOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   // Sync dark mode toggle
@@ -128,6 +128,7 @@ export default function ModuleLayout() {
           {/* Avatar with Profile Dropdown */}
           <div className="flex items-center pl-2 border-l border-[#31572c]/40 relative" ref={profileRef}>
             <button
+              type="button"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
               className="h-8 w-8 rounded-full bg-[#4f772d]/30 hover:bg-[#4f772d]/50 border border-[#90a955]/30 flex items-center justify-center font-bold text-[#ecf39e] text-xs hover:scale-105 transition-transform duration-200 shadow-sm cursor-pointer animate-fadeIn"
               title={`${userProfile.name} (${userProfile.hindiRole})`}
@@ -154,26 +155,39 @@ export default function ModuleLayout() {
 
                 {/* Quick Links */}
                 <div className="space-y-0.5">
-                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                  <button
+                    type="button"
+                    onClick={() => { setIsProfileOpen(false); navigate('/module/profile'); }}
+                    className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
+                  >
                     <UserCircle className="h-3.5 w-3.5 text-[#90a955]" />
                     My Profile
                   </button>
-                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                  {/* <button
+                    type="button"
+                    onClick={() => { setIsProfileOpen(false); navigate('/module/profile'); }}
+                    className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
+                  >
                     <Tractor className="h-3.5 w-3.5 text-[#90a955]" />
                     Farm Configurations
                   </button>
-                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                  <button
+                    type="button"
+                    onClick={() => { setIsProfileOpen(false); alert("Settings configuration panel is currently in active development for the next phase."); }}
+                    className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
+                  >
                     <Settings className="h-3.5 w-3.5 text-[#90a955]" />
                     Settings
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="border-t border-gray-100 my-2" />
 
                 {/* Logout */}
                 <button
+                  type="button"
                   onClick={() => { setIsProfileOpen(false); navigate('/'); }}
-                  className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs py-2 rounded-lg transition-all duration-200"
+                  className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs py-2 rounded-lg transition-all duration-200 cursor-pointer"
                 >
                   <LogOut className="h-3.5 w-3.5" />
                   Sign Out

@@ -63,6 +63,8 @@ export default function LifecyclePredictor() {
     state: "Haryana",
     district: "Faridabad",
     pincode: "121001",
+    latitude: 28.4089,
+    longitude: 77.3178,
     soilData: getSoilDataByPincode("121001")
   });
 

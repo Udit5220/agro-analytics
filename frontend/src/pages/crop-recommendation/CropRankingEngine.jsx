@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { ChevronDown, RefreshCw, Award, Leaf, Droplets, Thermometer, MapPin, Calendar, Scale, Sparkles } from 'lucide-react';
 import { getCropRankings } from '../../services/geminiService';
+import LocationSelector from '../../components/LocationSelector';
+import { getSoilDataByPincode } from '../../services/locationService';
+import { weatherApi } from '../../services/apiService';
 
 const SOIL_TYPES = ['Sandy', 'Loamy', 'Clay', 'Silt', 'Peaty', 'Chalky', 'Alluvial'];
 const DISTRICTS = ['Faridabad', 'Gurugram', 'Panipat', 'Karnal', 'Hisar', 'Rohtak', 'Sonipat', 'Ambala'];
@@ -33,6 +36,16 @@ function getRankBadgeColor(rank) {
 }
 
 export default function CropRankingEngine() {
+  // Agricultural Field Selector coordinate matrices
+  const [location, setLocation] = useState({
+    state: "Haryana",
+    district: "Faridabad",
+    pincode: "121001",
+    latitude: 28.4089,
+    longitude: 77.3178,
+    soilData: getSoilDataByPincode("121001"),
+  });
+
   // Farm condition states
   const [rainfall, setRainfall] = useState(420);
   const [temperature, setTemperature] = useState(28);
@@ -49,6 +62,69 @@ export default function CropRankingEngine() {
   // Dynamic ranking output states
   const [rankings, setRankings] = useState(INITIAL_CROP_RANKINGS);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleLocationChange = (newLocation) => {
+    if (
+      newLocation.district !== location.district ||
+      newLocation.state !== location.state ||
+      newLocation.pincode !== location.pincode
+    ) {
+      setLocation(newLocation);
+    }
+  };
+
+  // Synchronize agricultural inputs automatically on farm plot selection
+  React.useEffect(() => {
+    let active = true;
+
+    if (location.district) {
+      setDistrict(location.district);
+    }
+    if (location.soilData && location.soilData.soilType) {
+      const matched = SOIL_TYPES.find(
+        (s) => s.toLowerCase() === location.soilData.soilType.toLowerCase()
+      );
+      if (matched) {
+        setSoilType(matched);
+      } else {
+        if (location.soilData.soilType.toLowerCase().includes('clay')) {
+          setSoilType('Clay');
+        } else if (location.soilData.soilType.toLowerCase().includes('loam')) {
+          setSoilType('Loamy');
+        } else {
+          setSoilType('Loamy');
+        }
+      }
+    }
+
+    // Fetch proximity weather telemetry to auto-snap Rainfall & Temperature sliders
+    const syncWeatherSensors = async () => {
+      try {
+        const res = await weatherApi.getCurrentWeather(
+          location.district,
+          location.latitude,
+          location.longitude
+        );
+        if (res && res.success && res.data && active) {
+          const temp = res.data.currentTemp;
+          // Scale expected daily rainfall to annual MM scale for slider compatibility
+          const rain = Math.max(100, Math.min(1200, Math.round((res.data.expectedRainfall || 12) * 20)));
+
+          setTemperature(temp);
+          setRainfall(rain);
+          console.log(`[Ranking Engine] Auto-snapped sliders: Temp=${temp}°C, Rainfall=${rain}MM`);
+        }
+      } catch (err) {
+        console.warn("[Ranking Engine] Failed to snap sliders to live weather:", err.message);
+      }
+    };
+
+    syncWeatherSensors();
+
+    return () => {
+      active = false;
+    };
+  }, [location]);
 
   const handleRecalculate = async () => {
     setIsLoading(true);
@@ -116,10 +192,13 @@ export default function CropRankingEngine() {
           <Award className="h-6.5 w-6.5 text-[#31572c]" />
           <span>Crop Ranking Engine</span>
         </h1>
-        <p className="text-gray-500 text-[11px] md:text-xs font-medium tracking-normal mt-1">
+        <p className="text-gray-600 text-[11px] md:text-xs font-medium tracking-normal mt-1">
           Enter your farm parameters and soil profile to run the agricultural neural model.
         </p>
       </div>
+
+      {/* 2-Section Compound Field Selector */}
+      <LocationSelector value={location} onChange={handleLocationChange} />
 
       {/* 2-Column Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 items-start">
@@ -140,7 +219,7 @@ export default function CropRankingEngine() {
             {/* ─── Annual Rainfall Slider ─── */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
+                <label className="text-[10px] font-bold text-gray-600 uppercase tracking-wider flex items-center gap-1">
                   <Droplets className="h-3.5 w-3.5 text-[#90a955]" />
                   Annual Rainfall
                 </label>
@@ -157,7 +236,7 @@ export default function CropRankingEngine() {
                   background: `linear-gradient(to right, #31572c ${((rainfall - 100) / 1100) * 100}%, #f3f4f6 ${((rainfall - 100) / 1100) * 100}%)`
                 }}
               />
-              <div className="flex justify-between text-[9px] text-gray-400 mt-1 font-medium">
+              <div className="flex justify-between text-[9px] text-gray-500 mt-1 font-medium">
                 <span>100mm</span>
                 <span>1200mm</span>
               </div>
@@ -166,7 +245,7 @@ export default function CropRankingEngine() {
             {/* ─── Average Temperature Slider ─── */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
+                <label className="text-[10px] font-bold text-gray-600 uppercase tracking-wider flex items-center gap-1">
                   <Thermometer className="h-3.5 w-3.5 text-[#90a955]" />
                   Avg. Temperature
                 </label>
@@ -183,7 +262,7 @@ export default function CropRankingEngine() {
                   background: `linear-gradient(to right, #4f772d ${((temperature - 10) / 35) * 100}%, #f3f4f6 ${((temperature - 10) / 35) * 100}%)`
                 }}
               />
-              <div className="flex justify-between text-[9px] text-gray-400 mt-1 font-medium">
+              <div className="flex justify-between text-[9px] text-gray-500 mt-1 font-medium">
                 <span>10°C</span>
                 <span>45°C</span>
               </div>
@@ -191,7 +270,7 @@ export default function CropRankingEngine() {
 
             {/* ─── Soil Type Dropdown ─── */}
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 block">
+              <label className="text-[10px] font-bold text-gray-600 uppercase tracking-wider mb-1.5 block">
                 Soil Profile Type
               </label>
               <div className="relative">
@@ -204,13 +283,13 @@ export default function CropRankingEngine() {
                     <option key={s} value={s}>{s}</option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400 pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-500 pointer-events-none" />
               </div>
             </div>
 
             {/* ─── Water Availability Radio Buttons ─── */}
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 block">
+              <label className="text-[10px] font-bold text-gray-600 uppercase tracking-wider mb-1.5 block">
                 Water Availability Index
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -222,7 +301,7 @@ export default function CropRankingEngine() {
                     className={`py-1.5 rounded-lg text-xs font-bold transition-all duration-200 border cursor-pointer ${
                       waterAvailability === level
                         ? 'bg-[#31572c] text-white border-[#31572c] shadow-sm'
-                        : 'bg-white text-gray-600 border-gray-200 hover:border-[#90a955] hover:text-[#31572c]'
+                        : 'bg-white text-gray-750 border-gray-200 hover:border-[#90a955] hover:text-[#31572c]'
                     }`}
                   >
                     {level}
@@ -234,7 +313,7 @@ export default function CropRankingEngine() {
             {/* ─── Land Area Slider ─── */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <label className="text-[10px] font-bold text-gray-600 uppercase tracking-wider">
                   Land Cultivation Size
                 </label>
                 <span className="text-[#31572c] font-bold text-xs">{landArea} ACRES</span>
@@ -251,7 +330,7 @@ export default function CropRankingEngine() {
                   background: `linear-gradient(to right, #31572c ${((landArea - 0.5) / 49.5) * 100}%, #f3f4f6 ${((landArea - 0.5) / 49.5) * 100}%)`
                 }}
               />
-              <div className="flex justify-between text-[9px] text-gray-400 mt-1 font-medium">
+              <div className="flex justify-between text-[9px] text-gray-500 mt-1 font-medium">
                 <span>0.5 ac</span>
                 <span>50 ac</span>
               </div>
@@ -259,7 +338,7 @@ export default function CropRankingEngine() {
 
             {/* ─── District Selector ─── */}
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 block flex items-center gap-1">
+              <label className="text-[10px] font-bold text-gray-600 uppercase tracking-wider mb-1.5 block flex items-center gap-1">
                 <MapPin className="h-3.5 w-3.5 text-[#90a955]" />
                 Target Region
               </label>
@@ -273,18 +352,18 @@ export default function CropRankingEngine() {
                     <option key={d} value={d}>{d}</option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400 pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-500 pointer-events-none" />
               </div>
             </div>
 
             {/* ─── Target Season Auto Banner ─── */}
             <div className="flex items-center justify-between bg-[#f4f7f4] border border-gray-100 rounded-xl px-3.5 py-2">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
+              <span className="text-[10px] font-bold text-gray-650 uppercase tracking-wider flex items-center gap-1">
                 <Calendar className="h-3.5 w-3.5 text-[#90a955]" />
                 Season
               </span>
               <span className="text-[#31572c] font-extrabold text-xs">
-                Kharif <span className="text-gray-400 font-medium text-[9px]">(Auto)</span>
+                Kharif <span className="text-gray-500 font-medium text-[9px]">(Auto)</span>
               </span>
             </div>
 
@@ -300,7 +379,7 @@ export default function CropRankingEngine() {
               {/* Water Saving weight */}
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Water Saving Priority</label>
+                  <label className="text-[9px] font-bold text-gray-600 uppercase tracking-wider">Water Saving Priority</label>
                   <span className="text-gray-900 font-bold text-[10px]">{waterWeight}%</span>
                 </div>
                 <input
@@ -316,7 +395,7 @@ export default function CropRankingEngine() {
               {/* High ROI weight */}
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">High ROI Priority</label>
+                  <label className="text-[9px] font-bold text-gray-600 uppercase tracking-wider">High ROI Priority</label>
                   <span className="text-gray-900 font-bold text-[10px]">{roiWeight}%</span>
                 </div>
                 <input
@@ -332,7 +411,7 @@ export default function CropRankingEngine() {
               {/* Low Risk weight */}
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Low Risk Priority</label>
+                  <label className="text-[9px] font-bold text-gray-600 uppercase tracking-wider">Low Risk Priority</label>
                   <span className="text-gray-900 font-bold text-[10px]">{riskWeight}%</span>
                 </div>
                 <input
@@ -371,7 +450,7 @@ export default function CropRankingEngine() {
                 <Award className="h-4.5 w-4.5 text-[#4f772d]" />
                 <span>Ranked Crop Scores — {district}</span>
               </h2>
-              <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">
+              <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">
                 {rankings.length} Crops Scored
               </span>
             </div>
@@ -393,7 +472,7 @@ export default function CropRankingEngine() {
                         <span className="text-gray-900 font-bold text-xs block leading-tight">
                           {crop.name}
                         </span>
-                        <span className="text-gray-400 font-bold text-[10px] tracking-wide block">
+                        <span className="text-gray-500 font-bold text-[10px] tracking-wide block">
                           {crop.hindi}
                         </span>
                       </div>
@@ -418,7 +497,7 @@ export default function CropRankingEngine() {
                   </div>
 
                   {/* Dynamic Explanation Text below each crop progress bar */}
-                  <p className="text-[10px] text-gray-500 font-semibold italic flex items-center gap-1 leading-relaxed pl-9 border-l border-gray-200">
+                  <p className="text-[10px] text-gray-600 font-semibold italic flex items-center gap-1 leading-relaxed pl-9 border-l border-gray-300">
                     <Sparkles className="h-3 w-3 text-[#90a955] shrink-0" />
                     <span>{crop.explanation}</span>
                   </p>
@@ -429,7 +508,7 @@ export default function CropRankingEngine() {
 
           {/* Bottom Legend */}
           <div className="mt-5 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
-            <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Model Suitability index:</span>
+            <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Model Suitability index:</span>
             <div className="flex items-center gap-3">
               {[
                 { label: 'Excellent', color: 'bg-[#132a13]' },
@@ -439,7 +518,7 @@ export default function CropRankingEngine() {
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-1">
                   <div className={`h-2 w-2 rounded-full ${item.color}`} />
-                  <span className="text-[9px] font-bold text-gray-500">{item.label}</span>
+                  <span className="text-[9px] font-bold text-gray-600">{item.label}</span>
                 </div>
               ))}
             </div>

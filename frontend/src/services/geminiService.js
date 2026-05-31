@@ -2,6 +2,7 @@
 // FALLBACK: static data from dashboardContent.js
 
 import { dashboardContent } from '../content/dashboardContent';
+import { profileApi } from './apiService';
 
 // Retrieve Gemini API Key from Vite env context
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
@@ -231,6 +232,38 @@ export async function getCropRankings(
   district, soilType, rainfall, temperature,
   waterAvailability, landArea, waterWeight, roiWeight, riskWeight
 ) {
+  const staticRankings = [
+    { rank: 1, name: 'Wheat', hindi: 'गेहूं', score: 92, explanation: 'Excellent organic soil profile match and cold winter climate indices.' },
+    { rank: 2, name: 'Rice', hindi: 'चावल', score: 85, explanation: 'Highly compatible water retention clay matrix matches rainfall onset.' },
+    { rank: 3, name: 'Maize', hindi: 'मक्का', score: 78, explanation: 'Balanced soil pH and moisture parameters favor organic yield metrics.' },
+    { rank: 4, name: 'Sugarcane', hindi: 'गन्ना', score: 72, explanation: 'Strong market price support makes it highly profitable long term.' },
+    { rank: 5, name: 'Cotton', hindi: 'कपास', score: 65, explanation: 'Drought-tolerant deep root system handles moisture fluctuations.' },
+    { rank: 6, name: 'Mustard', hindi: 'सरसों', score: 60, explanation: 'Low water requirement matches medium sandy-loam properties.' },
+    { rank: 7, name: 'Bajra', hindi: 'बाजरा', score: 55, explanation: 'Extremely resilient to high soil temperatures and drought indexes.' },
+    { rank: 8, name: 'Moong', hindi: 'मूंग', score: 48, explanation: 'Foliar growth stage helps in natural nitrogen fixation cycles.' },
+    { rank: 9, name: 'Sunflower', hindi: 'सूरजमुखी', score: 42, explanation: 'Moderate yields can be optimized with extra potassium inputs.' }
+  ];
+
+  try {
+    const res = await profileApi.getCropRankings({
+      district,
+      soilType,
+      rainfall,
+      temperature,
+      waterAvailability,
+      landArea,
+      waterWeight,
+      roiWeight,
+      riskWeight
+    });
+
+    if (res && res.success && Array.isArray(res.data)) {
+      return res.data;
+    }
+  } catch (err) {
+    console.warn("[geminiService] Backend crop ranking API offline/error. Cascading to browser Gemini or static fallbacks:", err.message);
+  }
+
   const systemPrompt = "You are an agriculture ranking expert. Always return ONLY raw JSON array, no markdown, no explanation.";
   const userPrompt = `Given farm inputs —
   District: ${district}, Soil: ${soilType}, 
@@ -253,18 +286,6 @@ export async function getCropRankings(
     }
   ]
   Include exactly these 9 crops: Rice, Wheat, Cotton, Maize, Mustard, Sugarcane, Bajra, Moong, Sunflower. Assign scores out of 100 based on standard agronomical formulas. explanation must be exactly one sentence.`;
-
-  const staticRankings = [
-    { rank: 1, name: 'Wheat', hindi: 'गेहूं', score: 92, explanation: 'Excellent organic soil profile match and cold winter climate indices.' },
-    { rank: 2, name: 'Rice', hindi: 'चावल', score: 85, explanation: 'Highly compatible water retention clay matrix matches rainfall onset.' },
-    { rank: 3, name: 'Maize', hindi: 'मक्का', score: 78, explanation: 'Balanced soil pH and moisture parameters favor organic yield metrics.' },
-    { rank: 4, name: 'Sugarcane', hindi: 'गन्ना', score: 72, explanation: 'Strong market price support makes it highly profitable long term.' },
-    { rank: 5, name: 'Cotton', hindi: 'कपास', score: 65, explanation: 'Drought-tolerant deep root system handles moisture fluctuations.' },
-    { rank: 6, name: 'Mustard', hindi: 'सरसों', score: 60, explanation: 'Low water requirement matches medium sandy-loam properties.' },
-    { rank: 7, name: 'Bajra', hindi: 'बाजरा', score: 55, explanation: 'Extremely resilient to high soil temperatures and drought indexes.' },
-    { rank: 8, name: 'Moong', hindi: 'मूंग', score: 48, explanation: 'Foliar growth stage helps in natural nitrogen fixation cycles.' },
-    { rank: 9, name: 'Sunflower', hindi: 'सूरजमुखी', score: 42, explanation: 'Moderate yields can be optimized with extra potassium inputs.' }
-  ];
 
   return fetchWithFallback(
     async () => {

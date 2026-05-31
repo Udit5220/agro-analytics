@@ -26,7 +26,7 @@ export const dashboardContent = {
       { label: "Yield & ROI", path: "yield-roi", icon: "CircleDollarSign" },
       { label: "Multi-crop Compare", path: "crop-compare", icon: "Columns" },
       { label: "Pest & Disease Risk", path: "pest-risk", icon: "ShieldAlert" },
-      { label: "Market Demand", path: "market-demand", icon: "TrendingUp" },
+      // { label: "Market Demand", path: "market-demand", icon: "TrendingUp" },
       { label: "Farm Journal", path: "farm-journal", icon: "BookOpen" },
       // { label: 'Settings', path: 'settings', icon: 'Settings' }
     ],
@@ -57,43 +57,6 @@ export const dashboardContent = {
       // { label: "Scheme Finder", path: "scheme-finder", icon: "Award" },
     ],
     "market-intelligence": [
-<<<<<<< HEAD
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Price Tracker", path: "tracker", icon: "TrendingUp" },
-      { label: "Mandi Comparison", path: "compare", icon: "Columns" },
-      { label: "Price Projections", path: "forecast", icon: "LineChart" },
-      { label: "Volume Analytics", path: "volume", icon: "BarChart" },
-    ],
-    "weather-reservoir": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Weather Radar", path: "radar", icon: "CloudSun" },
-      { label: "Reservoir Monitor", path: "reservoirs", icon: "Activity" },
-      { label: "Soil Moisture Tracker", path: "moisture", icon: "Droplets" },
-    ],
-    "gov-schemes": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Scheme Matcher", path: "matching", icon: "FileText" },
-      { label: "Subsidy Tracker", path: "subsidies", icon: "TrendingUp" },
-      { label: "Application Center", path: "applications", icon: "Folder" },
-    ],
-    "research-ai": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Document RAG Engine", path: "rag", icon: "FileText" },
-      { label: "Pathology Search", path: "pathology", icon: "Search" },
-      { label: "Translation Center", path: "translate", icon: "Globe" },
-    ],
-    "news-intel": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Mandi News Feed", path: "mandi", icon: "Newspaper" },
-      { label: "Policy Updates", path: "policies", icon: "FileText" },
-      { label: "Market Impact Ratings", path: "impact", icon: "Activity" },
-    ],
-    marketplace: [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Produce Trading", path: "produce", icon: "Store" },
-      { label: "Input Purchases", path: "inputs", icon: "ShoppingBag" },
-      { label: "Logistics Tracker", path: "logistics", icon: "Tractor" },
-=======
       { label: "Market Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Live Mandi Prices", path: "live-prices", icon: "TrendingUp" },
       { label: "Price Trends", path: "price-trends", icon: "LineChart" },
@@ -108,18 +71,25 @@ export const dashboardContent = {
       { label: "Radar & Maps", path: "radar", icon: "Radar" },
       { label: "Reservoir Levels", path: "reservoirs", icon: "Waves" },
       { label: "Irrigation Advisory", path: "irrigation", icon: "Droplets" },
-      { label: "Weather Alerts", path: "weather-alerts", icon: "AlertTriangle" },
+      {
+        label: "Weather Alerts",
+        path: "weather-alerts",
+        icon: "AlertTriangle",
+      },
     ],
-    "marketplace": [
+    marketplace: [
       { label: "Marketplace Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Browse Listings", path: "listings", icon: "Store" },
       { label: "Sell Produce", path: "sell", icon: "Plus" },
-      { label: "Buyer Requirements", path: "buyer-requirements", icon: "ClipboardList" },
+      {
+        label: "Buyer Requirements",
+        path: "buyer-requirements",
+        icon: "ClipboardList",
+      },
       { label: "Buy Inputs", path: "buy-inputs", icon: "ShoppingBag" },
       { label: "My Listings", path: "my-listings", icon: "Package" },
       { label: "My Orders", path: "orders", icon: "Truck" },
       { label: "Payments & Invoices", path: "invoices", icon: "Receipt" },
->>>>>>> 1165e29e31b1345a1a360a4f26bb75647806ae2f
     ],
     "learning-hub": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },

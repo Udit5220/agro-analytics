@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { CalendarDays, Sprout, Pin, Thermometer, Droplets, Calendar, Sparkles, Info, Loader2 } from "lucide-react";
 import { getSeasonalCalendar } from "../../services/geminiService";
+import LocationSelector from "../../components/LocationSelector";
+import { getSoilDataByPincode } from "../../services/locationService";
 
 const SEASON_MONTHS = {
   Kharif: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
@@ -21,6 +23,15 @@ const PHASE_STYLES = {
 };
 
 export default function SeasonalCalendar() {
+  const [location, setLocation] = useState({
+    state: "Haryana",
+    district: "Faridabad",
+    pincode: "121001",
+    latitude: 28.4089,
+    longitude: 77.3178,
+    soilData: getSoilDataByPincode("121001"),
+  });
+
   const [activeSeason, setActiveSeason] = useState("Kharif");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -62,13 +73,25 @@ export default function SeasonalCalendar() {
     ]
   });
 
+  const handleLocationChange = (newLocation) => {
+    if (
+      newLocation.district !== location.district ||
+      newLocation.state !== location.state ||
+      newLocation.pincode !== location.pincode ||
+      newLocation.latitude !== location.latitude ||
+      newLocation.longitude !== location.longitude
+    ) {
+      setLocation(newLocation);
+    }
+  };
+
   useEffect(() => {
     let active = true;
     setIsLoading(true);
 
     const loadCalendar = async () => {
       try {
-        const result = await getSeasonalCalendar("Rice,Wheat,Maize,Cotton,Watermelon", "Faridabad", activeSeason);
+        const result = await getSeasonalCalendar("Rice,Wheat,Maize,Cotton,Watermelon", location.district, activeSeason);
         if (active) {
           setCalendarData(result);
         }
@@ -86,7 +109,7 @@ export default function SeasonalCalendar() {
     return () => {
       active = false;
     };
-  }, [activeSeason]);
+  }, [activeSeason, location.district, location.state, location.pincode, location.latitude, location.longitude]);
 
   // Extract active season data from dynamic state
   const activeSeasonData = calendarData.seasons.find(
@@ -117,6 +140,9 @@ export default function SeasonalCalendar() {
           </p>
         </div>
       </div>
+
+      {/* 2-Section Compound Field Selector */}
+      <LocationSelector value={location} onChange={handleLocationChange} />
 
       {/* 2. Horizontal Controls Section: Segmented Toggles & Active Metadata */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gray-200/80 pb-5">
