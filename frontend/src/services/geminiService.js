@@ -502,3 +502,169 @@ export async function getSeasonalCalendar(selectedCrops, district, season) {
     fallbackCalendar
   );
 }
+
+// Helper 7: getIrrigationSchedule
+export async function getIrrigationSchedule(crop, stage, district, state) {
+  const systemPrompt = "You are a smart irrigation scheduling expert. Always return ONLY raw JSON, no markdown.";
+  const userPrompt = `Given crop: ${crop}, growth stage: ${stage}, location: ${district}, ${state}, return irrigation recommendations in this exact JSON shape:
+  {
+    "scheduledDays": [1, 5, 12, 18, 26, 30],
+    "optionalDays": [8, 22],
+    "moistureLevel": 62,
+    "waterSavingTip": "Drip irrigation saves 40% water vs flood irrigation for wheat at tillering stage."
+  }
+  Ensure the days array represents dates within a 30-day month. Keep it realistic based on the crop's water demands.`;
+
+  const fallback = {
+    scheduledDays: [1, 5, 12, 18, 26, 30],
+    optionalDays: [8, 22],
+    moistureLevel: crop.includes("Rice") ? 75 : crop.includes("Cotton") ? 58 : 62,
+    waterSavingTip: `Drip irrigation saves 40% water vs flood irrigation for ${crop.split(" ")[0]} at ${stage} stage.`
+  };
+
+  return fetchWithFallback(
+    () => callGeminiFlash(userPrompt, systemPrompt),
+    fallback
+  );
+}
+
+// Helper 8: getFertilizerPlan
+export async function getFertilizerPlan(crop, stage, region, nitrogen, phosphorus, potassium) {
+  const systemPrompt = "You are an agricultural soil chemistry expert. Always return ONLY raw JSON, no markdown.";
+  const userPrompt = `Given Crop: ${crop}, Stage: ${stage}, Region: ${region}, soil measurements: N=${nitrogen}, P=${phosphorus}, K=${potassium} kg/ha.
+  Return recommended targets and split fertilizer application programs in this exact JSON shape:
+  {
+    "targetNPK": { "nitrogen": 120, "phosphorus": 60, "potassium": 40 },
+    "isExcessN": true,
+    "warningText": "Current regional N levels exceed recommended 120 kg/ha for Wheat at Tillering. Reduce nitrogen application to avoid crop burning.",
+    "scheduleSteps": [
+      {
+        "step": "1",
+        "title": "Basal Dressing (Sowing)",
+        "desc": "Apply 50kg/acre NPK 12:32:16 as seed-bed baseline dressing.",
+        "timing": "Sowing Day 1"
+      },
+      {
+        "step": "2",
+        "title": "First Top Dressing (Tillering)",
+        "desc": "Apply standard Urea dressing restricted to 25kg/acre (reduced by 15kg due to high baseline N).",
+        "timing": "Day 21 - 25"
+      },
+      {
+        "step": "3",
+        "title": "Second Top Dressing (Jointing)",
+        "desc": "Apply 30kg/acre Urea mixed with 10kg Zinc Sulphate for grain initiation.",
+        "timing": "Day 45"
+      },
+      {
+        "step": "4",
+        "title": "Foliar Spray (Flowering)",
+        "desc": "Apply 2% DAP foliar spray to optimize phosphorus transmission to spikelets.",
+        "timing": "Day 60"
+      }
+    ]
+  }
+  Ensure your target calculation is realistic for ${crop} at ${stage}.`;
+
+  const fallback = {
+    targetNPK: { nitrogen: 120, phosphorus: 60, potassium: 40 },
+    isExcessN: nitrogen > 120,
+    warningText: nitrogen > 120
+      ? `Current regional N levels (${nitrogen} kg/ha) exceed recommended 120 kg/ha for ${crop.split(" ")[0]} at ${stage}. Reduce nitrogen application to avoid crop burning.`
+      : `Current regional N levels (${nitrogen} kg/ha) sit below recommended 120 kg/ha. Standard Urea dressings should be fully applied to maximize tillering counts.`,
+    scheduleSteps: [
+      {
+        step: "1",
+        title: "Basal Dressing (Sowing)",
+        desc: "Apply 50kg/acre NPK 12:32:16 as seed-bed baseline dressing.",
+        timing: "Sowing Day 1"
+      },
+      {
+        step: "2",
+        title: "First Top Dressing (Tillering)",
+        desc: nitrogen > 120
+          ? `Apply standard Urea dressing restricted to 25kg/acre (reduced by ${nitrogen - 120}kg due to high baseline N).`
+          : "Apply Urea dressing at 40kg/acre to elevate available nitrogen.",
+        timing: "Day 21 - 25"
+      },
+      {
+        step: "3",
+        title: "Second Top Dressing (Jointing)",
+        desc: "Apply 30kg/acre Urea mixed with 10kg Zinc Sulphate for grain initiation.",
+        timing: "Day 45"
+      },
+      {
+        step: "4",
+        title: "Foliar Spray (Flowering)",
+        desc: "Apply 2% DAP foliar spray to optimize phosphorus transmission to spikelets.",
+        timing: "Day 60"
+      }
+    ]
+  };
+
+  return fetchWithFallback(
+    () => callGeminiFlash(userPrompt, systemPrompt),
+    fallback
+  );
+}
+
+// Helper 9: getLifecycleGuidance
+export async function getLifecycleGuidance(crop, sowingDate, district, state) {
+  const systemPrompt = "You are a senior agronomist tracking crop phenological growth calendars. Always return ONLY raw JSON, no markdown.";
+  const userPrompt = `Given Crop: ${crop}, Sowing Date: ${sowingDate}, Location: ${district}, ${state}.
+  Return an 8-stage phenological growth calendar and AI weather/pathogen alerts in this exact JSON shape:
+  {
+    "phases": [
+      { "id": 1, "name": "Land Preparation", "desc": "Field plowed and baseline gypsum applied for salinity buffering.", "date": "Nov 05, 2025" },
+      { "id": 2, "name": "Sowing", "desc": "Certified seeds sown at 4-5 cm depth.", "date": "Nov 15, 2025" }
+    ],
+    "harvestWindow": "Mar 15 - Mar 22",
+    "yieldAtRisk": "20% - 25%",
+    "interventions": [
+      {
+        "type": "weather",
+        "title": "Nitrogen Application Optimization",
+        "desc": "Based on this week's localized weather forecast (light rain expected on Thursday), the AI model advises delaying urea top-dressing by 3 days."
+      },
+      {
+        "type": "pest",
+        "title": "Microclimate Proximity Warning",
+        "desc": "Thermal humidity index spikes detected. Monitor leaf wetness thresholds closely during the next 48 hours to prevent early Leaf Blight."
+      }
+    ]
+  }
+  Ensure you return exactly 8 phases starting from Land Preparation to Harvest.`;
+
+  const fallback = {
+    phases: [
+      { id: 1, name: "Land Preparation", desc: "Field plowed and baseline gypsum applied for salinity buffering.", date: "Nov 05, 2025" },
+      { id: 2, name: "Sowing", desc: "Certified seeds sown at 4-5 cm depth.", date: "Nov 15, 2025" },
+      { id: 3, name: "Germination", desc: "Coleoptile emergence success rate mapped at 96%.", date: "Nov 25, 2025" },
+      { id: 4, name: "Tillering", desc: "Crown roots initiating. Critical Nitrogen top-dressing required.", date: "Dec 18, 2025" },
+      { id: 5, name: "Jointing", desc: "Stalk elongation phase. First node visible. Keep soil moisture at baseline.", date: "Jan 15, 2026" },
+      { id: 6, name: "Flowering", desc: "Pollen tube expansion and spikelet emergence.", date: "Feb 10, 2026" },
+      { id: 7, name: "Grain Filling", desc: "Milk-to-dough translocation to grain kernels.", date: "Feb 28, 2026" },
+      { id: 8, name: "Harvest", desc: "Physiological maturity reached. Combine reaping recommended.", date: "Mar 20, 2026" }
+    ],
+    harvestWindow: "Mar 15 - Mar 22",
+    yieldAtRisk: "20% - 25%",
+    interventions: [
+      {
+        type: "weather",
+        title: "Nitrogen Application Optimization",
+        desc: "Based on this week's localized weather forecast (light rain expected on Thursday), the AI model advises delaying urea top-dressing by 3 days."
+      },
+      {
+        type: "pest",
+        title: "Microclimate Proximity Warning",
+        desc: "Thermal humidity index spikes detected. Monitor leaf wetness thresholds closely during the next 48 hours to prevent early Leaf Blight."
+      }
+    ]
+  };
+
+  return fetchWithFallback(
+    () => callGeminiFlash(userPrompt, systemPrompt),
+    fallback
+  );
+}
+

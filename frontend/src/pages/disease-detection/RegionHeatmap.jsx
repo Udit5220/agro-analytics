@@ -15,16 +15,6 @@ const DISEASE_LIST = [
 
 const STATE_LIST = ["All", "Haryana", "Punjab", "Uttar Pradesh", "Rajasthan"];
 
-// National Map Table Configuration Datasets — Heat Data for Country Scope
-const nationalMapGeoData = [
-  ["State", "Risk Density Index Value"],
-  ["IN-HR", 3], // Haryana - High Outbreak Risk
-  ["IN-PB", 2], // Punjab - Moderate Vector Load
-  ["IN-UP", 2], // Uttar Pradesh - Moderate Spore Count
-  ["IN-RJ", 1], // Rajasthan - Low Risk
-  ["IN-MP", 1], // Madhya Pradesh - Low Risk
-];
-
 // HIGH CONTRAST TOKENS TO DEEPEN MAP CANVAS SHADES & SHARPEN LINES
 const geoChartOptions = {
   region: "IN",
@@ -34,27 +24,29 @@ const geoChartOptions = {
   colorAxis: {
     minValue: 1,
     maxValue: 3,
-    colors: ["#15803d", "#d97706", "#b91c1c"], // Saturated Green, Amber, Dark Crimson
+    colors: ["#15803d", "#d97706", "#b91c1c"] // Rich Saturated Green, Amber, Dark Crimson
   },
   backgroundColor: "transparent",
-  datalessRegionColor: "#94a3b8", // Darker unmapped background baseline for popping shapes
-  defaultColor: "#94a3b8",
-
-  // FIXED STATE BORDER VISIBILITY
-  stroke: "#ffffff", // Forces a crisp white outline on all inactive/active states
-  strokeWidth: 1.5, // Thickens borders so boundaries are clearly defined
-
+  datalessRegionColor: "#cbd5e1", 
+  defaultColor: "#cbd5e1",
+  
+  // FIXED STATE BORDER VISIBILITY FOR EXTREME BOUNDARY DEFINITION
+  borderOptions: {
+    color: "#ffffff",
+    width: 2
+  },
+  
   // HOVER EFFECTS & CLICK ACCESSIBILITY
   keepAspectRatio: true,
   tooltip: {
     textStyle: {
       color: "#132a13",
       fontName: "Plus Jakarta Sans",
-      fontSize: 12,
+      fontSize: 12
     },
-    trigger: "focus",
+    trigger: "focus"
   },
-  magnifyingGlass: { enable: false },
+  magnifyingGlass: { enable: false }
 };
 
 // State & District Hierarchy Telemetry: Localized Pulse Nodes
@@ -202,31 +194,63 @@ export default function RegionHeatmap() {
     }
   };
 
+  // Derive stateSummary dynamically from nodes if missing
+  const derivedStateSummary = mapData.stateSummary || (mapData.nodes && mapData.nodes.length > 0 ? (() => {
+    const STATE_ISO_MAP = {
+      haryana: "IN-HR",
+      punjab: "IN-PB",
+      "uttar pradesh": "IN-UP",
+      rajasthan: "IN-RJ",
+      "madhya pradesh": "IN-MP"
+    };
+    const maxRisks = {};
+    mapData.nodes.forEach(node => {
+      const key = node.state.toLowerCase();
+      const iso = STATE_ISO_MAP[key];
+      if (iso) {
+        let val = 1;
+        if (node.riskWeight >= 75) val = 3;
+        else if (node.riskWeight >= 40) val = 2;
+        if (!maxRisks[iso] || val > maxRisks[iso]) {
+          maxRisks[iso] = val;
+        }
+      }
+    });
+    return Object.entries(maxRisks);
+  })() : []);
+
+  // 1. Dynamic National Mapping State Assembler Lookups
+  const computedGeoData = [
+    ["State", "Risk Density Index Value"],
+    ...((derivedStateSummary && derivedStateSummary.length > 0) 
+      ? derivedStateSummary 
+      : [["IN-HR", 3], ["IN-PB", 2], ["IN-UP", 2], ["IN-RJ", 1], ["IN-MP", 1]])
+  ];
+
+  // 2. Adaptive Cluster Tracking Data Extraction Rules
+  const liveDataNodes = (mapData.nodes && mapData.nodes.length > 0) 
+    ? mapData.nodes 
+    : HARDCODED_FALLBACK_NODES;
+
+  // 3. Sync matching filter tracking states functionally across dropdown actions
+  const filteredNodes = liveDataNodes.filter((node) =>
+    selectedState === "All"
+      ? true
+      : node.state.toLowerCase() === selectedState.toLowerCase()
+  );
+
   // Bidirectional interaction sync: clicking vector region switches the filter dropdown context
   const handleChartSelect = ({ chartWrapper }) => {
     const chart = chartWrapper.getChart();
     const selection = chart.getSelection();
     if (selection.length === 0) return;
 
-    const stateIsoCode = nationalMapGeoData[selection[0].row + 1][0];
+    const stateIsoCode = computedGeoData[selection[0].row + 1][0];
     if (stateIsoCode === "IN-HR") setSelectedState("Haryana");
     if (stateIsoCode === "IN-PB") setSelectedState("Punjab");
     if (stateIsoCode === "IN-UP") setSelectedState("Uttar Pradesh");
     if (stateIsoCode === "IN-RJ") setSelectedState("Rajasthan");
   };
-
-  // SYNC STRATEGY: Parse cluster data with dynamic data-binding and programmatic layout fallbacks
-  const visibleHotspots =
-    mapData.nodes && mapData.nodes.length > 0
-      ? mapData.nodes
-      : HARDCODED_FALLBACK_NODES;
-
-  // Dynamic filter nodes arrays mapped directly against active selected state strings
-  const filteredNodes = visibleHotspots.filter((node) =>
-    selectedState === "All"
-      ? true
-      : node.state.toLowerCase() === selectedState.toLowerCase(),
-  );
 
   // Dynamic Ledger Computations based on filtered parameters
   const highRiskCount = filteredNodes.filter((n) => n.riskWeight >= 75).length;
@@ -410,7 +434,7 @@ export default function RegionHeatmap() {
                   chartType="GeoChart"
                   width="100%"
                   height="100%"
-                  data={nationalMapGeoData}
+                  data={computedGeoData}
                   options={geoChartOptions}
                   chartEvents={[
                     { eventName: "select", callback: handleChartSelect },
@@ -519,7 +543,7 @@ export default function RegionHeatmap() {
                   </span>
                 </div>
                 <span className="text-xs font-black text-gray-400">
-                  {selectedState === "All" ? "1" : lowRiskCount} Nodes Cluster
+                  {lowRiskCount} Nodes Cluster
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -530,7 +554,7 @@ export default function RegionHeatmap() {
                   </span>
                 </div>
                 <span className="text-xs font-black text-gray-400">
-                  {selectedState === "All" ? "3" : modRiskCount} Nodes Cluster
+                  {modRiskCount} Nodes Cluster
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -541,7 +565,7 @@ export default function RegionHeatmap() {
                   </span>
                 </div>
                 <span className="text-xs font-black text-gray-400">
-                  {selectedState === "All" ? "4" : highRiskCount} Nodes Cluster
+                  {highRiskCount} Nodes Cluster
                 </span>
               </div>
             </div>
@@ -554,52 +578,60 @@ export default function RegionHeatmap() {
                 Active Vector Incidents
               </h3>
               <p className="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider mt-0.5">
-                AGGREGATE: 94 TOTAL SYSTEM ALERTS RELEASED
+                AGGREGATE: {filteredNodes.reduce((acc, node) => acc + (node.incidents || 0), 0) || 94} TOTAL SYSTEM ALERTS RELEASED
               </p>
             </div>
 
             <div className="space-y-3 max-h-[340px] overflow-y-auto pr-1">
-              <div className="bg-red-50/60 border border-red-100 rounded-xl p-3.5 flex items-center justify-between gap-3 hover:bg-red-50 transition-colors">
-                <div className="space-y-1">
-                  <h4 className="text-xs font-black text-gray-900">
-                    Karnal Region
-                  </h4>
-                  <p className="text-[9px] font-extrabold text-[#b91c1c] uppercase tracking-widest block">
-                    2 HOURS AGO · DISEASE: BLAST DISEASE
-                  </p>
-                </div>
-                <span className="bg-white border border-red-200 text-[#b91c1c] px-2.5 py-1 rounded-md text-[9px] font-black tracking-wider uppercase shrink-0 font-sans shadow-sm">
-                  340 ACRES
-                </span>
-              </div>
+              {(mapData.activeIncidents && mapData.activeIncidents.length > 0
+                ? mapData.activeIncidents
+                : [
+                    { location: "Karnal", disease: "Blast Disease", severity: "High", reportedAt: "2 hours ago", affectedArea: "340 acres" },
+                    { location: "Panipat", disease: "Yellow Rust", severity: "Moderate", reportedAt: "4 hours ago", affectedArea: "180 acres" },
+                    { location: "Sirsa", disease: "Whitefly", severity: "High", reportedAt: "1 day ago", affectedArea: "210 acres" },
+                    { location: "Faridabad", disease: "Sheath Blight", severity: "Moderate", reportedAt: "3 days ago", affectedArea: "145 acres" }
+                  ]
+              ).map((incident, idx) => {
+                const isHigh = incident.severity.toLowerCase() === "high";
+                const isMod = incident.severity.toLowerCase() === "moderate";
+                
+                const cardClass = isHigh
+                  ? "bg-red-50/60 border-red-100 text-red-700"
+                  : isMod
+                    ? "bg-amber-50/50 border-amber-100 text-amber-700"
+                    : "bg-emerald-50/50 border-emerald-100 text-emerald-700";
 
-              <div className="bg-amber-50/50 border border-amber-100 rounded-xl p-3.5 flex items-center justify-between gap-3 hover:bg-amber-50 transition-colors">
-                <div className="space-y-1">
-                  <h4 className="text-xs font-black text-gray-900">
-                    Panipat Region
-                  </h4>
-                  <p className="text-[9px] font-extrabold text-[#d97706] uppercase tracking-widest block">
-                    4 HOURS AGO · DISEASE: YELLOW RUST
-                  </p>
-                </div>
-                <span className="bg-white border border-amber-200 text-[#d97706] px-2.5 py-1 rounded-md text-[9px] font-black tracking-wider uppercase shrink-0 font-sans shadow-sm">
-                  180 ACRES
-                </span>
-              </div>
+                const badgeColor = isHigh
+                  ? "text-[#b91c1c] border-red-200"
+                  : isMod
+                    ? "text-[#d97706] border-amber-200"
+                    : "text-[#15803d] border-emerald-200";
 
-              <div className="bg-emerald-50/50 border border-emerald-100/80 rounded-xl p-3.5 flex items-center justify-between gap-3 hover:bg-emerald-50 transition-colors">
-                <div className="space-y-1">
-                  <h4 className="text-xs font-black text-gray-900">
-                    Sirsa Region
-                  </h4>
-                  <p className="text-[9px] font-extrabold text-[#15803d] uppercase tracking-widest block">
-                    1 DAY AGO · DISEASE: WHITEFLY
-                  </p>
-                </div>
-                <span className="bg-white border-emerald-200 text-[#15803d] px-2.5 py-1 rounded-md text-[9px] font-black tracking-wider uppercase shrink-0 font-sans shadow-sm">
-                  210 ACRES
-                </span>
-              </div>
+                const textLabelColor = isHigh
+                  ? "text-[#b91c1c]"
+                  : isMod
+                    ? "text-[#d97706]"
+                    : "text-[#15803d]";
+
+                return (
+                  <div
+                    key={idx}
+                    className={`border rounded-xl p-3.5 flex items-center justify-between gap-3 hover:opacity-90 transition-colors ${cardClass}`}
+                  >
+                    <div className="space-y-1">
+                      <h4 className="text-xs font-black text-gray-900">
+                        {incident.location} Region
+                      </h4>
+                      <p className={`text-[9px] font-extrabold uppercase tracking-widest block ${textLabelColor}`}>
+                        {incident.reportedAt.toUpperCase()} · DISEASE: {incident.disease.toUpperCase()}
+                      </p>
+                    </div>
+                    <span className={`bg-white border px-2.5 py-1 rounded-md text-[9px] font-black tracking-wider uppercase shrink-0 font-sans shadow-sm ${badgeColor}`}>
+                      {incident.affectedArea}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -31,23 +31,31 @@ export async function generateContent(prompt, options = {}) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   try {
+    const requestBody = {
+      contents: [
+        {
+          parts: [{ text: prompt }]
+        }
+      ],
+      generationConfig: {
+        temperature: options.temperature ?? 0.2,
+        maxOutputTokens: options.maxOutputTokens ?? 1000,
+        ...options.generationConfig
+      }
+    };
+
+    if (options.system_instruction) {
+      requestBody.system_instruction = {
+        parts: [{ text: options.system_instruction }]
+      };
+    }
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: prompt }]
-          }
-        ],
-        generationConfig: {
-          temperature: options.temperature ?? 0.2,
-          maxOutputTokens: options.maxOutputTokens ?? 1000,
-          ...options.generationConfig
-        }
-      })
+      body: JSON.stringify(requestBody)
     });
 
     if (!response.ok) {

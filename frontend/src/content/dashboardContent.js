@@ -44,11 +44,17 @@ export const dashboardContent = {
       { label: "Outbreak History", path: "history", icon: "History" },
     ],
     "ai-suggestion": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Agronomist Chat", path: "chat", icon: "Bot" },
-      { label: "Irrigation Planner", path: "irrigation", icon: "Droplets" },
-      { label: "Fertilizer Scheduler", path: "fertilizer", icon: "Sprout" },
-      { label: "Climate Alerts", path: "climate", icon: "CloudLightning" },
+      { label: "AI Assistant", path: "", icon: "MessageSquare" },
+      { label: "Irrigation Scheduler", path: "irrigation", icon: "Droplets" },
+      { label: "Fertilizer Planner", path: "fertilizer", icon: "Beaker" },
+      // { label: "Satellite Field View", path: "satellite", icon: "Satellite" },
+      {
+        label: "Mandi Price Tracker",
+        path: "mandi-tracker",
+        icon: "TrendingUp",
+      },
+      { label: "Lifecycle Guidance", path: "lifecycle", icon: "Sprout" },
+      // { label: "Scheme Finder", path: "scheme-finder", icon: "Award" },
     ],
     "market-intelligence": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
