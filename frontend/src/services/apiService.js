@@ -101,6 +101,7 @@ export const marketplaceApi = {
   getOffers:   (params = {})  => request(`/marketplace/offers?${qs(params)}`),
   createOffer: (data)         => request('/marketplace/offers',     { method: 'POST',  body: JSON.stringify(data) }),
   updateOffer: (id, data)     => request(`/marketplace/offers/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+  acceptOffer: (id)           => request(`/marketplace/offers/${id}/accept`, { method: 'PATCH' }),
 
   // Orders
   getOrders:   (params = {})  => request(`/marketplace/orders?${qs(params)}`),
