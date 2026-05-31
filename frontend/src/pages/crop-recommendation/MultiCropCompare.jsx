@@ -2,7 +2,7 @@ import React from "react";
 import { X, Plus, HelpCircle, Columns } from "lucide-react";
 
 export default function MultiCropCompare() {
-  // Sample structural data based on your image specs
+  // Static crop configurations matching the visualization matrix
   const selectedCrops = [
     { id: "wheat", name: "Wheat", color: "#4f772d" },
     { id: "rice", name: "Rice", color: "#132a13" },
@@ -54,20 +54,19 @@ export default function MultiCropCompare() {
     },
   ];
 
-  // Helper helper function to match badge styling per status token
   const getBadgeStyle = (status) => {
     switch (status) {
       case "optimal":
-        return "bg-[#ecf39e] text-[#132a13] font-bold"; // Highlight Accent Lime / Primary Darkest
+        return "bg-[#ecf39e] text-[#132a13] font-bold";
       case "warning":
-        return "bg-red-50 text-red-700 font-medium"; // Alert variant
+        return "bg-red-50 text-red-750 border border-red-200/50 font-medium";
       default:
-        return "text-gray-900 font-medium"; // High contrast standard text
+        return "text-gray-900 font-medium";
     }
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn">
+    <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
       <div>
         <div className="flex items-center gap-2.5">
@@ -99,14 +98,14 @@ export default function MultiCropCompare() {
               className="flex items-center gap-1.5 bg-[#31572c] text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-sm"
             >
               <span>{crop.name}</span>
-              <button className="hover:text-[#ecf39e] transition-colors">
+              <button className="hover:text-[#ecf39e] transition-colors cursor-pointer">
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
           ))}
 
           {/* Add Crop Button */}
-          <button className="flex items-center gap-1.5 border-2 border-dashed border-[#90a955] text-[#31572c] bg-white/60 hover:bg-white px-3 py-1.2 rounded-full text-xs font-bold transition-all">
+          <button className="flex items-center gap-1.5 border-2 border-dashed border-[#90a955] text-[#31572c] bg-white/60 hover:bg-white px-3 py-1.2 rounded-full text-xs font-bold transition-all cursor-pointer">
             <Plus className="w-3.5 h-3.5" />
             <span>Add Crop</span>
           </button>

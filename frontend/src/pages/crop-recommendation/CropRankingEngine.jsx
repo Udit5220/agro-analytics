@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { ChevronDown, RefreshCw, Award, Leaf, Droplets, Thermometer, MapPin, Calendar } from 'lucide-react';
-
-// Static ranking data
-const CROP_RANKINGS = [
-  { rank: 1, name: 'Wheat', hindi: 'गेहूं', score: 92 },
-  { rank: 2, name: 'Rice', hindi: 'चावल', score: 85 },
-  { rank: 3, name: 'Maize', hindi: 'मक्का', score: 78 },
-  { rank: 4, name: 'Soybean', hindi: 'सोयाबीन', score: 72 },
-  { rank: 5, name: 'Cotton', hindi: 'कपास', score: 65 },
-  { rank: 6, name: 'Groundnut', hindi: 'मूंगफली', score: 60 },
-  { rank: 7, name: 'Mustard', hindi: 'सरसों', score: 55 },
-  { rank: 8, name: 'Sugarcane', hindi: 'गन्ना', score: 48 },
-  { rank: 9, name: 'Jowar', hindi: 'ज्वार', score: 42 },
-];
+import { ChevronDown, RefreshCw, Award, Leaf, Droplets, Thermometer, MapPin, Calendar, Scale, Sparkles } from 'lucide-react';
+import { getCropRankings } from '../../services/geminiService';
 
 const SOIL_TYPES = ['Sandy', 'Loamy', 'Clay', 'Silt', 'Peaty', 'Chalky', 'Alluvial'];
 const DISTRICTS = ['Faridabad', 'Gurugram', 'Panipat', 'Karnal', 'Hisar', 'Rohtak', 'Sonipat', 'Ambala'];
 
-// Map score ranges to progressively lighter brand greens
+const INITIAL_CROP_RANKINGS = [
+  { rank: 1, name: 'Wheat', hindi: 'गेहूं', score: 92, explanation: 'Excellent organic soil profile match and cold winter climate indices.' },
+  { rank: 2, name: 'Rice', hindi: 'चावल', score: 85, explanation: 'Highly compatible water retention clay matrix matches rainfall onset.' },
+  { rank: 3, name: 'Maize', hindi: 'मक्का', score: 78, explanation: 'Balanced soil pH and moisture parameters favor organic yield metrics.' },
+  { rank: 4, name: 'Sugarcane', hindi: 'गन्ना', score: 72, explanation: 'Strong market price support makes it highly profitable long term.' },
+  { rank: 5, name: 'Cotton', hindi: 'कपास', score: 65, explanation: 'Drought-tolerant deep root system handles moisture fluctuations.' },
+  { rank: 6, name: 'Mustard', hindi: 'सरसों', score: 60, explanation: 'Low water requirement matches medium sandy-loam properties.' },
+  { rank: 7, name: 'Bajra', hindi: 'बाजरा', score: 55, explanation: 'Extremely resilient to high soil temperatures and drought indexes.' },
+  { rank: 8, name: 'Moong', hindi: 'मूंग', score: 48, explanation: 'Foliar growth stage helps in natural nitrogen fixation cycles.' },
+  { rank: 9, name: 'Sunflower', hindi: 'सूरजमुखी', score: 42, explanation: 'Moderate yields can be optimized with extra potassium inputs.' }
+];
+
 function getBarColor(score) {
   if (score >= 85) return 'bg-[#132a13]';
   if (score >= 75) return 'bg-[#31572c]';
@@ -41,15 +40,76 @@ export default function CropRankingEngine() {
   const [waterAvailability, setWaterAvailability] = useState('Medium');
   const [landArea, setLandArea] = useState(5);
   const [district, setDistrict] = useState('Faridabad');
-  const [isCalculating, setIsCalculating] = useState(false);
+  
+  // Custom slider priorities state
+  const [waterWeight, setWaterWeight] = useState(50);
+  const [roiWeight, setRoiWeight] = useState(50);
+  const [riskWeight, setRiskWeight] = useState(50);
 
-  const handleRecalculate = () => {
-    setIsCalculating(true);
-    setTimeout(() => setIsCalculating(false), 1200);
+  // Dynamic ranking output states
+  const [rankings, setRankings] = useState(INITIAL_CROP_RANKINGS);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRecalculate = async () => {
+    setIsLoading(true);
+    try {
+      const result = await getCropRankings(
+        district, 
+        soilType, 
+        rainfall, 
+        temperature, 
+        waterAvailability, 
+        landArea, 
+        waterWeight, 
+        roiWeight, 
+        riskWeight
+      );
+      setRankings(result);
+    } catch (err) {
+      console.error("Failed to run Gemini Ranking analysis:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // Automatically recalculate with a premium 450ms debounce when sliders are dragged or dropdowns modify
+  React.useEffect(() => {
+    let active = true;
+    
+    const delayTimer = setTimeout(async () => {
+      setIsLoading(true);
+      try {
+        const result = await getCropRankings(
+          district, 
+          soilType, 
+          rainfall, 
+          temperature, 
+          waterAvailability, 
+          landArea, 
+          waterWeight, 
+          roiWeight, 
+          riskWeight
+        );
+        if (active) {
+          setRankings(result);
+        }
+      } catch (err) {
+        console.error("Failed to run Gemini Ranking analysis:", err);
+      } finally {
+        if (active) {
+          setIsLoading(false);
+        }
+      }
+    }, 450);
+
+    return () => {
+      active = false;
+      clearTimeout(delayTimer);
+    };
+  }, [district, soilType, rainfall, temperature, waterAvailability, landArea, waterWeight, roiWeight, riskWeight]);
+
   return (
-    <div className="space-y-6 animate-fadeIn">
+    <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
       <div>
         <h1 className="text-xl md:text-2xl font-bold tracking-tight text-gray-950 flex items-center gap-2.5">
@@ -159,7 +219,7 @@ export default function CropRankingEngine() {
                     key={level}
                     type="button"
                     onClick={() => setWaterAvailability(level)}
-                    className={`py-1.5 rounded-lg text-xs font-bold transition-all duration-200 border ${
+                    className={`py-1.5 rounded-lg text-xs font-bold transition-all duration-200 border cursor-pointer ${
                       waterAvailability === level
                         ? 'bg-[#31572c] text-white border-[#31572c] shadow-sm'
                         : 'bg-white text-gray-600 border-gray-200 hover:border-[#90a955] hover:text-[#31572c]'
@@ -217,7 +277,7 @@ export default function CropRankingEngine() {
               </div>
             </div>
 
-            {/* ─── Season Auto Banner ─── */}
+            {/* ─── Target Season Auto Banner ─── */}
             <div className="flex items-center justify-between bg-[#f4f7f4] border border-gray-100 rounded-xl px-3.5 py-2">
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
                 <Calendar className="h-3.5 w-3.5 text-[#90a955]" />
@@ -228,15 +288,73 @@ export default function CropRankingEngine() {
               </span>
             </div>
 
+            {/* ═══════════════════════════════════════════ */}
+            {/* WEIGHT PRIORITY SLIDERS                    */}
+            {/* ═══════════════════════════════════════════ */}
+            <div className="border-t border-gray-150 pt-4 space-y-4">
+              <h3 className="text-[10px] font-black text-gray-800 uppercase tracking-widest flex items-center gap-1.5">
+                <Scale className="h-3.5 w-3.5 text-[#31572c]" />
+                <span>Priority Weights Setup</span>
+              </h3>
+
+              {/* Water Saving weight */}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Water Saving Priority</label>
+                  <span className="text-gray-900 font-bold text-[10px]">{waterWeight}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={waterWeight}
+                  onChange={(e) => setWaterWeight(Number(e.target.value))}
+                  className="w-full h-1 bg-gray-100 rounded accent-[#31572c] cursor-pointer"
+                />
+              </div>
+
+              {/* High ROI weight */}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">High ROI Priority</label>
+                  <span className="text-gray-900 font-bold text-[10px]">{roiWeight}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={roiWeight}
+                  onChange={(e) => setRoiWeight(Number(e.target.value))}
+                  className="w-full h-1 bg-gray-100 rounded accent-[#31572c] cursor-pointer"
+                />
+              </div>
+
+              {/* Low Risk weight */}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Low Risk Priority</label>
+                  <span className="text-gray-900 font-bold text-[10px]">{riskWeight}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={riskWeight}
+                  onChange={(e) => setRiskWeight(Number(e.target.value))}
+                  className="w-full h-1 bg-gray-100 rounded accent-[#31572c] cursor-pointer"
+                />
+              </div>
+            </div>
+
             {/* ─── Recalculate Trigger ─── */}
             <button
               type="button"
               onClick={handleRecalculate}
-              disabled={isCalculating}
+              disabled={isLoading}
               className="w-full bg-[#31572c] text-white hover:bg-[#132a13] font-bold py-2.5 px-4 rounded-xl shadow-sm transition-all duration-200 uppercase tracking-wider text-[10px] flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed mt-3"
             >
-              <RefreshCw className={`h-3.5 w-3.5 ${isCalculating ? 'animate-spin' : ''}`} />
-              {isCalculating ? 'Computing Models...' : 'Recalculate Matrix'}
+              <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+              {isLoading ? 'Computing AI Model...' : 'Recalculate Matrix'}
             </button>
           </div>
         </div>
@@ -244,7 +362,7 @@ export default function CropRankingEngine() {
         {/* ═══════════════════════════════════════════ */}
         {/* RIGHT COLUMN: Ranked Results Scoreboard    */}
         {/* ═══════════════════════════════════════════ */}
-        <div className="bg-white rounded-2xl p-5 border border-gray-200/60 shadow-sm flex flex-col justify-between">
+        <div className="bg-white rounded-2xl p-5 border border-gray-200/60 shadow-sm flex flex-col justify-between min-h-[500px]">
           
           <div>
             {/* Panel Header */}
@@ -254,49 +372,56 @@ export default function CropRankingEngine() {
                 <span>Ranked Crop Scores — {district}</span>
               </h2>
               <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">
-                {CROP_RANKINGS.length} Crops Scored
+                {rankings.length} Crops Scored
               </span>
             </div>
 
             {/* Ranking List */}
-            <div className={`space-y-2 ${isCalculating ? 'opacity-40 pointer-events-none' : ''} transition-opacity duration-300`}>
-              {CROP_RANKINGS.map((crop) => (
+            <div className={`space-y-3.5 ${isLoading ? 'opacity-40 pointer-events-none' : ''} transition-opacity duration-300`}>
+              {rankings.map((crop) => (
                 <div
-                  key={crop.rank}
-                  className="bg-[#f4f7f4]/30 border border-gray-100 hover:border-[#90a955]/30 p-2.5 rounded-xl flex items-center justify-between gap-4 hover:shadow-sm transition-all duration-200 group"
+                  key={crop.rank || crop.name}
+                  className="bg-[#f4f7f4]/30 border border-gray-100 hover:border-[#90a955]/30 p-3 rounded-xl flex flex-col gap-2 hover:shadow-sm transition-all duration-200 group"
                 >
-                  {/* Left: Rank Badge + Crop Name */}
-                  <div className="flex items-center gap-2.5 min-w-[130px]">
-                    <div className={`h-7 w-7 rounded-lg border flex items-center justify-center text-[10px] font-black shrink-0 shadow-sm ${getRankBadgeColor(crop.rank)}`}>
-                      {crop.rank}
+                  <div className="flex items-center justify-between gap-4">
+                    {/* Left: Rank Badge + Crop Name */}
+                    <div className="flex items-center gap-2.5 min-w-[130px]">
+                      <div className={`h-7 w-7 rounded-lg border flex items-center justify-center text-[10px] font-black shrink-0 shadow-sm ${getRankBadgeColor(crop.rank)}`}>
+                        {crop.rank}
+                      </div>
+                      <div>
+                        <span className="text-gray-900 font-bold text-xs block leading-tight">
+                          {crop.name}
+                        </span>
+                        <span className="text-gray-400 font-bold text-[10px] tracking-wide block">
+                          {crop.hindi}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-gray-900 font-bold text-xs block leading-tight">
-                        {crop.name}
-                      </span>
-                      <span className="text-gray-400 font-bold text-[10px] tracking-wide block">
-                        {crop.hindi}
+
+                    {/* Center: Dynamic Score Bar */}
+                    <div className="flex-1 mx-2 hidden sm:block">
+                      <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all duration-700 ease-out ${getBarColor(crop.score)}`}
+                          style={{ width: `${crop.score}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Right: Score indicator */}
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className="text-[#132a13] font-extrabold text-sm tabular-nums min-w-[28px] text-right">
+                        {crop.score}%
                       </span>
                     </div>
                   </div>
 
-                  {/* Center: Dynamic Score Bar */}
-                  <div className="flex-1 mx-2 hidden sm:block">
-                    <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-                      <div
-                        className={`h-full rounded-full transition-all duration-700 ease-out ${getBarColor(crop.score)}`}
-                        style={{ width: `${crop.score}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Right: Score indicator */}
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    <span className="text-[#132a13] font-extrabold text-sm tabular-nums min-w-[28px] text-right">
-                      {crop.score}%
-                    </span>
-                    <ChevronDown className="h-3.5 w-3.5 text-gray-400 group-hover:text-[#31572c] transition-colors duration-200" />
-                  </div>
+                  {/* Dynamic Explanation Text below each crop progress bar */}
+                  <p className="text-[10px] text-gray-500 font-semibold italic flex items-center gap-1 leading-relaxed pl-9 border-l border-gray-200">
+                    <Sparkles className="h-3 w-3 text-[#90a955] shrink-0" />
+                    <span>{crop.explanation}</span>
+                  </p>
                 </div>
               ))}
             </div>

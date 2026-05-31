@@ -1,100 +1,6 @@
-import React, { useState } from "react";
-import { CalendarDays, Sprout, Pin, Thermometer, Droplets, Calendar, Sparkles, Info } from "lucide-react";
-
-const SEASONS_INFO = {
-  Kharif: {
-    title: "Kharif Season (Rainy / मानसून)",
-    months: "June – November",
-    tempRange: "25°C – 35°C",
-    humidityRange: "70% – 90%",
-    description:
-      "Sown with the onset of the southwest monsoon. Characterized by high humidity, warm temperature models, and heavy rain demands.",
-    crops: [
-      {
-        name: "Rice",
-        hindiName: "धान",
-        npk: "120-60-40",
-        timeline: {
-          Jun: ["Sowing"],
-          Jul: ["Sowing", "Irrigation", "Fertilizer"],
-          Aug: ["Irrigation"],
-          Sep: ["Irrigation", "Fertilizer"],
-          Oct: ["Harvest"],
-          Nov: ["Harvest"],
-        },
-      },
-      {
-        name: "Maize",
-        hindiName: "मक्का",
-        npk: "100-50-40",
-        timeline: {
-          Jun: ["Sowing"],
-          Jul: ["Sowing", "Fertilizer"],
-          Aug: ["Irrigation", "Fertilizer"],
-          Sep: ["Irrigation", "Harvest"],
-          Oct: ["Harvest"],
-        },
-      },
-      {
-        name: "Cotton",
-        hindiName: "कपास",
-        npk: "80-40-40",
-        timeline: {
-          Jun: ["Sowing"],
-          Jul: ["Irrigation"],
-          Aug: ["Irrigation", "Fertilizer"],
-          Sep: ["Irrigation", "Fertilizer"],
-          Oct: ["Irrigation", "Harvest"],
-          Nov: ["Harvest"],
-        },
-      },
-    ],
-  },
-  Rabi: {
-    title: "Rabi Season (Winter / शीतकालीन)",
-    months: "November – April",
-    tempRange: "15°C – 25°C",
-    humidityRange: "40% – 60%",
-    description:
-      "Sown in winter after the monsoon rains retreat. Requires mild temperatures during sowing/growing and warm weather during harvest.",
-    crops: [
-      {
-        name: "Wheat",
-        hindiName: "गेहूं",
-        npk: "120-60-40",
-        timeline: {
-          Nov: ["Sowing"],
-          Dec: ["Sowing", "Irrigation"],
-          Jan: ["Irrigation", "Fertilizer"],
-          Feb: ["Irrigation"],
-          Mar: ["Harvest"],
-          Apr: ["Harvest"],
-        },
-      },
-    ],
-  },
-  Zaid: {
-    title: "Zaid Season (Summer / ग्रीष्मकालीन)",
-    months: "March – June",
-    tempRange: "30°C – 40°C",
-    humidityRange: "30% – 50%",
-    description:
-      "Short summer crop window between the Rabi harvest and Kharif sowing. Dominated by warm winds and rapid maturity requirements.",
-    crops: [
-      {
-        name: "Watermelon",
-        hindiName: "तरबूज",
-        npk: "80-40-60",
-        timeline: {
-          Mar: ["Sowing"],
-          Apr: ["Irrigation", "Fertilizer"],
-          May: ["Irrigation"],
-          Jun: ["Harvest"],
-        },
-      },
-    ],
-  },
-};
+import React, { useState, useEffect } from "react";
+import { CalendarDays, Sprout, Pin, Thermometer, Droplets, Calendar, Sparkles, Info, Loader2 } from "lucide-react";
+import { getSeasonalCalendar } from "../../services/geminiService";
 
 const SEASON_MONTHS = {
   Kharif: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
@@ -102,7 +8,7 @@ const SEASON_MONTHS = {
   Zaid: ["Mar", "Apr", "May", "Jun"],
 };
 
-// Eye-soothing pastel background styling with high-contrast readable text
+// Pastel background styling with high-contrast readable text
 const PHASE_STYLES = {
   Sowing:
     "bg-emerald-50 text-emerald-800 border border-emerald-200/80 font-bold text-[10px] py-1.5 px-2 rounded-lg w-full block text-center tracking-wide shadow-sm",
@@ -116,10 +22,78 @@ const PHASE_STYLES = {
 
 export default function SeasonalCalendar() {
   const [activeSeason, setActiveSeason] = useState("Kharif");
-  const seasonData = SEASONS_INFO[activeSeason];
-  const months = SEASON_MONTHS[activeSeason];
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Dynamic grid column setup
+  // Dynamic calendar state loaded from Gemini/fallback
+  const [calendarData, setCalendarData] = useState({
+    seasons: [
+      {
+        name: "Kharif",
+        months: "June – November",
+        temperature: "25°C – 35°C",
+        humidity: "70% – 90%",
+        description: "Sown with the onset of the southwest monsoon. Characterized by high humidity, warm temperature models, and heavy rain demands.",
+        crops: [
+          { name: "Rice", hindiName: "धान", npk: "120-60-40", timeline: { Jun: ["Sowing"], Jul: ["Sowing", "Irrigation", "Fertilizer"], Aug: ["Irrigation"], Sep: ["Irrigation", "Fertilizer"], Oct: ["Harvest"], Nov: ["Harvest"] } },
+          { name: "Maize", hindiName: "मक्का", npk: "100-50-40", timeline: { Jun: ["Sowing"], Jul: ["Sowing", "Fertilizer"], Aug: ["Irrigation", "Fertilizer"], Sep: ["Irrigation", "Harvest"], Oct: ["Harvest"] } },
+          { name: "Cotton", hindiName: "कपास", npk: "80-40-40", timeline: { Jun: ["Sowing"], Jul: ["Irrigation"], Aug: ["Irrigation", "Fertilizer"], Sep: ["Irrigation", "Fertilizer"], Oct: ["Irrigation", "Harvest"], Nov: ["Harvest"] } }
+        ]
+      },
+      {
+        name: "Rabi",
+        months: "November – April",
+        temperature: "15°C – 25°C",
+        humidity: "40% – 60%",
+        description: "Sown in winter after the monsoon rains retreat. Requires mild temperatures during sowing/growing and warm weather during harvest.",
+        crops: [
+          { name: "Wheat", hindiName: "गेहूं", npk: "120-60-40", timeline: { Nov: ["Sowing"], Dec: ["Sowing", "Irrigation"], Jan: ["Irrigation", "Fertilizer"], Feb: ["Irrigation"], Mar: ["Harvest"], Apr: ["Harvest"] } }
+        ]
+      },
+      {
+        name: "Zaid",
+        months: "March – June",
+        temperature: "30°C – 40°C",
+        humidity: "30% – 50%",
+        description: "Short summer crop window between the Rabi harvest and Kharif sowing. Dominated by warm winds and rapid maturity requirements.",
+        crops: [
+          { name: "Watermelon", hindiName: "तरबूज", npk: "80-40-60", timeline: { Mar: ["Sowing"], Apr: ["Irrigation", "Fertilizer"], May: ["Irrigation"], Jun: ["Harvest"] } }
+        ]
+      }
+    ]
+  });
+
+  useEffect(() => {
+    let active = true;
+    setIsLoading(true);
+
+    const loadCalendar = async () => {
+      try {
+        const result = await getSeasonalCalendar("Rice,Wheat,Maize,Cotton,Watermelon", "Faridabad", activeSeason);
+        if (active) {
+          setCalendarData(result);
+        }
+      } catch (err) {
+        console.error("Failed to load seasonal calendar data:", err);
+      } finally {
+        if (active) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadCalendar();
+
+    return () => {
+      active = false;
+    };
+  }, [activeSeason]);
+
+  // Extract active season data from dynamic state
+  const activeSeasonData = calendarData.seasons.find(
+    s => s.name.toLowerCase() === activeSeason.toLowerCase()
+  ) || calendarData.seasons[0];
+
+  const months = SEASON_MONTHS[activeSeason] || SEASON_MONTHS["Kharif"];
   const gridColsClass = months.length === 6 ? "grid-cols-6" : "grid-cols-4";
 
   return (
@@ -147,9 +121,9 @@ export default function SeasonalCalendar() {
       {/* 2. Horizontal Controls Section: Segmented Toggles & Active Metadata */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gray-200/80 pb-5">
         
-        {/* Eye-friendly horizontal segmented tabs */}
+        {/* Horizontal segmented tabs */}
         <div className="bg-white border border-gray-200/80 p-1.5 rounded-2xl flex items-center gap-1.5 shadow-sm w-full sm:w-auto">
-          {Object.keys(SEASONS_INFO).map((season) => {
+          {["Kharif", "Rabi", "Zaid"].map((season) => {
             const labelHi =
               season === "Kharif"
                 ? "खरीफ"
@@ -163,7 +137,7 @@ export default function SeasonalCalendar() {
                 key={season}
                 type="button"
                 onClick={() => setActiveSeason(season)}
-                className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-2 border ${
+                className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-2 border cursor-pointer ${
                   isActive
                     ? "bg-[#31572c]/10 border-[#31572c]/30 text-[#132a13] font-extrabold shadow-sm"
                     : "bg-white border-transparent text-gray-600 hover:text-[#31572c] hover:bg-gray-50"
@@ -185,7 +159,7 @@ export default function SeasonalCalendar() {
           </div>
           <div>
             <span className="text-[8px] text-gray-400 block font-bold uppercase tracking-wider">Active Months</span>
-            <span className="text-xs font-black text-gray-800">{seasonData.months}</span>
+            <span className="text-xs font-black text-gray-800">{activeSeasonData.months}</span>
           </div>
         </div>
 
@@ -200,8 +174,8 @@ export default function SeasonalCalendar() {
             <Thermometer size={22} />
           </div>
           <div>
-            <span className="text-[9px] text-gray-450 block font-bold uppercase tracking-wider">Average Temperature</span>
-            <span className="text-base font-black text-gray-800 mt-0.5 block">{seasonData.tempRange}</span>
+            <span className="text-[9px] text-gray-455 block font-bold uppercase tracking-wider">Average Temperature</span>
+            <span className="text-base font-black text-gray-800 mt-0.5 block">{activeSeasonData.temperature}</span>
           </div>
         </div>
 
@@ -211,8 +185,8 @@ export default function SeasonalCalendar() {
             <Droplets size={22} />
           </div>
           <div>
-            <span className="text-[9px] text-gray-450 block font-bold uppercase tracking-wider">Average Humidity</span>
-            <span className="text-base font-black text-gray-800 mt-0.5 block">{seasonData.humidityRange}</span>
+            <span className="text-[9px] text-gray-455 block font-bold uppercase tracking-wider">Average Humidity</span>
+            <span className="text-base font-black text-gray-800 mt-0.5 block">{activeSeasonData.humidity}</span>
           </div>
         </div>
 
@@ -223,16 +197,16 @@ export default function SeasonalCalendar() {
           </div>
           <div className="min-w-0 flex-1">
             <span className="text-[9px] text-gray-455 block font-bold uppercase tracking-wider">Agronomic Overview</span>
-            <p className="text-[11px] text-gray-600 font-medium leading-relaxed truncate mt-0.5" title={seasonData.description}>
-              {seasonData.description}
+            <p className="text-[11px] text-gray-600 font-medium leading-relaxed truncate mt-0.5" title={activeSeasonData.description}>
+              {activeSeasonData.description}
             </p>
           </div>
         </div>
 
       </div>
 
-      {/* 4. Rotational Gantt Lifecycle Matrix (Full Width Card) */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-5 overflow-hidden">
+      {/* 4. Rotational Gantt Lifecycle Matrix */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-5 overflow-hidden relative">
         
         {/* Title, Legend Indicators Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3.5 border-b border-gray-100">
@@ -240,8 +214,14 @@ export default function SeasonalCalendar() {
             <Sparkles className="h-4.5 w-4.5 text-[#4f772d]" />
             <span>Timeline Rotational Matrix</span>
           </h2>
+          {isLoading && (
+            <div className="flex items-center gap-1.5 text-xs text-gray-400 font-bold uppercase">
+              <Loader2 className="h-3.5 w-3.5 animate-spin text-[#31572c]" />
+              Syncing calendar...
+            </div>
+          )}
 
-          {/* Premium Eye-Pleasing Legend */}
+          {/* Premium Legend */}
           <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-gray-750">
             <div className="flex items-center gap-1.5">
               <span className="w-3.5 h-3.5 rounded bg-emerald-50 border border-emerald-200 flex items-center justify-center text-[8.5px] text-emerald-800 font-bold shadow-sm">S</span>
@@ -262,9 +242,9 @@ export default function SeasonalCalendar() {
           </div>
         </div>
 
-        {/* Matrix Table with sleek browser native scroll support */}
+        {/* Matrix Table with native scroll */}
         <div className="overflow-x-auto">
-          <div className="w-full min-w-[760px] table-fixed">
+          <div className={`w-full min-w-[760px] table-fixed ${isLoading ? 'opacity-40 pointer-events-none' : ''} transition-opacity duration-200`}>
             
             {/* Table Headers */}
             <div className="grid grid-cols-[180px_1fr] pb-3.5 items-center mb-2 px-2 border-b border-gray-50">
@@ -298,9 +278,9 @@ export default function SeasonalCalendar() {
               </div>
             </div>
 
-            {/* Matrix Rotational Crop Rows */}
+            {/* Matrix Crop Rows */}
             <div className="divide-y divide-gray-100/70">
-              {seasonData.crops.map((crop) => (
+              {activeSeasonData.crops.map((crop) => (
                 <div
                   key={crop.name}
                   className="grid grid-cols-[180px_1fr] items-center py-3.5 px-2 hover:bg-gray-50/40 rounded-xl transition-all duration-150 group"
@@ -313,7 +293,7 @@ export default function SeasonalCalendar() {
                         {crop.name}
                       </h3>
                       <span className="text-gray-450 font-bold text-[10px] tracking-wide block mt-0.5">
-                        {crop.hindiName}
+                        {crop.hindiName || "फसल"}
                       </span>
                     </div>
                   </div>

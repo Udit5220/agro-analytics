@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CircleDollarSign, Coins, TrendingUp, Sparkles, Sprout, Wheat, BarChart3, HelpCircle } from 'lucide-react';
+import { CircleDollarSign, Coins, TrendingUp, Sparkles, Sprout, Wheat, BarChart3, HelpCircle, AlertCircle, FileText, Landmark } from 'lucide-react';
+import { getYieldRoiPrediction } from '../../services/geminiService';
 
 const CROP_PROFILES = [
   { id: 'rice', name: 'Rice (Paddy)', hindi: 'धान', baseYield: 22, pricePerQtl: 2200, icon: 'Wheat' },
@@ -9,9 +10,9 @@ const CROP_PROFILES = [
 ];
 
 const SEED_GRADES = [
-  { label: 'Basic', multiplier: 1.0, costPerAcre: 800, desc: 'Local standard seeds' },
-  { label: 'Standard', multiplier: 1.15, costPerAcre: 1500, desc: 'Certified high germination' },
-  { label: 'Premium', multiplier: 1.35, costPerAcre: 2400, desc: 'Hybrids with disease protection' }
+  { label: 'Basic', costPerAcre: 800, desc: 'Local standard seeds' },
+  { label: 'Standard', costPerAcre: 1500, desc: 'Certified high germination' },
+  { label: 'Premium', costPerAcre: 2400, desc: 'Hybrids with disease protection' }
 ];
 
 export default function YieldRoiPredictor() {
@@ -19,52 +20,52 @@ export default function YieldRoiPredictor() {
   const [acreage, setAcreage] = useState(5);
   const [seedGrade, setSeedGrade] = useState(SEED_GRADES[1]); // Standard
   const [fertilizerBudget, setFertilizerBudget] = useState(3500); // ₹ per acre
+  const [isFetching, setIsFetching] = useState(false);
 
-  // Simulation outputs
+  // Simulation outputs synced dynamically with Gemini API/fallbacks
   const [outputs, setOutputs] = useState({
     totalYield: 0,
     totalCost: 0,
     grossRevenue: 0,
     netProfit: 0,
-    efficiencyIndex: 0
+    roiPercent: 0,
+    breakEvenYield: 0,
+    downsideProfit: 0,
+    kccLoanEstimate: 0,
+    costBreakdown: {
+      seedCost: 0,
+      fertilizerCost: 0,
+      operationsCost: 0
+    },
+    subsidy: {
+      schemeName: "Pradhan Mantri Fasal Bima Yojana",
+      amount: "₹2,500/acre premium subsidy",
+      deadline: "31st July 2026"
+    }
   });
 
-  useEffect(() => {
-    // 1. Calculate fertilizer impact multiplier (optimum around ₹4,000/acre)
-    let fertMultiplier = 1.0;
-    if (fertilizerBudget < 3000) {
-      fertMultiplier = 0.75 + (fertilizerBudget / 12000); // 0.83x to 1.0x
-    } else if (fertilizerBudget >= 3000 && fertilizerBudget <= 5000) {
-      fertMultiplier = 1.0 + ((fertilizerBudget - 3000) / 20000); // 1.0x to 1.1x
-    } else {
-      fertMultiplier = 1.1 + ((fertilizerBudget - 5000) / 50000); // Caps slightly at 1.15x (diminishing returns)
-      if (fertMultiplier > 1.2) fertMultiplier = 1.2;
+  const handleApplySimulation = async () => {
+    setIsFetching(true);
+    try {
+      const data = await getYieldRoiPrediction(
+        selectedCrop.name,
+        acreage,
+        seedGrade.label,
+        fertilizerBudget,
+        'Faridabad' // Default target district
+      );
+      setOutputs(data);
+    } catch (err) {
+      console.error("Failed to fetch ROI predictions:", err);
+    } finally {
+      setIsFetching(false);
     }
+  };
 
-    // 2. Base operations cost (tilling, irrigation, harvest labor): ₹4,000 / acre
-    const baseOpsCostPerAcre = 4000;
-    const totalCostPerAcre = seedGrade.costPerAcre + fertilizerBudget + baseOpsCostPerAcre;
-    const totalCost = totalCostPerAcre * acreage;
-
-    // 3. Yield calculation
-    const totalYield = selectedCrop.baseYield * seedGrade.multiplier * fertMultiplier * acreage;
-
-    // 4. Financial projections
-    const grossRevenue = totalYield * selectedCrop.pricePerQtl;
-    const netProfit = grossRevenue - totalCost;
-
-    // 5. Efficiency Index (ROI percentage)
-    const efficiencyIndex = totalCost > 0 ? (netProfit / totalCost) * 100 : 0;
-
-    setOutputs({
-      totalYield: Math.round(totalYield * 10) / 10,
-      totalCost: Math.round(totalCost),
-      grossRevenue: Math.round(grossRevenue),
-      netProfit: Math.round(netProfit),
-      efficiencyIndex: Math.round(efficiencyIndex)
-    });
-
-  }, [selectedCrop, acreage, seedGrade, fertilizerBudget]);
+  // Initialize prediction metrics on component mount
+  useEffect(() => {
+    handleApplySimulation();
+  }, []);
 
   const formatCurrency = (val) => {
     return new Intl.NumberFormat('en-IN', {
@@ -75,8 +76,8 @@ export default function YieldRoiPredictor() {
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn">
-      {/* 1. Page Header */}
+    <div className="space-y-6 animate-fadeIn antialiased">
+      {/* Page Header */}
       <div>
         <h1 className="text-xl md:text-2xl font-bold tracking-tight text-gray-950 flex items-center gap-2.5">
           <CircleDollarSign className="h-6.5 w-6.5 text-[#31572c]" />
@@ -113,7 +114,7 @@ export default function YieldRoiPredictor() {
                     key={crop.id}
                     type="button"
                     onClick={() => setSelectedCrop(crop)}
-                    className={`p-2.5 rounded-xl border text-left transition-all duration-200 ${
+                    className={`p-2.5 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
                       selectedCrop.id === crop.id
                         ? 'bg-[#31572c]/10 border-[#31572c] text-[#132a13] font-bold shadow-sm'
                         : 'bg-white border-gray-200 text-gray-600 hover:border-[#90a955] hover:text-[#31572c]'
@@ -163,7 +164,7 @@ export default function YieldRoiPredictor() {
                     key={grade.label}
                     type="button"
                     onClick={() => setSeedGrade(grade)}
-                    className={`w-full p-2.5 rounded-xl border text-left flex justify-between items-center transition-all duration-200 ${
+                    className={`w-full p-2.5 rounded-xl border text-left flex justify-between items-center transition-all duration-200 cursor-pointer ${
                       seedGrade.label === grade.label
                         ? 'bg-[#31572c] border-[#31572c] text-white shadow-sm font-bold'
                         : 'bg-white border-gray-200 text-gray-600 hover:border-[#90a955] hover:text-[#31572c]'
@@ -209,13 +210,24 @@ export default function YieldRoiPredictor() {
               </div>
             </div>
 
+            {/* --- Explicit Apply Button --- */}
+            <button
+              type="button"
+              onClick={handleApplySimulation}
+              disabled={isFetching}
+              className="w-full bg-[#31572c] text-white hover:bg-[#132a13] font-bold py-2.5 px-4 rounded-xl shadow-sm transition-all duration-200 uppercase tracking-wider text-[10px] flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed mt-4"
+            >
+              <TrendingUp className={`h-3.5 w-3.5 ${isFetching ? 'animate-pulse' : ''}`} />
+              {isFetching ? 'Applying Inferences...' : 'Apply Simulation'}
+            </button>
+
           </div>
         </div>
 
         {/* ═══════════════════════════════════════════ */}
         {/* RIGHT COLUMN: Output Dashboard Matrix       */}
         {/* ═══════════════════════════════════════════ */}
-        <div className="space-y-6">
+        <div className={`space-y-6 ${isFetching ? 'opacity-50 pointer-events-none' : ''} transition-opacity duration-200`}>
           
           {/* Top Row: Profitability Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -258,6 +270,19 @@ export default function YieldRoiPredictor() {
 
           </div>
 
+          {/* New Display widget A: Break-even quintal target Card */}
+          <div className="bg-amber-50/70 border border-amber-200 rounded-2xl p-4.5 flex items-center space-x-3.5 shadow-sm">
+            <div className="p-2 bg-amber-500/15 text-amber-700 rounded-xl">
+              <AlertCircle className="h-5 w-5" />
+            </div>
+            <div>
+              <span className="text-[9px] font-bold text-amber-600 uppercase tracking-wider">Production Break-Even Metric</span>
+              <p className="text-xs font-bold text-gray-800 mt-0.5">
+                You need exactly <span className="text-amber-700 font-black text-sm px-0.5">{outputs.breakEvenYield}</span> quintals of yield to fully recover your base investments.
+              </p>
+            </div>
+          </div>
+
           {/* Middle Row: Live Cost & Revenue Breakdown */}
           <div className="bg-white border border-gray-200/60 rounded-2xl p-5 shadow-sm space-y-4">
             
@@ -290,27 +315,38 @@ export default function YieldRoiPredictor() {
                 </span>
               </div>
 
+              {/* New Display widget B: Downside Risk Yield projection row */}
+              <div className="flex items-center justify-between text-xs pb-3 border-b border-gray-50">
+                <span className="text-gray-500 font-semibold flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-red-500" />
+                  Downside Scenario (20% below yield)
+                </span>
+                <span className={`font-extrabold text-xs ${outputs.downsideProfit >= 0 ? 'text-emerald-600' : 'text-red-655'}`}>
+                  Net: {outputs.downsideProfit >= 0 ? '+' : ''}{formatCurrency(outputs.downsideProfit)}
+                </span>
+              </div>
+
               {/* Detail list itemizing costs */}
               <div className="bg-[#f4f7f4]/40 rounded-xl p-3 grid grid-cols-3 gap-2 text-[10px] text-gray-500 font-bold uppercase tracking-wider text-center">
                 <div>
                   <p className="text-gray-400">Seed Costs</p>
-                  <p className="text-gray-800 mt-0.5">{formatCurrency(seedGrade.costPerAcre * acreage)}</p>
+                  <p className="text-gray-800 mt-0.5">{formatCurrency(outputs.costBreakdown.seedCost)}</p>
                 </div>
                 <div>
                   <p className="text-gray-400">Fertilizers</p>
-                  <p className="text-gray-800 mt-0.5">{formatCurrency(fertilizerBudget * acreage)}</p>
+                  <p className="text-gray-800 mt-0.5">{formatCurrency(outputs.costBreakdown.fertilizerCost)}</p>
                 </div>
                 <div>
                   <p className="text-gray-400">Operations</p>
-                  <p className="text-gray-800 mt-0.5">{formatCurrency(4000 * acreage)}</p>
+                  <p className="text-gray-800 mt-0.5">{formatCurrency(outputs.costBreakdown.operationsCost)}</p>
                 </div>
               </div>
 
             </div>
           </div>
 
-          {/* Bottom Row: ROI Efficiency Ring */}
-          <div className="bg-white border border-gray-200/60 rounded-2xl p-5 shadow-sm flex flex-col sm:flex-row items-center gap-5 justify-between">
+          {/* Bottom Row: ROI Efficiency Ring & KCC Loan Calculator */}
+          <div className="bg-white border border-gray-200/60 rounded-2xl p-5 shadow-sm flex flex-col md:flex-row items-center gap-5 justify-between">
             <div className="space-y-1">
               <h4 className="text-xs font-bold text-gray-700 uppercase tracking-widest flex items-center gap-1.5">
                 <Sparkles className="h-4 w-4 text-[#90a955]" />
@@ -319,19 +355,49 @@ export default function YieldRoiPredictor() {
               <p className="text-gray-500 text-[11px] font-medium leading-relaxed max-w-sm">
                 Shows the returns yielded for every rupee invested. An index above 100% signifies doubling seed investment value.
               </p>
+              
+              {/* New Display widget C: Recommended KCC Credit Loan Advisor */}
+              <div className="pt-2 flex items-center gap-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide">
+                <Landmark className="h-4 w-4 text-[#31572c]" />
+                <span>KCC Credit Limit Recommendation: <span className="text-emerald-700 font-black">{formatCurrency(outputs.kccLoanEstimate)}</span></span>
+              </div>
             </div>
 
             {/* Visual Indicator Progress Badge */}
             <div className="flex items-center space-x-3 shrink-0">
               <div className="text-right">
                 <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Efficiency Ratio</p>
-                <p className="text-lg font-black text-[#132a13] leading-none mt-0.5">{outputs.efficiencyIndex}%</p>
+                <p className="text-lg font-black text-[#132a13] leading-none mt-0.5">{outputs.roiPercent}%</p>
               </div>
               <div className="h-12 w-12 rounded-full border-4 border-emerald-500/20 border-t-emerald-600 flex items-center justify-center font-bold text-[10px] text-emerald-700 animate-spin-slow shrink-0" style={{ animationDuration: '6s' }}>
                 ROI
               </div>
             </div>
           </div>
+
+          {/* New Display widget D: Rotational Subsidy Scheme Card */}
+          {outputs.subsidy && (
+            <div className="bg-white border border-[#4f772d]/20 rounded-2xl p-5 shadow-sm space-y-3">
+              <h4 className="text-xs font-bold text-[#132a13] uppercase tracking-wider flex items-center gap-2">
+                <FileText className="h-4 w-4 text-[#31572c]" />
+                <span>Applicable Governmental Subsidy Scheme</span>
+              </h4>
+              <div className="bg-[#4f772d]/[0.03] border border-[#4f772d]/10 rounded-xl p-3.5 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div>
+                  <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest block">Scheme</span>
+                  <span className="font-extrabold text-gray-800 leading-tight block mt-0.5">{outputs.subsidy.schemeName}</span>
+                </div>
+                <div>
+                  <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest block">Value</span>
+                  <span className="font-black text-emerald-700 block mt-0.5">{outputs.subsidy.amount}</span>
+                </div>
+                <div>
+                  <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest block">Deadline</span>
+                  <span className="font-extrabold text-amber-700 block mt-0.5">{outputs.subsidy.deadline}</span>
+                </div>
+              </div>
+            </div>
+          )}
 
         </div>
 

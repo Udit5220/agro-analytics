@@ -27,67 +27,76 @@ export const dashboardContent = {
       { label: "Multi-crop Compare", path: "crop-compare", icon: "Columns" },
       { label: "Pest & Disease Risk", path: "pest-risk", icon: "ShieldAlert" },
       { label: "Market Demand", path: "market-demand", icon: "TrendingUp" },
+      { label: "Farm Journal", path: "farm-journal", icon: "BookOpen" },
       // { label: 'Settings', path: 'settings', icon: 'Settings' }
     ],
     "disease-detection": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Risk Prediction Engine", path: "risk-prediction", icon: "AlertTriangle" },
+      {
+        label: "Risk Prediction Engine",
+        path: "risk-prediction",
+        icon: "AlertTriangle",
+      },
       { label: "Region Heatmap", path: "heatmap", icon: "Map" },
-      { label: "Alert Management", path: "alerts", icon: "Bell" },
+      // { label: "Alert Management", path: "alerts", icon: "Bell" },
       { label: "Treatment Advisor", path: "treatment", icon: "ShieldPlus" },
       { label: "Crop Lifecycle", path: "lifecycle", icon: "Sprout" },
-      { label: "Outbreak History", path: "history", icon: "History" }
+      { label: "Outbreak History", path: "history", icon: "History" },
     ],
     "ai-suggestion": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Agronomist Chat", path: "chat", icon: "Bot" },
       { label: "Irrigation Planner", path: "irrigation", icon: "Droplets" },
       { label: "Fertilizer Scheduler", path: "fertilizer", icon: "Sprout" },
-      { label: "Climate Alerts", path: "climate", icon: "CloudLightning" }
+      { label: "Climate Alerts", path: "climate", icon: "CloudLightning" },
     ],
     "market-intelligence": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Price Tracker", path: "tracker", icon: "TrendingUp" },
       { label: "Mandi Comparison", path: "compare", icon: "Columns" },
       { label: "Price Projections", path: "forecast", icon: "LineChart" },
-      { label: "Volume Analytics", path: "volume", icon: "BarChart" }
+      { label: "Volume Analytics", path: "volume", icon: "BarChart" },
     ],
     "weather-reservoir": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Weather Radar", path: "radar", icon: "CloudSun" },
       { label: "Reservoir Monitor", path: "reservoirs", icon: "Activity" },
-      { label: "Soil Moisture Tracker", path: "moisture", icon: "Droplets" }
+      { label: "Soil Moisture Tracker", path: "moisture", icon: "Droplets" },
     ],
     "gov-schemes": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Scheme Matcher", path: "matching", icon: "FileText" },
       { label: "Subsidy Tracker", path: "subsidies", icon: "TrendingUp" },
-      { label: "Application Center", path: "applications", icon: "Folder" }
+      { label: "Application Center", path: "applications", icon: "Folder" },
     ],
     "research-ai": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Document RAG Engine", path: "rag", icon: "FileText" },
       { label: "Pathology Search", path: "pathology", icon: "Search" },
-      { label: "Translation Center", path: "translate", icon: "Globe" }
+      { label: "Translation Center", path: "translate", icon: "Globe" },
     ],
     "news-intel": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Mandi News Feed", path: "mandi", icon: "Newspaper" },
       { label: "Policy Updates", path: "policies", icon: "FileText" },
-      { label: "Market Impact Ratings", path: "impact", icon: "Activity" }
+      { label: "Market Impact Ratings", path: "impact", icon: "Activity" },
     ],
-    "marketplace": [
+    marketplace: [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Produce Trading", path: "produce", icon: "Store" },
       { label: "Input Purchases", path: "inputs", icon: "ShoppingBag" },
-      { label: "Logistics Tracker", path: "logistics", icon: "Tractor" }
+      { label: "Logistics Tracker", path: "logistics", icon: "Tractor" },
     ],
     "learning-hub": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Bilingual Lecture Hall", path: "lectures", icon: "GraduationCap" },
+      {
+        label: "Bilingual Lecture Hall",
+        path: "lectures",
+        icon: "GraduationCap",
+      },
       { label: "Crop Knowledge Base", path: "kb", icon: "BookOpen" },
-      { label: "Interactive Quizzes", path: "quizzes", icon: "Award" }
-    ]
+      { label: "Interactive Quizzes", path: "quizzes", icon: "Award" },
+    ],
   },
 
   // Telemetry & recommendation metrics for the Crop Recommendation view

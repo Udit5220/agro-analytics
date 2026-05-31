@@ -51,11 +51,27 @@ export default function Home() {
 
           {/* Call to Actions */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-10">
-            <button className={`${uiConfig.styles.buttonAccent} w-full sm:w-auto flex items-center justify-center space-x-2`}>
+            <button
+              onClick={() => {
+                const element = document.getElementById('ai-tools');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`${uiConfig.styles.buttonAccent} w-full sm:w-auto flex items-center justify-center space-x-2`}
+            >
               <span>{hero.ctaPrimary}</span>
               <LucideIcons.ArrowRight className="h-4 w-4" />
             </button>
-            <button className={`${uiConfig.styles.buttonOutline} w-full sm:w-auto flex items-center justify-center space-x-2`}>
+            <button
+              onClick={() => {
+                const element = document.getElementById('platform');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`${uiConfig.styles.buttonOutline} w-full sm:w-auto flex items-center justify-center space-x-2`}
+            >
               <LucideIcons.Play className="h-4 w-4 fill-white" />
               <span>{hero.ctaSecondary}</span>
             </button>

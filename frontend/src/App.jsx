@@ -10,7 +10,13 @@ import YieldRoiPredictor from './pages/crop-recommendation/YieldRoiPredictor';
 import MultiCropCompare from './pages/crop-recommendation/MultiCropCompare';
 import PestRiskDetection from './pages/crop-recommendation/PestRiskDetection';
 import MarketDemand from './pages/crop-recommendation/MarketDemand';
+import FarmJournal from './pages/crop-recommendation/FarmJournal';
 import PestDiseaseDashboard from './pages/disease-detection/PestDiseaseDashboard';
+import RiskPredictionEngine from './pages/disease-detection/RiskPredictionEngine';
+import RegionHeatmap from './pages/disease-detection/RegionHeatmap';
+import TreatmentAdvisor from './pages/disease-detection/TreatmentAdvisor';
+import CropLifecycle from './pages/disease-detection/CropLifecycle';
+import HistoricalOutbreaks from './pages/disease-detection/HistoricalOutbreaks';
 import AiSuggestionDashboard from './pages/ai-suggestion/AiSuggestionDashboard';
 import MarketIntelligenceDashboard from './pages/market-intelligence/MarketIntelligenceDashboard';
 import WeatherReservoirDashboard from './pages/weather-reservoir/WeatherReservoirDashboard';
@@ -19,6 +25,7 @@ import ResearchAiDashboard from './pages/research-ai/ResearchAiDashboard';
 import NewsIntelDashboard from './pages/news-intel/NewsIntelDashboard';
 import MarketplaceDashboard from './pages/marketplace/MarketplaceDashboard';
 import LearningHubDashboard from './pages/learning-hub/LearningHubDashboard';
+import ScrollToTop from './components/utils/ScrollToTop';
 import * as LucideIcons from 'lucide-react';
 
 // Wrapper layout for the main landing page
@@ -55,12 +62,31 @@ function DashboardSwitcher() {
     if (subPath === 'market-demand') {
       return <MarketDemand />;
     }
+    if (subPath === 'farm-journal') {
+      return <FarmJournal />;
+    }
     // Default index view
     return <CropRecommendationDashboard />;
   }
 
   // Disease Detection module — sub-page routing
   if (moduleId === 'disease-detection') {
+    if (subPath === 'risk-prediction') {
+      return <RiskPredictionEngine />;
+    }
+    if (subPath === 'heatmap') {
+      return <RegionHeatmap />;
+    }
+    if (subPath === 'treatment') {
+      return <TreatmentAdvisor />;
+    }
+    if (subPath === 'lifecycle') {
+      return <CropLifecycle />;
+    }
+    if (subPath === 'history') {
+      return <HistoricalOutbreaks />;
+    }
+    // Default index view
     return <PestDiseaseDashboard />;
   }
 
@@ -145,6 +171,7 @@ function DashboardSwitcher() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Main Landing Page */}
         <Route path="/" element={<LandingPage />} />
