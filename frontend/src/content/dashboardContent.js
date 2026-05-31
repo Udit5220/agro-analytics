@@ -57,6 +57,7 @@ export const dashboardContent = {
       // { label: "Scheme Finder", path: "scheme-finder", icon: "Award" },
     ],
     "market-intelligence": [
+<<<<<<< HEAD
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Price Tracker", path: "tracker", icon: "TrendingUp" },
       { label: "Mandi Comparison", path: "compare", icon: "Columns" },
@@ -92,6 +93,33 @@ export const dashboardContent = {
       { label: "Produce Trading", path: "produce", icon: "Store" },
       { label: "Input Purchases", path: "inputs", icon: "ShoppingBag" },
       { label: "Logistics Tracker", path: "logistics", icon: "Tractor" },
+=======
+      { label: "Market Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "Live Mandi Prices", path: "live-prices", icon: "TrendingUp" },
+      { label: "Price Trends", path: "price-trends", icon: "LineChart" },
+      { label: "Nearby Markets", path: "nearby-markets", icon: "MapPin" },
+      { label: "My Watchlist", path: "watchlist", icon: "Bookmark" },
+      { label: "Price Alerts", path: "price-alerts", icon: "Bell" },
+    ],
+    "weather-reservoir": [
+      { label: "Weather Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "7-Day Forecast", path: "forecast", icon: "CalendarDays" },
+      { label: "Rainfall Forecast", path: "rainfall", icon: "CloudRain" },
+      { label: "Radar & Maps", path: "radar", icon: "Radar" },
+      { label: "Reservoir Levels", path: "reservoirs", icon: "Waves" },
+      { label: "Irrigation Advisory", path: "irrigation", icon: "Droplets" },
+      { label: "Weather Alerts", path: "weather-alerts", icon: "AlertTriangle" },
+    ],
+    "marketplace": [
+      { label: "Marketplace Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "Browse Listings", path: "listings", icon: "Store" },
+      { label: "Sell Produce", path: "sell", icon: "Plus" },
+      { label: "Buyer Requirements", path: "buyer-requirements", icon: "ClipboardList" },
+      { label: "Buy Inputs", path: "buy-inputs", icon: "ShoppingBag" },
+      { label: "My Listings", path: "my-listings", icon: "Package" },
+      { label: "My Orders", path: "orders", icon: "Truck" },
+      { label: "Payments & Invoices", path: "invoices", icon: "Receipt" },
+>>>>>>> 1165e29e31b1345a1a360a4f26bb75647806ae2f
     ],
     "learning-hub": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },

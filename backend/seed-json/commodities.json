@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Wheat",
+    "commodityCode": "WHEAT",
+    "category": "Grain",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Soybean",
+    "commodityCode": "SOYBEAN",
+    "category": "Oilseed",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Cotton",
+    "commodityCode": "COTTON",
+    "category": "Fiber",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Onion",
+    "commodityCode": "ONION",
+    "category": "Vegetable",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Maize",
+    "commodityCode": "MAIZE",
+    "category": "Grain",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Mustard",
+    "commodityCode": "MUSTARD",
+    "category": "Oilseed",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Turmeric",
+    "commodityCode": "TURMERIC",
+    "category": "Spice",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Groundnut",
+    "commodityCode": "GROUNDNUT",
+    "category": "Oilseed",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Bajra",
+    "commodityCode": "BAJRA",
+    "category": "Grain",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  },
+  {
+    "name": "Chana",
+    "commodityCode": "CHANA",
+    "category": "Pulse",
+    "unit": "Quintal",
+    "isActive": true,
+    "source": "agroindia-seed"
+  }
+]

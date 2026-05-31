@@ -38,7 +38,34 @@ import FertilizerPlanner from "./pages/ai-suggestion/FertilizerPlanner";
 import MandiPriceTracker from "./pages/ai-suggestion/MandiPriceTracker";
 import LifecyclePredictor from "./pages/ai-suggestion/LifecyclePredictor";
 
-// Wrapper layout for the main landing page
+// ─── Commodity Market Intelligence Pages ─────────────────────────────────────
+import MarketDashboard from "./pages/market-intelligence/MarketDashboard";
+import LiveMandiPrices from "./pages/market-intelligence/LiveMandiPrices";
+import PriceTrends from "./pages/market-intelligence/PriceTrends";
+import NearbyMarkets from "./pages/market-intelligence/NearbyMarkets";
+import MyWatchlist from "./pages/market-intelligence/MyWatchlist";
+import PriceAlerts from "./pages/market-intelligence/PriceAlerts";
+
+// ─── Weather & Reservoir Intelligence Pages ───────────────────────────────────
+import WeatherDashboard from "./pages/weather-reservoir/WeatherDashboard";
+import SevenDayForecast from "./pages/weather-reservoir/SevenDayForecast";
+import RainfallForecast from "./pages/weather-reservoir/RainfallForecast";
+import RadarMaps from "./pages/weather-reservoir/RadarMaps";
+import ReservoirLevels from "./pages/weather-reservoir/ReservoirLevels";
+import IrrigationAdvisory from "./pages/weather-reservoir/IrrigationAdvisory";
+import WeatherAlerts from "./pages/weather-reservoir/WeatherAlerts";
+
+// ─── Marketplace Pages ────────────────────────────────────────────────────────
+import MarketplaceDashboard from "./pages/marketplace/MarketplaceDashboard";
+import BrowseListings from "./pages/marketplace/BrowseListings";
+import SellProduce from "./pages/marketplace/SellProduce";
+import BuyerRequirements from "./pages/marketplace/BuyerRequirements";
+import BuyInputs from "./pages/marketplace/BuyInputs";
+import MyListings from "./pages/marketplace/MyListings";
+import MyOrders from "./pages/marketplace/MyOrders";
+import PaymentsInvoices from "./pages/marketplace/PaymentsInvoices";
+
+// Wrapper layout for the main landing page — UNCHANGED
 function LandingPage() {
   return (
     <>
@@ -117,33 +144,45 @@ function DashboardSwitcher() {
     return <AiAssistant />;
   }
 
-  // Commodity Market Intelligence routing
+  // ── Commodity Market Intelligence (NEW) ────────────────────────────────────
   if (moduleId === "market-intelligence") {
-    return <MarketIntelligenceDashboard />;
+    if (subPath === "live-prices") return <LiveMandiPrices />;
+    if (subPath === "price-trends") return <PriceTrends />;
+    if (subPath === "nearby-markets") return <NearbyMarkets />;
+    if (subPath === "watchlist") return <MyWatchlist />;
+    if (subPath === "price-alerts") return <PriceAlerts />;
+    return <MarketDashboard />;
   }
 
-  // Weather & Reservoir Intel routing
+  // ── Weather & Reservoir Intelligence (NEW) ─────────────────────────────────
   if (moduleId === "weather-reservoir") {
-    return <WeatherReservoirDashboard />;
+    if (subPath === "forecast") return <SevenDayForecast />;
+    if (subPath === "rainfall") return <RainfallForecast />;
+    if (subPath === "radar") return <RadarMaps />;
+    if (subPath === "reservoirs") return <ReservoirLevels />;
+    if (subPath === "irrigation") return <IrrigationAdvisory />;
+    if (subPath === "weather-alerts") return <WeatherAlerts />;
+    return <WeatherDashboard />;
   }
 
-  // Government Scheme Center routing
-  if (moduleId === "gov-schemes") {
-    return <GovSchemesDashboard />;
-  }
+  // ── Government Scheme Center (existing) ───────────────────────────────────
+  if (moduleId === "gov-schemes") return <GovSchemesDashboard />;
 
-  // White Paper & Research AI routing
-  if (moduleId === "research-ai") {
-    return <ResearchAiDashboard />;
-  }
+  // ── White Paper & Research AI (existing) ──────────────────────────────────
+  if (moduleId === "research-ai") return <ResearchAiDashboard />;
 
-  // News Intelligence routing
-  if (moduleId === "news-intel") {
-    return <NewsIntelDashboard />;
-  }
+  // ── News Intelligence (existing) ──────────────────────────────────────────
+  if (moduleId === "news-intel") return <NewsIntelDashboard />;
 
-  // Marketplace routing
+  // ── Marketplace (NEW) ─────────────────────────────────────────────────────
   if (moduleId === "marketplace") {
+    if (subPath === "listings") return <BrowseListings />;
+    if (subPath === "sell") return <SellProduce />;
+    if (subPath === "buyer-requirements") return <BuyerRequirements />;
+    if (subPath === "buy-inputs") return <BuyInputs />;
+    if (subPath === "my-listings") return <MyListings />;
+    if (subPath === "orders") return <MyOrders />;
+    if (subPath === "invoices") return <PaymentsInvoices />;
     return <MarketplaceDashboard />;
   }
 
@@ -163,17 +202,14 @@ function DashboardSwitcher() {
           <LucideIcons.Bot className="h-7 w-7 text-brand-medium dark:text-brand-accent" />
         )}
       </div>
-
       <h2 className="text-xl sm:text-2xl font-black text-slate-800 dark:text-white capitalize">
         {moduleId ? moduleId.replaceAll("-", " ") : "Module"} Node Active
       </h2>
-
       <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-3 leading-relaxed max-w-md mx-auto">
         {isDisease
           ? "AgroIndia leaf pathogen detection model is scanning the crop health database. Fungal, viral, and bacterial neural network nodes are currently active in standby."
           : "Llama-3 agronomist chat engine is initialized. Real-time soil micro-climate advisors and fertilizer recommendations are syncing to your mobile device."}
       </p>
-
       <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
         <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
