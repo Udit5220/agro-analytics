@@ -295,7 +295,7 @@ export const getCropRankingsBackend = async (req, res) => {
     if (GEMINI_API_KEY) {
       try {
         // Build call to Gemini
-        const model = "gemini-3.1-pro-preview";
+        const model = "gemini-2.5-pro";
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
         
         const systemPrompt = "You are an agriculture ranking expert. Always return ONLY raw JSON array, no markdown, no explanation.";

@@ -26,8 +26,8 @@ export async function generateContent(prompt, options = {}) {
     );
   }
 
-  // Support dynamic model override, defaulting to gemini-3.5-flash
-  const model = options.model || "gemini-3.5-flash";
+  // Support dynamic model override, defaulting to gemini-3.1-flash-lite
+  const model = options.model || "gemini-3.1-flash-lite";
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   try {

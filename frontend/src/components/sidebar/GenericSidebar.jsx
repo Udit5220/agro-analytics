@@ -9,7 +9,13 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
   const { userProfile, sidebarMenus } = dashboardContent;
 
   // Resolve default active menu array based on active moduleId path param
-  const activeModuleKey = sidebarMenus[moduleId] ? moduleId : 'crop-recommendation';
+  let activeModuleKey = moduleId;
+  if (moduleId && sidebarMenus[moduleId]) {
+    sessionStorage.setItem('lastActiveModule', moduleId);
+  } else {
+    const saved = sessionStorage.getItem('lastActiveModule');
+    activeModuleKey = saved && sidebarMenus[saved] ? saved : 'crop-recommendation';
+  }
   const currentMenu = sidebarMenus[activeModuleKey];
 
   return (

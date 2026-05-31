@@ -6,6 +6,7 @@ import commodityRoutes from './routes/commodity.routes.js';
 import weatherRoutes from './routes/weather.routes.js';
 import marketplaceRoutes from './routes/marketplace.routes.js';
 import profileRoutes from './routes/profile.routes.js';
+import journalRoutes from './routes/journal.routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -33,6 +34,7 @@ app.get('/api/health', (req, res) => {
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api', commodityRoutes);
 app.use('/api', profileRoutes);
+app.use('/api', journalRoutes);
 app.use('/api/weather', weatherRoutes);
 app.use('/api/marketplace', marketplaceRoutes);
 

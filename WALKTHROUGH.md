@@ -21,7 +21,7 @@ graph TD
 
 - **Routing**: `App.jsx` captures `/:moduleId/:subPath?` and passes both parameters to `DashboardSwitcher`, which mounts the corresponding modular child component.
 - **Layout**: `ModuleLayout.jsx` provides the persistent navbar, sidebar, and farmer profile chrome; child pages render within a scrollable `#module-scroll-container`.
-- **Sidebar**: `GenericSidebar.jsx` dynamically reads navigation menu definitions from [dashboardContent.js](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/content/dashboardContent.js) keyed by the active `moduleId`.
+- **Sidebar**: [GenericSidebar.jsx](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/components/sidebar/GenericSidebar.jsx) dynamically reads navigation menu definitions from [dashboardContent.js](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/content/dashboardContent.js) keyed by the active `moduleId`. It features a browser `sessionStorage` fallback tracking mechanism (`lastActiveModule`) that preserves the active module's sidebar menu even when the farmer temporarily navigates out of the active module context (e.g. into `/module/profile`).
 - **Location & Soil Telemetry**: The shared, premium compound `<LocationSelector />` component dynamically resolves geolocated and database-mapped farmer plots, updating soil pH, NPK profiles, and weather stations seamlessly.
 
 ---
@@ -30,7 +30,7 @@ graph TD
 
 **Module ID**: `crop-recommendation`  
 **Total Sub-pages**: 8 (1 dashboard + 7 tools)  
-**Sidebar Menu Source**: `dashboardContent.sidebarMenus["crop-recommendation"]`  
+**Sidebar Menu Source**: `dashboardContent.sidebarMenus["crop-recommendation"]`
 
 ---
 
@@ -42,12 +42,12 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Location & Soil Selector** | Compound selector card synchronizing the active database farm profile and NPK parameters. |
-| **Season Banner** | Dynamic, green-tinted card displaying the AI-detected growing season and a pulsing "Telemetry Active" indicator. |
-| **Top 3 Crop Cards** | Grid of recommended crops with SVG circular suitability indicators, yield predictions, ROI estimates, and risk badges. |
-| **Weather Sensor Array** | 4-panel grid showing live database weather telemetry (Temperature, Humidity, Rainfall, Wind Speed) based on geographic proximity. |
+| Section                      | Description                                                                                                                       |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Location & Soil Selector** | Compound selector card synchronizing the active database farm profile and NPK parameters.                                         |
+| **Season Banner**            | Dynamic, green-tinted card displaying the AI-detected growing season and a pulsing "Telemetry Active" indicator.                  |
+| **Top 3 Crop Cards**         | Grid of recommended crops with SVG circular suitability indicators, yield predictions, ROI estimates, and risk badges.            |
+| **Weather Sensor Array**     | 4-panel grid showing live database weather telemetry (Temperature, Humidity, Rainfall, Wind Speed) based on geographic proximity. |
 
 ### How It Works
 
@@ -65,23 +65,23 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Selector Block** | Compound `<LocationSelector />` card to auto-synchronize active farm parameters. |
-| **Farm Inputs Matrix** (Left Panel) | Interactive form with 6 input controls including Rainfall, Temp, and Soil Type dropdowns. |
+| Section                              | Description                                                                                                      |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| **Selector Block**                   | Compound `<LocationSelector />` card to auto-synchronize active farm parameters.                                 |
+| **Farm Inputs Matrix** (Left Panel)  | Interactive form with 6 input controls including Rainfall, Temp, and Soil Type dropdowns.                        |
 | **Ranked Crop Scores** (Right Panel) | Sorted scoreboard of 9 primary crops with suitabilities out of 100 and dynamic suitability explanation overlays. |
 
 ### Interactive State Management
 
-| State Variable | Type | Default | Control |
-|---|---|---|---|
-| `rainfall` | `number` | `420` | Range slider (100–1200 MM) / Snaps to live weather |
-| `temperature` | `number` | `28` | Range slider (10–45°C) / Snaps to live weather |
-| `soilType` | `string` | `'Loamy'` | Dropdown (7 soil structures) |
-| `waterAvailability` | `string` | `'Medium'` | 3-button radio group |
-| `landArea` | `number` | `5` | Range slider (0.5–50 acres) |
-| `district` | `string` | `'Faridabad'` | Dropdown (8 districts) |
-| `isCalculating` | `boolean` | `false` | Spinner indicator when recalculating |
+| State Variable      | Type      | Default       | Control                                            |
+| ------------------- | --------- | ------------- | -------------------------------------------------- |
+| `rainfall`          | `number`  | `420`         | Range slider (100–1200 MM) / Snaps to live weather |
+| `temperature`       | `number`  | `28`          | Range slider (10–45°C) / Snaps to live weather     |
+| `soilType`          | `string`  | `'Loamy'`     | Dropdown (7 soil structures)                       |
+| `waterAvailability` | `string`  | `'Medium'`    | 3-button radio group                               |
+| `landArea`          | `number`  | `5`           | Range slider (0.5–50 acres)                        |
+| `district`          | `string`  | `'Faridabad'` | Dropdown (8 districts)                             |
+| `isCalculating`     | `boolean` | `false`       | Spinner indicator when recalculating               |
 
 ### How It Works
 
@@ -99,11 +99,11 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Season Segmented Tabs** | 3-tab toggle: Kharif (खरीफ), Rabi (रबी), Zaid (जायद). |
-| **Climate Parameter Cards** | 3-card row mapping Avg Temperature, Avg Humidity, and overall Agronomic guidelines. |
-| **Rotational Calendar Matrix** | Full-width Gantt timeline mapping crop cycles × months × active farming phases. |
+| Section                        | Description                                                                         |
+| ------------------------------ | ----------------------------------------------------------------------------------- |
+| **Season Segmented Tabs**      | 3-tab toggle: Kharif (खरीफ), Rabi (रबी), Zaid (जायद).                               |
+| **Climate Parameter Cards**    | 3-card row mapping Avg Temperature, Avg Humidity, and overall Agronomic guidelines. |
+| **Rotational Calendar Matrix** | Full-width Gantt timeline mapping crop cycles × months × active farming phases.     |
 
 ### How It Works
 
@@ -120,10 +120,10 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Simulation Panel** (Left) | Crop selector chips, acreage inputs, seed grades, and fertilizer budget sliders. |
-| **Outcomes Panel** (Right) | Dynamic ledger including Projected Yield, Net Profit, Downside Margin warning alerts, break-even thresholds, and KCC loan advisories. |
+| Section                     | Description                                                                                                                           |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Simulation Panel** (Left) | Crop selector chips, acreage inputs, seed grades, and fertilizer budget sliders.                                                      |
+| **Outcomes Panel** (Right)  | Dynamic ledger including Projected Yield, Net Profit, Downside Margin warning alerts, break-even thresholds, and KCC loan advisories. |
 
 ### How It Works
 
@@ -140,10 +140,10 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Comparison Table** (Left) | Detailed 7-attribute matrix comparing Suitability, Yield, ROI, Water Need, and Harvest Days. |
-| **Radar Index pentagon** (Right) | Custom SVG pentagon radar chart overlaying performance polygons (no heavy chart packages). |
+| Section                          | Description                                                                                  |
+| -------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Comparison Table** (Left)      | Detailed 7-attribute matrix comparing Suitability, Yield, ROI, Water Need, and Harvest Days. |
+| **Radar Index pentagon** (Right) | Custom SVG pentagon radar chart overlaying performance polygons (no heavy chart packages).   |
 
 ---
 
@@ -179,12 +179,12 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Outcomes Log Form** (Left) | Complete input form to log acreage, season cost, actual yield (Qtl), gross revenue, and optional soil pH/Nitrogen levels. |
-| **Yield Benchmarking HUD** (Right) | Regional comparative stats demonstrating gaps (+/- %) against district and national yield indices. |
-| **Performance Ledger Table** | Collapsible cropping history ledger with inline delete buttons and calculated ROI metrics. |
-| **Soil Chemistry Curves** | Custom SVG line plot rendering historical pH and Nitrogen levels over consecutive seasons. |
+| Section                            | Description                                                                                                               |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Outcomes Log Form** (Left)       | Complete input form to log acreage, season cost, actual yield (Qtl), gross revenue, and optional soil pH/Nitrogen levels. |
+| **Yield Benchmarking HUD** (Right) | Regional comparative stats demonstrating gaps (+/- %) against district and national yield indices.                        |
+| **Performance Ledger Table**       | Collapsible cropping history ledger with inline delete buttons and calculated ROI metrics.                                |
+| **Soil Chemistry Curves**          | Custom SVG line plot rendering historical pH and Nitrogen levels over consecutive seasons.                                |
 
 ### How It Works
 
@@ -197,8 +197,8 @@ graph TD
 # 🦠 Module 2 — Disease Detection
 
 **Module ID**: `disease-detection`  
-**Total Sub-pages**: 7 (1 dashboard + 6 tools)  
-**Sidebar Menu Source**: `dashboardContent.sidebarMenus["disease-detection"]`  
+**Total Sub-pages**: 8 (1 dashboard + 7 tools)  
+**Sidebar Menu Source**: `dashboardContent.sidebarMenus["disease-detection"]`
 
 ---
 
@@ -215,18 +215,41 @@ graph TD
 
 ---
 
-## 2.2 Risk Prediction Engine
+## 2.2 AI Leaf Scanner & Image Diagnosis
+
+- **File**: [LeafScanner.jsx](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/pages/disease-detection/LeafScanner.jsx)
+- **Route**: `/disease-detection/leaf-scanner`
+
+### What It Contains
+
+| Section                       | Description                                                                                                                                                                                                          |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Preset Sample Deck**        | Interactive grid buttons with high-quality crop leaf presets (Rice Blast Leaf Spot, Wheat Yellow Rust, Tomato Early Blight) drawn in fully premium, custom SVGs.                                                     |
+| **Image Upload Canvas**       | File drag-and-drop zone allowing farmers to drag in or manually select an image from their local filesystem.                                                                                                         |
+| **Cellular Analyzer Preview** | Multi-layer canvas showing image preview, standard image controls, and a sliding green neon laser scanning overlay during execution.                                                                                 |
+| **Diagnostic Report Sheet**   | Rendered only after successful analysis, carrying all 16 JSON report cards: plant name, health status, severity, symptoms list, possible causes, recovery checklist, treatments, and simple bilingual farmer advice. |
+
+### How It Works
+
+1. **Base64 Payload Reader**: Converts files selected via drag-and-drop or file upload instantly into base64 segments.
+2. **Preset Ingestion**: Clicking one of the vector leaf samples immediately loads its respective path data and metadata parameters, providing high-fidelity instant testing.
+3. **AI Vision Dispatcher**: Tapping "Run AI Pathological Scan" triggers `diagnosePlantLeafImage` inside `diseaseGeminiService.js`, sending the base64 payload to the `gemini-1.5-flash` model.
+4. **Resilient Local Seed Fallbacks**: Cascades automatically to fully offline reference data models if the API is offline or key parameters are missing, ensuring 100% UI stability.
+
+---
+
+## 2.3 Risk Prediction Engine
 
 - **File**: [RiskPredictionEngine.jsx](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/pages/disease-detection/RiskPredictionEngine.jsx)
 - **Route**: `/disease-detection/risk-prediction`
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Inputs Panel** (Left) | Farm dropdown, growth stage pills, and temperature/humidity/rainfall sliders. |
+| Section                             | Description                                                                        |
+| ----------------------------------- | ---------------------------------------------------------------------------------- |
+| **Inputs Panel** (Left)             | Farm dropdown, growth stage pills, and temperature/humidity/rainfall sliders.      |
 | **Semicircular Dial Gauge** (Right) | SVG semicircular gauge showing composite risk percentages with an animated needle. |
-| **Infection Breakdown & Actions** | Real-time pathogen probabilities and corresponding spray actions. |
+| **Infection Breakdown & Actions**   | Real-time pathogen probabilities and corresponding spray actions.                  |
 
 ### How It Works
 
@@ -236,7 +259,7 @@ graph TD
 
 ---
 
-## 2.3 Region Heatmap
+## 2.4 Region Heatmap
 
 - **File**: [RegionHeatmap.jsx](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/pages/disease-detection/RegionHeatmap.jsx)
 - **Route**: `/disease-detection/heatmap`
@@ -249,7 +272,7 @@ graph TD
 
 ---
 
-## 2.4 Treatment Advisor
+## 2.5 Treatment Advisor
 
 - **File**: [TreatmentAdvisor.jsx](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/pages/disease-detection/TreatmentAdvisor.jsx)
 - **Route**: `/disease-detection/treatment`
@@ -261,7 +284,7 @@ graph TD
 
 ---
 
-## 2.5 Crop Lifecycle Tracker
+## 2.6 Crop Lifecycle Tracker
 
 - **File**: [CropLifecycle.jsx](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/pages/disease-detection/CropLifecycle.jsx)
 - **Route**: `/disease-detection/lifecycle`
@@ -274,7 +297,7 @@ graph TD
 
 ---
 
-## 2.6 Outbreak History Log
+## 2.7 Outbreak History Log
 
 - **File**: [HistoricalOutbreaks.jsx](file:///d:/HARIOM/Documents/AventIQ/agro-analytics/frontend/src/pages/disease-detection/HistoricalOutbreaks.jsx)
 - **Route**: `/disease-detection/history`
@@ -290,7 +313,7 @@ graph TD
 
 **Module ID**: `ai-suggestion`  
 **Total Sub-pages**: 5 (1 assistant + 4 tools)  
-**Sidebar Menu Source**: `dashboardContent.sidebarMenus["ai-suggestion"]`  
+**Sidebar Menu Source**: `dashboardContent.sidebarMenus["ai-suggestion"]`
 
 ---
 
@@ -301,18 +324,18 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
+| Section                       | Description                                                                          |
+| ----------------------------- | ------------------------------------------------------------------------------------ |
 | **Location Context Selector** | Integrates compound `<LocationSelector />` syncing dynamic coords and soil profiles. |
-| **Language Preference Bar** | Horizontal selector toggle supporting Hindi, English, Punjabi, Tamil, and Telugu. |
-| **Conversation Workspace** | Interactive scrollable chat feed with auto-scroll-to-bottom features. |
-| **Suggestions capsules** | Pre-seeded quick prompt suggestions (e.g., *"NPK ratio for rice in July"*). |
+| **Language Preference Bar**   | Horizontal selector toggle supporting Hindi, English, Punjabi, Tamil, and Telugu.    |
+| **Conversation Workspace**    | Interactive scrollable chat feed with auto-scroll-to-bottom features.                |
+| **Suggestions capsules**      | Pre-seeded quick prompt suggestions (e.g., _"NPK ratio for rice in July"_).          |
 
 ### How It Works
 
 1. **Dynamic Prompt Context Injection**: Chat prompts query `generateContent` in `client.js`. The prompt builder dynamically compiles active state, district, soil type, pH, Nitrogen, Phosphorus, and Potassium levels into the system instructions:
    ```
-   You are Senior AI Krishi Saathi, an agronomist assistant... 
+   You are Senior AI Krishi Saathi, an agronomist assistant...
    User location: Ludhiana, Punjab. Soil pH: 6.8, Nitrogen: 270 kg/ha.
    ```
 2. **Romanized Transliteration (Hinglish)**: Instructs Gemini to respond in Romanized transliterated Hindi (Hinglish) alongside a direct English translation on a new line.
@@ -327,12 +350,12 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Interactive Grid Calendar** | 30-day interactive scheduling calendar illustrating Mon-Sun weekdays. |
-| **Day Status detail strip** | Details target water volumes (e.g., "5.5mm volume delivery") when clicking any active calendar cell. |
-| **Soil Moisture donut gauge** | Sizable radial circle progress ring outlining active deficit percentages. |
-| **Water Saving Tips** | Interactive warning banners describing micro-irrigation guidelines. |
+| Section                       | Description                                                                                          |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Interactive Grid Calendar** | 30-day interactive scheduling calendar illustrating Mon-Sun weekdays.                                |
+| **Day Status detail strip**   | Details target water volumes (e.g., "5.5mm volume delivery") when clicking any active calendar cell. |
+| **Soil Moisture donut gauge** | Sizable radial circle progress ring outlining active deficit percentages.                            |
+| **Water Saving Tips**         | Interactive warning banners describing micro-irrigation guidelines.                                  |
 
 ### How It Works
 
@@ -380,7 +403,7 @@ graph TD
 
 - **4-Column Summary matrix**: Cards tracking Current Phase, Harvest Window, Yield at Risk, and Sync Status.
 - **Vertical Stem timeline**: Connects 8 development milestones using checkmarks (completed) and progress gauges.
-- **AI Insight Board**: Outlines key actions and warning stripes (e.g., *"Missing CRI irrigation will permanently reduce yield by 20%"*).
+- **AI Insight Board**: Outlines key actions and warning stripes (e.g., _"Missing CRI irrigation will permanently reduce yield by 20%"_).
 - **Active Stress Logs**: Weather anomalies and pathogen alerts index sidebar.
 
 ---
@@ -400,11 +423,11 @@ graph TD
 
 ### What It Contains
 
-| Section | Description |
-|---------|-------------|
-| **Core Identity summary** | Horizontal panel displaying the active farmer's name, base location, pincode, and crop staples with inline edit toggle forms. |
-| **Land Assets repeater** | Responsive 3-column grid repeating all registered agricultural land plots with active crop badges and unallocated space calculations. |
-| **Asset registration modal** | Styled pop-up modal containing farm configurations, coordinates geocoders, and interactive crops sub-forms. |
+| Section                      | Description                                                                                                                           |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Core Identity summary**    | Horizontal panel displaying the active farmer's name, base location, pincode, and crop staples with inline edit toggle forms.         |
+| **Land Assets repeater**     | Responsive 3-column grid repeating all registered agricultural land plots with active crop badges and unallocated space calculations. |
+| **Asset registration modal** | Styled pop-up modal containing farm configurations, coordinates geocoders, and interactive crops sub-forms.                           |
 
 ### How It Works
 
@@ -424,7 +447,7 @@ All routes are declared in `App.jsx`, utilizing standard React Router syntax and
 graph LR
     A["/ "] --> B["Home Page"]
     A --> C["/:moduleId"]
-    C --> D["/:moduleId/"] 
+    C --> D["/:moduleId/"]
     C --> E["/:moduleId/:subPath"]
     D --> F["Overview Dashboard Component"]
     E --> G["DashboardSwitcher → Sub-page Component"]
@@ -434,15 +457,15 @@ graph LR
 
 The entire platform implements a desaturated green brand style sheet to convey security, trust, and premium agronomical excellence:
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| **Primary Darkest** | `#132a13` | Title headers, rank #1 badges, emphasis labels. |
-| **Primary Dark** | `#31572c` | Interactive buttons, active links, primary hover states. |
-| **Primary Mid** | `#4f772d` | Dynamic progress fills, secondary borders, icon accents. |
-| **Primary Light** | `#90a955` | De-emphasized indicators, inactive icons, progress backgrounds. |
-| **Accent Lime** | `#ecf39e` | Best crop recommendations, notification dots, highlight tags. |
-| **Canvas** | `#f4f7f4` | Outer page container backgrounds. |
-| **Card Surface** | `#ffffff` | Elevated dashboard grids and HUD sub-cards. |
+| Token               | Value     | Usage                                                           |
+| ------------------- | --------- | --------------------------------------------------------------- |
+| **Primary Darkest** | `#132a13` | Title headers, rank #1 badges, emphasis labels.                 |
+| **Primary Dark**    | `#31572c` | Interactive buttons, active links, primary hover states.        |
+| **Primary Mid**     | `#4f772d` | Dynamic progress fills, secondary borders, icon accents.        |
+| **Primary Light**   | `#90a955` | De-emphasized indicators, inactive icons, progress backgrounds. |
+| **Accent Lime**     | `#ecf39e` | Best crop recommendations, notification dots, highlight tags.   |
+| **Canvas**          | `#f4f7f4` | Outer page container backgrounds.                               |
+| **Card Surface**    | `#ffffff` | Elevated dashboard grids and HUD sub-cards.                     |
 
 ---
 

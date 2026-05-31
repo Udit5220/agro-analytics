@@ -23,6 +23,7 @@ import RegionHeatmap from "./pages/disease-detection/RegionHeatmap";
 import TreatmentAdvisor from "./pages/disease-detection/TreatmentAdvisor";
 import CropLifecycle from "./pages/disease-detection/CropLifecycle";
 import HistoricalOutbreaks from "./pages/disease-detection/HistoricalOutbreaks";
+import LeafScanner from "./pages/disease-detection/LeafScanner";
 import MarketIntelligenceDashboard from "./pages/market-intelligence/MarketIntelligenceDashboard";
 import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoirDashboard";
 import GovSchemesDashboard from "./pages/gov-schemes/GovSchemesDashboard";
@@ -113,6 +114,9 @@ function DashboardSwitcher() {
 
   // Disease Detection module — sub-page routing
   if (moduleId === "disease-detection") {
+    if (subPath === "leaf-scanner") {
+      return <LeafScanner />;
+    }
     if (subPath === "risk-prediction") {
       return <RiskPredictionEngine />;
     }

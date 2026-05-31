@@ -91,6 +91,7 @@ export default function AiAssistant() {
       Respond strictly in a clean paragraph format, avoiding bullet points or markdown code blocks. Selected language preference: ${selectedLang}.`;
 
       const responseText = await generateContent(trimmed, {
+        model: "gemini-3.1-flash-lite",
         temperature: 0.45,
         maxOutputTokens: 500,
         system_instruction: systemPrompt

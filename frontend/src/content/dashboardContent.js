@@ -25,13 +25,14 @@ export const dashboardContent = {
       },
       { label: "Yield & ROI", path: "yield-roi", icon: "CircleDollarSign" },
       { label: "Multi-crop Compare", path: "crop-compare", icon: "Columns" },
-      { label: "Pest & Disease Risk", path: "pest-risk", icon: "ShieldAlert" },
+      // { label: "Pest & Disease Risk", path: "pest-risk", icon: "ShieldAlert" },
       // { label: "Market Demand", path: "market-demand", icon: "TrendingUp" },
       { label: "Farm Journal", path: "farm-journal", icon: "BookOpen" },
       // { label: 'Settings', path: 'settings', icon: 'Settings' }
     ],
     "disease-detection": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "AI Leaf Scanner", path: "leaf-scanner", icon: "Camera" },
       {
         label: "Risk Prediction Engine",
         path: "risk-prediction",
@@ -39,8 +40,8 @@ export const dashboardContent = {
       },
       { label: "Region Heatmap", path: "heatmap", icon: "Map" },
       // { label: "Alert Management", path: "alerts", icon: "Bell" },
-      { label: "Treatment Advisor", path: "treatment", icon: "ShieldPlus" },
-      { label: "Crop Lifecycle", path: "lifecycle", icon: "Sprout" },
+      // { label: "Treatment Advisor", path: "treatment", icon: "ShieldPlus" },
+      // { label: "Crop Lifecycle", path: "lifecycle", icon: "Sprout" },
       { label: "Outbreak History", path: "history", icon: "History" },
     ],
     "ai-suggestion": [
