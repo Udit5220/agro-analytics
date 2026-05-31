@@ -14,7 +14,8 @@
  */
 
 import express from 'express';
-import * as c from '../controllers/commodity.controller.js';
+import * as c  from '../controllers/commodity.controller.js';
+import * as ca from '../controllers/commodity.analytics.controller.js';
 
 const router = express.Router();
 
@@ -47,5 +48,13 @@ router.get('/gl/oil-seeds/masters',        c.proxyOilSeedsMasters);
 router.post('/gl/oil-seeds/continuous',    c.proxyOilSeedsContinuous);
 router.post('/gl/oil-seeds/seasonal',      c.proxyOilSeedsSeasonal);
 router.post('/gl/sugar/continuous',        c.proxySugarContinuous);
+
+// ─── Commodity Analytics (real Greenleaf DB collections) ─────────────────────
+// These use greenleaf-dev.commodityvalues + commodityfutures as primary sources
+router.get('/commodity-meta',        ca.getCommodityMeta);
+router.get('/commodity-compare',     ca.getCommodityCompare);
+router.get('/commodity-futures',     ca.getCommodityFutures);
+router.get('/commodity-seasonality', ca.getCommoditySeasonality);
+router.get('/mandi-spread',          ca.getMandiSpread);
 
 export default router;

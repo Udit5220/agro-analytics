@@ -49,6 +49,7 @@ export const dashboardContent = {
       { label: "Market Dashboard", path: "", icon: "LayoutDashboard" },
       { label: "Live Mandi Prices", path: "live-prices", icon: "TrendingUp" },
       { label: "Price Trends", path: "price-trends", icon: "LineChart" },
+      { label: "Multi-Crop Compare", path: "commodity-compare", icon: "GitCompare" },
       { label: "Nearby Markets", path: "nearby-markets", icon: "MapPin" },
       { label: "My Watchlist", path: "watchlist", icon: "Bookmark" },
       { label: "Price Alerts", path: "price-alerts", icon: "Bell" },

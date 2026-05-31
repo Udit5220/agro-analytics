@@ -25,6 +25,8 @@ import PriceTrends from './pages/market-intelligence/PriceTrends';
 import NearbyMarkets from './pages/market-intelligence/NearbyMarkets';
 import MyWatchlist from './pages/market-intelligence/MyWatchlist';
 import PriceAlerts from './pages/market-intelligence/PriceAlerts';
+import CommodityCompare from './pages/market-intelligence/CommodityCompare';
+import CommodityDetail from './pages/market-intelligence/CommodityDetail';
 
 // ─── Weather & Reservoir Intelligence Pages ───────────────────────────────────
 import WeatherDashboard from './pages/weather-reservoir/WeatherDashboard';
@@ -83,6 +85,8 @@ function DashboardSwitcher() {
     if (subPath === 'nearby-markets') return <NearbyMarkets />;
     if (subPath === 'watchlist') return <MyWatchlist />;
     if (subPath === 'price-alerts') return <PriceAlerts />;
+    if (subPath === 'commodity-compare') return <CommodityCompare />;
+    if (subPath?.startsWith('commodity/')) return <CommodityDetail />;
     return <MarketDashboard />;
   }
 

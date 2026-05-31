@@ -13,9 +13,9 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
   const currentMenu = sidebarMenus[activeModuleKey];
 
   return (
-    <aside className="w-60 bg-[#132a13] border-r border-[#132a13]/25 flex flex-col justify-between shrink-0 select-none h-full p-3 text-white">
+    <aside className="w-60 bg-[#132a13] border-r border-[#132a13]/25 flex flex-col justify-between shrink-0 h-full min-h-0 p-3 text-white overflow-hidden">
       
-      <div>
+      <div className="flex flex-col min-h-0 flex-1">
         {/* Top Header & Collapsible Close Button */}
         <div className="flex items-center justify-between pb-3 border-b border-white/10">
           <div className="flex items-center space-x-2">
@@ -31,8 +31,8 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
           </button>
         </div>
 
-        {/* Dynamic Nav List (Compact & Clean spacing) */}
-        <nav className="space-y-0.5 mt-3 overflow-y-auto max-h-[calc(100vh-220px)] scroll-thin">
+        {/* Dynamic Nav List */}
+        <nav className="space-y-0.5 mt-3 flex-1 overflow-y-auto overscroll-contain pr-0.5">
           {currentMenu.map((item, idx) => {
             const IconComponent = LucideIcons[item.icon] || LucideIcons.HelpCircle;
             // Build the absolute routing link to avoid subpath mismatch errors and trailing slash issues

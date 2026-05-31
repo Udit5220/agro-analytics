@@ -51,6 +51,29 @@ export const commodityApi = {
   updatePriceAlert: (id, data)    => request(`/price-alerts/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
 };
 
+// ─── Analytics APIs (Greenleaf DB collections — real data) ───────────────────
+// Uses greenleaf-dev.commodityvalues, commodityfutures, commodities collections
+export const analyticsApi = {
+  // Full commodity list with capability flags (hasTrend, hasFutures, hasMandiSpread)
+  getMeta:      (params = {}) => request(`/commodity-meta?${qs(params)}`),
+
+  // Parallel price trend comparison for 2–5 crops (normalized to index 100)
+  compare:      (commodities, days = 30) =>
+                  request(`/commodity-compare?commodities=${encodeURIComponent(commodities)}&days=${days}`),
+
+  // Latest futures contracts for a commodity (OHLCV per expiry month)
+  getFutures:   (commodity, portal = 'all') =>
+                  request(`/commodity-futures?commodity=${encodeURIComponent(commodity)}&portal=${portal}`),
+
+  // Month-wise price seasonality (derived from real historical records)
+  getSeasonality: (commodity) =>
+                  request(`/commodity-seasonality?commodity=${encodeURIComponent(commodity)}`),
+
+  // Mandi-wise price spread (agroindia seeded data — multi-mandi comparison)
+  getMandiSpread: (commodity) =>
+                  request(`/mandi-spread?commodity=${encodeURIComponent(commodity)}`),
+};
+
 // ─── Greenleaf Proxy APIs (/api/gl/*) ─────────────────────────────────────────
 // Use these for charts that need raw Greenleaf data (grains, oil seeds, sugar).
 export const greenleafApi = {
@@ -113,4 +136,4 @@ export const marketplaceApi = {
   createInvoice: (data) => request('/marketplace/invoices', { method: 'POST', body: JSON.stringify(data) }),
 };
 
-export default { commodityApi, greenleafApi, weatherApi, marketplaceApi };
+export default { commodityApi, analyticsApi, greenleafApi, weatherApi, marketplaceApi };
