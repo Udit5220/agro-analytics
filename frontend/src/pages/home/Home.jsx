@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as LucideIcons from "lucide-react";
 import { uiConfig } from "../../utils/uiConfig";
 import { homeContent } from "../../content/homeContent";
@@ -67,6 +68,7 @@ const moduleImages = {
 };
 
 export default function Home() {
+  const navigate = useNavigate();
   const { hero, metrics, aiTools, platformFlow } = homeContent;
 
   return (
@@ -111,13 +113,20 @@ export default function Home() {
           {/* Call to Actions */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-10">
             <button
-              className={`${uiConfig.styles.buttonAccent} w-full sm:w-auto flex items-center justify-center space-x-2`}
+              type="button"
+              onClick={() => navigate('/module/crop-recommendation')}
+              className={`${uiConfig.styles.buttonAccent} w-full sm:w-auto flex items-center justify-center space-x-2 cursor-pointer`}
             >
               <span>{hero.ctaPrimary}</span>
               <LucideIcons.ArrowRight className="h-4 w-4" />
             </button>
             <button
-              className={`${uiConfig.styles.buttonOutline} w-full sm:w-auto flex items-center justify-center space-x-2`}
+              type="button"
+              onClick={() => {
+                const el = document.getElementById('platform');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className={`${uiConfig.styles.buttonOutline} w-full sm:w-auto flex items-center justify-center space-x-2 cursor-pointer`}
             >
               <LucideIcons.Play className="h-4 w-4 fill-white" />
               <span>{hero.ctaSecondary}</span>

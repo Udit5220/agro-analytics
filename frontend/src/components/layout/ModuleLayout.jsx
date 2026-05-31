@@ -25,8 +25,8 @@ export default function ModuleLayout() {
         setIsProfileOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   // Sync dark mode toggle
@@ -48,22 +48,22 @@ export default function ModuleLayout() {
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-[#f4f7f4] text-[#132a13] antialiased font-sans">
       
-      {/* 1. TOP STICKY HEADER — Premium Primary Darkest Green Canvas */}
-      <header className="h-16 bg-[#132a13] border-b border-[#31572c]/20 z-30 flex items-center justify-between px-6 shrink-0 shadow-md">
+      {/* 1. TOP STICKY HEADER — Premium AgroIndia Dark Forest Green Canvas */}
+      <header className="bg-[#132a13] border-b border-[#31572c]/40 sticky top-0 z-40 shadow-sm h-16 px-6 flex items-center justify-between shrink-0">
         
         {/* Left: Branding Logo */}
         <Link to="/" className="flex items-center space-x-2.5 group">
-          <div className="p-2 bg-white/10 rounded-xl border border-white/15 group-hover:scale-110 transition-transform duration-300">
+          <div className="p-2 bg-[#4f772d]/30 rounded-xl border border-[#90a955]/20 group-hover:scale-110 transition-transform duration-300">
             <Sprout className="h-6 w-6 text-[#ecf39e]" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white">
+          <span className="text-white font-black text-lg flex items-center gap-2">
             AgroIndia<span className="text-[#ecf39e] font-extrabold">.</span>
           </span>
         </Link>
 
-        {/* Center: Module Title */}
-        <div className="hidden sm:flex items-center space-x-2 text-xs font-bold">
-          <span className="bg-white/10 border border-white/15 text-[#ecf39e] px-2.5 py-0.5 rounded-full uppercase tracking-wider text-[10px] font-bold">
+        {/* Center: Module Title (Absolute horizontal center alignment) */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block z-50">
+          <span className="bg-[#4f772d]/30 text-[#ecf39e] border border-[#90a955]/20 font-bold uppercase tracking-widest text-[9px] px-3 py-1.5 rounded-lg">
             {moduleId ? moduleId.replace('-', ' ') : 'Agri AI'}
           </span>
         </div>
@@ -75,11 +75,11 @@ export default function ModuleLayout() {
           <div className="relative">
             <button
               onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs text-slate-200 hover:text-white hover:bg-white/10 transition-all duration-200"
+              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs text-gray-200 hover:text-white hover:bg-[#4f772d]/30 transition-all duration-200"
             >
-              <Globe className="h-3.5 w-3.5" />
+              <Globe className="h-3.5 w-3.5 text-gray-300" />
               <span className="font-semibold">{selectedLang}</span>
-              <ChevronDown className="h-3 w-3" />
+              <ChevronDown className="h-3 w-3 text-gray-300" />
             </button>
 
             {langDropdownOpen && (
@@ -88,7 +88,7 @@ export default function ModuleLayout() {
                   <button
                     key={lang}
                     onClick={() => handleLangSelect(lang)}
-                    className="w-full text-left px-4 py-2 text-xs font-semibold hover:bg-brand-accent/10 hover:text-brand-dark transition-colors duration-150"
+                    className="w-full text-left px-4 py-2 text-xs font-semibold hover:bg-[#31572c]/10 hover:text-[#132a13] transition-colors duration-150"
                   >
                     {lang}
                   </button>
@@ -100,13 +100,13 @@ export default function ModuleLayout() {
           {/* Theme Toggle */}
           <button
             onClick={toggleDarkMode}
-            className="p-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-all duration-200"
+            className="p-2 rounded-lg text-gray-350 hover:text-white hover:bg-[#4f772d]/30 transition-all duration-200"
             title="Toggle Light/Dark Mode"
           >
             {darkMode ? (
               <Sun className="h-4.5 w-4.5 text-[#ecf39e]" />
             ) : (
-              <Moon className="h-4.5 w-4.5" />
+              <Moon className="h-4.5 w-4.5 text-gray-300" />
             )}
           </button>
 
@@ -114,9 +114,9 @@ export default function ModuleLayout() {
           <div className="relative">
             <button
               onClick={() => setNotificationCount(0)}
-              className="p-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 relative transition-all duration-200"
+              className="p-2 rounded-lg text-gray-350 hover:text-white hover:bg-[#4f772d]/30 relative transition-all duration-200"
             >
-              <Bell className="h-4.5 w-4.5" />
+              <Bell className="h-4.5 w-4.5 text-gray-300" />
               {notificationCount > 0 && (
                 <span className="absolute top-1 right-1 h-4 w-4 bg-red-500 text-white rounded-full text-[9px] font-extrabold flex items-center justify-center border-2 border-[#132a13]">
                   {notificationCount}
@@ -126,10 +126,11 @@ export default function ModuleLayout() {
           </div>
 
           {/* Avatar with Profile Dropdown */}
-          <div className="flex items-center pl-2 border-l border-white/20 relative" ref={profileRef}>
+          <div className="flex items-center pl-2 border-l border-[#31572c]/40 relative" ref={profileRef}>
             <button
+              type="button"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center font-bold text-[#ecf39e] text-xs hover:scale-105 transition-transform duration-200 shadow-md cursor-pointer"
+              className="h-8 w-8 rounded-full bg-[#4f772d]/30 hover:bg-[#4f772d]/50 border border-[#90a955]/30 flex items-center justify-center font-bold text-[#ecf39e] text-xs hover:scale-105 transition-transform duration-200 shadow-sm cursor-pointer animate-fadeIn"
               title={`${userProfile.name} (${userProfile.hindiRole})`}
             >
               {userProfile.avatar}
@@ -154,26 +155,39 @@ export default function ModuleLayout() {
 
                 {/* Quick Links */}
                 <div className="space-y-0.5">
-                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                  <button
+                    type="button"
+                    onClick={() => { setIsProfileOpen(false); navigate('/module/profile'); }}
+                    className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
+                  >
                     <UserCircle className="h-3.5 w-3.5 text-[#90a955]" />
                     My Profile
                   </button>
-                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                  {/* <button
+                    type="button"
+                    onClick={() => { setIsProfileOpen(false); navigate('/module/profile'); }}
+                    className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
+                  >
                     <Tractor className="h-3.5 w-3.5 text-[#90a955]" />
                     Farm Configurations
                   </button>
-                  <button className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium">
+                  <button
+                    type="button"
+                    onClick={() => { setIsProfileOpen(false); alert("Settings configuration panel is currently in active development for the next phase."); }}
+                    className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
+                  >
                     <Settings className="h-3.5 w-3.5 text-[#90a955]" />
                     Settings
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="border-t border-gray-100 my-2" />
 
                 {/* Logout */}
                 <button
+                  type="button"
                   onClick={() => { setIsProfileOpen(false); navigate('/'); }}
-                  className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs py-2 rounded-lg transition-all duration-200"
+                  className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs py-2 rounded-lg transition-all duration-200 cursor-pointer"
                 >
                   <LogOut className="h-3.5 w-3.5" />
                   Sign Out
@@ -190,7 +204,7 @@ export default function ModuleLayout() {
       <div className="flex flex-1 overflow-hidden relative">
         
         {/* Left Column: Collapsible Sidebar */}
-        <div className={`transition-all duration-300 ease-in-out h-full overflow-hidden shrink-0 ${isSidebarOpen ? 'w-60' : 'w-0'}`}>
+        <div className={`transition-all duration-300 ease-in-out h-full overflow-hidden shrink-0 ${isSidebarOpen ? 'w-56' : 'w-0'}`}>
           <GenericSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         </div>
 
