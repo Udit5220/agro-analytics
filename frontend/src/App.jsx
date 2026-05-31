@@ -18,15 +18,18 @@ import NewsIntelDashboard from './pages/news-intel/NewsIntelDashboard';
 import LearningHubDashboard from './pages/learning-hub/LearningHubDashboard';
 import * as LucideIcons from 'lucide-react';
 
-// ─── Commodity Market Intelligence Pages ─────────────────────────────────────
-import MarketDashboard from './pages/market-intelligence/MarketDashboard';
-import LiveMandiPrices from './pages/market-intelligence/LiveMandiPrices';
-import PriceTrends from './pages/market-intelligence/PriceTrends';
-import NearbyMarkets from './pages/market-intelligence/NearbyMarkets';
-import MyWatchlist from './pages/market-intelligence/MyWatchlist';
-import PriceAlerts from './pages/market-intelligence/PriceAlerts';
-import CommodityCompare from './pages/market-intelligence/CommodityCompare';
-import CommodityDetail from './pages/market-intelligence/CommodityDetail';
+// ─── Commodity Market Intelligence Terminal ──────────────────────────────────
+import CommodityTerminalLayout from './pages/market-intelligence/CommodityTerminalLayout';
+import Overview from './pages/market-intelligence/terminal/Overview';
+import Watchlist from './pages/market-intelligence/terminal/Watchlist';
+import SpotPrices from './pages/market-intelligence/terminal/SpotPrices';
+import FuturesPrices from './pages/market-intelligence/terminal/FuturesPrices';
+import AdvancedCharts from './pages/market-intelligence/terminal/AdvancedCharts';
+import SpreadAnalysis from './pages/market-intelligence/terminal/SpreadAnalysis';
+import MarketSignals from './pages/market-intelligence/terminal/MarketSignals';
+import GlobalTradeImpact from './pages/market-intelligence/terminal/GlobalTradeImpact';
+import AiCommentary from './pages/market-intelligence/terminal/AiCommentary';
+import Alerts from './pages/market-intelligence/terminal/Alerts';
 
 // ─── Weather & Reservoir Intelligence Pages ───────────────────────────────────
 import WeatherDashboard from './pages/weather-reservoir/WeatherDashboard';
@@ -79,16 +82,7 @@ function DashboardSwitcher() {
   if (moduleId === 'ai-suggestion') return <AiSuggestionDashboard />;
 
   // ── Commodity Market Intelligence (NEW) ────────────────────────────────────
-  if (moduleId === 'market-intelligence') {
-    if (subPath === 'live-prices') return <LiveMandiPrices />;
-    if (subPath === 'price-trends') return <PriceTrends />;
-    if (subPath === 'nearby-markets') return <NearbyMarkets />;
-    if (subPath === 'watchlist') return <MyWatchlist />;
-    if (subPath === 'price-alerts') return <PriceAlerts />;
-    if (subPath === 'commodity-compare') return <CommodityCompare />;
-    if (subPath?.startsWith('commodity/')) return <CommodityDetail />;
-    return <MarketDashboard />;
-  }
+  // Handled by specific route in App component
 
   // ── Weather & Reservoir Intelligence (NEW) ─────────────────────────────────
   if (moduleId === 'weather-reservoir') {
@@ -164,6 +158,20 @@ function App() {
       <Routes>
         {/* Main Landing Page */}
         <Route path="/" element={<LandingPage />} />
+
+        {/* Commodity Trading Terminal (Specific Override) */}
+        <Route path="/module/market-intelligence" element={<CommodityTerminalLayout />}>
+          <Route index element={<Overview />} />
+          <Route path="watchlist" element={<Watchlist />} />
+          <Route path="spot" element={<SpotPrices />} />
+          <Route path="futures" element={<FuturesPrices />} />
+          <Route path="charts" element={<AdvancedCharts />} />
+          <Route path="spreads" element={<SpreadAnalysis />} />
+          <Route path="signals" element={<MarketSignals />} />
+          <Route path="trade" element={<GlobalTradeImpact />} />
+          <Route path="ai" element={<AiCommentary />} />
+          <Route path="alerts" element={<Alerts />} />
+        </Route>
 
         {/* Multi-Module Routed Dashboard */}
         <Route path="/module/:moduleId" element={<ModuleLayout />}>

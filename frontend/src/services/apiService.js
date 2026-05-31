@@ -72,6 +72,16 @@ export const analyticsApi = {
   // Mandi-wise price spread (agroindia seeded data — multi-mandi comparison)
   getMandiSpread: (commodity) =>
                   request(`/mandi-spread?commodity=${encodeURIComponent(commodity)}`),
+
+  // ── New Commodity Terminal Endpoints ──
+  getSpreadAnalysis: (commodity) =>
+                  request(`/spread-analysis?commodity=${encodeURIComponent(commodity)}`),
+  getGlobalTradeImpact: (commodity) =>
+                  request(`/commodity/global-trade-impact?commodity=${encodeURIComponent(commodity)}`),
+  getMarketSignals: (commodity) =>
+                  request(`/commodity/market-signals?commodity=${encodeURIComponent(commodity)}`),
+  getAiCommentary: (commodity) =>
+                  request(`/commodity/ai-commentary?commodity=${encodeURIComponent(commodity)}`),
 };
 
 // ─── Greenleaf Proxy APIs (/api/gl/*) ─────────────────────────────────────────
