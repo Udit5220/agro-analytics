@@ -1,0 +1,27 @@
+{
+  "name": "agroindia-backend",
+  "version": "1.0.0",
+  "description": "AgroIndia Platform Backend — Commodity, Weather & Marketplace APIs",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "seed:commodities": "node scripts/seedCommodities.js",
+    "seed:mandi": "node scripts/seedMandiPrices.js",
+    "seed:weather": "node scripts/seedWeather.js",
+    "seed:reservoirs": "node scripts/seedReservoirs.js",
+    "seed:marketplace": "node scripts/seedMarketplace.js",
+    "seed:all": "node scripts/seedCommodities.js && node scripts/seedMandiPrices.js && node scripts/seedWeather.js && node scripts/seedReservoirs.js && node scripts/seedMarketplace.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

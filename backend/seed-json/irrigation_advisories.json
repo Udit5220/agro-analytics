@@ -1,0 +1,97 @@
+[
+  {
+    "locationName": "Indore",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "crop": "Soybean",
+    "irrigationAdvice": "wait",
+    "reason": "Light rain expected in 2 days",
+    "rainExpected": true,
+    "rainProbability": 55,
+    "reservoirStatus": "normal",
+    "canalReleaseStatus": "normal",
+    "soilMoistureLevel": "adequate",
+    "recommendation": "Wait for expected rainfall before irrigating. Monitor soil moisture.",
+    "riskLevel": "low",
+    "validForDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "crop": "Onion",
+    "irrigationAdvice": "avoid",
+    "reason": "Heavy rainfall warning active",
+    "rainExpected": true,
+    "rainProbability": 85,
+    "reservoirStatus": "normal",
+    "canalReleaseStatus": "normal",
+    "soilMoistureLevel": "wet",
+    "recommendation": "Heavy rain expected. Skip irrigation and ensure field drainage.",
+    "riskLevel": "high",
+    "validForDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Jaipur",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "crop": "Mustard",
+    "irrigationAdvice": "irrigate_today",
+    "reason": "Dry spell for 8+ days",
+    "rainExpected": false,
+    "rainProbability": 10,
+    "reservoirStatus": "low",
+    "canalReleaseStatus": "delayed",
+    "soilMoistureLevel": "dry",
+    "recommendation": "Soil is critically dry. Irrigate immediately for crop health.",
+    "riskLevel": "high",
+    "validForDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Nagpur",
+    "district": "Nagpur",
+    "state": "Maharashtra",
+    "crop": "Cotton",
+    "irrigationAdvice": "monitor",
+    "reason": "Adequate moisture for now",
+    "rainExpected": false,
+    "rainProbability": 30,
+    "reservoirStatus": "normal",
+    "canalReleaseStatus": "normal",
+    "soilMoistureLevel": "adequate",
+    "recommendation": "Adequate moisture present. Monitor for next 3 days.",
+    "riskLevel": "low",
+    "validForDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Guntur",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "crop": "Paddy",
+    "irrigationAdvice": "irrigate_today",
+    "reason": "Canal release delayed",
+    "rainExpected": false,
+    "rainProbability": 15,
+    "reservoirStatus": "normal",
+    "canalReleaseStatus": "delayed",
+    "soilMoistureLevel": "dry",
+    "recommendation": "Canal water delayed. Use groundwater source for irrigation today.",
+    "riskLevel": "medium",
+    "validForDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "source": "agroindia-seed"
+  }
+]

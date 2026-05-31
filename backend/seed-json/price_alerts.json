@@ -1,0 +1,35 @@
+[
+  {
+    "userId": "guest",
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "condition": "above",
+    "targetPrice": 2400,
+    "currentPrice": 2350,
+    "status": "active",
+    "message": "Alert when wheat crosses ₹2400/qtl",
+    "source": "agroindia-seed"
+  },
+  {
+    "userId": "guest",
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "condition": "above",
+    "targetPrice": 5000,
+    "currentPrice": 4900,
+    "status": "active",
+    "message": "Alert when soybean crosses ₹5000/qtl",
+    "source": "agroindia-seed"
+  },
+  {
+    "userId": "guest",
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "condition": "below",
+    "targetPrice": 6500,
+    "currentPrice": 6600,
+    "status": "active",
+    "message": "Alert when cotton falls below ₹6500/qtl",
+    "source": "agroindia-seed"
+  }
+]

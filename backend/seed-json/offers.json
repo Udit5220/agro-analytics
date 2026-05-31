@@ -1,0 +1,53 @@
+[
+  {
+    "listingId": { "$oid": "000000000000000000000001" },
+    "buyerId": "guest",
+    "buyerName": "National Food Processors",
+    "sellerId": "guest",
+    "sellerName": "Ramesh Patel",
+    "commodity": "Wheat",
+    "offerPrice": 2279.5,
+    "quantity": 50,
+    "unit": "Quintal",
+    "message": "Interested in buying 50 quintals at ₹2279/qtl. Please confirm availability.",
+    "status": "pending",
+    "counterPrice": 0,
+    "counterMessage": "",
+    "expiresAt": { "$date": "2026-06-03T00:00:00.000Z" },
+    "source": "agroindia-seed"
+  },
+  {
+    "listingId": { "$oid": "000000000000000000000002" },
+    "buyerId": "guest",
+    "buyerName": "Delhi Wholesale Mandi",
+    "sellerId": "guest",
+    "sellerName": "Suresh Kumar",
+    "commodity": "Onion",
+    "offerPrice": 1980,
+    "quantity": 40,
+    "unit": "Quintal",
+    "message": "Can offer ₹1980/qtl for 40 quintals Nasik Red. Ready to pick up from Lasalgaon.",
+    "status": "pending",
+    "counterPrice": 0,
+    "counterMessage": "",
+    "expiresAt": { "$date": "2026-06-03T00:00:00.000Z" },
+    "source": "agroindia-seed"
+  },
+  {
+    "listingId": { "$oid": "000000000000000000000003" },
+    "buyerId": "guest",
+    "buyerName": "Cooking Oil Industries",
+    "sellerId": "guest",
+    "sellerName": "Kisan FPO Indore",
+    "commodity": "Soybean",
+    "offerPrice": 4750,
+    "quantity": 200,
+    "unit": "Quintal",
+    "message": "Need 200 qtl crushing grade soybean. Can pick up from Dewas warehouse.",
+    "status": "accepted",
+    "counterPrice": 0,
+    "counterMessage": "",
+    "expiresAt": { "$date": "2026-06-03T00:00:00.000Z" },
+    "source": "agroindia-seed"
+  }
+]

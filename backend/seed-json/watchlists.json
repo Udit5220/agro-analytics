@@ -1,0 +1,32 @@
+[
+  {
+    "userId": "guest",
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "targetPrice": 2400,
+    "notes": "Track wheat local mandi",
+    "source": "agroindia-seed"
+  },
+  {
+    "userId": "guest",
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "targetPrice": 5000,
+    "notes": "Oilseed watchlist",
+    "source": "agroindia-seed"
+  },
+  {
+    "userId": "guest",
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "targetPrice": 2200,
+    "notes": "Volatile crop watch",
+    "source": "agroindia-seed"
+  }
+]

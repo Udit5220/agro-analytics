@@ -1,0 +1,380 @@
+[
+  {
+    "locationName": "Indore",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "pincode": "",
+    "coordinates": {
+      "lat": 22.7196,
+      "lng": 75.8577
+    },
+    "currentTemp": 34,
+    "minTemp": 28,
+    "maxTemp": 38,
+    "humidity": 62,
+    "windSpeed": 14,
+    "windDirection": "SW",
+    "rainProbability": 30,
+    "expectedRainfall": 1.2,
+    "weatherCondition": "Partly Cloudy",
+    "forecastDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "forecastType": "current",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Good for spraying and sowing",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Indore",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "pincode": "",
+    "coordinates": {
+      "lat": 22.7196,
+      "lng": 75.8577
+    },
+    "currentTemp": 35,
+    "minTemp": 29,
+    "maxTemp": 40,
+    "humidity": 58,
+    "windSpeed": 12,
+    "windDirection": "W",
+    "rainProbability": 15,
+    "expectedRainfall": 0.0,
+    "weatherCondition": "Sunny",
+    "forecastDate": {
+      "$date": "2026-06-01T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Excellent for harvesting and field operations",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Indore",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "pincode": "",
+    "coordinates": {
+      "lat": 22.7196,
+      "lng": 75.8577
+    },
+    "currentTemp": 32,
+    "minTemp": 26,
+    "maxTemp": 36,
+    "humidity": 72,
+    "windSpeed": 18,
+    "windDirection": "S",
+    "rainProbability": 65,
+    "expectedRainfall": 12.5,
+    "weatherCondition": "Light Rain",
+    "forecastDate": {
+      "$date": "2026-06-02T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "medium",
+    "recommendation": "Monitor weather and plan accordingly.",
+    "farmingActivity": "Avoid spraying. Check drainage",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Indore",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "pincode": "",
+    "coordinates": {
+      "lat": 22.7196,
+      "lng": 75.8577
+    },
+    "currentTemp": 30,
+    "minTemp": 24,
+    "maxTemp": 34,
+    "humidity": 80,
+    "windSpeed": 22,
+    "windDirection": "SE",
+    "rainProbability": 80,
+    "expectedRainfall": 28.0,
+    "weatherCondition": "Moderate Rain",
+    "forecastDate": {
+      "$date": "2026-06-03T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "high",
+    "recommendation": "Avoid field operations and harvesting today.",
+    "farmingActivity": "Avoid field operations. Ensure proper drainage",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "pincode": "",
+    "coordinates": {
+      "lat": 19.9975,
+      "lng": 73.7898
+    },
+    "currentTemp": 29,
+    "minTemp": 23,
+    "maxTemp": 33,
+    "humidity": 78,
+    "windSpeed": 16,
+    "windDirection": "NW",
+    "rainProbability": 85,
+    "expectedRainfall": 35.0,
+    "weatherCondition": "Moderate Rain",
+    "forecastDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "forecastType": "current",
+    "riskLevel": "high",
+    "recommendation": "Avoid field operations and harvesting today.",
+    "farmingActivity": "Avoid field operations. Ensure proper drainage",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "pincode": "",
+    "coordinates": {
+      "lat": 19.9975,
+      "lng": 73.7898
+    },
+    "currentTemp": 27,
+    "minTemp": 22,
+    "maxTemp": 31,
+    "humidity": 82,
+    "windSpeed": 20,
+    "windDirection": "NW",
+    "rainProbability": 75,
+    "expectedRainfall": 22.0,
+    "weatherCondition": "Light Rain",
+    "forecastDate": {
+      "$date": "2026-06-01T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "medium",
+    "recommendation": "Monitor weather and plan accordingly.",
+    "farmingActivity": "Avoid spraying. Check drainage",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "pincode": "",
+    "coordinates": {
+      "lat": 19.9975,
+      "lng": 73.7898
+    },
+    "currentTemp": 31,
+    "minTemp": 25,
+    "maxTemp": 35,
+    "humidity": 65,
+    "windSpeed": 12,
+    "windDirection": "W",
+    "rainProbability": 25,
+    "expectedRainfall": 0.8,
+    "weatherCondition": "Partly Cloudy",
+    "forecastDate": {
+      "$date": "2026-06-02T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Good for spraying and sowing",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Jaipur",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "pincode": "",
+    "coordinates": {
+      "lat": 26.9124,
+      "lng": 75.7873
+    },
+    "currentTemp": 42,
+    "minTemp": 35,
+    "maxTemp": 46,
+    "humidity": 22,
+    "windSpeed": 8,
+    "windDirection": "NE",
+    "rainProbability": 5,
+    "expectedRainfall": 0.0,
+    "weatherCondition": "Sunny",
+    "forecastDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "forecastType": "current",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Excellent for harvesting and field operations",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Jaipur",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "pincode": "",
+    "coordinates": {
+      "lat": 26.9124,
+      "lng": 75.7873
+    },
+    "currentTemp": 43,
+    "minTemp": 36,
+    "maxTemp": 47,
+    "humidity": 18,
+    "windSpeed": 10,
+    "windDirection": "N",
+    "rainProbability": 8,
+    "expectedRainfall": 0.0,
+    "weatherCondition": "Clear",
+    "forecastDate": {
+      "$date": "2026-06-01T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Ideal for all farm activities",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Jaipur",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "pincode": "",
+    "coordinates": {
+      "lat": 26.9124,
+      "lng": 75.7873
+    },
+    "currentTemp": 41,
+    "minTemp": 34,
+    "maxTemp": 45,
+    "humidity": 25,
+    "windSpeed": 14,
+    "windDirection": "NE",
+    "rainProbability": 10,
+    "expectedRainfall": 0.0,
+    "weatherCondition": "Hazy",
+    "forecastDate": {
+      "$date": "2026-06-02T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Moderate visibility — take care during transportation",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Nagpur",
+    "district": "Nagpur",
+    "state": "Maharashtra",
+    "pincode": "",
+    "coordinates": {
+      "lat": 21.1458,
+      "lng": 79.0882
+    },
+    "currentTemp": 37,
+    "minTemp": 30,
+    "maxTemp": 41,
+    "humidity": 55,
+    "windSpeed": 16,
+    "windDirection": "SW",
+    "rainProbability": 35,
+    "expectedRainfall": 3.2,
+    "weatherCondition": "Partly Cloudy",
+    "forecastDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "forecastType": "current",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Good for spraying and sowing",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Nagpur",
+    "district": "Nagpur",
+    "state": "Maharashtra",
+    "pincode": "",
+    "coordinates": {
+      "lat": 21.1458,
+      "lng": 79.0882
+    },
+    "currentTemp": 36,
+    "minTemp": 29,
+    "maxTemp": 40,
+    "humidity": 60,
+    "windSpeed": 18,
+    "windDirection": "S",
+    "rainProbability": 45,
+    "expectedRainfall": 6.8,
+    "weatherCondition": "Cloudy",
+    "forecastDate": {
+      "$date": "2026-06-01T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "medium",
+    "recommendation": "Monitor weather and plan accordingly.",
+    "farmingActivity": "Monitor closely — rain may follow",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Guntur",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "pincode": "",
+    "coordinates": {
+      "lat": 16.3067,
+      "lng": 80.4365
+    },
+    "currentTemp": 36,
+    "minTemp": 29,
+    "maxTemp": 40,
+    "humidity": 68,
+    "windSpeed": 12,
+    "windDirection": "SE",
+    "rainProbability": 20,
+    "expectedRainfall": 1.0,
+    "weatherCondition": "Partly Cloudy",
+    "forecastDate": {
+      "$date": "2026-05-31T00:00:00.000Z"
+    },
+    "forecastType": "current",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Good for spraying and sowing",
+    "source": "agroindia-seed"
+  },
+  {
+    "locationName": "Guntur",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "pincode": "",
+    "coordinates": {
+      "lat": 16.3067,
+      "lng": 80.4365
+    },
+    "currentTemp": 35,
+    "minTemp": 28,
+    "maxTemp": 39,
+    "humidity": 72,
+    "windSpeed": 14,
+    "windDirection": "E",
+    "rainProbability": 40,
+    "expectedRainfall": 5.5,
+    "weatherCondition": "Cloudy",
+    "forecastDate": {
+      "$date": "2026-06-01T00:00:00.000Z"
+    },
+    "forecastType": "daily",
+    "riskLevel": "low",
+    "recommendation": "Good conditions for farming activities.",
+    "farmingActivity": "Monitor closely — rain may follow",
+    "source": "agroindia-seed"
+  }
+]

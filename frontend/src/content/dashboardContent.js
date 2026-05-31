@@ -46,41 +46,31 @@ export const dashboardContent = {
       { label: "Climate Alerts", path: "climate", icon: "CloudLightning" }
     ],
     "market-intelligence": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Price Tracker", path: "tracker", icon: "TrendingUp" },
-      { label: "Mandi Comparison", path: "compare", icon: "Columns" },
-      { label: "Price Projections", path: "forecast", icon: "LineChart" },
-      { label: "Volume Analytics", path: "volume", icon: "BarChart" }
+      { label: "Market Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "Live Mandi Prices", path: "live-prices", icon: "TrendingUp" },
+      { label: "Price Trends", path: "price-trends", icon: "LineChart" },
+      { label: "Nearby Markets", path: "nearby-markets", icon: "MapPin" },
+      { label: "My Watchlist", path: "watchlist", icon: "Bookmark" },
+      { label: "Price Alerts", path: "price-alerts", icon: "Bell" },
     ],
     "weather-reservoir": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Weather Radar", path: "radar", icon: "CloudSun" },
-      { label: "Reservoir Monitor", path: "reservoirs", icon: "Activity" },
-      { label: "Soil Moisture Tracker", path: "moisture", icon: "Droplets" }
-    ],
-    "gov-schemes": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Scheme Matcher", path: "matching", icon: "FileText" },
-      { label: "Subsidy Tracker", path: "subsidies", icon: "TrendingUp" },
-      { label: "Application Center", path: "applications", icon: "Folder" }
-    ],
-    "research-ai": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Document RAG Engine", path: "rag", icon: "FileText" },
-      { label: "Pathology Search", path: "pathology", icon: "Search" },
-      { label: "Translation Center", path: "translate", icon: "Globe" }
-    ],
-    "news-intel": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Mandi News Feed", path: "mandi", icon: "Newspaper" },
-      { label: "Policy Updates", path: "policies", icon: "FileText" },
-      { label: "Market Impact Ratings", path: "impact", icon: "Activity" }
+      { label: "Weather Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "7-Day Forecast", path: "forecast", icon: "CalendarDays" },
+      { label: "Rainfall Forecast", path: "rainfall", icon: "CloudRain" },
+      { label: "Radar & Maps", path: "radar", icon: "Radar" },
+      { label: "Reservoir Levels", path: "reservoirs", icon: "Waves" },
+      { label: "Irrigation Advisory", path: "irrigation", icon: "Droplets" },
+      { label: "Weather Alerts", path: "weather-alerts", icon: "AlertTriangle" },
     ],
     "marketplace": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Produce Trading", path: "produce", icon: "Store" },
-      { label: "Input Purchases", path: "inputs", icon: "ShoppingBag" },
-      { label: "Logistics Tracker", path: "logistics", icon: "Tractor" }
+      { label: "Marketplace Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "Browse Listings", path: "listings", icon: "Store" },
+      { label: "Sell Produce", path: "sell", icon: "Plus" },
+      { label: "Buyer Requirements", path: "buyer-requirements", icon: "ClipboardList" },
+      { label: "Buy Inputs", path: "buy-inputs", icon: "ShoppingBag" },
+      { label: "My Listings", path: "my-listings", icon: "Package" },
+      { label: "My Orders", path: "orders", icon: "Truck" },
+      { label: "Payments & Invoices", path: "invoices", icon: "Receipt" },
     ],
     "learning-hub": [
       { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },

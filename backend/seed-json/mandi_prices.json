@@ -1,0 +1,1702 @@
+[
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2294,
+    "minPrice": 2202,
+    "maxPrice": 2386,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.05,
+    "arrivalVolume": 1200,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 4782,
+    "minPrice": 4591,
+    "maxPrice": 4973,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.45,
+    "arrivalVolume": 900,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6442,
+    "minPrice": 6184,
+    "maxPrice": 6700,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -3.25,
+    "arrivalVolume": 420,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2050,
+    "minPrice": 1968,
+    "maxPrice": 2132,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.75,
+    "arrivalVolume": 1500,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2128,
+    "minPrice": 2043,
+    "maxPrice": 2213,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 0.45,
+    "arrivalVolume": 650,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5173,
+    "minPrice": 4966,
+    "maxPrice": 5380,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.85,
+    "arrivalVolume": 540,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 14445,
+    "minPrice": 13867,
+    "maxPrice": 15023,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.75,
+    "arrivalVolume": 170,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 5954,
+    "minPrice": 5716,
+    "maxPrice": 6192,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.55,
+    "arrivalVolume": 380,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2050,
+    "minPrice": 1968,
+    "maxPrice": 2132,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.15,
+    "arrivalVolume": 780,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5758,
+    "minPrice": 5528,
+    "maxPrice": 5988,
+    "priceDate": {
+      "$date": "2026-05-31T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.45,
+    "arrivalVolume": 430,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2308,
+    "minPrice": 2216,
+    "maxPrice": 2400,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.4,
+    "arrivalVolume": 1211,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 4812,
+    "minPrice": 4620,
+    "maxPrice": 5004,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.8,
+    "arrivalVolume": 911,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6481,
+    "minPrice": 6222,
+    "maxPrice": 6740,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -2.9,
+    "arrivalVolume": 431,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2062,
+    "minPrice": 1980,
+    "maxPrice": 2144,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.1,
+    "arrivalVolume": 1511,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2141,
+    "minPrice": 2055,
+    "maxPrice": 2227,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 0.8,
+    "arrivalVolume": 661,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5205,
+    "minPrice": 4997,
+    "maxPrice": 5413,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.2,
+    "arrivalVolume": 551,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 14534,
+    "minPrice": 13953,
+    "maxPrice": 15115,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.1,
+    "arrivalVolume": 181,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 5990,
+    "minPrice": 5750,
+    "maxPrice": 6230,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.9,
+    "arrivalVolume": 391,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2062,
+    "minPrice": 1980,
+    "maxPrice": 2144,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.8,
+    "arrivalVolume": 791,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5794,
+    "minPrice": 5562,
+    "maxPrice": 6026,
+    "priceDate": {
+      "$date": "2026-05-30T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.1,
+    "arrivalVolume": 441,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2322,
+    "minPrice": 2229,
+    "maxPrice": 2415,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.75,
+    "arrivalVolume": 1222,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 4841,
+    "minPrice": 4647,
+    "maxPrice": 5035,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.15,
+    "arrivalVolume": 922,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6521,
+    "minPrice": 6260,
+    "maxPrice": 6782,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -2.55,
+    "arrivalVolume": 442,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2075,
+    "minPrice": 1992,
+    "maxPrice": 2158,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.45,
+    "arrivalVolume": 1522,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2154,
+    "minPrice": 2068,
+    "maxPrice": 2240,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.15,
+    "arrivalVolume": 672,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5236,
+    "minPrice": 5027,
+    "maxPrice": 5445,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.55,
+    "arrivalVolume": 562,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 14622,
+    "minPrice": 14037,
+    "maxPrice": 15207,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.45,
+    "arrivalVolume": 192,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 6027,
+    "minPrice": 5786,
+    "maxPrice": 6268,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.25,
+    "arrivalVolume": 402,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2075,
+    "minPrice": 1992,
+    "maxPrice": 2158,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.45,
+    "arrivalVolume": 802,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5829,
+    "minPrice": 5596,
+    "maxPrice": 6062,
+    "priceDate": {
+      "$date": "2026-05-29T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.75,
+    "arrivalVolume": 452,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2336,
+    "minPrice": 2243,
+    "maxPrice": 2429,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.05,
+    "arrivalVolume": 1233,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 4871,
+    "minPrice": 4676,
+    "maxPrice": 5066,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.45,
+    "arrivalVolume": 933,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6560,
+    "minPrice": 6298,
+    "maxPrice": 6822,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -3.25,
+    "arrivalVolume": 453,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2087,
+    "minPrice": 2004,
+    "maxPrice": 2170,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.75,
+    "arrivalVolume": 1533,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2167,
+    "minPrice": 2080,
+    "maxPrice": 2254,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 0.45,
+    "arrivalVolume": 683,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5268,
+    "minPrice": 5057,
+    "maxPrice": 5479,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.85,
+    "arrivalVolume": 573,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 14711,
+    "minPrice": 14123,
+    "maxPrice": 15299,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.75,
+    "arrivalVolume": 203,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 6063,
+    "minPrice": 5820,
+    "maxPrice": 6306,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.55,
+    "arrivalVolume": 413,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2087,
+    "minPrice": 2004,
+    "maxPrice": 2170,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.15,
+    "arrivalVolume": 813,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5865,
+    "minPrice": 5630,
+    "maxPrice": 6100,
+    "priceDate": {
+      "$date": "2026-05-28T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.45,
+    "arrivalVolume": 463,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2350,
+    "minPrice": 2256,
+    "maxPrice": 2444,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.4,
+    "arrivalVolume": 1244,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 4900,
+    "minPrice": 4704,
+    "maxPrice": 5096,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.8,
+    "arrivalVolume": 944,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6600,
+    "minPrice": 6336,
+    "maxPrice": 6864,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -2.9,
+    "arrivalVolume": 464,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2100,
+    "minPrice": 2016,
+    "maxPrice": 2184,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.1,
+    "arrivalVolume": 1544,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2180,
+    "minPrice": 2093,
+    "maxPrice": 2267,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 0.8,
+    "arrivalVolume": 694,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5300,
+    "minPrice": 5088,
+    "maxPrice": 5512,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.2,
+    "arrivalVolume": 584,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 14800,
+    "minPrice": 14208,
+    "maxPrice": 15392,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.1,
+    "arrivalVolume": 214,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 6100,
+    "minPrice": 5856,
+    "maxPrice": 6344,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.9,
+    "arrivalVolume": 424,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2100,
+    "minPrice": 2016,
+    "maxPrice": 2184,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.8,
+    "arrivalVolume": 824,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5900,
+    "minPrice": 5664,
+    "maxPrice": 6136,
+    "priceDate": {
+      "$date": "2026-05-27T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.1,
+    "arrivalVolume": 474,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2364,
+    "minPrice": 2269,
+    "maxPrice": 2459,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.75,
+    "arrivalVolume": 1255,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 4929,
+    "minPrice": 4732,
+    "maxPrice": 5126,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.15,
+    "arrivalVolume": 955,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6640,
+    "minPrice": 6374,
+    "maxPrice": 6906,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -2.55,
+    "arrivalVolume": 475,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2113,
+    "minPrice": 2028,
+    "maxPrice": 2198,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.45,
+    "arrivalVolume": 1555,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2193,
+    "minPrice": 2105,
+    "maxPrice": 2281,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.15,
+    "arrivalVolume": 705,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5332,
+    "minPrice": 5119,
+    "maxPrice": 5545,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.55,
+    "arrivalVolume": 595,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 14889,
+    "minPrice": 14293,
+    "maxPrice": 15485,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.45,
+    "arrivalVolume": 225,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 6137,
+    "minPrice": 5892,
+    "maxPrice": 6382,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.25,
+    "arrivalVolume": 435,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2113,
+    "minPrice": 2028,
+    "maxPrice": 2198,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.45,
+    "arrivalVolume": 835,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5935,
+    "minPrice": 5698,
+    "maxPrice": 6172,
+    "priceDate": {
+      "$date": "2026-05-26T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.75,
+    "arrivalVolume": 485,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2378,
+    "minPrice": 2283,
+    "maxPrice": 2473,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.05,
+    "arrivalVolume": 1266,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 4959,
+    "minPrice": 4761,
+    "maxPrice": 5157,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.45,
+    "arrivalVolume": 966,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6679,
+    "minPrice": 6412,
+    "maxPrice": 6946,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -3.25,
+    "arrivalVolume": 486,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2125,
+    "minPrice": 2040,
+    "maxPrice": 2210,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.75,
+    "arrivalVolume": 1566,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2206,
+    "minPrice": 2118,
+    "maxPrice": 2294,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 0.45,
+    "arrivalVolume": 716,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5364,
+    "minPrice": 5149,
+    "maxPrice": 5579,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.85,
+    "arrivalVolume": 606,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 14978,
+    "minPrice": 14379,
+    "maxPrice": 15577,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.75,
+    "arrivalVolume": 236,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 6173,
+    "minPrice": 5926,
+    "maxPrice": 6420,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.55,
+    "arrivalVolume": 446,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2125,
+    "minPrice": 2040,
+    "maxPrice": 2210,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.15,
+    "arrivalVolume": 846,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5971,
+    "minPrice": 5732,
+    "maxPrice": 6210,
+    "priceDate": {
+      "$date": "2026-05-25T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.45,
+    "arrivalVolume": 496,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2392,
+    "minPrice": 2296,
+    "maxPrice": 2488,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.4,
+    "arrivalVolume": 1277,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 4988,
+    "minPrice": 4788,
+    "maxPrice": 5188,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.8,
+    "arrivalVolume": 977,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6719,
+    "minPrice": 6450,
+    "maxPrice": 6988,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -2.9,
+    "arrivalVolume": 497,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2138,
+    "minPrice": 2052,
+    "maxPrice": 2224,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.1,
+    "arrivalVolume": 1577,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2219,
+    "minPrice": 2130,
+    "maxPrice": 2308,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 0.8,
+    "arrivalVolume": 727,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5395,
+    "minPrice": 5179,
+    "maxPrice": 5611,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.2,
+    "arrivalVolume": 617,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 15066,
+    "minPrice": 14463,
+    "maxPrice": 15669,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.1,
+    "arrivalVolume": 247,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 6210,
+    "minPrice": 5962,
+    "maxPrice": 6458,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.9,
+    "arrivalVolume": 457,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2138,
+    "minPrice": 2052,
+    "maxPrice": 2224,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.8,
+    "arrivalVolume": 857,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 6006,
+    "minPrice": 5766,
+    "maxPrice": 6246,
+    "priceDate": {
+      "$date": "2026-05-24T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.1,
+    "arrivalVolume": 507,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2406,
+    "minPrice": 2310,
+    "maxPrice": 2502,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.75,
+    "arrivalVolume": 1288,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5018,
+    "minPrice": 4817,
+    "maxPrice": 5219,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.15,
+    "arrivalVolume": 988,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6758,
+    "minPrice": 6488,
+    "maxPrice": 7028,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -2.55,
+    "arrivalVolume": 508,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2150,
+    "minPrice": 2064,
+    "maxPrice": 2236,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.45,
+    "arrivalVolume": 1588,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2232,
+    "minPrice": 2143,
+    "maxPrice": 2321,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.15,
+    "arrivalVolume": 738,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5427,
+    "minPrice": 5210,
+    "maxPrice": 5644,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 3.55,
+    "arrivalVolume": 628,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 15155,
+    "minPrice": 14549,
+    "maxPrice": 15761,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.45,
+    "arrivalVolume": 258,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 6246,
+    "minPrice": 5996,
+    "maxPrice": 6496,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.25,
+    "arrivalVolume": 468,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2150,
+    "minPrice": 2064,
+    "maxPrice": 2236,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.45,
+    "arrivalVolume": 868,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 6042,
+    "minPrice": 5800,
+    "maxPrice": 6284,
+    "priceDate": {
+      "$date": "2026-05-23T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -0.75,
+    "arrivalVolume": 518,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Wheat",
+    "mandiName": "Indore Mandi",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2420,
+    "minPrice": 2323,
+    "maxPrice": 2517,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.05,
+    "arrivalVolume": 1299,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Soybean",
+    "mandiName": "Dewas Mandi",
+    "district": "Dewas",
+    "state": "Madhya Pradesh",
+    "modalPrice": 5047,
+    "minPrice": 4845,
+    "maxPrice": 5249,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.45,
+    "arrivalVolume": 999,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Cotton",
+    "mandiName": "Akola APMC",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "modalPrice": 6798,
+    "minPrice": 6526,
+    "maxPrice": 7070,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -3.25,
+    "arrivalVolume": 519,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Onion",
+    "mandiName": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "modalPrice": 2163,
+    "minPrice": 2076,
+    "maxPrice": 2250,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.75,
+    "arrivalVolume": 1599,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Maize",
+    "mandiName": "Chhindwara Mandi",
+    "district": "Chhindwara",
+    "state": "Madhya Pradesh",
+    "modalPrice": 2245,
+    "minPrice": 2155,
+    "maxPrice": 2335,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 0.45,
+    "arrivalVolume": 749,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Mustard",
+    "mandiName": "Kota Mandi",
+    "district": "Kota",
+    "state": "Rajasthan",
+    "modalPrice": 5459,
+    "minPrice": 5241,
+    "maxPrice": 5677,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 2.85,
+    "arrivalVolume": 639,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Turmeric",
+    "mandiName": "Guntur Market",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "modalPrice": 15244,
+    "minPrice": 14634,
+    "maxPrice": 15854,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.75,
+    "arrivalVolume": 269,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Groundnut",
+    "mandiName": "Rajkot Mandi",
+    "district": "Rajkot",
+    "state": "Gujarat",
+    "modalPrice": 6283,
+    "minPrice": 6032,
+    "maxPrice": 6534,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "up",
+    "changePercent": 1.55,
+    "arrivalVolume": 479,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Bajra",
+    "mandiName": "Jaipur Mandi",
+    "district": "Jaipur",
+    "state": "Rajasthan",
+    "modalPrice": 2163,
+    "minPrice": 2076,
+    "maxPrice": 2250,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.15,
+    "arrivalVolume": 879,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  },
+  {
+    "commodity": "Chana",
+    "mandiName": "Bhopal Mandi",
+    "district": "Bhopal",
+    "state": "Madhya Pradesh",
+    "modalPrice": 6077,
+    "minPrice": 5834,
+    "maxPrice": 6320,
+    "priceDate": {
+      "$date": "2026-05-22T00:00:00Z"
+    },
+    "trend": "down",
+    "changePercent": -1.45,
+    "arrivalVolume": 529,
+    "unit": "Quintal",
+    "source": "agroindia-seed"
+  }
+]

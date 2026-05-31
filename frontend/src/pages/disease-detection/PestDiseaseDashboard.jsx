@@ -12,6 +12,7 @@ import {
   CloudRain,
   ShieldCheck,
 } from "lucide-react";
+import bannerImg from "../../assets/images/Disease Detection Module.png";
 
 export default function PestDiseaseDashboard() {
   const summaryMetrics = [
@@ -55,7 +56,8 @@ export default function PestDiseaseDashboard() {
       hindiCrop: "(गेहूं)",
       disease: "Yellow Rust",
       level: "High Risk",
-      badgeStyle: "bg-red-100 text-red-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
+      badgeStyle:
+        "bg-red-100 text-red-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
       action: "Apply fungicide immediately — Propiconazole 0.1%",
     },
     {
@@ -63,7 +65,8 @@ export default function PestDiseaseDashboard() {
       hindiCrop: "(धान)",
       disease: "Blast Disease",
       level: "High Risk",
-      badgeStyle: "bg-red-100 text-red-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
+      badgeStyle:
+        "bg-red-100 text-red-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
       action: "Spray Tricyclazole 75 WP @ 300g/acre",
     },
     {
@@ -71,7 +74,8 @@ export default function PestDiseaseDashboard() {
       hindiCrop: "(कपास)",
       disease: "Whitefly",
       level: "Moderate Risk",
-      badgeStyle: "bg-amber-100 text-amber-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
+      badgeStyle:
+        "bg-amber-100 text-amber-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
       action: "Monitor daily; spray Imidacloprid if count exceeds 10/leaf",
     },
     {
@@ -79,7 +83,8 @@ export default function PestDiseaseDashboard() {
       hindiCrop: "(मक्का)",
       disease: "Leaf Blight",
       level: "Low Risk",
-      badgeStyle: "bg-emerald-100 text-emerald-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
+      badgeStyle:
+        "bg-emerald-100 text-emerald-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
       action: "Preventive copper fungicide spray recommended",
     },
     {
@@ -87,7 +92,8 @@ export default function PestDiseaseDashboard() {
       hindiCrop: "(सरसों)",
       disease: "Alternaria Blight",
       level: "Moderate Risk",
-      badgeStyle: "bg-amber-100 text-amber-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
+      badgeStyle:
+        "bg-amber-100 text-amber-955 font-bold px-2.5 py-0.5 rounded-full text-[10px]",
       action: "Seed treatment with Thiram; field monitoring twice weekly",
     },
   ];
@@ -125,22 +131,34 @@ export default function PestDiseaseDashboard() {
 
   return (
     <div className="space-y-6 animate-fadeIn antialiased">
-      
-      {/* 1. Page Header Introduction */}
-      <div>
-        <div className="flex items-center gap-2.5">
-          <ShieldAlert className="h-6.5 w-6.5 text-[#31572c]" />
-          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-gray-950 flex items-center gap-3">
-            <span>Pest & Disease Risk Dashboard</span>
-            <span className="text-gray-300 font-light text-xl">|</span>
-            <span className="text-[#31572c] font-bold text-sm md:text-base">
-              जोखिम नियंत्रण
+      {/* Page Header Banner */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#f4f7f4] to-white rounded-2xl p-6 border border-gray-100 shadow-sm mb-6 flex flex-col md:flex-row items-center justify-between">
+        <div className="relative z-10 w-full md:w-2/3">
+          <div>
+            <div className="flex items-center gap-2.5">
+              <ShieldAlert className="h-6.5 w-6.5 text-[#31572c]" />
+              <h1 className="text-xl md:text-2xl font-bold tracking-tight text-gray-950 flex items-center gap-3">
+                <span>Pest & Disease Risk Dashboard</span>
+                <span className="text-gray-300 font-light text-xl">|</span>
+                <span className="text-[#31572c] font-bold text-sm md:text-base">
+                  जोखिम नियंत्रण
+                </span>
+              </h1>
+            </div>
+            <span className="text-gray-500 text-[11px] font-semibold tracking-wide block pb-1 mt-1.5 uppercase">
+              Live disease risk intelligence for your region
             </span>
-          </h1>
+          </div>
         </div>
-        <span className="text-gray-500 text-[11px] font-semibold tracking-wide block pb-1 mt-1.5 uppercase">
-          Live disease risk intelligence for your region
-        </span>
+        <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/3 opacity-20 md:opacity-100">
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10 hidden md:block" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent z-10 md:hidden" />
+          <img
+            src={bannerImg}
+            alt="Banner"
+            className="w-full h-full object-cover object-right"
+          />
+        </div>
       </div>
 
       {/* 2. High Blast Risk Critical Alert Banner */}
@@ -154,7 +172,9 @@ export default function PestDiseaseDashboard() {
             </span>
           </h3>
           <p className="text-red-800 text-xs font-semibold leading-relaxed">
-            High Blast Risk in Your Region This Week — Faridabad district — Rice Blast (Pyricularia oryzae) — Probability 74%. Immediate fungicide application advised.
+            High Blast Risk in Your Region This Week — Faridabad district — Rice
+            Blast (Pyricularia oryzae) — Probability 74%. Immediate fungicide
+            application advised.
           </p>
         </div>
       </div>
@@ -170,12 +190,16 @@ export default function PestDiseaseDashboard() {
               <div className={`p-2 rounded-xl ${metric.iconBg}`}>
                 {metric.icon}
               </div>
-              <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md ${metric.levelColor}`}>
+              <span
+                className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md ${metric.levelColor}`}
+              >
                 {metric.level}
               </span>
             </div>
             <div>
-              <h4 className="text-gray-900 text-2xl font-black tracking-tight">{metric.value}</h4>
+              <h4 className="text-gray-900 text-2xl font-black tracking-tight">
+                {metric.value}
+              </h4>
               <span className="text-gray-500 text-[10px] font-bold uppercase tracking-wider block mt-0.5">
                 {metric.title}
               </span>
@@ -201,17 +225,24 @@ export default function PestDiseaseDashboard() {
             </thead>
             <tbody className="divide-y divide-gray-100/65">
               {risks.map((item, idx) => (
-                <tr key={idx} className="hover:bg-[#f4f7f4]/35 transition-colors">
+                <tr
+                  key={idx}
+                  className="hover:bg-[#f4f7f4]/35 transition-colors"
+                >
                   <td className="p-3.5 pl-1 flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#31572c] shrink-0" />
-                    <span className="text-xs font-bold text-gray-900">{item.crop}</span>
-                    <span className="text-gray-500 text-xs font-medium pl-1 font-hindi">{item.hindiCrop}</span>
-                  </td>
-                  <td className="p-3.5 text-xs font-bold text-gray-700">{item.disease}</td>
-                  <td className="p-3.5">
-                    <span className={item.badgeStyle}>
-                      {item.level}
+                    <span className="text-xs font-bold text-gray-900">
+                      {item.crop}
                     </span>
+                    <span className="text-gray-500 text-xs font-medium pl-1 font-hindi">
+                      {item.hindiCrop}
+                    </span>
+                  </td>
+                  <td className="p-3.5 text-xs font-bold text-gray-700">
+                    {item.disease}
+                  </td>
+                  <td className="p-3.5">
+                    <span className={item.badgeStyle}>{item.level}</span>
                   </td>
                   <td className="p-3.5 text-gray-700 font-medium text-xs">
                     {item.action}
@@ -239,7 +270,9 @@ export default function PestDiseaseDashboard() {
                   {w.icon}
                   {w.label}
                 </span>
-                <span className={`text-xs font-black flex items-center ${w.isDanger ? "text-red-600" : "text-emerald-650"}`}>
+                <span
+                  className={`text-xs font-black flex items-center ${w.isDanger ? "text-red-600" : "text-emerald-650"}`}
+                >
                   {w.variance}
                 </span>
               </div>
@@ -250,7 +283,6 @@ export default function PestDiseaseDashboard() {
           ))}
         </div>
       </div>
-
     </div>
   );
 }
