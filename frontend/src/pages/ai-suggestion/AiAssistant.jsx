@@ -52,6 +52,7 @@ export default function AiAssistant() {
   const [selectedLang, setSelectedLang] = useState("Hindi");
   const [inputMessage, setInputMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const [isAiThinking, setIsAiThinking] = useState(false);
   const [location, setLocation] = useState({
     state: "Haryana",
     district: "Faridabad",
@@ -65,22 +66,24 @@ export default function AiAssistant() {
   // Automatically scroll message feed to bottom on new updates
   useEffect(() => {
     feedEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatHistory]);
+  }, [chatHistory, isAiThinking]);
 
   const handleLocationChange = (newLocation) => {
     setLocation(newLocation);
   };
 
   // Submit chat prompt handler
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
-    const trimmed = inputMessage.trim();
-    if (!trimmed) return;
+  const handleSendMessage = async (e, directText = null) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const messageToSend = directText || inputMessage;
+    const trimmed = messageToSend.trim();
+    if (!trimmed || isAiThinking) return;
 
     // 1. Add user message
     const userMsg = { role: "user", text: trimmed };
     setChatHistory((prev) => [...prev, userMsg]);
     setInputMessage("");
+    setIsAiThinking(true);
 
     // 2. Fetch AI agronomist inference from Gemini or fallback
     try {
@@ -98,6 +101,7 @@ export default function AiAssistant() {
       });
 
       setChatHistory((prev) => [...prev, { role: "model", text: responseText.trim() }]);
+      setIsAiThinking(false);
     } catch (err) {
       console.warn("AI Assistant falling back to static agronomic database:", err);
       
@@ -135,6 +139,7 @@ export default function AiAssistant() {
             text: `${matchedFallback.text}\n\n${matchedFallback.translation}`
           }
         ]);
+        setIsAiThinking(false);
       }, 500);
     }
   };
@@ -220,6 +225,22 @@ export default function AiAssistant() {
               </div>
             </div>
           ))}
+
+          {/* AI Thinking/Typing Indicator */}
+          {isAiThinking && (
+            <div className="flex items-start gap-3 text-left animate-pulse">
+              <div className="w-9 h-9 rounded-full bg-[#31572c]/8 flex items-center justify-center text-[#31572c] shrink-0">
+                <Leaf className="w-4 h-4 animate-spin" />
+              </div>
+              <div className="bg-gray-50 border border-gray-200/60 rounded-2xl rounded-tl-sm p-3.5 max-w-2xl shadow-sm flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce" style={{ animationDelay: "0ms" }}></span>
+                <span className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce" style={{ animationDelay: "150ms" }}></span>
+                <span className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce" style={{ animationDelay: "300ms" }}></span>
+                <span className="text-[10px] font-black text-gray-500 ml-1.5 uppercase tracking-wider">Krishi Saathi typing...</span>
+              </div>
+            </div>
+          )}
+
           <div ref={feedEndRef} />
         </div>
 
@@ -235,8 +256,13 @@ export default function AiAssistant() {
               <button
                 key={index}
                 type="button"
-                onClick={() => setInputMessage(suggestion)}
-                className="bg-[#31572c]/5 text-[#31572c] border border-[#31572c]/10 hover:bg-[#31572c]/10 text-xs font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm text-left"
+                disabled={isAiThinking}
+                onClick={() => handleSendMessage(null, suggestion)}
+                className={`border border-[#31572c]/10 text-xs font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm text-left ${
+                  isAiThinking
+                    ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-60"
+                    : "bg-[#31572c]/5 text-[#31572c] hover:bg-[#31572c]/10"
+                }`}
               >
                 {suggestion}
               </button>
@@ -247,22 +273,29 @@ export default function AiAssistant() {
           <form onSubmit={handleSendMessage} className="flex items-center gap-3">
             <button
               type="button"
-              className="w-10 h-10 rounded-xl bg-gray-100 text-gray-500 hover:bg-gray-200/80 hover:text-gray-900 transition-colors flex items-center justify-center cursor-pointer shrink-0 border-none"
+              disabled={isAiThinking}
+              className="w-10 h-10 rounded-xl bg-gray-100 text-gray-500 hover:bg-gray-200/80 hover:text-gray-900 transition-colors flex items-center justify-center cursor-pointer shrink-0 border-none disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Mic className="w-4 h-4" />
             </button>
             
-            <div className="flex-1 flex items-center relative gap-2 bg-gray-50 border border-gray-200/80 rounded-2xl px-4 h-12 focus-within:border-[#31572c] focus-within:bg-white transition-all">
+            <div className={`flex-1 flex items-center relative gap-2 border rounded-2xl px-4 h-12 transition-all ${
+              isAiThinking 
+                ? "bg-gray-100 border-gray-200" 
+                : "bg-gray-50 border-gray-200/80 focus-within:border-[#31572c] focus-within:bg-white"
+            }`}>
               <input
                 type="text"
                 value={inputMessage}
+                disabled={isAiThinking}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Apna sawaal poochhein... (Ask your question...)"
-                className="text-xs font-medium text-gray-800 bg-transparent w-full focus:outline-none placeholder-gray-400 h-full border-none pr-8"
+                placeholder={isAiThinking ? "Waiting for response..." : "Apna sawaal poochhein... (Ask your question...)"}
+                className="text-xs font-medium text-gray-800 bg-transparent w-full focus:outline-none placeholder-gray-400 h-full border-none pr-8 disabled:cursor-not-allowed"
               />
               <button
                 type="submit"
-                className="w-8 h-8 rounded-lg bg-[#31572c] text-white hover:bg-[#132a13] flex items-center justify-center cursor-pointer transition-colors shadow-sm absolute right-2 border-none"
+                disabled={isAiThinking || !inputMessage.trim()}
+                className="w-8 h-8 rounded-lg bg-[#31572c] text-white hover:bg-[#132a13] disabled:bg-gray-300 disabled:text-gray-500 flex items-center justify-center cursor-pointer transition-colors shadow-sm absolute right-2 border-none disabled:cursor-not-allowed"
               >
                 <SendHorizontal className="w-3.5 h-3.5" />
               </button>
