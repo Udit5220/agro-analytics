@@ -49,6 +49,43 @@ export const commodityApi = {
   getPriceAlerts:   ()            => request('/price-alerts'),
   createPriceAlert: (data)        => request('/price-alerts',     { method: 'POST',  body: JSON.stringify(data) }),
   updatePriceAlert: (id, data)    => request(`/price-alerts/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+  createCommodityAlert: (payload) => request("/commodity/alerts", { method: "POST", body: JSON.stringify(payload) }),
+  chatWithCommodityAI: (payload)  => request("/commodity/ai-chat", { method: "POST", body: JSON.stringify(payload) }),
+};
+
+// ─── Analytics APIs (Greenleaf DB collections — real data) ───────────────────
+// Uses greenleaf-dev.commodityvalues, commodityfutures, commodities collections
+export const analyticsApi = {
+  // Full commodity list with capability flags (hasTrend, hasFutures, hasMandiSpread)
+  getMeta:      (params = {}) => request(`/commodity-meta?${qs(params)}`),
+
+  // Parallel price trend comparison for 2–5 crops (normalized to index 100)
+  compare:      (commodities, days = 30) =>
+                  request(`/commodity-compare?commodities=${encodeURIComponent(commodities)}&days=${days}`),
+
+  // Latest futures contracts for a commodity (OHLCV per expiry month)
+  getFutures:   (commodity, portal = 'all') =>
+                  request(`/commodity-futures?commodity=${encodeURIComponent(commodity)}&portal=${portal}`),
+
+  // Month-wise price seasonality (derived from real historical records)
+  getSeasonality: (commodity) =>
+                  request(`/commodity-seasonality?commodity=${encodeURIComponent(commodity)}`),
+
+  // Mandi-wise price spread (agroindia seeded data — multi-mandi comparison)
+  getMandiSpread: (commodity) =>
+                  request(`/mandi-spread?commodity=${encodeURIComponent(commodity)}`),
+
+  // ── New Commodity Terminal Endpoints ──
+  getSpreadAnalysis: (commodity) =>
+                  request(`/spread-analysis?commodity=${encodeURIComponent(commodity)}`),
+  getSpreadAnalysisFull: (commodity) =>
+                  request(`/commodity/spread-analysis-full?commodity=${encodeURIComponent(commodity)}`),
+  getGlobalTradeImpact: (commodity) =>
+                  request(`/commodity/global-trade-impact?commodity=${encodeURIComponent(commodity)}`),
+  getMarketSignals: (commodity) =>
+                  request(`/commodity/market-signals?commodity=${encodeURIComponent(commodity)}`),
+  getAiCommentary: (commodity) =>
+                  request(`/commodity/ai-commentary?commodity=${encodeURIComponent(commodity)}`),
 };
 
 // ─── Greenleaf Proxy APIs (/api/gl/*) ─────────────────────────────────────────
@@ -101,6 +138,7 @@ export const marketplaceApi = {
   getOffers:   (params = {})  => request(`/marketplace/offers?${qs(params)}`),
   createOffer: (data)         => request('/marketplace/offers',     { method: 'POST',  body: JSON.stringify(data) }),
   updateOffer: (id, data)     => request(`/marketplace/offers/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+  acceptOffer: (id)           => request(`/marketplace/offers/${id}/accept`, { method: 'PATCH' }),
 
   // Orders
   getOrders:   (params = {})  => request(`/marketplace/orders?${qs(params)}`),
@@ -112,6 +150,7 @@ export const marketplaceApi = {
   createInvoice: (data) => request('/marketplace/invoices', { method: 'POST', body: JSON.stringify(data) }),
 };
 
+// export default { commodityApi, analyticsApi, greenleafApi, weatherApi, marketplaceApi };
 // ─── Farmer Profile & Land Assets APIs (MongoDB) ──────────────────────────────
 export const profileApi = {
   getProfile:     ()          => request('/profile'),
@@ -122,4 +161,4 @@ export const profileApi = {
   getCropRankings: (data)     => request('/crop-ranking',      { method: 'POST',   body: JSON.stringify(data) }),
 };
 
-export default { commodityApi, greenleafApi, weatherApi, marketplaceApi, profileApi };
+export default { commodityApi, greenleafApi, weatherApi, marketplaceApi, profileApi, analyticsApi };

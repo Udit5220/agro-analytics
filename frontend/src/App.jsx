@@ -24,8 +24,8 @@ import TreatmentAdvisor from "./pages/disease-detection/TreatmentAdvisor";
 import CropLifecycle from "./pages/disease-detection/CropLifecycle";
 import HistoricalOutbreaks from "./pages/disease-detection/HistoricalOutbreaks";
 import LeafScanner from "./pages/disease-detection/LeafScanner";
-import MarketIntelligenceDashboard from "./pages/market-intelligence/MarketIntelligenceDashboard";
-import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoirDashboard";
+// import MarketIntelligenceDashboard from "./pages/market-intelligence/MarketIntelligenceDashboard";
+// import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoirDashboard";
 import GovSchemesDashboard from "./pages/gov-schemes/GovSchemesDashboard";
 import ResearchAiDashboard from "./pages/research-ai/ResearchAiDashboard";
 import NewsIntelDashboard from "./pages/news-intel/NewsIntelDashboard";
@@ -40,6 +40,18 @@ import MandiPriceTracker from "./pages/ai-suggestion/MandiPriceTracker";
 import LifecyclePredictor from "./pages/ai-suggestion/LifecyclePredictor";
 import Profile from "./pages/home/Profile";
 
+// ─── Commodity Market Intelligence Terminal ──────────────────────────────────
+import CommodityTerminalLayout from './pages/market-intelligence/CommodityTerminalLayout';
+import Overview from './pages/market-intelligence/terminal/Overview';
+import Watchlist from './pages/market-intelligence/terminal/Watchlist';
+import SpotPrices from './pages/market-intelligence/terminal/SpotPrices';
+import FuturesPrices from './pages/market-intelligence/terminal/FuturesPrices';
+import AdvancedCharts from './pages/market-intelligence/terminal/AdvancedCharts';
+import SpreadAnalysis from './pages/market-intelligence/terminal/SpreadAnalysis';
+import MarketSignals from './pages/market-intelligence/terminal/MarketSignals';
+import GlobalTradeImpact from './pages/market-intelligence/terminal/GlobalTradeImpact';
+import AiCommentary from './pages/market-intelligence/terminal/AiCommentary';
+import Alerts from './pages/market-intelligence/terminal/Alerts';
 // ─── Commodity Market Intelligence Pages ─────────────────────────────────────
 import MarketDashboard from "./pages/market-intelligence/MarketDashboard";
 import LiveMandiPrices from "./pages/market-intelligence/LiveMandiPrices";
@@ -66,6 +78,34 @@ import BuyInputs from "./pages/marketplace/BuyInputs";
 import MyListings from "./pages/marketplace/MyListings";
 import MyOrders from "./pages/marketplace/MyOrders";
 import PaymentsInvoices from "./pages/marketplace/PaymentsInvoices";
+
+
+// import GovSchemesDashboard from './pages/gov-schemes/GovSchemesDashboard';
+// import ResearchAiDashboard from './pages/research-ai/ResearchAiDashboard';
+// import NewsIntelDashboard from './pages/news-intel/NewsIntelDashboard';
+// import LearningHubDashboard from './pages/learning-hub/LearningHubDashboard';
+import MandiNewsFeed from './pages/news-intel/MandiNewsFeed';
+import PolicyUpdates from './pages/news-intel/PolicyUpdates';
+import MarketImpactRatings from './pages/news-intel/MarketImpactRatings';
+
+import SchemeMatcher from './pages/gov-schemes/SchemeMatcher';
+import SubsidyTracker from './pages/gov-schemes/SubsidyTracker';
+import ApplicationCenter from './pages/gov-schemes/ApplicationCenter';
+import StateGrants from './pages/gov-schemes/StateGrants';
+import StateBudgetAllocation from './pages/gov-schemes/StateBudgetAllocation';
+
+import ResearchSummary from './pages/research-ai/ResearchSummary';
+import ResearchDrafting from './pages/research-ai/ResearchDrafting';
+import TranslationCenter from './pages/research-ai/TranslationCenter';
+import YieldPredictorModels from './pages/research-ai/YieldPredictorModels';
+
+import LectureHall from './pages/learning-hub/LectureHall';
+import KnowledgeBase from './pages/learning-hub/KnowledgeBase';
+import InteractiveQuizzes from './pages/learning-hub/InteractiveQuizzes';
+import ExpertWebinars from './pages/learning-hub/ExpertWebinars';
+import VirtualFarmTours from './pages/learning-hub/VirtualFarmTours';
+import AgriTechTrends from './pages/news-intel/AgriTechTrends';
+import CommodityExportTrends from './pages/news-intel/CommodityExportTrends';
 
 // Wrapper layout for the main landing page — UNCHANGED
 function LandingPage() {
@@ -154,6 +194,7 @@ function DashboardSwitcher() {
   }
 
   // ── Commodity Market Intelligence (NEW) ────────────────────────────────────
+  // Handled by specific route in App component
   if (moduleId === "market-intelligence") {
     if (subPath === "live-prices") return <LiveMandiPrices />;
     if (subPath === "price-trends") return <PriceTrends />;
@@ -175,14 +216,30 @@ function DashboardSwitcher() {
   }
 
   // ── Government Scheme Center (existing) ───────────────────────────────────
-  if (moduleId === "gov-schemes") return <GovSchemesDashboard />;
-
+   if (moduleId === 'gov-schemes') {
+    if (subPath === 'matching') return <SchemeMatcher />;
+    if (subPath === 'subsidies') return <SubsidyTracker />;
+    if (subPath === 'applications') return <ApplicationCenter />;
+    if (subPath === 'state-grants') return <StateGrants />;
+    if (subPath === 'budget') return <StateBudgetAllocation />;
+    return <GovSchemesDashboard />;
+  }
   // ── White Paper & Research AI (existing) ──────────────────────────────────
-  if (moduleId === "research-ai") return <ResearchAiDashboard />;
-
-  // ── News Intelligence (existing) ──────────────────────────────────────────
-  if (moduleId === "news-intel") return <NewsIntelDashboard />;
-
+  if (moduleId === 'research-ai') {
+    if (subPath === 'summary') return <ResearchSummary />;
+    if (subPath === 'drafting') return <ResearchDrafting />;
+    if (subPath === 'translate') return <TranslationCenter />;
+    if (subPath === 'models') return <YieldPredictorModels />;
+    return <ResearchAiDashboard />;
+  }
+  if (moduleId === 'news-intel') {
+    if (subPath === 'mandi') return <MandiNewsFeed />;
+    if (subPath === 'policies') return <PolicyUpdates />;
+    if (subPath === 'impact') return <MarketImpactRatings />;
+    if (subPath === 'agritech') return <AgriTechTrends />;
+    if (subPath === 'exports') return <CommodityExportTrends />;
+    return <NewsIntelDashboard />;
+  }
   // ── Marketplace (NEW) ─────────────────────────────────────────────────────
   if (moduleId === "marketplace") {
     if (subPath === "listings") return <BrowseListings />;
@@ -196,7 +253,12 @@ function DashboardSwitcher() {
   }
 
   // Learning Hub routing
-  if (moduleId === "learning-hub") {
+  if (moduleId === 'learning-hub') {
+    if (subPath === 'lectures') return <LectureHall />;
+    if (subPath === 'kb') return <KnowledgeBase />;
+    if (subPath === 'quizzes') return <InteractiveQuizzes />;
+    if (subPath === 'webinars') return <ExpertWebinars />;
+    if (subPath === 'tours') return <VirtualFarmTours />;
     return <LearningHubDashboard />;
   }
 
@@ -239,6 +301,20 @@ function App() {
       <Routes>
         {/* Main Landing Page */}
         <Route path="/" element={<LandingPage />} />
+
+        {/* Commodity Trading Terminal (Specific Override) */}
+        <Route path="/module/market-intelligence" element={<CommodityTerminalLayout />}>
+          <Route index element={<Overview />} />
+          <Route path="watchlist" element={<Watchlist />} />
+          <Route path="spot" element={<SpotPrices />} />
+          <Route path="futures" element={<FuturesPrices />} />
+          <Route path="charts" element={<AdvancedCharts />} />
+          <Route path="spreads" element={<SpreadAnalysis />} />
+          <Route path="signals" element={<MarketSignals />} />
+          <Route path="trade" element={<GlobalTradeImpact />} />
+          <Route path="ai" element={<AiCommentary />} />
+          <Route path="alerts" element={<Alerts />} />
+        </Route>
 
         {/* Multi-Module Routed Dashboard */}
         <Route path="/module/:moduleId" element={<ModuleLayout />}>

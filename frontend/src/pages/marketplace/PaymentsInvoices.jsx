@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Receipt, RefreshCw, Download } from 'lucide-react';
 import { marketplaceApi } from '../../services/apiService';
+import { generateInvoicePdf } from '../../utils/invoiceGenerator';
 
 const PaymentBadge = ({ status }) => {
   const cfg = { paid: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400', pending: 'bg-amber-500/10 text-amber-600', failed: 'bg-red-500/10 text-red-500', refunded: 'bg-blue-500/10 text-blue-600' };
@@ -68,7 +69,9 @@ export default function PaymentsInvoices() {
                     <td className="px-4 py-3"><PaymentBadge status={inv.paymentStatus} /></td>
                     <td className="px-4 py-3 text-slate-500 whitespace-nowrap">{new Date(inv.invoiceDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: '2-digit' })}</td>
                     <td className="px-4 py-3">
-                      <button className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-brand-dark/30 text-slate-400 hover:text-brand-medium dark:hover:text-brand-accent transition-colors" title="Download Invoice">
+                      <button 
+                        onClick={() => generateInvoicePdf(inv)}
+                        className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-brand-dark/30 text-slate-400 hover:text-brand-medium dark:hover:text-brand-accent transition-colors" title="Download Invoice">
                         <Download className="h-4 w-4" />
                       </button>
                     </td>

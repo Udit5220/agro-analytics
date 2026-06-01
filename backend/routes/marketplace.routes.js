@@ -2,7 +2,7 @@ import express from 'express';
 import {
   getListings, createListing, getListingById, updateListing, deleteListing,
   getBuyerRequirements, createBuyerRequirement,
-  createOffer, getOffers, updateOffer,
+  createOffer, getOffers, updateOffer, acceptOffer,
   getOrders, createOrder, updateOrder,
   getInvoices, createInvoice,
   getMarketplaceDashboard,
@@ -24,6 +24,7 @@ router.post('/buyer-requirements', createBuyerRequirement);
 router.post('/offers', createOffer);
 router.get('/offers', getOffers);
 router.patch('/offers/:id', updateOffer);
+router.patch('/offers/:id/accept', acceptOffer);
 
 router.get('/orders', getOrders);
 router.post('/orders', createOrder);
