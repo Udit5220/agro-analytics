@@ -110,7 +110,7 @@ export const greenleafApi = {
 
 // ─── Weather & Reservoir APIs (MongoDB) ───────────────────────────────────────
 export const weatherApi = {
-  getCurrentWeather:    (district)       => request(`/weather/current?district=${district}`),
+  getCurrentWeather:    (district, lat, lng) => request(`/weather/current?district=${district}${lat ? `&lat=${lat}` : ''}${lng ? `&lng=${lng}` : ''}`),
   getForecast:          (district, days = 7)  => request(`/weather/forecast?district=${district}&days=${days}`),
   getRainfall:          (district, days = 14) => request(`/weather/rainfall?district=${district}&days=${days}`),
   getAlerts:            (params = {})    => request(`/weather/alerts?${qs(params)}`),
@@ -150,4 +150,15 @@ export const marketplaceApi = {
   createInvoice: (data) => request('/marketplace/invoices', { method: 'POST', body: JSON.stringify(data) }),
 };
 
-export default { commodityApi, analyticsApi, greenleafApi, weatherApi, marketplaceApi };
+// export default { commodityApi, analyticsApi, greenleafApi, weatherApi, marketplaceApi };
+// ─── Farmer Profile & Land Assets APIs (MongoDB) ──────────────────────────────
+export const profileApi = {
+  getProfile:     ()          => request('/profile'),
+  updateProfile:  (data)      => request('/profile',           { method: 'PUT',    body: JSON.stringify(data) }),
+  addFarm:        (data)      => request('/profile/farms',     { method: 'POST',   body: JSON.stringify(data) }),
+  updateFarm:     (id, data)  => request(`/profile/farms/${id}`, { method: 'PUT',    body: JSON.stringify(data) }),
+  deleteFarm:     (id)        => request(`/profile/farms/${id}`, { method: 'DELETE' }),
+  getCropRankings: (data)     => request('/crop-ranking',      { method: 'POST',   body: JSON.stringify(data) }),
+};
+
+export default { commodityApi, greenleafApi, weatherApi, marketplaceApi, profileApi, analyticsApi };
