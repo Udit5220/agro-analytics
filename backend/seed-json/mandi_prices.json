@@ -141,6 +141,7 @@
     "district": "Jaipur",
     "state": "Rajasthan",
     "modalPrice": 2050,
+    "previousModalPrice": 2200,
     "minPrice": 1968,
     "maxPrice": 2132,
     "priceDate": {

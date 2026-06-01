@@ -191,6 +191,97 @@ export const updateOffer = async (req, res) => {
   }
 };
 
+// ─── PATCH /api/marketplace/offers/:id/accept ────────────────────────────────
+export const acceptOffer = async (req, res) => {
+  try {
+    const offer = await Offer.findById(req.params.id);
+    if (!offer) return res.status(404).json({ success: false, error: 'Offer not found' });
+
+    if (offer.status === 'accepted') {
+        return res.status(400).json({ success: false, error: 'Offer is already accepted' });
+    }
+
+    const listing = await MarketplaceListing.findById(offer.listingId);
+    if (!listing) return res.status(404).json({ success: false, error: 'Listing not found' });
+
+    // 1. Update offer status to accepted
+    offer.status = 'accepted';
+    await offer.save();
+
+    // 2. Create new order
+    const orderNumber = `AGR-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const order = await Order.create({
+      orderNumber,
+      listingId: listing._id,
+      offerId: offer._id,
+      buyerId: offer.buyerId,
+      buyerName: offer.buyerName,
+      sellerId: listing.sellerId,
+      sellerName: listing.sellerName,
+      commodity: listing.commodity,
+      quantity: offer.quantity,
+      unit: offer.unit,
+      finalPrice: offer.offerPrice,
+      totalAmount: offer.offerPrice * offer.quantity,
+      pickupLocation: listing.pickupLocation,
+      deliveryLocation: listing.district + ', ' + listing.state, // Fallback delivery location
+      deliveryDistrict: listing.district,
+      deliveryState: listing.state,
+      orderStatus: 'confirmed',
+      paymentStatus: 'pending'
+    });
+
+    // 3. Create new invoice
+    const amount = offer.offerPrice * offer.quantity;
+    const taxRate = 5; // Assuming 5% GST for demo
+    const taxAmount = (amount * taxRate) / 100;
+    const totalAmount = amount + taxAmount;
+    
+    const invoiceNumber = `INV-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const invoice = await Invoice.create({
+      invoiceNumber,
+      orderId: order._id,
+      orderNumber: order.orderNumber,
+      buyerId: order.buyerId,
+      buyerName: order.buyerName,
+      sellerId: order.sellerId,
+      sellerName: order.sellerName,
+      commodity: order.commodity,
+      quantity: order.quantity,
+      unit: order.unit,
+      unitPrice: offer.offerPrice,
+      amount,
+      taxRate,
+      taxAmount,
+      totalAmount,
+      paymentStatus: 'pending',
+      invoiceDate: new Date(),
+      dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
+    });
+
+    // 4. Update listing status (optional, but good practice if quantity is fulfilled)
+    // We'll leave the listing active for now, or you could decrease quantity
+    if (listing.quantity <= offer.quantity) {
+       listing.status = 'sold';
+       await listing.save();
+    } else {
+       listing.quantity -= offer.quantity;
+       await listing.save();
+    }
+
+    res.json({
+      success: true,
+      data: {
+        offer,
+        order,
+        invoice
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
 // ─── GET /api/marketplace/orders ─────────────────────────────────────────────
 export const getOrders = async (req, res) => {
   try {

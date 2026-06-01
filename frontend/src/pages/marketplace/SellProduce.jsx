@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CheckCircle, ChevronDown } from 'lucide-react';
 import { marketplaceApi } from '../../services/apiService';
 
@@ -13,14 +13,21 @@ const inputCls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:bor
 
 export default function SellProduce() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [step, setStep] = useState(1);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  // Pre-fill from Commodity module query params: ?commodity=Cotton&price=6442&mandi=Akola
+  const prefillCommodity = searchParams.get('commodity') || 'Wheat';
+  const prefillPrice = searchParams.get('price') || '';
+  const prefillMandi = searchParams.get('mandi') || '';
+
   const [form, setForm] = useState({
     sellerName: '', sellerType: 'farmer', listingType: 'produce',
-    commodity: 'Wheat', productName: '', variety: '', grade: 'FAQ',
-    quantity: '', unit: 'Quintal', expectedPrice: '',
-    pickupLocation: '', district: '', state: 'Madhya Pradesh',
+    commodity: prefillCommodity, productName: '', variety: '', grade: 'FAQ',
+    quantity: '', unit: 'Quintal', expectedPrice: prefillPrice,
+    pickupLocation: prefillMandi, district: '', state: 'Madhya Pradesh',
     description: '', contactPreference: 'call', contactNumber: '',
   });
 
