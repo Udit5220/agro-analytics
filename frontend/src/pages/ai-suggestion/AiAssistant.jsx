@@ -173,29 +173,6 @@ export default function AiAssistant() {
       {/* 1. Location Selector Card */}
       <LocationSelector value={location} onChange={handleLocationChange} />
 
-      {/* Language Selector Bar */}
-      <div className="bg-white border border-gray-200/60 rounded-2xl p-3 flex items-center justify-between shadow-sm w-full">
-        <div className="flex items-center gap-2 text-gray-400 text-xs font-bold tracking-wider">
-          <Globe className="w-4 h-4 text-gray-400" />
-          <span className="text-[10px] uppercase font-black">Language Preference</span>
-        </div>
-        <div className="flex items-center gap-2">
-          {["Hindi", "English", "Punjabi", "Tamil", "Telugu"].map((lang) => (
-            <button
-              key={lang}
-              onClick={() => setSelectedLang(lang)}
-              className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                selectedLang === lang
-                  ? "bg-[#31572c] text-white shadow-sm"
-                  : "bg-gray-100/80 text-gray-600 hover:bg-gray-200/60"
-              }`}
-            >
-              {lang}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Main Chat Workspace Card */}
       <div className="bg-white border border-gray-200/60 rounded-2xl flex-1 flex flex-col justify-between shadow-sm min-h-[500px] overflow-hidden">
         {/* Status Header */}

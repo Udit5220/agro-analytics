@@ -1097,6 +1097,26 @@ export default function LifecycleGuidance() {
     ? phases
     : CROP_PHASES[cropKey] || CROP_PHASES["Wheat"];
 
+  const getDaysToHarvest = () => {
+    if (!plantingDate) return "—";
+    const cropLower = selectedCrop?.toLowerCase() || "";
+    const duration = cropLower.includes("rice") || cropLower.includes("paddy")
+      ? 120
+      : cropLower.includes("wheat")
+        ? 110
+        : cropLower.includes("cotton")
+          ? 140
+          : 120;
+    const sowing = new Date(plantingDate);
+    const harvestDate = new Date(sowing);
+    harvestDate.setDate(sowing.getDate() + duration);
+    const now = new Date();
+    const diffTime = harvestDate - now;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? `${diffDays} days` : "Ready for Harvest";
+  };
+
+
   return (
     <div className="space-y-5 animate-fadeIn antialiased font-['Plus_Jakarta_Sans',_sans-serif] text-xs">
       {/* Header */}
@@ -1220,7 +1240,7 @@ export default function LifecycleGuidance() {
             Days to Harvest
           </p>
           <p className="text-xs font-bold text-gray-800 mt-1">
-            {currentStage.daysRemaining} days
+            {getDaysToHarvest()}
           </p>
         </div>
       </div>

@@ -1020,7 +1020,7 @@ export default function YieldRoiPredictor() {
           </div>
 
           {/* Break even details block banner */}
-          <div className="bg-amber-50 border border-amber-300 rounded-2xl p-4.5 flex items-center space-x-3.5 shadow-sm">
+          <div className="bg-amber-50 border border-amber-300 rounded-2xl p-5 flex items-center space-x-3.5 shadow-sm">
             <div className="p-2 bg-amber-500/15 text-amber-900 rounded-xl">
               <AlertCircle className="h-5 w-5" />
             </div>

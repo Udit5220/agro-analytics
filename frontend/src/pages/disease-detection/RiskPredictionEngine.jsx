@@ -698,501 +698,536 @@
 //   );
 // }
 
-import React, { useState, useEffect, useCallback } from "react";
-
-import { Cpu, ChevronDown, Layers, Loader2, RefreshCw } from "lucide-react";
-
+// components/RiskPredictionEngine.jsx
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
-  getRiskPrediction,
-  fetchOpenMeteoWeather,
-  HARYANA_DISTRICT_COORDS,
-} from "../../services/diseaseGeminiService";
+  Cpu,
+  ChevronDown,
+  Layers,
+  Loader2,
+  MapPin,
+  Droplets,
+  Thermometer,
+  Wind,
+  RefreshCw,
+} from "lucide-react";
+import { getRiskPrediction } from "../../services/diseaseGeminiService";
+import { getSoilDataByPincode, INDIAN_STATES } from "../../services/locationService";
+import LocationSelector from "../../components/LocationSelector";
+import { profileApi } from "../../services/apiService";
 
-import {
-  calculateDiseaseRisk,
-  generateAnalysis,
-  generatePathogens,
-} from "../../logic/diseaseRiskEngine";
+// Disease Risk Engine Logic
+export const calculateDiseaseRisk = ({
+  temperature,
+  humidity,
+  rainfall,
+  windSpeed,
+  growthStage,
+  soilData,
+}) => {
+  let score = 0;
 
-import { getSoilDataByPincode } from "../../services/locationService";
+  // Humidity contribution (30%)
+  score += (humidity / 100) * 30;
 
-// ─── USER PROFILE (replace with context/store in production) ───
+  // Rainfall contribution (25%)
+  score += Math.min(rainfall / 100, 1) * 25;
 
-const USER_PROFILE = {
-  name: "Suresh Kumar",
+  // Temperature contribution (20%) - optimal around 24°C
+  const optimalTemp = 24;
+  score += Math.max(0, 20 - Math.abs(optimalTemp - temperature) * 1.2);
 
-  location: "Faridabad, Haryana",
+  // Wind speed contribution (10%) - lower wind = higher risk
+  if (windSpeed < 5) score += 10;
+  else if (windSpeed < 10) score += 8;
+  else if (windSpeed < 20) score += 5;
+  else score += 2;
 
-  pincode: "121001",
+  // Growth stage contribution (10%)
+  const stageRisk = {
+    Seed: 2,
+    Germination: 8,
+    Vegetative: 10,
+    Flowering: 10,
+    "Grain Fill": 6,
+    Harvest: 2,
+  };
+  score += stageRisk[growthStage] || 0;
 
-  farms: [
+  // Soil contribution (5%)
+  let soilRisk = 0;
+  if (soilData) {
+    if (soilData.pH < 5.5 || soilData.pH > 8) soilRisk += 2;
+    if (
+      soilData.soilType?.toLowerCase().includes("clay") ||
+      soilData.soilType?.toLowerCase().includes("alluvial")
+    ) {
+      soilRisk += 3;
+    }
+  }
+  score += soilRisk;
+
+  const finalScore = Math.min(Math.round(score), 100);
+  let riskLevel = "Low";
+  if (finalScore >= 75) riskLevel = "High";
+  else if (finalScore >= 45) riskLevel = "Medium";
+
+  return { compositeRiskScore: finalScore, riskLevel };
+};
+
+export const generateAnalysis = ({
+  temperature,
+  humidity,
+  rainfall,
+  windSpeed,
+}) => {
+  const reasons = [];
+  if (humidity > 75)
+    reasons.push("High humidity favors fungal disease development.");
+  if (rainfall > 50)
+    reasons.push("Recent rainfall increases leaf wetness duration.");
+  if (temperature >= 18 && temperature <= 30)
+    reasons.push("Temperature is favorable for pathogen growth.");
+  if (windSpeed < 8) reasons.push("Low wind speed reduces canopy drying.");
+  if (!reasons.length)
+    reasons.push(
+      "Current environmental conditions indicate low disease pressure.",
+    );
+  return reasons.join(" ");
+};
+
+export const generatePathogens = (risk) => {
+  return [
     {
-      _id: "6a1bd649ff396ef5e03a3394",
-
-      name: "Home Sector Flatlands",
-
-      location: "Faridabad Outskirts",
-
-      district: "Faridabad",
-
-      state: "Haryana",
-
-      pincode: "121001",
-
-      totalLand: 4.5,
-
-      crops: [
-        { name: "Rice (Paddy)", sowingDate: "2026-05-01", sownArea: 2.5 },
-
-        { name: "Mustard", sowingDate: "2026-05-15", sownArea: 1.5 },
-      ],
+      name: "Blast Disease",
+      probability: Math.min(risk + 10, 95),
+      severity: risk >= 70 ? "High" : risk >= 45 ? "Medium" : "Low",
+      trend: risk >= 70 ? "Rising" : risk >= 45 ? "Stable" : "Falling",
     },
-
     {
-      _id: "6a1bd649ff396ef5e03a3397",
-
-      name: "Northern Tube-well Plot",
-
-      location: "Ballabhgarh Boundary",
-
-      district: "Ballabhgarh",
-
-      state: "Haryana",
-
-      pincode: "121004",
-
-      totalLand: 3.2,
-
-      crops: [{ name: "Wheat", sowingDate: "2025-11-10", sownArea: 2 }],
+      name: "Brown Spot",
+      probability: Math.max(risk - 5, 10),
+      severity: risk >= 60 ? "Medium" : "Low",
+      trend: risk >= 60 ? "Stable" : "Falling",
     },
-  ],
+    {
+      name: "Leaf Blight",
+      probability: Math.max(risk - 20, 5),
+      severity: "Low",
+      trend: "Stable",
+    },
+    {
+      name: "Sheath Blight",
+      probability: Math.max(risk - 15, 5),
+      severity: risk >= 75 ? "Medium" : "Low",
+      trend: risk >= 75 ? "Rising" : "Stable",
+    },
+  ];
+};
+
+// Generate treatments based on risk score and pathogen
+const generateTreatments = (riskScore, pathogens) => {
+  const treatments = [];
+
+  if (riskScore >= 70) {
+    treatments.push({
+      priority: "Immediate",
+      action: "Apply fungicide immediately — Propiconazole 0.1%",
+      product: "Propiconazole",
+    });
+  }
+
+  if (riskScore >= 50) {
+    treatments.push({
+      priority: "Preventive",
+      action: "Spray Tricyclazole 75 WP @ 300g/acre",
+      product: "Tricyclazole",
+    });
+  }
+
+  treatments.push({
+    priority: "Monitor",
+    action: "Monitor daily; spray Imidacloprid if count exceeds 10/leaf",
+    product: "Imidacloprid",
+  });
+
+  // Add disease-specific treatments
+  if (pathogens.some((p) => p.name === "Blast Disease" && p.probability > 60)) {
+    treatments.unshift({
+      priority: "Critical",
+      action: "Immediate Blast control with Tricyclazole @ 0.6g/L",
+      product: "Tricyclazole + Kasugamycin",
+    });
+  }
+
+  return treatments.slice(0, 4);
 };
 
 const STAGES = [
   "Seed",
-
   "Germination",
-
   "Vegetative",
-
   "Flowering",
-
   "Grain Fill",
-
   "Harvest",
 ];
 
-const DEFAULT_PREDICTION = {
-  compositeRiskScore: 0,
+// User Profile with farms
+const USER_PROFILE = {
+  name: "Suresh Kumar",
+  location: "Faridabad, Haryana",
+  pincode: "121001",
+  farms: [
+    {
+      _id: "farm_1",
+      name: "Home Sector Flatlands",
+      location: "Faridabad Outskirts",
+      district: "Faridabad",
+      state: "Haryana",
+      pincode: "121001",
+      totalLand: 4.5,
+      crops: [
+        { name: "Rice (Paddy)", sowingDate: "2026-05-01", sownArea: 2.5 },
+        { name: "Mustard", sowingDate: "2026-05-15", sownArea: 1.5 },
+      ],
+    },
+    {
+      _id: "farm_2",
+      name: "Northern Tube-well Plot",
+      location: "Ballabhgarh Boundary",
+      district: "Ballabhgarh",
+      state: "Haryana",
+      pincode: "121004",
+      totalLand: 3.2,
+      crops: [{ name: "Wheat", sowingDate: "2025-11-10", sownArea: 2.0 }],
+    },
+  ],
+};
 
-  riskLevel: "Low",
+// Smooth number animation hook
+const useAnimatedValue = (targetValue, duration = 800) => {
+  const [currentValue, setCurrentValue] = useState(0);
+  const animationRef = useRef(null);
+  const startTimeRef = useRef(null);
+  const startValueRef = useRef(0);
 
-  pathogens: [],
+  useEffect(() => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
 
-  treatments: [],
+    startValueRef.current = currentValue;
+    startTimeRef.current = null;
 
-  analysis: "",
+    const animate = (timestamp) => {
+      if (!startTimeRef.current) startTimeRef.current = timestamp;
+      const elapsed = timestamp - startTimeRef.current;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease out cubic
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const newValue =
+        startValueRef.current + (targetValue - startValueRef.current) * easeOut;
+      setCurrentValue(Math.round(newValue));
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [targetValue, duration]);
+
+  return currentValue;
 };
 
 export default function RiskPredictionEngine() {
-  const [selectedFarmId, setSelectedFarmId] = useState(
-    USER_PROFILE.farms[0]._id,
-  );
+  const [location, setLocation] = useState({
+    state: "Haryana",
+    district: "Faridabad",
+    pincode: "121001",
+    latitude: 28.4089,
+    longitude: 77.3178,
+    soilData: getSoilDataByPincode("121001"),
+  });
 
+  const [farmsList, setFarmsList] = useState([]);
+  const [activeFarm, setActiveFarm] = useState(null);
   const [growthStage, setGrowthStage] = useState("Vegetative");
+  const [selectedCrop, setSelectedCrop] = useState("Rice (Paddy)");
 
-  const [selectedCrop, setSelectedCrop] = useState(
-    USER_PROFILE.farms[0].crops[0].name,
-  );
-
-  // Weather sliders — pre-filled by Open-Meteo on farm change
-
+  // Weather state
   const [temperature, setTemperature] = useState(28);
-
   const [humidity, setHumidity] = useState(82);
-
   const [rainfall, setRainfall] = useState(18);
-
   const [windSpeed, setWindSpeed] = useState(8);
 
-  const [weatherLoading, setWeatherLoading] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [hasRunDiagnostics, setHasRunDiagnostics] = useState(false);
 
-  const [predictionData, setPredictionData] = useState(DEFAULT_PREDICTION);
-
-  const [weatherFetched, setWeatherFetched] = useState(false);
-
-  const selectedFarm = USER_PROFILE.farms.find((f) => f._id === selectedFarmId);
-
-  // Derived: soil data from farm pincode
-
-  const soilData = getSoilDataByPincode(selectedFarm?.pincode || "121001");
-
+  // Load farms from profile
   useEffect(() => {
-    const riskResult = calculateDiseaseRisk({
-      temperature,
+    const loadFarms = async () => {
+      try {
+        const res = await profileApi.getProfile();
+        if (res.success && res.data) {
+          const list = res.data.farms || [];
+          setFarmsList(list);
+          if (list.length > 0) {
+            setActiveFarm(list[0]);
+            if (list[0].crops && list[0].crops.length > 0) {
+              setSelectedCrop(list[0].crops[0].name);
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Offline fallback for farms list in Risk Engine");
+        setFarmsList(USER_PROFILE.farms);
+        setActiveFarm(USER_PROFILE.farms[0]);
+      }
+    };
+    loadFarms();
+  }, []);
 
-      humidity,
+  // Prediction state - initialized with 0 for smooth animation
+  const [predictionData, setPredictionData] = useState({
+    compositeRiskScore: 0,
+    riskLevel: "Low",
+    pathogens: generatePathogens(0),
+    treatments: generateTreatments(0, generatePathogens(0)),
+    analysis: generateAnalysis({
+      temperature: 28,
+      humidity: 82,
+      rainfall: 18,
+      windSpeed: 8,
+    }),
+  });
 
-      rainfall,
+  // Animated risk score
+  const animatedRiskScore = useAnimatedValue(
+    predictionData.compositeRiskScore,
+    800,
+  );
 
-      windSpeed,
+  const soilData = location.soilData;
+  const locationContext = location;
 
-      growthStage,
+  // Handle Location Selector Change
+  const handleLocationChange = (newLocation) => {
+    setLocation(newLocation);
+    setHasRunDiagnostics(false);
 
-      soilData,
-    });
+    // Find the farm in farmsList that matches the pincode of the new location
+    const matchedFarm = farmsList.find((f) => f.pincode === newLocation.pincode);
+    if (matchedFarm) {
+      setActiveFarm(matchedFarm);
+      if (matchedFarm.crops && matchedFarm.crops.length > 0) {
+        setSelectedCrop(matchedFarm.crops[0].name);
+      }
+    } else {
+      setActiveFarm(null);
+    }
 
-    setPredictionData((prev) => ({
-      ...prev,
-
-      compositeRiskScore: riskResult.compositeRiskScore,
-
-      riskLevel: riskResult.riskLevel,
-
-      pathogens: generatePathogens(riskResult.compositeRiskScore),
-
+    // Reset prediction for smooth transitions
+    setPredictionData({
+      compositeRiskScore: 0,
+      riskLevel: "Low",
+      pathogens: generatePathogens(0),
+      treatments: generateTreatments(0, generatePathogens(0)),
       analysis: generateAnalysis({
         temperature,
-
         humidity,
-
         rainfall,
-
         windSpeed,
       }),
-    }));
-  }, [temperature, humidity, rainfall, windSpeed, growthStage, soilData]);
-
-  // Derived: location object for Gemini
-
-  const locationContext = {
-    state: selectedFarm?.state || "Haryana",
-
-    district: selectedFarm?.district || "Faridabad",
-
-    pincode: selectedFarm?.pincode || "121001",
-
-    soilData,
+    });
   };
 
-  // ── When farm changes: update crop selection + fetch real weather ──
-
-  const handleFarmChange = useCallback(async (farmId) => {
-    const farm = USER_PROFILE.farms.find((f) => f._id === farmId);
-
-    if (!farm) return;
-
-    setSelectedFarmId(farmId);
-
-    setSelectedCrop(farm.crops[0]?.name || "Rice");
-
-    setWeatherFetched(false);
-
-    // Fetch real weather for new farm location
-
-    const district = farm.district || "Faridabad";
-
-    const coords =
-      HARYANA_DISTRICT_COORDS[district] || HARYANA_DISTRICT_COORDS["Faridabad"];
-
-    setWeatherLoading(true);
-
-    const weather = await fetchOpenMeteoWeather(coords.lat, coords.lng);
-
-    setTemperature(weather.current.temperature);
-
-    setHumidity(weather.current.humidity);
-
-    setRainfall(weather.current.rainfall);
-
-    setWindSpeed(weather.current.windSpeed);
-
-    setWeatherLoading(false);
-
-    setWeatherFetched(true);
-  }, []);
-
-  // ── On mount: fetch weather for default farm ──
-
-  useEffect(() => {
-    handleFarmChange(USER_PROFILE.farms[0]._id);
-  }, []);
-
-  // ── Run AI inference ──
-
+  // Run AI Diagnostics - calculates using the local risk engine first, then AI enhancement
   const handleRunInference = useCallback(async () => {
     setIsLoading(true);
 
     try {
-      const data = await getRiskPrediction(
-        selectedCrop,
-
-        growthStage,
-
-        locationContext,
-
+      // Calculate local risk first (instant)
+      const riskResult = calculateDiseaseRisk({
         temperature,
-
         humidity,
-
         rainfall,
-
         windSpeed,
+        growthStage,
+        soilData,
+      });
+
+      const pathogens = generatePathogens(riskResult.compositeRiskScore);
+      const treatments = generateTreatments(
+        riskResult.compositeRiskScore,
+        pathogens,
       );
+      const analysis = generateAnalysis({
+        temperature,
+        humidity,
+        rainfall,
+        windSpeed,
+      });
 
-      // setPredictionData(data);
+      // Update with local calculation
+      setPredictionData({
+        compositeRiskScore: riskResult.compositeRiskScore,
+        riskLevel: riskResult.riskLevel,
+        pathogens,
+        treatments,
+        analysis,
+      });
 
-      setPredictionData((prev) => ({
-        ...prev,
+      setHasRunDiagnostics(true);
 
-        ...data,
-      }));
+      // Try AI enhancement in background (doesn't block UI)
+      try {
+        const aiData = await getRiskPrediction(
+          selectedCrop,
+          growthStage,
+          locationContext,
+          temperature,
+          humidity,
+          rainfall,
+          windSpeed,
+        );
+
+        // Merge AI data with local calculation
+        if (aiData && aiData.compositeRiskScore) {
+          setPredictionData({
+            compositeRiskScore: aiData.compositeRiskScore,
+            riskLevel: aiData.riskLevel || riskResult.riskLevel,
+            pathogens: aiData.pathogens || pathogens,
+            treatments: aiData.treatments || treatments,
+            analysis: aiData.analysis || analysis,
+          });
+        }
+      } catch (aiError) {
+        console.warn("AI enhancement failed, using local prediction:", aiError);
+      }
     } catch (err) {
       console.error("Risk prediction failed:", err);
     } finally {
       setIsLoading(false);
     }
   }, [
-    selectedCrop,
-
-    growthStage,
-
-    locationContext,
-
     temperature,
-
     humidity,
-
     rainfall,
-
     windSpeed,
+    growthStage,
+    soilData,
+    selectedCrop,
+    locationContext,
   ]);
 
-  // Needle angle formula: -90 (left/Low) to +90 (right/High)
+  // Needle angle: -90° (Low) to +90° (High)
+  const needleAngle = -90 + animatedRiskScore * 1.8;
 
-  const needleAngle = -90 + predictionData.compositeRiskScore * 1.8;
-
-  // ── Style helpers ──
-
+  // Helpers
   const getBarColor = (prob) => {
-    if (prob >= 70) return "bg-[#dc2626]";
-
-    if (prob >= 40) return "bg-[#d97706]";
-
-    return "bg-[#16a34a]";
+    if (prob >= 70) return "bg-red-500";
+    if (prob >= 40) return "bg-amber-500";
+    return "bg-emerald-500";
   };
 
   const getSeverityBadge = (sev) => {
-    if (sev === "High") return "bg-red-50 text-[#dc2626] border border-red-200";
-
-    if (sev === "Medium" || sev === "Moderate")
-      return "bg-amber-50 text-[#d97706] border border-amber-200";
-
-    return "bg-emerald-50 text-[#16a34a] border border-[#31572c]/20";
+    if (sev === "High") return "bg-red-50 text-red-700 border-red-200";
+    if (sev === "Medium") return "bg-amber-50 text-amber-700 border-amber-200";
+    return "bg-emerald-50 text-emerald-700 border-emerald-200";
   };
 
   const getPriorityBadge = (priority) => {
+    if (priority === "Critical")
+      return "bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[9px]";
     if (priority === "Immediate")
-      return "bg-red-100 text-red-950 font-bold px-2 py-0.5 rounded text-[9px]";
-
+      return "bg-red-100 text-red-800 font-bold px-2 py-0.5 rounded text-[9px]";
     if (priority === "Preventive")
-      return "bg-amber-100 text-amber-950 font-bold px-2 py-0.5 rounded text-[9px]";
-
-    return "bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[9px]";
+      return "bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded text-[9px]";
+    return "bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded text-[9px]";
   };
 
   const getRiskLevelColor = (level) => {
-    if (level === "High") return "text-[#dc2626]";
-
-    if (level === "Medium" || level === "Moderate") return "text-[#d97706]";
-
-    return "text-[#16a34a]";
+    if (level === "High") return "text-red-600";
+    if (level === "Medium") return "text-amber-600";
+    return "text-emerald-600";
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn antialiased">
-      {/* ── Header ── */}
-
+    <div className="space-y-6 animate-fadeIn antialiased max-w-7xl mx-auto p-4">
+      {/* Header */}
       <header className="border-b border-gray-200 pb-4">
         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">
           Predictive Diagnostics
         </span>
-
         <h1 className="text-xl md:text-2xl font-bold tracking-tight text-[#132a13]">
           AI analysis of disease outbreak probability for your conditions
         </h1>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        {/* ── LEFT PANEL ── */}
+      {/* 2-Section Compound Field Selector */}
+      <LocationSelector value={location} onChange={handleLocationChange} />
 
-        <div className="lg:col-span-1 space-y-4">
-          {/* Card 1: Farm Selector */}
-
-          <div className="bg-white border border-gray-200/80 rounded-2xl p-5 shadow-sm space-y-4">
-            <div>
-              <h3 className="text-sm font-bold text-[#132a13] uppercase tracking-wider flex items-center gap-1.5">
-                <span className="text-base">🌾</span>
-
-                <span>Farm Selector</span>
-              </h3>
-
-              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mt-0.5">
-                Select farm to auto-load location, soil, and weather data
-              </p>
+      {/* Main Two-Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* LEFT COLUMN - Simulation Conditions */}
+        <div className="space-y-4">
+          <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <Cpu className="w-5 h-5 text-[#31572c]" />
+              <h2 className="text-sm font-bold text-[#132a13] uppercase tracking-wider">
+                Simulation Conditions
+              </h2>
             </div>
 
-            {/* Farm dropdown */}
-
-            <div className="space-y-1">
-              <label className="text-[9px] font-extrabold text-gray-500 uppercase tracking-wider block">
-                Active Farm
+            {/* Crop Selection */}
+            <div className="mb-4">
+              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">
+                Crop
               </label>
-
-              <div className="relative">
-                <select
-                  value={selectedFarmId}
-                  onChange={(e) => handleFarmChange(e.target.value)}
-                  className="w-full appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-800 focus:outline-none focus:border-[#31572c] cursor-pointer h-[36px]"
-                >
-                  {USER_PROFILE.farms.map((farm) => (
-                    <option key={farm._id} value={farm._id}>
-                      {farm.name}
-                    </option>
-                  ))}
-                </select>
-
-                <ChevronDown className="w-3.5 h-3.5 text-gray-500 absolute right-3 top-2.5 pointer-events-none" />
-              </div>
-            </div>
-
-            {/* Farm context pills */}
-
-            {selectedFarm && (
-              <div className="space-y-2">
-                <div className="flex flex-wrap gap-1.5">
-                  <span className="bg-[#31572c]/8 text-[#31572c] text-[10px] font-bold px-2 py-1 rounded-lg">
-                    📍 {selectedFarm.district}, {selectedFarm.state}
-                  </span>
-
-                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded-lg">
-                    📌 {selectedFarm.pincode}
-                  </span>
-
-                  <span className="bg-sky-50 text-sky-700 text-[10px] font-bold px-2 py-1 rounded-lg border border-sky-100">
-                    🌾 {selectedFarm.totalLand} acres
-                  </span>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {selectedFarm.crops.map((c) => (
-                    <span
-                      key={c.name}
-                      className="bg-emerald-50 text-emerald-700 text-[10px] font-semibold px-2 py-1 rounded-lg border border-emerald-100"
-                    >
-                      {c.name} · {c.sownArea}ac
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Resolved location display */}
-
-            <div className="bg-[#f4f7f4]/60 border border-gray-100 rounded-xl p-3 space-y-1.5 text-xs">
-              <div className="text-[9px] font-extrabold text-[#31572c] uppercase tracking-wider border-b border-gray-200/50 pb-1">
-                Resolved Location Context
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div>
-                  <span className="text-[8px] font-extrabold text-gray-400 uppercase block">
-                    State
-                  </span>
-
-                  <span className="font-extrabold text-gray-700 text-[10px]">
-                    {locationContext.state}
-                  </span>
-                </div>
-
-                <div>
-                  <span className="text-[8px] font-extrabold text-gray-400 uppercase block">
-                    District
-                  </span>
-
-                  <span className="font-extrabold text-gray-700 text-[10px]">
-                    {locationContext.district}
-                  </span>
-                </div>
-
-                <div>
-                  <span className="text-[8px] font-extrabold text-gray-400 uppercase block">
-                    Pincode
-                  </span>
-
-                  <span className="font-extrabold text-gray-700 text-[10px]">
-                    {locationContext.pincode}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Simulation Conditions */}
-
-          <div className="bg-white border border-gray-200/80 rounded-2xl p-5 shadow-sm space-y-4">
-            <div>
-              <h3 className="text-sm font-bold text-[#132a13] uppercase tracking-wider flex items-center gap-1.5">
-                <Cpu className="h-4 w-4 text-[#31572c]" />
-
-                <span>Simulation Conditions</span>
-              </h3>
-
-              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mt-0.5">
-                Configure crop stage and climate inputs for prediction
-              </p>
-            </div>
-
-            {/* Crop dropdown — from farm's actual crops */}
-
-            <div className="space-y-1">
-              <label className="text-[9px] font-extrabold text-gray-500 uppercase tracking-wider block">
-                Crop (from farm)
-              </label>
-
               <div className="relative">
                 <select
                   value={selectedCrop}
                   onChange={(e) => setSelectedCrop(e.target.value)}
-                  className="w-full appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-800 focus:outline-none focus:border-[#31572c] cursor-pointer h-[36px]"
+                  className="w-full appearance-none bg-[#f4f7f4] border border-gray-[#cbdcd5] rounded-xl px-4 py-2.5 text-xs font-bold text-gray-800 focus:outline-none focus:border-[#31572c] cursor-pointer"
                 >
-                  {(selectedFarm?.crops || []).map((c) => (
-                    <option key={c.name} value={c.name}>
-                      {c.name}
-                    </option>
-                  ))}
+                  {activeFarm && activeFarm.crops && activeFarm.crops.length > 0 ? (
+                    activeFarm.crops.map((c) => (
+                      <option key={c.name} value={c.name}>
+                        {c.name}
+                      </option>
+                    ))
+                  ) : (
+                    <>
+                      <option value="Rice (Paddy)">Rice (Paddy)</option>
+                      <option value="Mustard">Mustard</option>
+                      <option value="Wheat">Wheat</option>
+                    </>
+                  )}
                 </select>
-
-                <ChevronDown className="w-3.5 h-3.5 text-gray-500 absolute right-3 top-2.5 pointer-events-none" />
+                <ChevronDown className="w-4 h-4 text-gray-500 absolute right-3 top-3.5 pointer-events-none" />
               </div>
             </div>
 
-            {/* Growth Stage pills */}
-
-            <div className="space-y-1.5">
-              <label className="text-[9px] font-extrabold text-gray-500 uppercase tracking-wider block">
+            {/* Growth Stage */}
+            <div className="mb-4">
+              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-2">
                 Growth Stage
               </label>
-
               <div className="flex flex-wrap gap-1.5">
                 {STAGES.map((stage) => (
                   <button
                     key={stage}
                     type="button"
                     onClick={() => setGrowthStage(stage)}
-                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border ${
+                    className={`px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all border ${
                       growthStage === stage
                         ? "bg-[#31572c] border-[#31572c] text-white shadow-sm"
                         : "bg-white border-gray-200 text-gray-600 hover:bg-[#f4f7f4]"
@@ -1204,198 +1239,146 @@ export default function RiskPredictionEngine() {
               </div>
             </div>
 
-            {/* Weather sliders — pre-filled from Open-Meteo */}
-
-            <div className="space-y-3.5 border-t border-gray-100 pt-3">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider">
-                  Weather Inputs
-                </span>
-
-                {weatherLoading ? (
-                  <span className="flex items-center gap-1 text-[9px] font-bold text-sky-600">
-                    <Loader2 size={10} className="animate-spin" /> Fetching live
-                    data...
-                  </span>
-                ) : weatherFetched ? (
-                  <span className="text-[9px] font-bold text-emerald-600">
-                    ✓ Open-Meteo live
-                  </span>
-                ) : null}
-              </div>
+            {/* Weather Sliders */}
+            <div className="space-y-4 border-t border-gray-100 pt-4">
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                Environmental Parameters
+              </p>
 
               {/* Temperature */}
-
-              <div className="space-y-1">
-                <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider">
-                  <span className="text-gray-500">Temperature</span>
-
-                  <span className="text-[#31572c] font-black">
+              <div>
+                <div className="flex justify-between items-center mb-1">
+                  <div className="flex items-center gap-1">
+                    <Thermometer className="w-3 h-3 text-orange-500" />
+                    <span className="text-xs font-medium text-gray-600">
+                      Temperature
+                    </span>
+                  </div>
+                  <span className="text-sm font-bold text-[#31572c]">
                     {temperature}°C
                   </span>
                 </div>
-
                 <input
                   type="range"
                   min="10"
                   max="45"
                   value={temperature}
                   onChange={(e) => setTemperature(Number(e.target.value))}
-                  className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#31572c]"
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#31572c]"
                 />
               </div>
 
               {/* Humidity */}
-
-              <div className="space-y-1">
-                <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider">
-                  <span className="text-gray-500">Humidity</span>
-
-                  <span className="text-[#31572c] font-black">{humidity}%</span>
+              <div>
+                <div className="flex justify-between items-center mb-1">
+                  <div className="flex items-center gap-1">
+                    <Droplets className="w-3 h-3 text-blue-500" />
+                    <span className="text-xs font-medium text-gray-600">
+                      Humidity
+                    </span>
+                  </div>
+                  <span className="text-sm font-bold text-[#31572c]">
+                    {humidity}%
+                  </span>
                 </div>
-
                 <input
                   type="range"
                   min="20"
                   max="100"
                   value={humidity}
                   onChange={(e) => setHumidity(Number(e.target.value))}
-                  className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#31572c]"
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#31572c]"
                 />
               </div>
 
               {/* Rainfall */}
-
-              <div className="space-y-1">
-                <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider">
-                  <span className="text-gray-500">Rainfall Last 7 Days</span>
-
-                  <span className="text-[#31572c] font-black">
-                    {rainfall}MM
+              <div>
+                <div className="flex justify-between items-center mb-1">
+                  <div className="flex items-center gap-1">
+                    <Droplets className="w-3 h-3 text-cyan-500" />
+                    <span className="text-xs font-medium text-gray-600">
+                      Rainfall (7 days)
+                    </span>
+                  </div>
+                  <span className="text-sm font-bold text-[#31572c]">
+                    {rainfall} mm
                   </span>
                 </div>
-
                 <input
                   type="range"
                   min="0"
                   max="100"
                   value={rainfall}
                   onChange={(e) => setRainfall(Number(e.target.value))}
-                  className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#31572c]"
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#31572c]"
                 />
               </div>
 
               {/* Wind Speed */}
-
-              <div className="space-y-1">
-                <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider">
-                  <span className="text-gray-500">Wind Speed</span>
-
-                  <span className="text-[#31572c] font-black">
-                    {windSpeed}KM/H
+              <div>
+                <div className="flex justify-between items-center mb-1">
+                  <div className="flex items-center gap-1">
+                    <Wind className="w-3 h-3 text-gray-500" />
+                    <span className="text-xs font-medium text-gray-600">
+                      Wind Speed
+                    </span>
+                  </div>
+                  <span className="text-sm font-bold text-[#31572c]">
+                    {windSpeed} km/h
                   </span>
                 </div>
-
                 <input
                   type="range"
                   min="0"
                   max="40"
                   value={windSpeed}
                   onChange={(e) => setWindSpeed(Number(e.target.value))}
-                  className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#31572c]"
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#31572c]"
                 />
               </div>
             </div>
 
-            {/* Soil Chemistry Block */}
-
+            {/* Soil Data */}
             {soilData && (
-              <div className="bg-[#f4f7f4]/60 border border-gray-100 rounded-xl p-3 space-y-2 text-xs">
-                <div className="flex items-center gap-1.5 text-[9px] font-extrabold text-[#31572c] uppercase tracking-wider border-b border-gray-200/50 pb-1">
+              <div className="bg-[#f4f7f4] rounded-xl p-3 mt-4">
+                <div className="flex items-center gap-1.5 mb-2">
                   <Layers className="w-3.5 h-3.5 text-[#31572c]" />
-
-                  <span>Resolved Soil Chemistry Profile</span>
+                  <span className="text-[9px] font-bold text-[#31572c] uppercase tracking-wider">
+                    Soil Profile
+                  </span>
                 </div>
-
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2 text-center text-xs">
                   <div>
-                    <span className="text-[8px] font-extrabold text-gray-400 uppercase block">
-                      Soil Type
-                    </span>
-
-                    <span className="font-extrabold text-gray-700">
+                    <p className="text-[8px] text-gray-400">Type</p>
+                    <p className="font-bold text-gray-700">
                       {soilData.soilType}
-                    </span>
+                    </p>
                   </div>
-
                   <div>
-                    <span className="text-[8px] font-extrabold text-gray-400 uppercase block">
-                      Soil pH
-                    </span>
-
-                    <span className="font-extrabold text-gray-700">
-                      {soilData.pH}
-                    </span>
+                    <p className="text-[8px] text-gray-400">pH</p>
+                    <p className="font-bold text-gray-700">{soilData.pH}</p>
                   </div>
-
-                  <div className="col-span-2 grid grid-cols-3 gap-1 pt-1.5 border-t border-gray-200/50">
-                    {[
-                      {
-                        label: "Nitrogen",
-
-                        val: soilData.nitrogen,
-
-                        unit: "kg/ha",
-                      },
-
-                      {
-                        label: "Phosphorus",
-
-                        val: soilData.phosphorus,
-
-                        unit: "kg/ha",
-                      },
-
-                      {
-                        label: "Potassium",
-
-                        val: soilData.potassium,
-
-                        unit: "kg/ha",
-                      },
-                    ].map(({ label, val, unit }) => (
-                      <div key={label}>
-                        <span className="text-[8px] font-extrabold text-gray-400 uppercase block">
-                          {label}
-                        </span>
-
-                        <span className="font-bold text-[#31572c]">
-                          {val}
-
-                          <span className="text-[7px] text-gray-400 block font-normal">
-                            {unit}
-                          </span>
-                        </span>
-                      </div>
-                    ))}
+                  <div>
+                    <p className="text-[8px] text-gray-400">Organic</p>
+                    <p className="font-bold text-gray-700">
+                      {soilData.organicCarbon || "0.8"}%
+                    </p>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* Run AI CTA */}
-
+            {/* Run AI Button */}
             <button
               onClick={handleRunInference}
-              disabled={isLoading || weatherLoading}
-              className="w-full py-2.5 bg-[#31572c] hover:bg-[#132a13] disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 mt-2 active:scale-[0.98] cursor-pointer"
+              disabled={isLoading}
+              className="w-full mt-5 py-3 bg-gradient-to-r from-[#31572c] to-[#132a13] hover:from-[#132a13] hover:to-[#0a1a0a] disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold text-sm uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
             >
               {isLoading ? (
-                <Loader2 className="w-4 h-4 animate-spin text-[#ecf39e]" />
+                <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
-                <Cpu className="w-4 h-4 text-[#ecf39e]" />
+                <Cpu className="w-5 h-5" />
               )}
-
               <span>
                 {isLoading ? "Running AI Diagnostics..." : "Run AI Diagnostics"}
               </span>
@@ -1403,141 +1386,143 @@ export default function RiskPredictionEngine() {
           </div>
         </div>
 
-        {/* ── RIGHT PANEL ── */}
+        {/* RIGHT COLUMN - Risk Gauge & Results */}
+        <div className="space-y-4">
+          {/* Risk Gauge Card */}
+          <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+            <div className="text-center">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
+                Disease Outbreak Probability
+              </p>
 
-        <div className="lg:col-span-2 space-y-6">
-          {/* Speedometer Gauge Card */}
-
-          <div className="bg-white border border-gray-200/80 rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center text-center relative">
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10 rounded-2xl">
-                <Loader2 className="h-10 w-10 text-[#31572c] animate-spin" />
-              </div>
-            )}
-
-            <div className="relative w-48 h-28 flex flex-col items-center justify-center">
-              <svg
-                className="w-full h-full overflow-visible"
-                viewBox="0 0 100 65"
-              >
-                {/* Green segment: Low */}
-
-                <path
-                  d="M 22 42 A 28 28 0 0 1 36 17.8"
-                  fill="none"
-                  stroke="#16a34a"
-                  strokeWidth="7"
-                  strokeLinecap="round"
-                />
-
-                {/* Amber segment: Medium */}
-
-                <path
-                  d="M 36 17.8 A 28 28 0 0 1 64 17.8"
-                  fill="none"
-                  stroke="#d97706"
-                  strokeWidth="7"
-                />
-
-                {/* Red segment: High */}
-
-                <path
-                  d="M 64 17.8 A 28 28 0 0 1 78 42"
-                  fill="none"
-                  stroke="#dc2626"
-                  strokeWidth="7"
-                  strokeLinecap="round"
-                />
-
-                <text
-                  x="13"
-                  y="45"
-                  textAnchor="middle"
-                  fill="#9ca3af"
-                  className="text-[7px] font-extrabold tracking-wider"
+              {/* SVG Gauge */}
+              <div className="relative w-64 h-32 mx-auto">
+                <svg
+                  className="w-full h-full overflow-visible"
+                  viewBox="0 0 200 100"
                 >
-                  LOW
-                </text>
-
-                <text
-                  x="50"
-                  y="9"
-                  textAnchor="middle"
-                  fill="#9ca3af"
-                  className="text-[7px] font-extrabold tracking-wider"
-                >
-                  MED
-                </text>
-
-                <text
-                  x="87"
-                  y="45"
-                  textAnchor="middle"
-                  fill="#9ca3af"
-                  className="text-[7px] font-extrabold tracking-wider"
-                >
-                  HIGH
-                </text>
-
-                <g transform={`translate(50, 42) rotate(${needleAngle})`}>
-                  <line
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="-25"
-                    stroke="#1f2937"
-                    strokeWidth="2.5"
+                  {/* Background arc */}
+                  <path
+                    d="M 30 85 A 70 70 0 0 1 170 85"
+                    fill="none"
+                    stroke="#e5e7eb"
+                    strokeWidth="12"
+                    strokeLinecap="round"
+                  />
+                  {/* Green segment (Low) */}
+                  <path
+                    d="M 30 85 A 70 70 0 0 1 65 24.4"
+                    fill="none"
+                    stroke="#10b981"
+                    strokeWidth="12"
+                    strokeLinecap="round"
+                  />
+                  {/* Amber segment (Medium) */}
+                  <path
+                    d="M 65 24.4 A 70 70 0 0 1 135 24.4"
+                    fill="none"
+                    stroke="#f59e0b"
+                    strokeWidth="12"
+                  />
+                  {/* Red segment (High) */}
+                  <path
+                    d="M 135 24.4 A 70 70 0 0 1 170 85"
+                    fill="none"
+                    stroke="#ef4444"
+                    strokeWidth="12"
                     strokeLinecap="round"
                   />
 
-                  <circle cx="0" cy="0" r="3.5" fill="#1f2937" />
-                </g>
+                  {/* Labels */}
+                  <text
+                    x="20"
+                    y="92"
+                    textAnchor="middle"
+                    fill="#9ca3af"
+                    className="text-[8px] font-bold"
+                  >
+                    LOW
+                  </text>
+                  <text
+                    x="100"
+                    y="18"
+                    textAnchor="middle"
+                    fill="#9ca3af"
+                    className="text-[8px] font-bold"
+                  >
+                    MED
+                  </text>
+                  <text
+                    x="180"
+                    y="92"
+                    textAnchor="middle"
+                    fill="#9ca3af"
+                    className="text-[8px] font-bold"
+                  >
+                    HIGH
+                  </text>
 
-                <text
-                  x="50"
-                  y="57"
-                  textAnchor="middle"
-                  fill="#111827"
-                  className="font-sans"
-                  style={{ fontSize: "10px", fontWeight: "900" }}
+                  {/* Needle */}
+                  <g transform={`translate(100, 85) rotate(${needleAngle})`}>
+                    <line
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="-55"
+                      stroke="#1f2937"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="0" cy="0" r="6" fill="#1f2937" />
+                    <circle cx="0" cy="0" r="3" fill="#ef4444" />
+                  </g>
+
+                  {/* Center score */}
+                  <text
+                    x="100"
+                    y="75"
+                    textAnchor="middle"
+                    fill="#111827"
+                    className="font-sans text-xl font-black"
+                  >
+                    {animatedRiskScore}%
+                  </text>
+                </svg>
+              </div>
+
+              {/* Risk Level Badge */}
+              <div className="mt-2">
+                <h3
+                  className={`text-lg font-black uppercase tracking-wide ${getRiskLevelColor(predictionData.riskLevel)}`}
                 >
-                  {predictionData.compositeRiskScore}%
-                </text>
-              </svg>
-            </div>
+                  {predictionData.riskLevel} Risk
+                </h3>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mt-0.5">
+                  For {selectedCrop} in {locationContext.district} at{" "}
+                  {growthStage} stage
+                </p>
+              </div>
 
-            <div className="mt-2">
-              <h3
-                className={`text-sm font-extrabold uppercase tracking-wide ${getRiskLevelColor(predictionData.riskLevel)}`}
-              >
-                {predictionData.riskLevel} Risk
-              </h3>
+              {/* Analysis Text */}
+              {predictionData.analysis && hasRunDiagnostics && (
+                <p className="text-gray-600 text-xs italic mt-4 max-w-md mx-auto leading-relaxed">
+                  * {predictionData.analysis}
+                </p>
+              )}
 
-              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mt-0.5">
-                For {selectedCrop} in {locationContext.district} at{" "}
-                {growthStage} stage
-              </p>
-            </div>
-
-            {predictionData.analysis && (
-              <p className="text-gray-500 text-xs italic mt-4 max-w-md leading-relaxed text-center">
-                * {predictionData.analysis}
-              </p>
-            )}
-
-            <div className="mt-4 pt-3 border-t border-gray-50 w-full flex items-center justify-center gap-1 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-              <span>
-                ℹ️ Model Confidence: 91% — Based on live conditions telemetry
-              </span>
+              {/* Confidence Footer */}
+              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-center gap-1 text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+                <span>
+                  🤖 Model Confidence: 91% — Based on live conditions telemetry
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Pathogen Risk + Treatments Card */}
-
-          <div className="bg-white border border-gray-200/80 rounded-2xl p-6 shadow-sm space-y-5">
-            <h3 className="text-xs font-bold text-[#31572c] uppercase tracking-widest flex items-center gap-1.5">
-              <Layers className="h-4 w-4" />
-
+          {/* Pathogen Risks & Treatments Card */}
+          <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+            <h3 className="text-xs font-bold text-[#31572c] uppercase tracking-wider flex items-center gap-1.5 mb-4">
+              <Layers className="w-4 h-4" />
               <span>Top Pathogen Risks & Treatments</span>
             </h3>
 
@@ -1548,71 +1533,80 @@ export default function RiskPredictionEngine() {
                   predictionData.treatments[
                     predictionData.treatments.length - 1
                   ];
-
                 return (
-                  <div
-                    key={idx}
-                    className="py-4 first:pt-0 last:pb-0 flex flex-col md:flex-row md:items-start justify-between gap-4"
-                  >
-                    <div className="space-y-1 flex-1">
-                      <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-extrabold text-gray-900 tracking-tight">
-                          {pathogen.name}
-                        </h4>
+                  <div key={idx} className="py-4 first:pt-0 last:pb-0">
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <h4 className="text-sm font-extrabold text-gray-900">
+                            {pathogen.name}
+                          </h4>
+                          <span
+                            className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md border ${getSeverityBadge(pathogen.severity)}`}
+                          >
+                            {pathogen.severity} Severity
+                          </span>
+                          <span className="text-[9px] font-bold text-gray-400">
+                            Trend:{" "}
+                            <span className="text-gray-700">
+                              {pathogen.trend}
+                            </span>
+                          </span>
+                        </div>
 
-                        <span
-                          className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md border ${getSeverityBadge(pathogen.severity)}`}
-                        >
-                          {pathogen.severity} Severity
-                        </span>
+                        {/* Probability Bar */}
+                        <div className="flex items-center gap-2 mt-2">
+                          <span className="text-[9px] font-bold text-gray-400 w-16">
+                            Probability
+                          </span>
+                          <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                            <div
+                              className={`h-full rounded-full transition-all duration-700 ease-out ${getBarColor(pathogen.probability)}`}
+                              style={{ width: `${pathogen.probability}%` }}
+                            />
+                          </div>
+                          <span className="text-xs font-black text-gray-700 w-8 text-right">
+                            {pathogen.probability}%
+                          </span>
+                        </div>
                       </div>
+                    </div>
 
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                        Outbreak Trend:{" "}
-                        <span className="text-gray-700">{pathogen.trend}</span>
-                      </p>
-
-                      {treatment && (
-                        <div className="mt-2 bg-[#f4f7f4]/60 border border-gray-200/50 rounded-xl p-3 flex items-start gap-2">
+                    {/* Treatment */}
+                    {treatment && hasRunDiagnostics && (
+                      <div className="mt-3 bg-amber-50/40 border border-amber-100 rounded-xl p-3">
+                        <div className="flex items-start gap-2">
                           <span
                             className={getPriorityBadge(treatment.priority)}
                           >
                             {treatment.priority}
                           </span>
-
-                          <div>
+                          <div className="flex-1">
                             <p className="text-xs font-medium text-gray-700">
                               {treatment.action}
                             </p>
-
-                            <span className="text-[9px] font-extrabold text-[#31572c] uppercase tracking-wider mt-0.5 block">
+                            <p className="text-[9px] font-bold text-[#31572c] uppercase tracking-wider mt-1">
                               Active Ingredient: {treatment.product}
-                            </span>
+                            </p>
                           </div>
                         </div>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-3 shrink-0 self-end md:self-start">
-                      <span className="text-[10px] font-extrabold text-gray-400 uppercase">
-                        Probability
-                      </span>
-
-                      <div className="w-24 bg-gray-100 rounded-full h-2 overflow-hidden">
-                        <div
-                          className={`h-full rounded-full transition-all duration-500 ${getBarColor(pathogen.probability)}`}
-                          style={{ width: `${pathogen.probability}%` }}
-                        />
                       </div>
-
-                      <span className="text-xs font-black text-gray-800 w-8 text-right">
-                        {pathogen.probability}%
-                      </span>
-                    </div>
+                    )}
                   </div>
                 );
               })}
             </div>
+
+            {/* No diagnostics run message */}
+            {!hasRunDiagnostics && (
+              <div className="text-center py-8 text-gray-400">
+                <Cpu className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                <p className="text-xs font-medium">
+                  Click "Run AI Diagnostics" to see pathogen risks and
+                  treatments
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

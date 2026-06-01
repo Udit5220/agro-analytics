@@ -221,7 +221,7 @@ export default function LeafScanner() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <Camera className="h-6.5 w-6.5 text-[#31572c]" />
+            <Camera className="h-6 w-6 text-[#31572c]" />
             <h1 className="text-xl md:text-2xl font-bold tracking-tight text-gray-950 flex items-center gap-3">
               <span>AI Crop Leaf Scanner</span>
               <span className="text-gray-300 font-light text-xl">|</span>
@@ -417,7 +417,7 @@ export default function LeafScanner() {
         <div className="bg-white border border-gray-300 rounded-3xl p-6 shadow-sm space-y-6 animate-slideUp text-left">
           
           {/* Header Row */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4.5 border-b border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-gray-200">
             <div>
               <span className="text-[9px] font-black text-[#31572c] uppercase tracking-widest bg-[#31572c]/10 border border-[#31572c]/20 px-2.5 py-1 rounded-md">
                 Diagnostic Report
@@ -456,7 +456,7 @@ export default function LeafScanner() {
             <div className="lg:col-span-2 space-y-5">
               
               {/* Primary Disease details */}
-              <div className="bg-[#f4f7f4] border border-gray-300 rounded-2xl p-4.5 space-y-2.5">
+              <div className="bg-[#f4f7f4] border border-gray-300 rounded-2xl p-5 space-y-2.5">
                 <h4 className="text-xs font-black text-gray-950 uppercase tracking-wider flex items-center gap-1.5">
                   <AlertTriangle className="w-4 h-4 text-amber-700" />
                   Primary Pathogen Diagnosis
@@ -474,7 +474,7 @@ export default function LeafScanner() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 {/* Symptoms list */}
-                <div className="bg-white border border-gray-300 rounded-2xl p-4.5 space-y-3">
+                <div className="bg-white border border-gray-300 rounded-2xl p-5 space-y-3">
                   <h5 className="text-[11px] font-black text-gray-950 uppercase tracking-widest flex items-center gap-1.5">
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-700" />
                     Observed Symptoms
@@ -490,7 +490,7 @@ export default function LeafScanner() {
                 </div>
 
                 {/* Possible Causes list */}
-                <div className="bg-white border border-gray-300 rounded-2xl p-4.5 space-y-3">
+                <div className="bg-white border border-gray-300 rounded-2xl p-5 space-y-3">
                   <h5 className="text-[11px] font-black text-gray-950 uppercase tracking-widest flex items-center gap-1.5">
                     <Info className="w-3.5 h-3.5 text-sky-700" />
                     Possible Outbreak Causes
@@ -508,7 +508,7 @@ export default function LeafScanner() {
               </div>
 
               {/* Growth & Yield Impact block */}
-              <div className="bg-white border border-gray-300 rounded-2xl p-4.5 space-y-2.5">
+              <div className="bg-white border border-gray-300 rounded-2xl p-5 space-y-2.5">
                 <h5 className="text-xs font-black text-gray-950 uppercase tracking-wider flex items-center gap-1.5">
                   <Activity className="w-4 h-4 text-red-600" />
                   Yield & Production Impact
@@ -524,7 +524,7 @@ export default function LeafScanner() {
             <div className="space-y-5">
               
               {/* Recovery Steps Checklist */}
-              <div className="bg-white border border-gray-300 rounded-2xl p-4.5 space-y-3">
+              <div className="bg-white border border-gray-300 rounded-2xl p-5 space-y-3">
                 <h5 className="text-xs font-black text-gray-950 uppercase tracking-wider flex items-center gap-1.5">
                   <CheckCircle className="w-4 h-4 text-emerald-700" />
                   Immediate Recovery Program
@@ -548,7 +548,7 @@ export default function LeafScanner() {
               </div>
 
               {/* Treatments Panel */}
-              <div className="bg-white border border-gray-300 rounded-2xl p-4.5 space-y-4">
+              <div className="bg-white border border-gray-300 rounded-2xl p-5 space-y-4">
                 <h5 className="text-xs font-black text-gray-950 uppercase tracking-wider flex items-center gap-1.5">
                   <ShieldAlert className="w-4 h-4 text-[#31572c]" />
                   Treatment Protocols

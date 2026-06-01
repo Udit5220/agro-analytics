@@ -70,63 +70,9 @@ export default function ModuleLayout() {
 
         {/* Right Actions */}
         <div className="flex items-center space-x-4">
-          
-          {/* Language Selector */}
-          <div className="relative">
-            <button
-              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs text-gray-200 hover:text-white hover:bg-[#4f772d]/30 transition-all duration-200"
-            >
-              <Globe className="h-3.5 w-3.5 text-gray-300" />
-              <span className="font-semibold">{selectedLang}</span>
-              <ChevronDown className="h-3 w-3 text-gray-300" />
-            </button>
-
-            {langDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-100 rounded-xl shadow-xl py-1 text-gray-800 z-50 animate-fadeIn">
-                {['English', 'Español', 'Français', 'हिन्दी'].map((lang) => (
-                  <button
-                    key={lang}
-                    onClick={() => handleLangSelect(lang)}
-                    className="w-full text-left px-4 py-2 text-xs font-semibold hover:bg-[#31572c]/10 hover:text-[#132a13] transition-colors duration-150"
-                  >
-                    {lang}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Theme Toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-lg text-gray-350 hover:text-white hover:bg-[#4f772d]/30 transition-all duration-200"
-            title="Toggle Light/Dark Mode"
-          >
-            {darkMode ? (
-              <Sun className="h-4.5 w-4.5 text-[#ecf39e]" />
-            ) : (
-              <Moon className="h-4.5 w-4.5 text-gray-300" />
-            )}
-          </button>
-
-          {/* Notifications bell */}
-          <div className="relative">
-            <button
-              onClick={() => setNotificationCount(0)}
-              className="p-2 rounded-lg text-gray-350 hover:text-white hover:bg-[#4f772d]/30 relative transition-all duration-200"
-            >
-              <Bell className="h-4.5 w-4.5 text-gray-300" />
-              {notificationCount > 0 && (
-                <span className="absolute top-1 right-1 h-4 w-4 bg-red-500 text-white rounded-full text-[9px] font-extrabold flex items-center justify-center border-2 border-[#132a13]">
-                  {notificationCount}
-                </span>
-              )}
-            </button>
-          </div>
 
           {/* Avatar with Profile Dropdown */}
-          <div className="flex items-center pl-2 border-l border-[#31572c]/40 relative" ref={profileRef}>
+          <div className="flex items-center pl-2 relative" ref={profileRef}>
             <button
               type="button"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
