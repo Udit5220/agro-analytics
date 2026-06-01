@@ -24,8 +24,8 @@ import TreatmentAdvisor from "./pages/disease-detection/TreatmentAdvisor";
 import CropLifecycle from "./pages/disease-detection/CropLifecycle";
 import HistoricalOutbreaks from "./pages/disease-detection/HistoricalOutbreaks";
 import LeafScanner from "./pages/disease-detection/LeafScanner";
-import MarketIntelligenceDashboard from "./pages/market-intelligence/MarketIntelligenceDashboard";
-import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoirDashboard";
+// import MarketIntelligenceDashboard from "./pages/market-intelligence/MarketIntelligenceDashboard";
+// import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoirDashboard";
 import GovSchemesDashboard from "./pages/gov-schemes/GovSchemesDashboard";
 import ResearchAiDashboard from "./pages/research-ai/ResearchAiDashboard";
 import NewsIntelDashboard from "./pages/news-intel/NewsIntelDashboard";
@@ -78,6 +78,34 @@ import BuyInputs from "./pages/marketplace/BuyInputs";
 import MyListings from "./pages/marketplace/MyListings";
 import MyOrders from "./pages/marketplace/MyOrders";
 import PaymentsInvoices from "./pages/marketplace/PaymentsInvoices";
+
+
+// import GovSchemesDashboard from './pages/gov-schemes/GovSchemesDashboard';
+// import ResearchAiDashboard from './pages/research-ai/ResearchAiDashboard';
+// import NewsIntelDashboard from './pages/news-intel/NewsIntelDashboard';
+// import LearningHubDashboard from './pages/learning-hub/LearningHubDashboard';
+import MandiNewsFeed from './pages/news-intel/MandiNewsFeed';
+import PolicyUpdates from './pages/news-intel/PolicyUpdates';
+import MarketImpactRatings from './pages/news-intel/MarketImpactRatings';
+
+import SchemeMatcher from './pages/gov-schemes/SchemeMatcher';
+import SubsidyTracker from './pages/gov-schemes/SubsidyTracker';
+import ApplicationCenter from './pages/gov-schemes/ApplicationCenter';
+import StateGrants from './pages/gov-schemes/StateGrants';
+import StateBudgetAllocation from './pages/gov-schemes/StateBudgetAllocation';
+
+import ResearchSummary from './pages/research-ai/ResearchSummary';
+import ResearchDrafting from './pages/research-ai/ResearchDrafting';
+import TranslationCenter from './pages/research-ai/TranslationCenter';
+import YieldPredictorModels from './pages/research-ai/YieldPredictorModels';
+
+import LectureHall from './pages/learning-hub/LectureHall';
+import KnowledgeBase from './pages/learning-hub/KnowledgeBase';
+import InteractiveQuizzes from './pages/learning-hub/InteractiveQuizzes';
+import ExpertWebinars from './pages/learning-hub/ExpertWebinars';
+import VirtualFarmTours from './pages/learning-hub/VirtualFarmTours';
+import AgriTechTrends from './pages/news-intel/AgriTechTrends';
+import CommodityExportTrends from './pages/news-intel/CommodityExportTrends';
 
 // Wrapper layout for the main landing page — UNCHANGED
 function LandingPage() {
@@ -188,14 +216,30 @@ function DashboardSwitcher() {
   }
 
   // ── Government Scheme Center (existing) ───────────────────────────────────
-  if (moduleId === "gov-schemes") return <GovSchemesDashboard />;
-
+   if (moduleId === 'gov-schemes') {
+    if (subPath === 'matching') return <SchemeMatcher />;
+    if (subPath === 'subsidies') return <SubsidyTracker />;
+    if (subPath === 'applications') return <ApplicationCenter />;
+    if (subPath === 'state-grants') return <StateGrants />;
+    if (subPath === 'budget') return <StateBudgetAllocation />;
+    return <GovSchemesDashboard />;
+  }
   // ── White Paper & Research AI (existing) ──────────────────────────────────
-  if (moduleId === "research-ai") return <ResearchAiDashboard />;
-
-  // ── News Intelligence (existing) ──────────────────────────────────────────
-  if (moduleId === "news-intel") return <NewsIntelDashboard />;
-
+  if (moduleId === 'research-ai') {
+    if (subPath === 'summary') return <ResearchSummary />;
+    if (subPath === 'drafting') return <ResearchDrafting />;
+    if (subPath === 'translate') return <TranslationCenter />;
+    if (subPath === 'models') return <YieldPredictorModels />;
+    return <ResearchAiDashboard />;
+  }
+  if (moduleId === 'news-intel') {
+    if (subPath === 'mandi') return <MandiNewsFeed />;
+    if (subPath === 'policies') return <PolicyUpdates />;
+    if (subPath === 'impact') return <MarketImpactRatings />;
+    if (subPath === 'agritech') return <AgriTechTrends />;
+    if (subPath === 'exports') return <CommodityExportTrends />;
+    return <NewsIntelDashboard />;
+  }
   // ── Marketplace (NEW) ─────────────────────────────────────────────────────
   if (moduleId === "marketplace") {
     if (subPath === "listings") return <BrowseListings />;
@@ -209,7 +253,12 @@ function DashboardSwitcher() {
   }
 
   // Learning Hub routing
-  if (moduleId === "learning-hub") {
+  if (moduleId === 'learning-hub') {
+    if (subPath === 'lectures') return <LectureHall />;
+    if (subPath === 'kb') return <KnowledgeBase />;
+    if (subPath === 'quizzes') return <InteractiveQuizzes />;
+    if (subPath === 'webinars') return <ExpertWebinars />;
+    if (subPath === 'tours') return <VirtualFarmTours />;
     return <LearningHubDashboard />;
   }
 
