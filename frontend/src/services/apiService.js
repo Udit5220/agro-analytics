@@ -49,6 +49,8 @@ export const commodityApi = {
   getPriceAlerts:   ()            => request('/price-alerts'),
   createPriceAlert: (data)        => request('/price-alerts',     { method: 'POST',  body: JSON.stringify(data) }),
   updatePriceAlert: (id, data)    => request(`/price-alerts/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+  createCommodityAlert: (payload) => request("/commodity/alerts", { method: "POST", body: JSON.stringify(payload) }),
+  chatWithCommodityAI: (payload)  => request("/commodity/ai-chat", { method: "POST", body: JSON.stringify(payload) }),
 };
 
 // ─── Analytics APIs (Greenleaf DB collections — real data) ───────────────────
@@ -76,6 +78,8 @@ export const analyticsApi = {
   // ── New Commodity Terminal Endpoints ──
   getSpreadAnalysis: (commodity) =>
                   request(`/spread-analysis?commodity=${encodeURIComponent(commodity)}`),
+  getSpreadAnalysisFull: (commodity) =>
+                  request(`/commodity/spread-analysis-full?commodity=${encodeURIComponent(commodity)}`),
   getGlobalTradeImpact: (commodity) =>
                   request(`/commodity/global-trade-impact?commodity=${encodeURIComponent(commodity)}`),
   getMarketSignals: (commodity) =>

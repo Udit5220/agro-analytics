@@ -57,10 +57,15 @@ router.get("/commodity-futures", ca.getCommodityFutures);
 router.get("/commodity-seasonality", ca.getCommoditySeasonality);
 router.get("/mandi-spread", ca.getMandiSpread);
 router.get("/spread-analysis", ca.getSpreadAnalysis);
+router.get("/commodity/spread-analysis-full", ca.getSpreadAnalysisFull);
+
+import * as cai from "../controllers/commodity.ai.controller.js";
 
 // ─── New Commodity Terminal Analytics ─────────────────────────────────────────
 router.get("/commodity/global-trade-impact", ca.getGlobalTradeImpact);
 router.get("/commodity/market-signals", ca.getMarketSignals);
 router.get("/commodity/ai-commentary", ca.getAiCommentary);
+router.post("/commodity/alerts", ca.createCommodityAlert);
+router.post("/commodity/ai-chat", cai.chatWithCommodityAI);
 
 export default router;
