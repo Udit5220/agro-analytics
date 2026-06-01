@@ -136,8 +136,9 @@ export default function Navbar() {
                       title="Active"
                     />
                   </div>
-
+                  {/* hrllo */}
                   {/* Divider */}
+
                   <div className="border-t border-gray-100 dark:border-brand-dark/20 my-2" />
 
                   {/* Quick Links */}
