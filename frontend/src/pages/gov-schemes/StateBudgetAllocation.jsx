@@ -56,7 +56,8 @@ export default function StateBudgetAllocation() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/extended/budgets');
+        const apiBase = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? 'https://agroindia-backend.onrender.com/api' : '/api');
+        const response = await fetch(`${apiBase}/extended/budgets`);
         const result = await response.json();
         if (result.success && result.data) {
           // Format colors and percentages dynamically if needed, or use response

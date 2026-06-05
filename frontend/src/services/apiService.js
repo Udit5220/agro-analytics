@@ -10,7 +10,7 @@
  *  - Greenleaf proxy (/api/gl/*): direct passthrough to Greenleaf backend
  */
 
-const BASE = '/api';
+const BASE = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? 'https://agroindia-backend.onrender.com/api' : '/api');
 
 const request = async (url, options = {}) => {
   try {
