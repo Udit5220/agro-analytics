@@ -3,6 +3,7 @@
 
 import { dashboardContent } from "../content/dashboardContent";
 import { profileApi } from "./apiService";
+import seededData from "../seed-json/seededData.json";
 
 // Retrieve Gemini API Key from Vite env context
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
@@ -118,7 +119,8 @@ export async function callGeminiFlash(userPrompt, systemPrompt) {
   }
 
   const clean = text.replace(/```json|```/g, "").trim();
-  return JSON.parse(clean);
+  const cleanJson = clean.replace(/,\s*([\]}])/g, "$1");
+  return JSON.parse(cleanJson);
 }
 
 // Generic HTTP Post execution function targeting gemini-2.5-pro
@@ -147,7 +149,8 @@ export async function callGeminiPro(userPrompt, systemPrompt) {
   }
 
   const clean = text.replace(/```json|```/g, "").trim();
-  return JSON.parse(clean);
+  const cleanJson = clean.replace(/,\s*([\]}])/g, "$1");
+  return JSON.parse(cleanJson);
 }
 
 // Helper 1: getCropRecommendations
@@ -260,80 +263,7 @@ export async function getCropRankings(
   roiWeight,
   riskWeight,
 ) {
-  const staticRankings = [
-    {
-      rank: 1,
-      name: "Wheat",
-      hindi: "गेहूं",
-      score: 92,
-      explanation:
-        "Excellent organic soil profile match and cold winter climate indices.",
-    },
-    {
-      rank: 2,
-      name: "Rice",
-      hindi: "चावल",
-      score: 85,
-      explanation:
-        "Highly compatible water retention clay matrix matches rainfall onset.",
-    },
-    {
-      rank: 3,
-      name: "Maize",
-      hindi: "मक्का",
-      score: 78,
-      explanation:
-        "Balanced soil pH and moisture parameters favor organic yield metrics.",
-    },
-    {
-      rank: 4,
-      name: "Sugarcane",
-      hindi: "गन्ना",
-      score: 72,
-      explanation:
-        "Strong market price support makes it highly profitable long term.",
-    },
-    {
-      rank: 5,
-      name: "Cotton",
-      hindi: "कपास",
-      score: 65,
-      explanation:
-        "Drought-tolerant deep root system handles moisture fluctuations.",
-    },
-    {
-      rank: 6,
-      name: "Mustard",
-      hindi: "सरसों",
-      score: 60,
-      explanation:
-        "Low water requirement matches medium sandy-loam properties.",
-    },
-    {
-      rank: 7,
-      name: "Bajra",
-      hindi: "बाजरा",
-      score: 55,
-      explanation:
-        "Extremely resilient to high soil temperatures and drought indexes.",
-    },
-    {
-      rank: 8,
-      name: "Moong",
-      hindi: "मूंग",
-      score: 48,
-      explanation:
-        "Foliar growth stage helps in natural nitrogen fixation cycles.",
-    },
-    {
-      rank: 9,
-      name: "Sunflower",
-      hindi: "सूरजमुखी",
-      score: 42,
-      explanation:
-        "Moderate yields can be optimized with extra potassium inputs.",
-    },
-  ];
+  const staticRankings = seededData.cropRecommendation.fallbacks.cropRankings;
 
   try {
     const res = await profileApi.getCropRankings({
@@ -484,76 +414,7 @@ export async function getPestRisks(
   }
   Ensure that you return EXACTLY 5 risks and 3 resistant varieties. Make probability realistic based on temperature: ${temperature}°C and humidity: ${humidity}%. Set outbreakNearby to true for at least one if parameters are high.`;
 
-  const fallbackRisks = {
-    risks: [
-      {
-        id: "yellow_rust",
-        name: "Yellow Rust",
-        nameHindi: "पीला रतुआ",
-        severity: "High",
-        description:
-          "Airborne fungal disease — spreads fast in cool, humid weather.",
-        probability: 72,
-        outbreakNearby: true,
-      },
-      {
-        id: "aphids",
-        name: "Aphids",
-        nameHindi: "माहू",
-        severity: "Medium",
-        description:
-          "Sap-sucking insects, reduce photosynthesis and spread viruses.",
-        probability: 55,
-        outbreakNearby: false,
-      },
-      {
-        id: "leaf_blight",
-        name: "Leaf Blight",
-        nameHindi: "पत्ती झुलसा",
-        severity: "Medium",
-        description: "Fungal attack causing browning and drying of leaves.",
-        probability: 45,
-        outbreakNearby: false,
-      },
-      {
-        id: "powdery_mildew",
-        name: "Powdery Mildew",
-        nameHindi: "सफेद चूर्ण",
-        severity: "Low",
-        description:
-          "White powdery fungal coating on leaves, reduces grain fill.",
-        probability: 38,
-        outbreakNearby: false,
-      },
-      {
-        id: "army_worm",
-        name: "Army Worm",
-        nameHindi: "सेना कीड़ा",
-        severity: "Low",
-        description:
-          "Leaf-eating caterpillar, mostly a concern during vegetative stage.",
-        probability: 22,
-        outbreakNearby: false,
-      },
-    ],
-    resistantVarieties: [
-      {
-        name: "PBW 343",
-        advantage: "+18% yield over local variety",
-        university: "Punjab Agriculture Univ.",
-      },
-      {
-        name: "HD 2967",
-        advantage: "Rust-resistant, widely adopted",
-        university: "IARI New Delhi",
-      },
-      {
-        name: "GW 322",
-        advantage: "Tolerant to dry conditions",
-        university: "Gujarat Agri Univ.",
-      },
-    ],
-  };
+  const fallbackRisks = seededData.cropRecommendation.fallbacks.pestRisks;
 
   return fetchWithFallback(
     () => callGeminiFlash(userPrompt, systemPrompt),
@@ -584,47 +445,7 @@ export async function getMarketData(cropName, district) {
   }
   Ensure that you return EXACTLY 18 days of price charts and EXACTLY 4 mandis with realistic prices for Haryana mandis.`;
 
-  const fallbackMarket = {
-    demandLevel: "High Demand",
-    priceChart: [
-      { day: "D1", price: 2210 },
-      { day: "D3", price: 2240 },
-      { day: "D5", price: 2220 },
-      { day: "D7", price: 2260 },
-      { day: "D9", price: 2280 },
-      { day: "D11", price: 2250 },
-      { day: "D13", price: 2280 },
-      { day: "D15", price: 2310 },
-      { day: "D16", price: 2285 },
-      { day: "D18", price: 2330 },
-      { day: "D20", price: 2355 },
-      { day: "D21", price: 2340 },
-      { day: "D23", price: 2375 },
-      { day: "D25", price: 2390 },
-      { day: "D26", price: 2410 },
-      { day: "D28", price: 2395 },
-      { day: "D29", price: 2440 },
-      { day: "D30", price: 2460 },
-    ],
-    mandis: [
-      {
-        name: "Nuh Mandi, Faridabad",
-        price: 2440,
-        weeklyChange: 2.1,
-        isBest: true,
-      },
-      { name: "Palwal APMC", price: 2420, weeklyChange: 1.8, isBest: false },
-      {
-        name: "Ballabhgarh Grain Market",
-        price: 2410,
-        weeklyChange: 1.4,
-        isBest: false,
-      },
-      { name: "Hodal Mandi", price: 2390, weeklyChange: 0.9, isBest: false },
-    ],
-    diversificationTip:
-      "Consider adding Mustard to your rotation to reduce wheat price volatility risk.",
-  };
+  const fallbackMarket = seededData.cropRecommendation.fallbacks.marketData;
 
   return fetchWithFallback(
     () => callGeminiFlash(userPrompt, systemPrompt),
@@ -662,102 +483,7 @@ export async function getSeasonalCalendar(selectedCrops, district, season) {
   }
   Ensure you return ALL 3 seasons: Kharif, Rabi, Zaid, with realistic timeline data mapping months to farming phases (Sowing, Irrigation, Fertilizer, Harvest).`;
 
-  const fallbackCalendar = {
-    seasons: [
-      {
-        name: "Kharif",
-        months: "June – November",
-        temperature: "25°C – 35°C",
-        humidity: "70% – 90%",
-        description:
-          "Sown with the onset of the southwest monsoon. Characterized by high humidity, warm temperature models, and heavy rain demands.",
-        crops: [
-          {
-            name: "Rice",
-            hindiName: "धान",
-            npk: "120-60-40",
-            timeline: {
-              Jun: ["Sowing"],
-              Jul: ["Sowing", "Irrigation", "Fertilizer"],
-              Aug: ["Irrigation"],
-              Sep: ["Irrigation", "Fertilizer"],
-              Oct: ["Harvest"],
-              Nov: ["Harvest"],
-            },
-          },
-          {
-            name: "Maize",
-            hindiName: "मक्का",
-            npk: "100-50-40",
-            timeline: {
-              Jun: ["Sowing"],
-              Jul: ["Sowing", "Fertilizer"],
-              Aug: ["Irrigation", "Fertilizer"],
-              Sep: ["Irrigation", "Harvest"],
-              Oct: ["Harvest"],
-            },
-          },
-          {
-            name: "Cotton",
-            hindiName: "कपास",
-            npk: "80-40-40",
-            timeline: {
-              Jun: ["Sowing"],
-              Jul: ["Irrigation"],
-              Aug: ["Irrigation", "Fertilizer"],
-              Sep: ["Irrigation", "Fertilizer"],
-              Oct: ["Irrigation", "Harvest"],
-              Nov: ["Harvest"],
-            },
-          },
-        ],
-      },
-      {
-        name: "Rabi",
-        months: "November – April",
-        temperature: "15°C – 25°C",
-        humidity: "40% – 60%",
-        description:
-          "Sown in winter after the monsoon rains retreat. Requires mild temperatures during sowing/growing and warm weather during harvest.",
-        crops: [
-          {
-            name: "Wheat",
-            hindiName: "गेहूं",
-            npk: "120-60-40",
-            timeline: {
-              Nov: ["Sowing"],
-              Dec: ["Sowing", "Irrigation"],
-              Jan: ["Irrigation", "Fertilizer"],
-              Feb: ["Irrigation"],
-              Mar: ["Harvest"],
-              Apr: ["Harvest"],
-            },
-          },
-        ],
-      },
-      {
-        name: "Zaid",
-        months: "March – June",
-        temperature: "30°C – 40°C",
-        humidity: "30% – 50%",
-        description:
-          "Short summer crop window between the Rabi harvest and Kharif sowing. Dominated by warm winds and rapid maturity requirements.",
-        crops: [
-          {
-            name: "Watermelon",
-            hindiName: "तरबूज",
-            npk: "80-40-60",
-            timeline: {
-              Mar: ["Sowing"],
-              Apr: ["Irrigation", "Fertilizer"],
-              May: ["Irrigation"],
-              Jun: ["Harvest"],
-            },
-          },
-        ],
-      },
-    ],
-  };
+  const fallbackCalendar = seededData.cropRecommendation.fallbacks.seasonalCalendar;
 
   return fetchWithFallback(
     () => callGeminiFlash(userPrompt, systemPrompt),

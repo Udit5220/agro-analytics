@@ -5,8 +5,9 @@ import WeatherForecast from '../models/WeatherForecast.js';
 import WeatherAlert from '../models/WeatherAlert.js';
 import IrrigationAdvisory from '../models/IrrigationAdvisory.js';
 
-await mongoose.connect(process.env.MONGO_URI, { dbName: 'greenleaf-dev' });
-console.log('✅ Connected to MongoDB');
+const dbName = process.env.MONGO_URI_1 ? 'agro-india' : 'greenleaf-dev';
+await mongoose.connect(process.env.MONGO_URI_1 || process.env.MONGO_URI, { dbName });
+console.log(`✅ Connected to MongoDB (${process.env.MONGO_URI_1 ? 'Secondary' : 'Primary'}/Seeding) to database: ${dbName}`);
 
 // ─── Major Indian Reservoirs ──────────────────────────────────────────────────
 const reservoirs = [

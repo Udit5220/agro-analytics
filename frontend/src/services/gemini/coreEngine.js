@@ -63,7 +63,8 @@ function parseModelResponse(text) {
       .replace(/```/g, '')
       .trim();
       
-    return JSON.parse(cleanText);
+    const cleanJson = cleanText.replace(/,\s*([\]}])/g, "$1");
+    return JSON.parse(cleanJson);
   } catch (err) {
     // Return structured text fallback if not strictly JSON
     return {

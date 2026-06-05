@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import connectDB from '../config/db.js';
+import connectDB, { dbContextStorage } from '../config/db.js';
 import MandiPrice from '../models/MandiPrice.js';
 
 async function run() {
@@ -9,4 +9,7 @@ async function run() {
   console.log('Updated Bajra prices in MongoDB');
   process.exit(0);
 }
-run();
+
+dbContextStorage.run({ useSecondary: true }, () => {
+  run();
+});

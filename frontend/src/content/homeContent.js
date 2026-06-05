@@ -56,7 +56,7 @@ export const homeContent = {
       title: 'AI Agriculture Assistant',
       description: '24/7 conversational AI, 12 languages',
       icon: 'Bot',
-      linkUrl: '/module/ai-suggestion',
+      linkUrl: '/module/ai-assistant-1',
       badgeText: 'Conversational'
     },
     {

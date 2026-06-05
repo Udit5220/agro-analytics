@@ -1,12 +1,13 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import connectDB from './config/db.js';
+import connectDB, { dbContextStorage } from './config/db.js';
 import commodityRoutes from './routes/commodity.routes.js';
 import weatherRoutes from './routes/weather.routes.js';
 import marketplaceRoutes from './routes/marketplace.routes.js';
 import profileRoutes from './routes/profile.routes.js';
 import journalRoutes from './routes/journal.routes.js';
+import campaignRoutes from './routes/campaign.routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +16,30 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({ origin: '*' })); // Auth will restrict this later
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// ─── DB Context Switcher Middleware ──────────────────────────────────────────
+app.use((req, res, next) => {
+  const dbSelect = req.query.db || req.headers['x-db-select'] || 'mongo_uri';
+  let useSecondary = false;
+
+  // Force campaigns endpoints to always use MONGO_URI_1 (secondary database, agro-india)
+  if (req.path.includes('/campaigns') || dbSelect === 'mongo_uri_1') {
+    useSecondary = true;
+  } else {
+    // Default to MONGO_URI
+    if (req.method === 'GET') {
+      useSecondary = false;
+    } else {
+      // POST, PUT, DELETE, PATCH -> Redirected to MONGO_URI_1
+      useSecondary = true;
+      console.log(`[DB Switcher] Redirecting write operation (${req.method} ${req.path}) from MONGO_URI to MONGO_URI_1`);
+    }
+  }
+
+  dbContextStorage.run({ useSecondary }, () => {
+    next();
+  });
+});
 
 // ─── Connect Database ─────────────────────────────────────────────────────────
 connectDB();
@@ -37,6 +62,7 @@ app.use('/api', profileRoutes);
 app.use('/api', journalRoutes);
 app.use('/api/weather', weatherRoutes);
 app.use('/api/marketplace', marketplaceRoutes);
+app.use('/api', campaignRoutes);
 
 // ─── 404 Handler ─────────────────────────────────────────────────────────────
 app.use((req, res) => {

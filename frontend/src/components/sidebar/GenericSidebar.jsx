@@ -1,32 +1,199 @@
-import React from 'react';
-import { NavLink, Link, useParams } from 'react-router-dom';
-import * as LucideIcons from 'lucide-react';
-import { dashboardContent } from '../../content/dashboardContent';
-import { uiConfig } from '../../utils/uiConfig';
+import React from "react";
+import { NavLink, Link, useParams } from "react-router-dom";
+import * as LucideIcons from "lucide-react";
+import { dashboardContent } from "../../content/dashboardContent";
+import { uiConfig } from "../../utils/uiConfig";
+
+import { useRole } from "../../context/RoleContext";
 
 export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
   const { moduleId } = useParams();
   const { userProfile, sidebarMenus } = dashboardContent;
+  const { activeRole } = useRole();
 
   // Resolve default active menu array based on active moduleId path param
   let activeModuleKey = moduleId;
-  if (moduleId && sidebarMenus[moduleId]) {
-    sessionStorage.setItem('lastActiveModule', moduleId);
+  if (
+    moduleId &&
+    (sidebarMenus[moduleId] || moduleId === "crop-recommendation-1")
+  ) {
+    sessionStorage.setItem("lastActiveModule", moduleId);
   } else {
-    const saved = sessionStorage.getItem('lastActiveModule');
-    activeModuleKey = saved && sidebarMenus[saved] ? saved : 'crop-recommendation';
+    const saved = sessionStorage.getItem("lastActiveModule");
+    activeModuleKey =
+      saved && (sidebarMenus[saved] || saved === "crop-recommendation-1")
+        ? saved
+        : "crop-recommendation";
   }
-  const currentMenu = sidebarMenus[activeModuleKey];
+
+  // Force crop-recommendation vs crop-recommendation-1 based on active role
+  if (
+    activeModuleKey === "crop-recommendation" ||
+    activeModuleKey === "crop-recommendation-1"
+  ) {
+    if (activeRole === "farmer") {
+      activeModuleKey = "crop-recommendation";
+    } else {
+      activeModuleKey = "crop-recommendation-1";
+    }
+  }
+
+  let currentMenu = sidebarMenus[activeModuleKey];
+  if (activeModuleKey === "disease-detection") {
+    if (activeRole === "farmer") {
+      // Inherits default farmer items from sidebarMenus
+    } else if (activeRole === "company" || activeRole === "admin") {
+      currentMenu = [
+        { label: "Executive Operations", path: "dashboard", icon: "LayoutDashboard" },
+        { label: "Global Intelligence", path: "global-intelligence", icon: "Globe" },
+        { label: "Customer Risk Monitoring", path: "customer-risk", icon: "Users" },
+        { label: "AI Model Performance", path: "model-performance", icon: "Cpu" },
+        { label: "Alert Operations", path: "alerts", icon: "Bell" },
+        { label: "Intervention Effectiveness", path: "interventions", icon: "ShieldAlert" },
+        { label: "Platform Impact", path: "platform-impact", icon: "Award" },
+        { label: "Operational Control", path: "operations", icon: "Sliders" },
+        { label: "Intelligence Repository", path: "repository", icon: "Database" },
+      ];
+    } else if (activeRole === "government") {
+      currentMenu = [
+        { label: "National Command Center", path: "", icon: "LayoutDashboard" },
+        { label: "Disease Surveillance Network", path: "surveillance", icon: "Radio" },
+        { label: "National Risk Map", path: "risk-map", icon: "Map" },
+        { label: "Early Warning Center", path: "early-warning", icon: "Compass" },
+        { label: "Outbreak Response Management", path: "outbreak-response", icon: "Activity" },
+        { label: "Resource & Field Operations", path: "field-operations", icon: "Users" },
+        { label: "Food Security Impact Monitor", path: "food-security", icon: "ShieldAlert" },
+        { label: "Policy & Intervention", path: "policy-interventions", icon: "ClipboardList" },
+        { label: "Historical Repository", path: "history", icon: "History" },
+      ];
+    } else {
+      currentMenu = [
+        { label: "Executive Dashboard", path: "", icon: "LayoutDashboard" },
+        { label: "Outbreak Monitoring", path: "outbreaks", icon: "Activity" },
+        { label: "Disease Intelligence Map", path: "map", icon: "Map" },
+        { label: "Farmer Case Management", path: "cases", icon: "Users" },
+        { label: "Risk Forecasting", path: "predictions", icon: "TrendingUp" },
+        { label: "Treatment Campaign Center", path: "campaigns", icon: "Shield" },
+        { label: "Disease Alerts & Advisories", path: "alerts", icon: "Bell" },
+        { label: "Impact Analytics", path: "analytics", icon: "BarChart3" },
+        { label: "Historical Disease Intelligence", path: "history", icon: "History" },
+      ];
+    }
+  } else if (activeModuleKey === "crop-recommendation-1") {
+    if (activeRole === "government") {
+      currentMenu = [
+        { label: "National Command Center", path: "", icon: "LayoutDashboard" },
+        { label: "Food Security Center", path: "food-security", icon: "Shield" },
+        { label: "Strategic Intervention", path: "strategic-intervention", icon: "Activity" },
+        { label: "Crop Intelligence", path: "crop-intelligence", icon: "Sprout" },
+        { label: "Climate Risk Center", path: "climate-risk", icon: "CloudLightning" },
+        { label: "Water Security Center", path: "water-security", icon: "Droplets" },
+        { label: "Pest & Disease Monitor", path: "pest-disease", icon: "Bug" },
+        { label: "Policy Impact Intel", path: "policy-impact", icon: "LineChart" },
+        { label: "Subsidy & Scheme Intel", path: "subsidy-intelligence", icon: "Coins" },
+        { label: "Regional Performance Intel", path: "regional-performance", icon: "Map" },
+        { label: "Policy Simulation Lab", path: "policy-sim", icon: "Cpu" },
+      ];
+    } else if (activeRole === "company" || activeRole === "admin") {
+      currentMenu = [
+        { label: "Executive Supply Command Center", path: "", icon: "LayoutDashboard" },
+        { label: "Demand & Supply Planning Center", path: "demand-supply", icon: "CalendarRange" },
+        { label: "Contract Farming Intelligence", path: "contract-farming", icon: "FileText" },
+        { label: "Yield & Production Forecast", path: "yield-forecast", icon: "TrendingUp" },
+        { label: "Commodity Opportunity Engine", path: "commodity-opportunity", icon: "Coins" },
+        { label: "Regional Suitability & Expansion", path: "regional-suitability", icon: "MapPin" },
+        { label: "Supply Chain Performance Intel", path: "supply-chain-performance", icon: "Award" },
+        { label: "Procurement & Inventory Intel", path: "procurement-inventory", icon: "Warehouse" },
+        { label: "Market Expansion & Opportunity", path: "market-expansion", icon: "Compass" },
+      ];
+    } else {
+      currentMenu = [
+        { label: "FPO Command Center", path: "", icon: "LayoutDashboard" },
+        { label: "Crop Planning & Allocation", path: "crop-planning", icon: "Sprout" },
+        { label: "Production Forecast Center", path: "forecast-center", icon: "TrendingUp" },
+        { label: "Input Demand Intelligence", path: "demand-forecast", icon: "LineChart" },
+        { label: "Farmer Engagement & Adoption", path: "adoption-analytics", icon: "Users" },
+        { label: "Procurement & Aggregation Intelligence", path: "procurement", icon: "ShoppingCart" },
+        { label: "Market Linkage & Buyer Intelligence", path: "market-linkage", icon: "Compass" },
+        { label: "Risk Intelligence Center", path: "risk-intelligence", icon: "ShieldAlert" },
+        { label: "Farmer Income & Business Performance", path: "benchmarking", icon: "BarChart3" },
+      ];
+    }
+  } else if (
+    activeModuleKey === "ai-assistant-1" &&
+    (activeRole === "admin" || activeRole === "company")
+  ) {
+    currentMenu = [
+      { label: "Executive Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "User Analytics", path: "user-analytics", icon: "Users" },
+      {
+        label: "Conversation Intelligence",
+        path: "conversation-intelligence",
+        icon: "MessageSquare",
+      },
+      { label: "Intent Analysis", path: "intent-analysis", icon: "Compass" },
+      {
+        label: "Sentiment Analysis",
+        path: "sentiment-analysis",
+        icon: "Smile",
+      },
+      {
+        label: "Problem Detection",
+        path: "problem-detection",
+        icon: "AlertTriangle",
+      },
+      {
+        label: "Regional Intelligence",
+        path: "regional-intelligence",
+        icon: "Map",
+      },
+      { label: "Model Intelligence", path: "model-intelligence", icon: "Cpu" },
+      {
+        label: "Advisory Intelligence",
+        path: "advisory-intelligence",
+        icon: "ClipboardList",
+      },
+      {
+        label: "Disease Intelligence",
+        path: "disease-intelligence",
+        icon: "Activity",
+      },
+      {
+        label: "Farmer Success Analytics",
+        path: "farmer-success",
+        icon: "TrendingUp",
+      },
+      {
+        label: "Knowledge Base Intel",
+        path: "knowledge-base-intelligence",
+        icon: "BookOpen",
+      },
+    ];
+  } else if (activeModuleKey === "ai-suggestion" && activeRole === "farmer") {
+    currentMenu = [
+      { label: "AI Assistant", path: "", icon: "MessageSquare" },
+      { label: "Crop Advisory", path: "crop-advisory", icon: "Sprout" },
+      { label: "Disease Detection", path: "disease", icon: "Syringe" },
+      { label: "Fertilizer Planner", path: "fertilizer-plan", icon: "Leaf" },
+      {
+        label: "Irrigation Scheduler",
+        path: "irrigation-guide",
+        icon: "Droplets",
+      },
+      { label: "Scheme Finder", path: "scheme-finder", icon: "Shield" },
+    ];
+  }
 
   return (
     <aside className="w-60 bg-[#132a13] border-r border-[#132a13]/25 flex flex-col justify-between shrink-0 h-full min-h-0 p-3 text-white overflow-hidden">
-      
       <div className="flex flex-col min-h-0 flex-1">
         {/* Top Header & Collapsible Close Button */}
         <div className="flex items-center justify-between pb-3 border-b border-[#31572c]/30">
           <div className="flex items-center space-x-2">
             <LucideIcons.Sprout className="h-4 w-4 text-[#ecf39e]" />
-            <span className="text-[10px] font-bold tracking-widest uppercase text-gray-400">Navigation</span>
+            <span className="text-[10px] font-bold tracking-widest uppercase text-gray-400">
+              Navigation
+            </span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(false)}
@@ -38,32 +205,41 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
         </div>
 
         {/* Dynamic Nav List */}
-        <nav className="space-y-0.5 mt-3 flex-1 overflow-y-auto overscroll-contain pr-0.5">
+        <nav className="space-y-0 mt-3 flex-1 overflow-y-auto overscroll-contain pr-0.5">
           {currentMenu.map((item, idx) => {
-            const IconComponent = LucideIcons[item.icon] || LucideIcons.HelpCircle;
-            // Build the absolute routing link to avoid subpath mismatch errors and trailing slash issues
-            const pathUrl = item.path ? `/module/${activeModuleKey}/${item.path}` : `/module/${activeModuleKey}`;
-            
+            const IconComponent =
+              LucideIcons[item.icon] || LucideIcons.HelpCircle;
+            const pathUrl = item.path
+              ? `/module/${activeModuleKey}/${item.path}`
+              : `/module/${activeModuleKey}`;
+
             return (
               <NavLink
                 key={idx}
                 to={pathUrl}
                 end
                 className={({ isActive }) =>
-                  `h-10 flex items-center gap-3 w-full transition-all duration-200 font-semibold text-[12px] relative group ${
+                  `min-h-[2.25rem] py-2 flex items-start gap-2.5 w-full transition-all duration-200 font-semibold text-[12px] relative group ${
                     isActive
-                      ? 'bg-[#4f772d]/20 text-white border-l-4 border-[#ecf39e] pl-2 shadow-sm'
-                      : 'text-gray-400 hover:text-gray-200 hover:bg-[#4f772d]/10 border-l-4 border-transparent pl-2'
+                      ? "bg-[#4f772d]/20 text-white border-l-4 border-[#ecf39e] pl-1.5 shadow-sm"
+                      : "text-gray-400 hover:text-gray-200 hover:bg-[#4f772d]/10 border-l-4 border-transparent pl-1.5"
                   }`
                 }
+                title={item.label}
               >
                 {({ isActive }) => (
                   <>
-                    <IconComponent className={`h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${
-                      isActive ? 'text-[#ecf39e]' : 'text-gray-400 group-hover:text-gray-200'
-                    }`} />
-                    
-                    <span>{item.label}</span>
+                    <IconComponent
+                      className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110 mt-0.5 ${
+                        isActive
+                          ? "text-[#ecf39e]"
+                          : "text-gray-400 group-hover:text-gray-200"
+                      }`}
+                    />
+
+                    <span className="whitespace-normal leading-snug break-words text-left flex-1 pr-1">
+                      {item.label}
+                    </span>
                   </>
                 )}
               </NavLink>
@@ -73,20 +249,20 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
       </div>
 
       {/* Fixed Bottom Profile Block (Isolated at bottom) */}
-      <div className="border-t border-[#31572c]/30 pt-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2.5">
+      <div className="border-t border-[#31572c]/30 pt-4 flex items-center justify-between gap-2 overflow-hidden">
+        <div className="flex items-center space-x-2.5 min-w-0 flex-1">
           {/* Avatar Emblems */}
           <div className="h-8 w-8 rounded-lg bg-[#4f772d]/30 border border-[#90a955]/30 text-[#ecf39e] font-bold flex items-center justify-center text-[11px] shrink-0">
             {userProfile.avatar}
           </div>
-          <div>
-            <h4 className="text-white font-bold text-xs tracking-wide">
+          <div className="min-w-0 flex-1">
+            <h4 className="text-white font-bold text-xs tracking-wide truncate" title={userProfile.name}>
               {userProfile.name}
             </h4>
-            <p className="text-[9px] font-medium text-gray-400 flex items-center space-x-1 mt-0.5">
-              <span>{userProfile.role}</span>
-              <span className="text-gray-500">•</span>
-              <span className="text-[9px] font-semibold bg-[#4f772d]/30 text-[#ecf39e] px-1.5 py-0.5 rounded-md border border-[#90a955]/10">
+            <p className="text-[9px] font-medium text-gray-400 flex items-center space-x-1 mt-0.5 min-w-0">
+              <span className="truncate" title={userProfile.role}>{userProfile.role}</span>
+              <span className="text-gray-500 shrink-0">•</span>
+              <span className="text-[9px] font-semibold bg-[#4f772d]/30 text-[#ecf39e] px-1.5 py-0.5 rounded-md border border-[#90a955]/10 shrink-0">
                 {userProfile.hindiRole}
               </span>
             </p>
@@ -102,7 +278,6 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
           <LucideIcons.LogOut className="h-3.5 w-3.5" />
         </Link>
       </div>
-
     </aside>
   );
 }

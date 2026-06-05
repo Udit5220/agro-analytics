@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import connectDB from '../config/db.js';
+import connectDB, { dbContextStorage } from '../config/db.js';
 import GlCommodityFutures from '../models/GlCommodityFutures.js';
 import GlCommodity from '../models/GlCommodity.js';
 
@@ -22,17 +22,25 @@ async function run() {
   const crops = Object.keys(SEED_FUTURES);
 
   for (const crop of crops) {
-    // 1. Find commodity ID
-    const cDoc = await GlCommodity.findOne({ commodity_name: { $regex: new RegExp(`^${crop}$`, 'i') } });
+    // 1. Find commodity ID on PRIMARY database (where GlCommodity is stored)
+    let cDoc = null;
+    await dbContextStorage.run({ useSecondary: false }, async () => {
+      cDoc = await GlCommodity.findOne({ commodity_name: { $regex: new RegExp(`^${crop}$`, 'i') } });
+    });
+
     if (!cDoc) {
-      console.log(`Commodity ${crop} not found in DB! Skipping...`);
+      console.log(`Commodity ${crop} not found in Primary DB! Skipping...`);
       continue;
     }
 
-    // 2. Check if futures data exists
-    const existing = await GlCommodityFutures.findOne({ commodity_id: cDoc._id });
+    // 2. Check if futures data exists on SECONDARY database
+    let existing = null;
+    await dbContextStorage.run({ useSecondary: true }, async () => {
+      existing = await GlCommodityFutures.findOne({ commodity_id: cDoc._id });
+    });
+
     if (existing) {
-      console.log(`Futures data already exists for ${crop} in MongoDB.`);
+      console.log(`Futures data already exists for ${crop} in Secondary MongoDB.`);
       continue;
     }
 
@@ -55,16 +63,17 @@ async function run() {
       };
     });
 
-    const newRecord = new GlCommodityFutures({
-      commodity_id: cDoc._id,
-      date: new Date().toISOString().split('T')[0],
-      portal: 'agroindia-mock',
-      source: 'agroindia-mock',
-      is_active: true,
-      expiry_data: expiryData
+    await dbContextStorage.run({ useSecondary: true }, async () => {
+      const newRecord = new GlCommodityFutures({
+        commodity_id: cDoc._id,
+        date: new Date().toISOString().split('T')[0],
+        portal: 'agroindia-mock',
+        source: 'agroindia-mock',
+        is_active: true,
+        expiry_data: expiryData
+      });
+      await newRecord.save();
     });
-
-    await newRecord.save();
     console.log(`Successfully seeded futures for ${crop}.`);
   }
 

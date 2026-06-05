@@ -3,8 +3,9 @@ import mongoose from 'mongoose';
 import Commodity from '../models/Commodity.js';
 import MandiPrice from '../models/MandiPrice.js';
 
-await mongoose.connect(process.env.MONGO_URI, { dbName: 'greenleaf-dev' });
-console.log('✅ Connected to MongoDB');
+const dbName = process.env.MONGO_URI_1 ? 'agro-india' : 'greenleaf-dev';
+await mongoose.connect(process.env.MONGO_URI_1 || process.env.MONGO_URI, { dbName });
+console.log(`✅ Connected to MongoDB (${process.env.MONGO_URI_1 ? 'Secondary' : 'Primary'}/Seeding) to database: ${dbName}`);
 
 // ─── 10 Core Indian Agriculture Commodities ───────────────────────────────────
 const commodities = [

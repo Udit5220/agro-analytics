@@ -5,11 +5,13 @@ import * as LucideIcons from 'lucide-react';
 import GenericSidebar from '../sidebar/GenericSidebar';
 import { uiConfig } from '../../utils/uiConfig';
 import { dashboardContent } from '../../content/dashboardContent';
+import { useRole } from '../../context/RoleContext';
 
 export default function ModuleLayout() {
   const { moduleId } = useParams();
   const navigate = useNavigate();
   const { userProfile } = dashboardContent;
+  const { activeRole, switchRole, allRoles } = useRole();
   const [darkMode, setDarkMode] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('English');
@@ -76,25 +78,53 @@ export default function ModuleLayout() {
             <button
               type="button"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="h-8 w-8 rounded-full bg-[#4f772d]/30 hover:bg-[#4f772d]/50 border border-[#90a955]/30 flex items-center justify-center font-bold text-[#ecf39e] text-xs hover:scale-105 transition-transform duration-200 shadow-sm cursor-pointer animate-fadeIn"
-              title={`${userProfile.name} (${userProfile.hindiRole})`}
+              className="h-8 w-8 rounded-full bg-[#4f772d]/30 hover:bg-[#4f772d]/50 border border-[#90a955]/30 flex items-center justify-center text-lg hover:scale-105 transition-transform duration-200 shadow-sm cursor-pointer animate-fadeIn"
+              title={`Active Role: ${allRoles[activeRole.toUpperCase()]?.label || activeRole}`}
             >
-              {userProfile.avatar}
+              {allRoles[activeRole.toUpperCase()]?.icon || "🌾"}
             </button>
 
             {isProfileOpen && (
-              <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-50 p-3 animate-fadeIn text-gray-800">
+              <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50 p-3.5 animate-fadeIn text-gray-800">
                 
                 {/* Top: User Info */}
                 <div className="flex items-center gap-3 pb-3">
-                  <div className="h-10 w-10 rounded-xl bg-[#132a13] flex items-center justify-center text-[#ecf39e] font-bold text-sm shrink-0 shadow-inner">
-                    {userProfile.avatar}
+                  <div className="h-10 w-10 rounded-xl bg-[#132a13] flex items-center justify-center text-lg shrink-0 shadow-inner">
+                    {allRoles[activeRole.toUpperCase()]?.icon || "🌾"}
                   </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-gray-900">{userProfile.name}</h4>
-                    <p className="text-[10px] text-gray-500 font-medium">{userProfile.role} / {userProfile.hindiRole}</p>
+                  <div className="overflow-hidden">
+                    <h4 className="text-xs font-bold text-gray-900 truncate">
+                      {activeRole === "government" ? "Govt Official" : activeRole === "admin" ? "Admin User" : activeRole === "company" ? "Agribusiness User" : activeRole === "fpo" ? "FPO Manager" : "Suresh Kumar"}
+                    </h4>
+                    <p className="text-[9px] text-gray-500 font-extrabold uppercase tracking-wider truncate">
+                      {allRoles[activeRole.toUpperCase()]?.label || activeRole}
+                    </p>
                   </div>
-                  <span className="ml-auto h-2 w-2 rounded-full bg-emerald-500 shrink-0 ring-2 ring-emerald-500/20" title="Active" />
+                  <span className="ml-auto h-2 w-2 rounded-full bg-emerald-500 shrink-0 ring-2 ring-emerald-500/20" title="Active Session" />
+                </div>
+
+                {/* Switch Role Section */}
+                <div className="border-t border-gray-100 pt-2 pb-1.5">
+                  <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1.5 px-1">Switch Active Role</p>
+                  <div className="relative">
+                    <select
+                      value={activeRole}
+                      onChange={(e) => {
+                        const newRole = e.target.value;
+                        switchRole(newRole);
+                        setIsProfileOpen(false);
+                        // Route dynamically based on active role
+                        navigate("/module/disease-detection");
+                      }}
+                      className="w-full bg-gray-50 border border-gray-200 text-xs text-gray-800 rounded-lg px-2 py-1.5 font-bold focus:outline-none focus:ring-1 focus:ring-[#31572c] cursor-pointer"
+                    >
+                      {Object.values(allRoles).map((role) => (
+                        <option key={role.id} value={role.id} className="text-gray-950 font-bold bg-white">
+                          {role.icon} {role.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <div className="border-t border-gray-100 my-2" />
@@ -109,22 +139,6 @@ export default function ModuleLayout() {
                     <UserCircle className="h-3.5 w-3.5 text-[#90a955]" />
                     My Profile
                   </button>
-                  {/* <button
-                    type="button"
-                    onClick={() => { setIsProfileOpen(false); navigate('/module/profile'); }}
-                    className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
-                  >
-                    <Tractor className="h-3.5 w-3.5 text-[#90a955]" />
-                    Farm Configurations
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => { setIsProfileOpen(false); alert("Settings configuration panel is currently in active development for the next phase."); }}
-                    className="w-full text-left text-gray-700 hover:bg-[#f4f7f4] rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
-                  >
-                    <Settings className="h-3.5 w-3.5 text-[#90a955]" />
-                    Settings
-                  </button> */}
                 </div>
 
                 <div className="border-t border-gray-100 my-2" />
@@ -150,7 +164,7 @@ export default function ModuleLayout() {
       <div className="flex flex-1 overflow-hidden relative">
         
         {/* Left Column: Collapsible Sidebar */}
-        <div className={`transition-all duration-300 ease-in-out h-full overflow-hidden shrink-0 ${isSidebarOpen ? 'w-56' : 'w-0'}`}>
+        <div className={`transition-all duration-300 ease-in-out h-full overflow-hidden shrink-0 ${isSidebarOpen ? 'w-60' : 'w-0'}`}>
           <GenericSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         </div>
 
@@ -166,7 +180,7 @@ export default function ModuleLayout() {
         )}
 
         {/* Right Column: Dynamic Outlet Page (Dynamic Padding transition when sidebar is closed) */}
-        <main className={`flex-1 bg-[#f4f7f4] overflow-y-auto p-6 lg:p-8 scroll-thin transition-all duration-300 ${!isSidebarOpen ? 'pl-20 sm:pl-24 lg:pl-28' : ''}`}>
+        <main className={`flex-1 bg-[#f4f7f4] overflow-y-auto p-4 md:p-6 scroll-thin transition-all duration-300 ${!isSidebarOpen ? 'pl-16 md:pl-20' : ''}`}>
           <Outlet />
         </main>
 

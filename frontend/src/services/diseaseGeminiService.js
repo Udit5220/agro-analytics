@@ -1019,7 +1019,8 @@ export async function callGeminiFlash(userPrompt, systemPrompt) {
   }
 
   const clean = text.replace(/```json|```/gi, "").trim();
-  return JSON.parse(clean);
+  const cleanJson = clean.replace(/,\s*([\]}])/g, "$1");
+  return JSON.parse(cleanJson);
 }
 
 /**
@@ -1050,7 +1051,8 @@ export async function callGeminiPro(userPrompt, systemPrompt) {
   }
 
   const clean = text.replace(/```json|```/gi, "").trim();
-  return JSON.parse(clean);
+  const cleanJson = clean.replace(/,\s*([\]}])/g, "$1");
+  return JSON.parse(cleanJson);
 }
 
 // diseaseGeminiService.js — updated exports for PestDiseaseDashboard
@@ -1973,69 +1975,328 @@ export async function getLifecycleData(crop) {
   }
   Return exactly 6 stages: Seed, Germination, Vegetative, Flowering, Maturity, Harvest with realistic durations and disease risks for ${crop} in Haryana India. Only one stage should have status current, earlier completed, later upcoming. Only current stage has checklist items, others empty.`;
 
-  const fallbackLifecycle = {
-    stages: [
-      {
-        name: "Seed",
-        duration: "0-7 days",
-        status: "completed",
-        progressPercent: 100,
-        diseases: ["Seed rot", "Damping off"],
-        actions: ["Seed treatment with fungicide"],
-        checklist: [],
-      },
-      {
-        name: "Germination",
-        duration: "7-21 days",
-        status: "completed",
-        progressPercent: 100,
-        diseases: ["Seedling blight"],
-        actions: ["Monitor moisture levels"],
-        checklist: [],
-      },
-      {
-        name: "Vegetative",
-        duration: "21-60 days",
-        status: "current",
-        progressPercent: 40,
-        diseases: ["Blast disease", "Leaf blight"],
-        actions: ["Weekly scouting", "Apply nitrogen top dressing"],
-        checklist: [
-          { id: "scouting", label: "Weekly scouting done" },
-          { id: "nitrogen", label: "N top dressing applied" },
-          { id: "weedControl", label: "Weed control done" },
-        ],
-      },
-      {
-        name: "Flowering",
-        duration: "60-80 days",
-        status: "upcoming",
-        progressPercent: 0,
-        diseases: ["Stem rot", "Bacterial blight"],
-        actions: ["Monitor humidity levels"],
-        checklist: [],
-      },
-      {
-        name: "Maturity",
-        duration: "80-110 days",
-        status: "upcoming",
-        progressPercent: 0,
-        diseases: ["Grain discoloration"],
-        actions: ["Ensure field drainage"],
-        checklist: [],
-      },
-      {
-        name: "Harvest",
-        duration: "110-130 days",
-        status: "upcoming",
-        progressPercent: 0,
-        diseases: ["Storage mold"],
-        actions: ["Dry grains before storage"],
-        checklist: [],
-      },
-    ],
-    currentStageIndex: 2,
+  const fallbackLifecycleMap = {
+    Rice: {
+      stages: [
+        {
+          name: "Seed",
+          duration: "0-7 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seed rot", "Damping off"],
+          actions: ["Seed treatment with fungicide"],
+          checklist: [],
+        },
+        {
+          name: "Germination",
+          duration: "7-21 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seedling blight"],
+          actions: ["Monitor moisture levels"],
+          checklist: [],
+        },
+        {
+          name: "Vegetative",
+          duration: "21-60 days",
+          status: "current",
+          progressPercent: 40,
+          diseases: ["Blast disease", "Leaf blight"],
+          actions: ["Weekly scouting", "Apply nitrogen top dressing"],
+          checklist: [
+            { id: "scouting", label: "Weekly scouting done" },
+            { id: "nitrogen", label: "N top dressing applied" },
+            { id: "weedControl", label: "Weed control done" },
+          ],
+        },
+        {
+          name: "Flowering",
+          duration: "60-80 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Stem rot", "Bacterial blight"],
+          actions: ["Monitor humidity levels"],
+          checklist: [],
+        },
+        {
+          name: "Maturity",
+          duration: "80-110 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Grain discoloration"],
+          actions: ["Ensure field drainage"],
+          checklist: [],
+        },
+        {
+          name: "Harvest",
+          duration: "110-130 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Storage mold"],
+          actions: ["Dry grains before storage"],
+          checklist: [],
+        },
+      ],
+      currentStageIndex: 2,
+    },
+    Wheat: {
+      stages: [
+        {
+          name: "Seed",
+          duration: "0-7 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seed rot", "Loose smut"],
+          actions: ["Seed treatment with Carboxin"],
+          checklist: [],
+        },
+        {
+          name: "Germination",
+          duration: "7-15 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Damping off", "Foot rot"],
+          actions: ["Monitor soil moisture"],
+          checklist: [],
+        },
+        {
+          name: "Vegetative",
+          duration: "15-60 days",
+          status: "current",
+          progressPercent: 40,
+          diseases: ["Yellow rust", "Powdery mildew"],
+          actions: ["Weekly scouting", "First irrigation and nitrogen application"],
+          checklist: [
+            { id: "scouting", label: "Weekly rust scouting done" },
+            { id: "irrigation", label: "First irrigation applied" },
+            { id: "nitrogen", label: "Nitrogen top dressing done" },
+          ],
+        },
+        {
+          name: "Flowering",
+          duration: "60-90 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Leaf rust", "Head blight"],
+          actions: ["Monitor humidity, spray propiconazole if rust appears"],
+          checklist: [],
+        },
+        {
+          name: "Maturity",
+          duration: "90-120 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Black rust", "Loose smut"],
+          actions: ["Stop irrigation to enable ripening"],
+          checklist: [],
+        },
+        {
+          name: "Harvest",
+          duration: "120-140 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Black point", "Storage molds"],
+          actions: ["Harvest when grain moisture is below 12%"],
+          checklist: [],
+        },
+      ],
+      currentStageIndex: 2,
+    },
+    Maize: {
+      stages: [
+        {
+          name: "Seed",
+          duration: "0-7 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seed rot", "Pythium damping off"],
+          actions: ["Treat seeds with Metalaxyl"],
+          checklist: [],
+        },
+        {
+          name: "Germination",
+          duration: "7-15 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seedling blight"],
+          actions: ["Check plant population density"],
+          checklist: [],
+        },
+        {
+          name: "Vegetative",
+          duration: "15-50 days",
+          status: "current",
+          progressPercent: 40,
+          diseases: ["Fall armyworm", "Turcicum leaf blight"],
+          actions: ["Monitor whorl leaves", "Apply nitrogen side dressing"],
+          checklist: [
+            { id: "armyworm", label: "Checked whorl leaves for FAW" },
+            { id: "nitrogen", label: "Applied nitrogen side dressing" },
+            { id: "weeding", label: "Weed control at 25 DAS done" },
+          ],
+        },
+        {
+          name: "Flowering",
+          duration: "50-75 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Banded leaf and sheath blight", "Tasseling rot"],
+          actions: ["Maintain optimal soil moisture"],
+          checklist: [],
+        },
+        {
+          name: "Maturity",
+          duration: "75-100 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Charcoal rot", "Ear rot"],
+          actions: ["Avoid waterlogging in fields"],
+          checklist: [],
+        },
+        {
+          name: "Harvest",
+          duration: "100-120 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Aspergillus ear rot", "Grain weevils"],
+          actions: ["Dry ears to 13% moisture before shelling"],
+          checklist: [],
+        },
+      ],
+      currentStageIndex: 2,
+    },
+    Cotton: {
+      stages: [
+        {
+          name: "Seed",
+          duration: "0-7 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seed rot", "Seedling damping off"],
+          actions: ["Acid delinting and seed treatment"],
+          checklist: [],
+        },
+        {
+          name: "Germination",
+          duration: "7-15 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seedling blight", "Thrips"],
+          actions: ["Monitor soil moisture and sucking pests"],
+          checklist: [],
+        },
+        {
+          name: "Vegetative",
+          duration: "15-60 days",
+          status: "current",
+          progressPercent: 40,
+          diseases: ["Cotton leaf curl virus", "Jassids", "Whitefly"],
+          actions: ["Spray insecticide if ETL crossed", "Apply nitrogen top dressing"],
+          checklist: [
+            { id: "suckingPests", label: "Scout sucking pests against ETL" },
+            { id: "nitrogen", label: "Apply nitrogen top dressing" },
+            { id: "interculture", label: "Perform interculture hoeing" },
+          ],
+        },
+        {
+          name: "Flowering",
+          duration: "60-90 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Boll rot", "Pink bollworm"],
+          actions: ["Set pheromone traps", "Spray neem oil"],
+          checklist: [],
+        },
+        {
+          name: "Maturity",
+          duration: "90-130 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Alternaria leaf spot", "Boll drop"],
+          actions: ["Deficit irrigation to encourage boll opening"],
+          checklist: [],
+        },
+        {
+          name: "Harvest",
+          duration: "130-160 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Cotton stainers", "Aspergillus rot"],
+          actions: ["Pick clean bolls, avoid wet harvesting"],
+          checklist: [],
+        },
+      ],
+      currentStageIndex: 2,
+    },
+    Mustard: {
+      stages: [
+        {
+          name: "Seed",
+          duration: "0-7 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seed rot", "Pythium damping-off"],
+          actions: ["Seed treatment with Metalaxyl"],
+          checklist: [],
+        },
+        {
+          name: "Germination",
+          duration: "7-15 days",
+          status: "completed",
+          progressPercent: 100,
+          diseases: ["Seedling blight", "Mustard sawfly"],
+          actions: ["Monitor soil moisture"],
+          checklist: [],
+        },
+        {
+          name: "Vegetative",
+          duration: "15-45 days",
+          status: "current",
+          progressPercent: 40,
+          diseases: ["Alternaria black spot", "Downy mildew"],
+          actions: ["Thinning and weeding", "Apply first irrigation and nitrogen"],
+          checklist: [
+            { id: "thinning", label: "Thinning and weeding completed" },
+            { id: "irrigation", label: "Applied first irrigation" },
+            { id: "aphidMonitor", label: "Monitor for aphid infestation" },
+          ],
+        },
+        {
+          name: "Flowering",
+          duration: "45-75 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["White rust", "Powdery mildew"],
+          actions: ["Foliar spray of Mancozeb if rust observed"],
+          checklist: [],
+        },
+        {
+          name: "Maturity",
+          duration: "75-105 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Sclerotinia stem rot"],
+          actions: ["Ensure field is well drained, no waterlogging"],
+          checklist: [],
+        },
+        {
+          name: "Harvest",
+          duration: "105-125 days",
+          status: "upcoming",
+          progressPercent: 0,
+          diseases: ["Alternaria blight on pods"],
+          actions: ["Harvest when 75% siliquae turn yellow"],
+          checklist: [],
+        },
+      ],
+      currentStageIndex: 2,
+    },
   };
+
+  const matchedCrop = Object.keys(fallbackLifecycleMap).find(
+    (k) => k.toLowerCase() === String(crop).toLowerCase()
+  ) || "Rice";
+  const fallbackLifecycle = fallbackLifecycleMap[matchedCrop];
 
   return fetchWithFallback(
     () => callGeminiFlash(userPrompt, systemPrompt),
@@ -2265,7 +2526,8 @@ export async function diagnosePlantLeafImage(base64Data, mimeType) {
     }
 
     const clean = text.replace(/```json|```/gi, "").trim();
-    return JSON.parse(clean);
+    const cleanJson = clean.replace(/,\s*([\]}])/g, "$1");
+    return JSON.parse(cleanJson);
   }, fallbackDiagnosis);
 }
 

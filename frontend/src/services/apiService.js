@@ -161,4 +161,12 @@ export const profileApi = {
   getCropRankings: (data)     => request('/crop-ranking',      { method: 'POST',   body: JSON.stringify(data) }),
 };
 
-export default { commodityApi, greenleafApi, weatherApi, marketplaceApi, profileApi, analyticsApi };
+// ─── Campaign APIs (MongoDB) ───────────────────────────────────────────────
+export const campaignApi = {
+  getCampaigns:   ()            => request('/campaigns'),
+  createCampaign: (data)        => request('/campaigns', { method: 'POST',  body: JSON.stringify(data) }),
+  updateCampaign: (id, data)    => request(`/campaigns/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+  deleteCampaign: (id)          => request(`/campaigns/${id}`, { method: 'DELETE' }),
+};
+
+export default { commodityApi, greenleafApi, weatherApi, marketplaceApi, profileApi, analyticsApi, campaignApi };

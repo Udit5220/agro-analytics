@@ -4,6 +4,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 13.5px; /* Clean vector-based layout scaling (approx 85%) to prevent eye strain and browser zoom blur */
 }
 
 body {
