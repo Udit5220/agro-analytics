@@ -30,35 +30,35 @@ export default function ChatHistory() {
   // Unified history dataset matching any active analytical perspective
   const roleSpecificChats = {
     farmer: [
-      { id: "LOG_F01", chatTitle: "Rice Leaf Blast Spot Treatment Consultation", topic: "Diagnostics", dateTime: "May 28, 2026 â€¢ 11:24 AM", messages: 12 },
-      { id: "LOG_F02", chatTitle: "Urea split schedule calculator response", topic: "Agronomy", dateTime: "May 24, 2026 â€¢ 09:15 AM", messages: 6 },
-      { id: "LOG_F03", chatTitle: "PM-KISAN eligibility documents checklist", topic: "Planning", dateTime: "May 20, 2026 â€¢ 14:30 PM", messages: 4 },
-      { id: "LOG_F04", chatTitle: "Monsoon onset weekly reservoir report", topic: "Agronomy", dateTime: "May 19, 2026 â€¢ 11:05 AM", messages: 8 }
+      { id: "LOG_F01", chatTitle: "Rice Leaf Blast Spot Treatment Consultation", topic: "Diagnostics", dateTime: "May 28, 2026 • 11:24 AM", messages: 12 },
+      { id: "LOG_F02", chatTitle: "Urea split schedule calculator response", topic: "Agronomy", dateTime: "May 24, 2026 • 09:15 AM", messages: 6 },
+      { id: "LOG_F03", chatTitle: "PM-KISAN eligibility documents checklist", topic: "Planning", dateTime: "May 20, 2026 • 14:30 PM", messages: 4 },
+      { id: "LOG_F04", chatTitle: "Monsoon onset weekly reservoir report", topic: "Agronomy", dateTime: "May 19, 2026 • 11:05 AM", messages: 8 }
     ],
     fpo: [
-      { id: "LOG_FPO01", chatTitle: "Member crop acreage consolidation study", topic: "Planning", dateTime: "May 28, 2026 â€¢ 11:24 AM", messages: 24 },
-      { id: "LOG_FPO02", chatTitle: "Bulk NPK procurement pooling volume optimization", topic: "Logistics", dateTime: "May 24, 2026 â€¢ 09:15 AM", messages: 15 },
-      { id: "LOG_FPO03", chatTitle: "Collective market auction warehouse logs", topic: "Planning", dateTime: "May 20, 2026 â€¢ 14:30 PM", messages: 19 }
+      { id: "LOG_FPO01", chatTitle: "Member crop acreage consolidation study", topic: "Planning", dateTime: "May 28, 2026 • 11:24 AM", messages: 24 },
+      { id: "LOG_FPO02", chatTitle: "Bulk NPK procurement pooling volume optimization", topic: "Logistics", dateTime: "May 24, 2026 • 09:15 AM", messages: 15 },
+      { id: "LOG_FPO03", chatTitle: "Collective market auction warehouse logs", topic: "Planning", dateTime: "May 20, 2026 • 14:30 PM", messages: 19 }
     ],
     trader: [
-      { id: "LOG_T01", chatTitle: "Kharif Paddy Spot Mandi Index forecast", topic: "Market Analytics", dateTime: "May 28, 2026 â€¢ 11:24 AM", messages: 32 },
-      { id: "LOG_T02", chatTitle: "Indore to Akola price spread margin check", topic: "Market Analytics", dateTime: "May 24, 2026 â€¢ 09:15 AM", messages: 14 },
-      { id: "LOG_T03", chatTitle: "Arrival volume density forecasting", topic: "Market Analytics", dateTime: "May 20, 2026 â€¢ 14:30 PM", messages: 20 }
+      { id: "LOG_T01", chatTitle: "Kharif Paddy Spot Mandi Index forecast", topic: "Market Analytics", dateTime: "May 28, 2026 • 11:24 AM", messages: 32 },
+      { id: "LOG_T02", chatTitle: "Indore to Akola price spread margin check", topic: "Market Analytics", dateTime: "May 24, 2026 • 09:15 AM", messages: 14 },
+      { id: "LOG_T03", chatTitle: "Arrival volume density forecasting", topic: "Market Analytics", dateTime: "May 20, 2026 • 14:30 PM", messages: 20 }
     ],
     procurement: [
-      { id: "LOG_P01", chatTitle: "North Sector moisture tolerance exception logs", topic: "Logistics", dateTime: "May 28, 2026 â€¢ 11:24 AM", messages: 18 },
-      { id: "LOG_P02", chatTitle: "Supplier seasonal contract fulfilment tracking", topic: "Planning", dateTime: "May 24, 2026 â€¢ 09:15 AM", messages: 22 },
-      { id: "LOG_P03", chatTitle: "Warehouse silo capacity optimization manifest", topic: "Logistics", dateTime: "May 20, 2026 â€¢ 14:30 PM", messages: 11 }
+      { id: "LOG_P01", chatTitle: "North Sector moisture tolerance exception logs", topic: "Logistics", dateTime: "May 28, 2026 • 11:24 AM", messages: 18 },
+      { id: "LOG_P02", chatTitle: "Supplier seasonal contract fulfilment tracking", topic: "Planning", dateTime: "May 24, 2026 • 09:15 AM", messages: 22 },
+      { id: "LOG_P03", chatTitle: "Warehouse silo capacity optimization manifest", topic: "Logistics", dateTime: "May 20, 2026 • 14:30 PM", messages: 11 }
     ],
     researcher: [
-      { id: "LOG_R01", chatTitle: "Wheat phenotype standard deviation trial metrics", topic: "Research Core", dateTime: "May 28, 2026 â€¢ 11:24 AM", messages: 42 },
-      { id: "LOG_R02", chatTitle: "Nitrogen fixation in root nodules literature review", topic: "Research Core", dateTime: "May 24, 2026 â€¢ 09:15 AM", messages: 16 },
-      { id: "LOG_R03", chatTitle: "ANOVA test runs on plot trial outputs", topic: "Research Core", dateTime: "May 20, 2026 â€¢ 14:30 PM", messages: 28 }
+      { id: "LOG_R01", chatTitle: "Wheat phenotype standard deviation trial metrics", topic: "Research Core", dateTime: "May 28, 2026 • 11:24 AM", messages: 42 },
+      { id: "LOG_R02", chatTitle: "Nitrogen fixation in root nodules literature review", topic: "Research Core", dateTime: "May 24, 2026 • 09:15 AM", messages: 16 },
+      { id: "LOG_R03", chatTitle: "ANOVA test runs on plot trial outputs", topic: "Research Core", dateTime: "May 20, 2026 • 14:30 PM", messages: 28 }
     ],
     government: [
-      { id: "LOG_G01", chatTitle: "District-wise crop acreage estimation run", topic: "Policy Framework", dateTime: "May 28, 2026 â€¢ 11:24 AM", messages: 35 },
-      { id: "LOG_G02", chatTitle: "PM-KISAN regional scheme adoption statistics", topic: "Policy Framework", dateTime: "May 24, 2026 â€¢ 09:15 AM", messages: 27 },
-      { id: "LOG_G03", chatTitle: "Disaster assessment and subsidy allocation model", topic: "Policy Framework", dateTime: "May 20, 2026 â€¢ 14:30 PM", messages: 45 }
+      { id: "LOG_G01", chatTitle: "District-wise crop acreage estimation run", topic: "Policy Framework", dateTime: "May 28, 2026 • 11:24 AM", messages: 35 },
+      { id: "LOG_G02", chatTitle: "PM-KISAN regional scheme adoption statistics", topic: "Policy Framework", dateTime: "May 24, 2026 • 09:15 AM", messages: 27 },
+      { id: "LOG_G03", chatTitle: "Disaster assessment and subsidy allocation model", topic: "Policy Framework", dateTime: "May 20, 2026 • 14:30 PM", messages: 45 }
     ]
   };
 

@@ -121,7 +121,7 @@ export default function CropRecRiskIntelligence() {
       mapInstance.current = map;
       
       window.L.tileLayer(
-        "https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=Js3t7mr8sd7cdIiAAyVp",
+        `https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=${import.meta.env.VITE_MAPTILER_KEY || "Js3t7mr8sd7cdIiAAyVp"}`,
         {
           attribution: '&copy; MapTiler',
           maxZoom: 18,
@@ -500,7 +500,8 @@ export default function CropRecRiskIntelligence() {
         {aiReport && !aiLoading && (
           <div className="p-6 bg-white space-y-4">
             <div className="flex items-center gap-1.5 bg-red-50 text-red-700 border border-red-200 rounded px-2.5 py-1 text-[9px] font-black uppercase w-max">
-              🚨 RISK MITIGATION DIRECTIVE ACTIVE
+              <ShieldAlert className="w-3.5 h-3.5 text-red-600 shrink-0" />
+              <span>Risk Mitigation Directive Active</span>
             </div>
 
             {aiReport.split("\n\n").filter(Boolean).map((para, idx) => {

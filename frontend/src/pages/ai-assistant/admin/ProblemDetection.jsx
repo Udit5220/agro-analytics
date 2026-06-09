@@ -1,5 +1,6 @@
 import React from "react";
 import StatsCard from "../../../components/partials/StatsCard";
+import { AlertTriangle } from "lucide-react";
 
 export default function ProblemDetection() {
   // Core metrics
@@ -14,14 +15,14 @@ export default function ProblemDetection() {
     {
       title: "AI Failure Rate",
       value: "1.4%",
-      trend: "â†“ 0.2%",
+      trend: "↓ 0.2%",
       trendType: "success",
       subtext: "Incorrect recommendations issued",
     },
     {
       title: "AI Hallucination Rate",
       value: "0.08%",
-      trend: "â†“ 0.01%",
+      trend: "↓ 0.01%",
       trendType: "success",
       subtext: "Nonsensical advice flagged",
     },
@@ -153,7 +154,7 @@ export default function ProblemDetection() {
       {/* AI Insights and Health Warning */}
       <div className="bg-[#132a13] text-white rounded-2xl p-5 shadow-sm flex items-start gap-4">
         <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 text-[#ecf39e]">
-          âš ï¸
+          <AlertTriangle className="w-4.5 h-4.5" />
         </div>
         <div>
           <h4 className="text-xs font-black uppercase tracking-widest text-[#ecf39e]">AI System Health Report</h4>

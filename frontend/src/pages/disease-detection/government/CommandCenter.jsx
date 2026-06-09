@@ -380,7 +380,10 @@ export default function CommandCenter() {
                 <div key={alert.id} className={`p-3 rounded-xl border border-gray-100 ${borderStyles[alert.severity] || "border-l-4 border-gray-400 bg-gray-50"} shadow-xs flex flex-col justify-between`}>
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-[10px] font-bold text-gray-400">{alert.time}</span>
-                    <span className="text-[9px] font-black uppercase text-gray-800 tracking-wider">📍 {alert.loc}</span>
+                    <span className="text-[9px] font-black uppercase text-gray-800 tracking-wider flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-gray-500 shrink-0" />
+                      <span>{alert.loc}</span>
+                    </span>
                   </div>
                   <p className="text-xs font-bold text-gray-950">{alert.disease}</p>
                   <p className="text-[11px] text-gray-600 font-medium mt-1 leading-snug">{alert.msg}</p>

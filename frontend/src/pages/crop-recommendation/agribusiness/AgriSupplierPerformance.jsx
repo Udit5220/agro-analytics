@@ -11,7 +11,8 @@ import {
   FileText,
   Compass,
   ArrowRight,
-  UserCheck
+  UserCheck,
+  Zap
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -260,8 +261,9 @@ export default function AgriSupplierPerformance() {
               </div>
             </div>
             
-            <div className="bg-[#31572c] text-white border rounded-xl p-3 text-[10px] text-center font-bold">
-              ⚡ Request Quality Audit & Re-inspection
+            <div className="bg-[#31572c] text-white border rounded-xl p-3 text-[10px] text-center font-bold flex items-center justify-center gap-1.5 cursor-pointer hover:bg-[#224222] transition-colors">
+              <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" />
+              <span>Request Quality Audit & Re-inspection</span>
             </div>
           </div>
 

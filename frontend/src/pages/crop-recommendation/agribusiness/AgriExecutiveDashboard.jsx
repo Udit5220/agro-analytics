@@ -12,7 +12,9 @@ import {
   Globe,
   Coins,
   Percent,
-  Warehouse
+  Warehouse,
+  MousePointer,
+  Lightbulb
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -198,8 +200,9 @@ export default function AgriExecutiveDashboard() {
                   <span className="w-3 h-3 rounded-full bg-[#00f0ff]"></span>
                   <span>Rice sourcing hubs</span>
                 </div>
-                <div className="text-[8px] text-gray-450 font-semibold block mt-1">
-                  🖱️ Click district circles to inspect contracts
+                <div className="text-[8px] text-gray-450 font-semibold flex items-center gap-1 mt-1">
+                  <MousePointer className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                  <span>Click district circles to inspect contracts</span>
                 </div>
               </div>
             </div>
@@ -227,8 +230,9 @@ export default function AgriExecutiveDashboard() {
                 </div>
               </div>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-[10px] text-gray-300">
-              💡 <strong>Action:</strong> Coordinate arrival windows with local Ludhiana FPO directors.
+            <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-[10px] text-gray-300 flex items-start gap-1.5">
+              <Lightbulb className="w-3.5 h-3.5 text-[#ecf39e] shrink-0 mt-0.5" />
+              <span><strong>Action:</strong> Coordinate arrival windows with local Ludhiana FPO directors.</span>
             </div>
           </div>
         </div>

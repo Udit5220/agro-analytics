@@ -17,6 +17,9 @@ import {
   Settings,
   Download,
   Share2,
+  Lightbulb,
+  CheckCircle,
+  AlertTriangle,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -414,7 +417,7 @@ export default function CropRecPlaning() {
       }).setView([28.4089, 77.2978], 11);
       leafletMapInstance.current = map;
       window.L.tileLayer(
-        "https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=Js3t7mr8sd7cdIiAAyVp",
+        `https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=${import.meta.env.VITE_MAPTILER_KEY || "Js3t7mr8sd7cdIiAAyVp"}`,
         { attribution: "&copy; MapTiler", maxZoom: 18 },
       ).addTo(map);
       renderMapOverlays();
@@ -889,7 +892,10 @@ export default function CropRecPlaning() {
           </div>
 
           <div className="mt-4 pt-4 border-t text-[10px] text-gray-500 flex justify-between items-center">
-            <span>💡 Real-time projection based on selected village crop allocations</span>
+            <span className="flex items-center gap-1.5">
+              <Lightbulb className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span>Real-time projection based on selected village crop allocations</span>
+            </span>
             <span className="font-black text-[#31572c]">ACTIVE SIMULATION</span>
           </div>
         </div>
@@ -952,16 +958,24 @@ export default function CropRecPlaning() {
             <div className="mt-4 flex justify-between items-center text-xs font-bold p-3 bg-gray-50 rounded-xl">
               <span>Total Allocated Acreage:</span>
               <span
-                className={
+                className={`flex items-center gap-1.5 ${
                   totalAllocatedPct === 100
                     ? "text-emerald-700"
                     : "text-amber-700"
-                }
+                }`}
               >
-                {totalAllocatedPct}%{" "}
-                {totalAllocatedPct === 100
-                  ? "✓ Fully Allocated"
-                  : "⚠️ Under-Allocated"}
+                <span>{totalAllocatedPct}%</span>
+                {totalAllocatedPct === 100 ? (
+                  <>
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Fully Allocated</span>
+                  </>
+                ) : (
+                  <>
+                    <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>Under-Allocated</span>
+                  </>
+                )}
               </span>
             </div>
 
@@ -1101,8 +1115,14 @@ export default function CropRecPlaning() {
         />
 
         <div className="mt-3 pt-3 border-t border-gray-100 text-[9px] text-gray-500 flex justify-between">
-          <span>🌾 Market confidence based on futures & demand</span>
-          <span>💧 Water gap = deviation from baseline allocation</span>
+          <span className="flex items-center gap-1">
+            <Sprout className="w-3.5 h-3.5 text-[#31572c] shrink-0" />
+            <span>Market confidence based on futures & demand</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <Droplet className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+            <span>Water gap = deviation from baseline allocation</span>
+          </span>
         </div>
       </div>
     </div>

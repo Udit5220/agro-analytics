@@ -582,7 +582,7 @@ export default function AiAssistant() {
 
   const getDynamicWelcome = () => {
     const roleWelcome = ROLE_WELCOMES[activeRole] || ROLE_WELCOMES.farmer;
-    const locString = ` [ðŸ“ ${location.district}, ${location.state} • ${location.soilData?.soilType || "Clay Loam"} • pH: ${location.soilData?.pH || "7.2"}]`;
+    const locString = ` [Location: ${location.district}, ${location.state} • ${location.soilData?.soilType || "Clay Loam"} • pH: ${location.soilData?.pH || "7.2"}]`;
     return {
       text: roleWelcome.text + locString,
       translation: roleWelcome.translation,

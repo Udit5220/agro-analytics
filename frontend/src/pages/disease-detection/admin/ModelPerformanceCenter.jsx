@@ -345,8 +345,9 @@ export default function ModelPerformanceCenter() {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="p-2.5 bg-red-50 border border-red-100 rounded-xl text-[10px] text-red-950 font-bold leading-relaxed">
-            ⚠️ <span className="font-extrabold uppercase">Critical Impact Note:</span> False Negatives on Rice Blast mean a farmer is not warned, leading directly to crop yield loss and customer churn. Minimizing False Negatives is prioritized in retrain cycles.
+          <div className="p-2.5 bg-red-50 border border-red-100 rounded-xl text-[10px] text-red-950 font-bold leading-relaxed flex items-start gap-1.5">
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+            <span><span className="font-extrabold uppercase">Critical Impact Note:</span> False Negatives on Rice Blast mean a farmer is not warned, leading directly to crop yield loss and customer churn. Minimizing False Negatives is prioritized in retrain cycles.</span>
           </div>
         </div>
 

@@ -75,7 +75,7 @@ export default function KnowledgeBaseIntelligence() {
         <StatsCard
           title="KB Articles Accessed"
           value="24,108"
-          trend="â†‘ 12.1%"
+          trend="↑ 12.1%"
           trendType="success"
           subtext="Total knowledge base retrievals"
           icon={
@@ -99,7 +99,7 @@ export default function KnowledgeBaseIntelligence() {
         <StatsCard
           title="Failed Searches"
           value="12"
-          trend="â†“ 8%"
+          trend="↓ 8%"
           trendType="success"
           subtext="Inquiries returning zero database matches"
           icon={

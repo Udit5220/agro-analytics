@@ -163,7 +163,7 @@
 //       crop: district.crop,
 //       riskWeight: risk,
 //       metrics: `
-//         Temp ${weather.temperature}Â°C
+//         Temp ${weather.temperature}°C
 //         Humidity ${weather.humidity}%
 //         Rainfall ${weather.rainfall}mm
 //       `,
@@ -174,7 +174,7 @@
 // export default function RegionHeatmap() {
 //   const [selectedState, setSelectedState] = useState("All");
 //   const [selectedDisease, setSelectedDisease] = useState("All");
-//   const [dateRange, setDateRange] = useState("Today â€” May 30");
+//   const [dateRange, setDateRange] = useState("Today — May 30");
 
 //   const [latitude, setLatitude] = useState("28.4089");
 //   const [longitude, setLongitude] = useState("77.3178");
@@ -360,8 +360,8 @@
 //                 onChange={(e) => setDateRange(e.target.value)}
 //                 className="appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 h-[38px] text-xs font-bold text-gray-900 focus:outline-none focus:border-[#31572c] cursor-pointer min-w-[140px]"
 //               >
-//                 <option>Today â€” May 30</option>
-//                 <option>Yesterday â€” May 29</option>
+//                 <option>Today — May 30</option>
+//                 <option>Yesterday — May 29</option>
 //                 <option>Historical Baseline</option>
 //               </select>
 //               <ChevronDown className="w-3.5 h-3.5 text-gray-500 absolute right-2.5 top-3 pointer-events-none" />
@@ -561,7 +561,7 @@
 
 //           <div className="bg-gray-50 text-center p-3 border-t border-gray-100">
 //             <span className="text-[10px] font-black tracking-widest uppercase text-gray-400">
-//               Interactive Canvas Â· Hover elements for specific regional logs
+//               Interactive Canvas · Hover elements for specific regional logs
 //             </span>
 //           </div>
 //         </div>
@@ -693,7 +693,7 @@
 //                       <p
 //                         className={`text-[9px] font-extrabold uppercase tracking-widest block ${textLabelColor}`}
 //                       >
-//                         {incident.reportedAt.toUpperCase()} Â· DISEASE:{" "}
+//                         {incident.reportedAt.toUpperCase()} · DISEASE:{" "}
 //                         {incident.disease.toUpperCase()}
 //                       </p>
 //                     </div>
@@ -712,7 +712,7 @@
 //     </div>
 //   );
 // components/RegionHeatmap.jsx (Updated)
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import {
   MapPin,
   ChevronDown,
@@ -806,12 +806,11 @@ export default function DiseaseHeatmap() {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
   const layerGroupRef = useRef(null);
+  const simulationLayerGroupRef = useRef(null);
 
-  const filteredRegions = filterRegions(
-    regions,
-    selectedState,
-    selectedDisease,
-  );
+  const filteredRegions = useMemo(() => {
+    return filterRegions(regions, selectedState, selectedDisease);
+  }, [regions, selectedState, selectedDisease]);
 
   // Dynamic Leaflet CSS and JS Injector
   useEffect(() => {
@@ -866,7 +865,7 @@ export default function DiseaseHeatmap() {
     mapInstance.current = map;
 
     window.L.tileLayer(
-      "https://api.maptiler.com/maps/dataviz-light/{z}/{x}/{y}.png?key=Js3t7mr8sd7cdIiAAyVp",
+      `https://api.maptiler.com/maps/dataviz-light/{z}/{x}/{y}.png?key=${import.meta.env.VITE_MAPTILER_KEY || "Js3t7mr8sd7cdIiAAyVp"}`,
       {
         attribution: '&copy; MapTiler',
         maxZoom: 18,
@@ -875,6 +874,9 @@ export default function DiseaseHeatmap() {
 
     const layerGroup = window.L.layerGroup().addTo(map);
     layerGroupRef.current = layerGroup;
+
+    const simulationLayerGroup = window.L.layerGroup().addTo(map);
+    simulationLayerGroupRef.current = simulationLayerGroup;
 
     const observer = new ResizeObserver(() => {
       map.invalidateSize();
@@ -909,7 +911,7 @@ export default function DiseaseHeatmap() {
     });
   }, [selectedState]);
 
-  // Redraw circles on changes
+  // Redraw markers when regions data changes
   useEffect(() => {
     if (!mapInstance.current || !layerGroupRef.current || !window.L) return;
 
@@ -922,22 +924,37 @@ export default function DiseaseHeatmap() {
           ? "#f59e0b"
           : "#10b981";
 
-      // Main Circle Marker
-      const markerCircle = window.L.circle([region.lat, region.lon], {
-        color: nodeColor,
-        fillColor: nodeColor,
-        fillOpacity: 0.35,
-        radius: 12000,
-        weight: 2,
+      const colorPrefix = region.riskScore >= 75
+        ? "red"
+        : region.riskScore >= 40
+          ? "amber"
+          : "emerald";
+
+      // Create a gorgeous custom HTML/Tailwind pulsating marker
+      const markerIcon = window.L.divIcon({
+        className: "!bg-transparent !border-none",
+        html: `
+          <div class="relative flex items-center justify-center w-6 h-6">
+            <span class="animate-ping absolute inline-flex h-4 w-4 rounded-full bg-${colorPrefix}-400 opacity-75" style="animation-duration: 2.5s;"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-${colorPrefix}-500 border-2 border-white shadow-md"></span>
+          </div>
+        `,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      });
+
+      // Main Marker
+      const marker = window.L.marker([region.lat, region.lon], {
+        icon: markerIcon,
       });
 
       // Bind rich popup
-      markerCircle.bindPopup(`
+      marker.bindPopup(`
         <div style="color: #1e293b; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; min-width: 160px; text-align: left;">
           <h4 style="margin: 0; font-weight: 900; font-size: 12px; color: #132a13;">${region.name} District</h4>
           <p style="margin: 4px 0 2px;"><b>State:</b> ${region.state}</p>
           <p style="margin: 2px 0 2px;"><b>Primary Crop:</b> ${region.crop}</p>
-          <p style="margin: 2px 0 2px;"><b>Temperature:</b> ${region.temperature}Â°C</p>
+          <p style="margin: 2px 0 2px;"><b>Temperature:</b> ${region.temperature}°C</p>
           <p style="margin: 2px 0 2px;"><b>Humidity:</b> ${region.humidity}%</p>
           <p style="margin: 2px 0 2px;"><b>Risk Score:</b> <span style="color: ${nodeColor}; font-weight: 900;">${region.riskScore}%</span></p>
           <p style="margin: 4px 0 0; border-top: 1px solid #e2e8f0; padding-top: 4px; font-weight: bold; color: #31572c;"><b>Disease:</b> ${region.disease}</p>
@@ -945,47 +962,62 @@ export default function DiseaseHeatmap() {
       `);
 
       // Mouseover/out handlers for district profile card
-      markerCircle.on("mouseover", (e) => {
+      marker.on("mouseover", (e) => {
         setHoveredRegion(region);
       });
-      markerCircle.on("mouseout", (e) => {
+      marker.on("mouseout", (e) => {
         setHoveredRegion(null);
       });
 
-      markerCircle.addTo(layerGroupRef.current);
+      marker.addTo(layerGroupRef.current);
+    });
+  }, [filteredRegions]);
 
-      // Spore drift simulation ring
-      if (isSimulating) {
-        let latOffset = 0;
-        let lonOffset = 0;
-        const driftFactor = simTime * 0.0015;
+  // Redraw simulation rings on a separate layer group
+  useEffect(() => {
+    if (!mapInstance.current || !simulationLayerGroupRef.current || !window.L) return;
 
-        if (windDirection === "North-East") {
-          latOffset = driftFactor;
-          lonOffset = driftFactor;
-        } else if (windDirection === "North-West") {
-          latOffset = driftFactor;
-          lonOffset = -driftFactor;
-        } else if (windDirection === "South-East") {
-          latOffset = -driftFactor;
-          lonOffset = driftFactor;
-        } else if (windDirection === "South-West") {
-          latOffset = -driftFactor;
-          lonOffset = -driftFactor;
-        }
+    simulationLayerGroupRef.current.clearLayers();
 
-        const simCenter = [region.lat + latOffset, region.lon + lonOffset];
-        const simRadius = 12000 + (simTime * 3500);
+    if (!isSimulating) return;
 
-        window.L.circle(simCenter, {
-          color: nodeColor,
-          fillColor: nodeColor,
-          fillOpacity: 0.06,
-          radius: simRadius,
-          weight: 1.5,
-          dashArray: "4 4",
-        }).addTo(layerGroupRef.current);
+    filteredRegions.forEach((region) => {
+      const nodeColor = region.riskScore >= 75
+        ? "#ef4444"
+        : region.riskScore >= 40
+          ? "#f59e0b"
+          : "#10b981";
+
+      let latOffset = 0;
+      let lonOffset = 0;
+      const driftFactor = simTime * 0.0015;
+
+      if (windDirection === "North-East") {
+        latOffset = driftFactor;
+        lonOffset = driftFactor;
+      } else if (windDirection === "North-West") {
+        latOffset = driftFactor;
+        lonOffset = -driftFactor;
+      } else if (windDirection === "South-East") {
+        latOffset = -driftFactor;
+        lonOffset = driftFactor;
+      } else if (windDirection === "South-West") {
+        latOffset = -driftFactor;
+        lonOffset = -driftFactor;
       }
+
+      const simCenter = [region.lat + latOffset, region.lon + lonOffset];
+      const simRadius = 12000 + (simTime * 3500);
+
+      window.L.circle(simCenter, {
+        color: nodeColor,
+        fillColor: nodeColor,
+        fillOpacity: 0.06,
+        radius: simRadius,
+        weight: 1.5,
+        dashArray: "4 4",
+        interactive: false, // Critical: stops rings from intercepting mouse events and causing hover flicker
+      }).addTo(simulationLayerGroupRef.current);
     });
   }, [filteredRegions, isSimulating, simTime, windDirection]);
 
@@ -1202,12 +1234,12 @@ export default function DiseaseHeatmap() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* MAP COLUMN */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
           <div className="p-4 border-b border-gray-100 bg-[#f4f7f4]/20 flex justify-between items-center">
             <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
               {selectedState === "All"
-                ? `National Disease Risk Distribution â€” ${activeLayer} View`
-                : `${selectedState} Regional Overrides â€” ${activeLayer} View`}
+                ? `National Disease Risk Distribution — ${activeLayer} View`
+                : `${selectedState} Regional Overrides — ${activeLayer} View`}
             </h2>
             {selectedState !== "All" && (
               <button
@@ -1220,7 +1252,7 @@ export default function DiseaseHeatmap() {
             )}
           </div>
 
-          <div className="relative min-h-[500px] flex flex-col justify-between bg-white dark:bg-brand-darkest">
+          <div className="relative min-h-[500px] flex-1 flex flex-col bg-white dark:bg-brand-darkest">
             {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-brand-darkest/70 z-20">
                 <Loader2 className="h-10 w-10 text-[#31572c] animate-spin" />
@@ -1247,7 +1279,7 @@ export default function DiseaseHeatmap() {
                       <Thermometer className="w-3 h-3" /> Temp:
                     </div>
                     <span className="font-bold text-gray-900">
-                      {hoveredRegion.temperature}Â°C
+                      {hoveredRegion.temperature}°C
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-xs font-semibold">
@@ -1357,20 +1389,23 @@ export default function DiseaseHeatmap() {
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center p-2 bg-emerald-50 rounded-lg">
-                <span className="text-sm font-bold text-emerald-700">
-                  ðŸŸ¢ Low Risk
+                <span className="text-sm font-bold text-emerald-700 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                  Low Risk
                 </span>
                 <span className="font-black">{lowRiskCount} Districts</span>
               </div>
               <div className="flex justify-between items-center p-2 bg-amber-50 rounded-lg">
-                <span className="text-sm font-bold text-amber-700">
-                  ðŸŸ¡ Moderate Risk
+                <span className="text-sm font-bold text-amber-700 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                  Moderate Risk
                 </span>
                 <span className="font-black">{modRiskCount} Districts</span>
               </div>
               <div className="flex justify-between items-center p-2 bg-red-50 rounded-lg">
-                <span className="text-sm font-bold text-red-700">
-                  ðŸ”´ High Risk
+                <span className="text-sm font-bold text-red-700 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                  High Risk
                 </span>
                 <span className="font-black">{highRiskCount} Districts</span>
               </div>
@@ -1402,7 +1437,7 @@ export default function DiseaseHeatmap() {
                           {region.name}
                         </h4>
                         <p className="text-[9px] font-extrabold uppercase tracking-wider mt-0.5">
-                          {region.reportedAt} Â· {region.disease}
+                          {region.reportedAt} · {region.disease}
                         </p>
                       </div>
                       <span

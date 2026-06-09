@@ -205,7 +205,7 @@ export default function TreatmentAdvisor() {
 
   const formatCostPerAcre = (cost) => {
     if (typeof cost === "number") {
-      return `â‚¹${cost.toLocaleString("en-IN")}/acre`;
+      return `₹${cost.toLocaleString("en-IN")}/acre`;
     }
     return cost;
   };
@@ -439,23 +439,23 @@ export default function TreatmentAdvisor() {
                 <td className="py-3 px-3 text-emerald-850 font-bold">
                   Organic Protocols (Neem, Bio-fungicides)
                 </td>
-                <td className="py-3 px-3">â‚¹180 - â‚¹350</td>
-                <td className="py-3 px-3">78% â€“ 85%</td>
+                <td className="py-3 px-3">₹180 - ₹350</td>
+                <td className="py-3 px-3">78% – 85%</td>
                 <td className="py-3 px-3 text-emerald-700">
                   Excellent (Zero Residue)
                 </td>
-                <td className="py-3 px-3">0 â€“ 3 Days</td>
+                <td className="py-3 px-3">0 – 3 Days</td>
               </tr>
               <tr>
                 <td className="py-3 px-3 text-amber-850 font-bold">
                   Chemical Protocols (Tricyclazole, Propiconazole)
                 </td>
-                <td className="py-3 px-3">â‚¹450 - â‚¹750</td>
-                <td className="py-3 px-3">88% â€“ 95%</td>
+                <td className="py-3 px-3">₹450 - ₹750</td>
+                <td className="py-3 px-3">88% – 95%</td>
                 <td className="py-3 px-3 text-red-600">
                   Moderate Risk (Residue Risk)
                 </td>
-                <td className="py-3 px-3">14 â€“ 21 Days</td>
+                <td className="py-3 px-3">14 – 21 Days</td>
               </tr>
             </tbody>
           </table>
@@ -470,7 +470,7 @@ export default function TreatmentAdvisor() {
             <div className="flex items-center gap-2">
               <CalendarDays className="w-4 h-4 text-[#31572c]" />
               <h2 className="text-sm font-bold text-gray-900 tracking-tight">
-                Spray Schedule â€” Next 30 Days
+                Spray Schedule — Next 30 Days
               </h2>
             </div>
             <span className="text-[9px] font-black uppercase tracking-widest bg-[#ecf39e] text-[#132a13] px-2 py-1 rounded">

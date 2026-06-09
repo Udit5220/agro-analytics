@@ -10,7 +10,8 @@ import {
   Percent,
   Warehouse,
   BarChart2,
-  Cpu
+  Cpu,
+  Lightbulb
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -202,8 +203,9 @@ export default function AgriSourcingRegions() {
                 </div>
               </div>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-[10px] text-gray-300">
-              💡 <strong>CPO Directive:</strong> Expand contract allocation in {activeRegionData.name} by 8% to buffer production deficit in low-infrastructure zones.
+            <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-[10px] text-gray-300 flex items-start gap-1.5">
+              <Lightbulb className="w-3.5 h-3.5 text-[#ecf39e] shrink-0 mt-0.5" />
+              <span><strong>CPO Directive:</strong> Expand contract allocation in {activeRegionData.name} by 8% to buffer production deficit in low-infrastructure zones.</span>
             </div>
           </div>
 

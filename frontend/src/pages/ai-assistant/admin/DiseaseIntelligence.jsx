@@ -77,7 +77,7 @@ export default function DiseaseIntelligence() {
         <StatsCard
           title="Disease Detections (30d)"
           value="42,408"
-          trend="â†‘ 18.2%"
+          trend="↑ 18.2%"
           trendType="danger"
           subtext="Total scans matched to target pathogens"
           icon={
@@ -101,7 +101,7 @@ export default function DiseaseIntelligence() {
         <StatsCard
           title="Outbreak Accuracy"
           value="95.8%"
-          trend="â†‘ 0.8%"
+          trend="↑ 0.8%"
           trendType="success"
           subtext="Drift-corrected diagnostic matching precision"
           icon={
@@ -112,8 +112,8 @@ export default function DiseaseIntelligence() {
         />
         <StatsCard
           title="Yield Loss Prevented"
-          value="â‚¹8.4M"
-          trend="â†‘ 12%"
+          value="₹8.4M"
+          trend="↑ 12%"
           trendType="success"
           subtext="Estimated crops saved from infection"
           icon={
@@ -180,7 +180,7 @@ export default function DiseaseIntelligence() {
                 <Tooltip />
                 <Legend wrapperStyle={{ fontSize: 10, fontWeight: 700 }} />
                 <Bar dataKey="AffectedArea" name="Affected Area (Acres)" fill="#132a13" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="PreventedLoss" name="Prevented Loss (â‚¹k)" fill="#90a955" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="PreventedLoss" name="Prevented Loss (₹k)" fill="#90a955" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

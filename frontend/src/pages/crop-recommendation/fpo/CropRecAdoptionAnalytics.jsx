@@ -170,7 +170,7 @@ export default function CropRecAdoptionAnalytics() {
       }).setView([28.4089, 77.2978], 11);
       leafletMapInstance.current = map;
       window.L.tileLayer(
-        "https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=Js3t7mr8sd7cdIiAAyVp",
+        `https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=${import.meta.env.VITE_MAPTILER_KEY || "Js3t7mr8sd7cdIiAAyVp"}`,
         { attribution: "&copy; MapTiler", maxZoom: 18 }
       ).addTo(map);
       renderMapOverlays();

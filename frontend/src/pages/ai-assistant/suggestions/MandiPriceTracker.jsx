@@ -193,7 +193,7 @@
 //           </div>
 //         </div>
 //         <button className="text-xs font-bold border border-gray-200 px-3.5 py-1.5 rounded-xl bg-white hover:bg-gray-50 transition-colors shadow-sm cursor-pointer shrink-0">
-//           View Details â†’
+//           View Details →
 //         </button>
 //       </div>
 
@@ -487,6 +487,8 @@ import {
   Bell,
   Loader2,
   AlertCircle,
+  CheckCircle,
+  AlertTriangle,
 } from "lucide-react";
 import LocationSelector from "../../../components/LocationSelector";
 import { getSoilDataByPincode } from "../../../services/locationService";
@@ -512,14 +514,24 @@ const AiDisclaimer = ({ isForecastExtended, realDataUsed }) => {
     <div className="bg-blue-50/60 border border-blue-200 rounded-lg p-2.5 flex items-start gap-2">
       <AlertCircle className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
       <div className="text-[9px] text-blue-800">
-        <p className="font-semibold">ðŸ“Š Data Source Disclaimer:</p>
-        <p>
-          {realDataUsed?.spot
-            ? "âœ… Historical prices from NCDEX exchange data. "
-            : "âš ï¸ Historical prices estimated based on regional trends. "}
-          {isForecastExtended
-            ? "Future prices beyond 7 days are AI-estimated forecasts based on historical patterns."
-            : "Future prices derived from actual contract expiry data."}
+        <p className="font-semibold">Data Source Disclaimer:</p>
+        <p className="flex flex-wrap items-center gap-1 mt-0.5">
+          {realDataUsed?.spot ? (
+            <span className="flex items-center gap-1 text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 font-bold text-[8px] uppercase">
+              <CheckCircle className="w-3 h-3 text-emerald-600 shrink-0" />
+              Verified NCDEX Data
+            </span>
+          ) : (
+            <span className="flex items-center gap-1 text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-100 font-bold text-[8px] uppercase">
+              <AlertTriangle className="w-3 h-3 text-amber-500 shrink-0" />
+              Estimated Price
+            </span>
+          )}
+          <span>
+            {isForecastExtended
+              ? "Future prices beyond 7 days are AI-estimated forecasts based on historical patterns."
+              : "Future prices derived from actual contract expiry data."}
+          </span>
         </p>
       </div>
     </div>
@@ -1011,13 +1023,13 @@ export default function MandiPriceTracker() {
             <p className="text-[11px] font-semibold text-gray-800">
               {bestMandi.name} — ₹{formatPrice(bestMandi.price)}/quintal
               <span className="text-emerald-600 ml-1">
-                â†‘ {bestMandi.weeklyChange || 2}%
+                ↑ {bestMandi.weeklyChange || 2}%
               </span>
             </p>
           </div>
         </div>
         <button className="text-[9px] font-bold border border-gray-200 px-3 py-1 rounded-lg hover:bg-gray-50 transition-colors">
-          View Details â†’
+          View Details →
         </button>
       </div>
 

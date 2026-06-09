@@ -135,9 +135,9 @@
 
 //       {/* 2-Column Responsive Split */}
 //       <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 items-start">
-//         {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+//         {/* ═══════════════════════════════════════════ */}
 //         {/* LEFT COLUMN: Input Matrix Form            */}
-//         {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+//         {/* ═══════════════════════════════════════════ */}
 //         <div className="bg-white rounded-2xl p-5 border border-gray-200/60 shadow-sm space-y-5">
 //           <h2 className="text-[#132a13] text-sm font-bold flex items-center gap-2 pb-2.5 border-b border-gray-100">
 //             <Coins className="h-4 w-4 text-[#4f772d]" />
@@ -279,9 +279,9 @@
 //           </div>
 //         </div>
 
-//         {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+//         {/* ═══════════════════════════════════════════ */}
 //         {/* RIGHT COLUMN: Output Dashboard Matrix       */}
-//         {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+//         {/* ═══════════════════════════════════════════ */}
 //         <div
 //           className={`space-y-6 ${isFetching ? "opacity-50 pointer-events-none" : ""} transition-opacity duration-200`}
 //         >
@@ -563,11 +563,11 @@ export default function YieldRoiPredictor() {
           setFarms(res.data.farms);
           setSelectedFarmId(firstFarm._id);
 
-          // âœ¨ FIX 1: Automatically set initial land size from active backend data
+          // ✨ FIX 1: Automatically set initial land size from active backend data
           const initialLand = firstFarm.totalLand || 5;
           setAcreage(initialLand);
 
-          // âœ¨ FIX 2: Compute real data metrics at first load using active farm parameters
+          // ✨ FIX 2: Compute real data metrics at first load using active farm parameters
           await executeYieldSimulation(
             selectedCrop,
             initialLand,
@@ -589,7 +589,7 @@ export default function YieldRoiPredictor() {
     loadProfileAndInitialize();
   }, []);
 
-  // âœ¨ FIX 3: Automatically updates land size slider immediately when user toggles the farm drop-down
+  // ✨ FIX 3: Automatically updates land size slider immediately when user toggles the farm drop-down
   useEffect(() => {
     if (!selectedFarmId || farms.length === 0) return;
     const activeFarm = farms.find((f) => f._id === selectedFarmId);

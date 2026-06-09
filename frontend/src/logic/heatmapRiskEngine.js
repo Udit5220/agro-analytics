@@ -201,14 +201,33 @@ const DISEASE_THRESHOLDS = {
   "Alternaria Blight": { minHumidity: 70, minRainfall: 30, optTemp: [18, 25] },
 };
 
+// Crop-disease mapping to avoid homogenous disease data across regions
+const CROP_DISEASES = {
+  Rice: ["Blast Disease", "Sheath Blight", "Leaf Blight"],
+  Wheat: ["Yellow Rust", "Leaf Blight"],
+  Cotton: ["Whitefly"],
+  Mustard: ["Alternaria Blight"],
+  Sugarcane: ["Leaf Blight", "Alternaria Blight"],
+  Maize: ["Leaf Blight"],
+  Gram: ["Alternaria Blight"],
+  Bajra: ["Blast Disease"],
+  Soybean: ["Leaf Blight"],
+  Vegetables: ["Whitefly", "Alternaria Blight"],
+  Pulses: ["Alternaria Blight", "Leaf Blight"],
+  Guar: ["Alternaria Blight", "Leaf Blight"],
+};
+
 // Calculate disease risk for a region
 export const calculateDiseaseRisk = (weather, crop) => {
   const { temperature, humidity, rainfall, windSpeed } = weather;
-  let maxRisk = 0;
-  let primaryDisease = "None";
+  const allowedDiseases = CROP_DISEASES[crop] || Object.keys(DISEASE_THRESHOLDS);
+  let maxRisk = -1;
+  let primaryDisease = allowedDiseases[0] || "None";
   let secondaryDisease = null;
 
-  for (const [disease, thresholds] of Object.entries(DISEASE_THRESHOLDS)) {
+  for (const disease of allowedDiseases) {
+    const thresholds = DISEASE_THRESHOLDS[disease];
+    if (!thresholds) continue;
     let risk = 0;
 
     // Humidity contribution
@@ -242,7 +261,7 @@ export const calculateDiseaseRisk = (weather, crop) => {
     risk = Math.min(risk, 100);
 
     if (risk > maxRisk) {
-      secondaryDisease = primaryDisease !== "None" ? primaryDisease : null;
+      secondaryDisease = (primaryDisease !== "None" && maxRisk > -1) ? primaryDisease : null;
       primaryDisease = disease;
       maxRisk = risk;
     } else if (risk > 40 && risk === maxRisk) {
@@ -251,7 +270,7 @@ export const calculateDiseaseRisk = (weather, crop) => {
   }
 
   return {
-    riskScore: Math.round(maxRisk),
+    riskScore: Math.round(Math.max(0, maxRisk)),
     primaryDisease,
     secondaryDisease,
     riskLevel: maxRisk >= 75 ? "High" : maxRisk >= 40 ? "Moderate" : "Low",
@@ -332,8 +351,9 @@ const getYCoordinate = (lat) => {
 // Fallback data when API fails
 const getFallbackData = (region) => {
   const mockRisk = Math.floor(Math.random() * 100);
-  const diseases = Object.keys(DISEASE_THRESHOLDS);
-  const primaryDisease = diseases[Math.floor(Math.random() * diseases.length)];
+  const currentCrop = region.majorCrops[0];
+  const allowedDiseases = CROP_DISEASES[currentCrop] || Object.keys(DISEASE_THRESHOLDS);
+  const primaryDisease = allowedDiseases[Math.floor(Math.random() * allowedDiseases.length)];
 
   return {
     ...region,
@@ -348,7 +368,7 @@ const getFallbackData = (region) => {
     incidents: Math.floor(mockRisk / 5),
     affectedArea: `${Math.floor(mockRisk * 2 + 30)} acres`,
     reportedAt: `${Math.floor(Math.random() * 60)} min ago`,
-    crop: region.majorCrops[0],
+    crop: currentCrop,
     x: getXCoordinate(region.lon),
     y: getYCoordinate(region.lat),
   };

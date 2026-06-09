@@ -442,7 +442,7 @@ This automated advisory report was successfully compiled for the operational seg
                   {activeViewReport.title}
                 </h3>
                 <p className="text-[10px] text-gray-400 font-medium mt-0.5">
-                  Authored by <span className="font-semibold text-gray-500">{activeViewReport.author}</span> â€¢ Compiled on {activeViewReport.date}
+                  Authored by <span className="font-semibold text-gray-500">{activeViewReport.author}</span> • Compiled on {activeViewReport.date}
                 </p>
               </div>
               <button 

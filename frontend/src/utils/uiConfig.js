@@ -7,6 +7,18 @@ export const uiConfig = {
   appName: 'AgroIndia',
   appTagline: 'AI-Powered Agriculture Platform',
 
+  // UI Theme Configuration
+  theme: {
+    colors: {
+      brandDarkest: '#0A2414',
+      brandDark: '#006837',
+      brandMedium: '#00A550',
+      brandLight: '#88D49E',
+      brandAccent: '#D0F0C0',
+      brandLightest: '#E8F8F0',
+    }
+  },
+
   // Layout standardizations
   layout: {
     container: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',

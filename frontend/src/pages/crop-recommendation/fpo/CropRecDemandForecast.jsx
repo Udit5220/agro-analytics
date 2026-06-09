@@ -12,6 +12,8 @@ import {
   Sparkles,
   Loader2,
   Calendar,
+  Info,
+  AlertCircle,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -462,22 +464,37 @@ export default function CropRecDemandForecast() {
             <span className="text-[9px] text-amber-700 font-bold block mt-1.5 uppercase">HIGH VULNERABILITY</span>
           </div>
 
-          <div className="border border-gray-200/60 p-4 rounded-xl bg-gray-50/50">
-            <span className="text-[10px] font-bold text-gray-500 block uppercase">Deficit Volume</span>
-            <div className="text-lg font-black mt-1 text-red-600">2,840 ML</div>
-            <span className="text-[9px] font-black text-red-600 block mt-2 uppercase">🚨 DEFICIT ALERT</span>
+          <div className="border border-gray-200/60 p-4 rounded-xl bg-gray-50/50 flex flex-col justify-between">
+            <div>
+              <span className="text-[10px] font-bold text-gray-500 block uppercase">Deficit Volume</span>
+              <div className="text-lg font-black mt-1 text-red-600 font-mono">2,840 ML</div>
+            </div>
+            <span className="text-[9px] font-black text-red-600 mt-2 uppercase flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5 text-red-600 shrink-0" />
+              <span>Deficit Alert</span>
+            </span>
           </div>
 
-          <div className="border border-gray-200/60 p-4 rounded-xl bg-gray-50/50">
-            <span className="text-[10px] font-bold text-gray-500 block uppercase">Groundwater Dependency</span>
-            <div className="text-lg font-black mt-1 text-amber-600">68%</div>
-            <span className="text-[9px] font-black text-amber-600 block mt-2 uppercase">⚠️ CRITICAL EXPLOITATION</span>
+          <div className="border border-gray-200/60 p-4 rounded-xl bg-gray-50/50 flex flex-col justify-between">
+            <div>
+              <span className="text-[10px] font-bold text-gray-500 block uppercase">Groundwater Dependency</span>
+              <div className="text-lg font-black mt-1 text-amber-600 font-mono">68%</div>
+            </div>
+            <span className="text-[9px] font-black text-amber-600 mt-2 uppercase flex items-center gap-1">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span>Critical Exploitation</span>
+            </span>
           </div>
 
-          <div className="border border-gray-200/60 p-4 rounded-xl bg-gray-50/50">
-            <span className="text-[10px] font-bold text-gray-500 block uppercase">Surface Water Available</span>
-            <div className="text-lg font-black mt-1 text-sky-600">5,920 ML</div>
-            <span className="text-[9px] font-black text-sky-600 block mt-2 uppercase">ℹ️ SAFE SURFACE CAP</span>
+          <div className="border border-gray-200/60 p-4 rounded-xl bg-gray-50/50 flex flex-col justify-between">
+            <div>
+              <span className="text-[10px] font-bold text-gray-500 block uppercase">Surface Water Available</span>
+              <div className="text-lg font-black mt-1 text-sky-600 font-mono">5,920 ML</div>
+            </div>
+            <span className="text-[9px] font-black text-sky-650 mt-2 uppercase flex items-center gap-1">
+              <Info className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+              <span>Safe Surface Cap</span>
+            </span>
           </div>
         </div>
       </div>

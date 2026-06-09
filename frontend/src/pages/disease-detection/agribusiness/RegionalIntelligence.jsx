@@ -46,7 +46,7 @@ export default function RegionalIntelligence() {
 
     // MapTiler Satellite Tiles
     window.L.tileLayer(
-      "https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=Js3t7mr8sd7cdIiAAyVp",
+      `https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=${import.meta.env.VITE_MAPTILER_KEY || "Js3t7mr8sd7cdIiAAyVp"}`,
       {
         attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>',
         maxZoom: 18,

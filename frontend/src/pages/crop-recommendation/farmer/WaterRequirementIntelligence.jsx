@@ -18,7 +18,7 @@ import {
 import { profileApi } from "../../../services/apiService";
 import seededData from "../../../seed-json/seededData.json";
 
-// â”€â”€â”€ CROP WATER REQUIREMENT DATABASE (mm per growth stage) â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── CROP WATER REQUIREMENT DATABASE (mm per growth stage) ─────────
 const CROP_WATER_DATA = seededData.cropRecommendation.cropWaterData;
 
 const getIntensityColor = (mm, maxMm) => {
@@ -336,7 +336,7 @@ export default function WaterRequirementIntelligence() {
             <div>
               <h4 className="text-xs font-black text-gray-950">Rainwater Harvesting</h4>
               <p className="text-[10px] text-gray-700 font-semibold mt-0.5">
-                Farm pond storage of 500mÂ³ per hectare can supplement {Math.round(annualRainfall * 0.15)}mm of effective seasonal irrigation.
+                Farm pond storage of 500m³ per hectare can supplement {Math.round(annualRainfall * 0.15)}mm of effective seasonal irrigation.
               </p>
             </div>
           </div>

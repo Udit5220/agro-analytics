@@ -81,7 +81,7 @@ export default function ModelIntelligence() {
         <StatsCard
           title="Overall Model Accuracy"
           value="94.6%"
-          trend="â†‘ 0.4%"
+          trend="↑ 0.4%"
           trendType="success"
           subtext="Standard weighted benchmark score"
           icon={
@@ -93,7 +93,7 @@ export default function ModelIntelligence() {
         <StatsCard
           title="Disease Detection F1-Score"
           value="96.2%"
-          trend="â†‘ 1.1%"
+          trend="↑ 1.1%"
           trendType="success"
           subtext="Late blight & rust prediction weight"
           icon={
@@ -105,7 +105,7 @@ export default function ModelIntelligence() {
         <StatsCard
           title="Avg Model Latency"
           value="182ms"
-          trend="â†“ 8ms"
+          trend="↓ 8ms"
           trendType="success"
           subtext="GPU inference time per token response"
           icon={
@@ -117,7 +117,7 @@ export default function ModelIntelligence() {
         <StatsCard
           title="Hallucination & Safety"
           value="0.12%"
-          trend="â†“ 0.05%"
+          trend="↓ 0.05%"
           trendType="success"
           subtext="Safety guardrail infraction rate"
           icon={

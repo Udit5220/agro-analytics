@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRole } from "../../../context/RoleContext";
+import { Pin, Trash2 } from "lucide-react";
 
 import seededData from "../../../seed-json/seededData.json";
 
@@ -236,10 +237,10 @@ export default function SavedInsights() {
                 {activeDropdownId === card.id && (
                   <div className="absolute right-0 top-8 bg-white border border-gray-100 rounded-xl shadow-lg py-1 w-28 z-20 font-semibold text-[11px] text-gray-700 animate-fadeIn">
                     <button className="w-full text-left px-3 py-1.5 hover:bg-gray-50 flex items-center gap-1.5">
-                      <span>ðŸ“Œ</span> Pin Item
+                      <Pin className="w-3.5 h-3.5 text-gray-500" /> Pin Item
                     </button>
                     <button className="w-full text-left px-3 py-1.5 hover:bg-red-50 text-red-600 flex items-center gap-1.5">
-                      <span>ðŸ—‘ï¸</span> Remove
+                      <Trash2 className="w-3.5 h-3.5 text-red-500" /> Remove
                     </button>
                   </div>
                 )}
@@ -247,7 +248,7 @@ export default function SavedInsights() {
 
               {/* Descriptor Metadata Labels */}
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
-                {card.typeLabel} <span className="text-gray-200 mx-1">â€¢</span>{" "}
+                {card.typeLabel} <span className="text-gray-200 mx-1">•</span>{" "}
                 {card.date}
               </p>
 
@@ -388,7 +389,7 @@ export default function SavedInsights() {
                   {activeViewReport.title}
                 </h3>
                 <p className="text-[10px] text-gray-400 font-medium mt-0.5">
-                  Authored by <span className="font-semibold text-gray-500">{activeViewReport.author}</span> â€¢ Compiled on {activeViewReport.date}
+                  Authored by <span className="font-semibold text-gray-500">{activeViewReport.author}</span> • Compiled on {activeViewReport.date}
                 </p>
               </div>
               <button 

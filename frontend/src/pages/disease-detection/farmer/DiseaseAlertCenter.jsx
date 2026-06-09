@@ -115,7 +115,7 @@ export default function DiseaseAlertCenter() {
       list.push(newReminder);
       localStorage.setItem("activeReminders", JSON.stringify(list));
       showToast(
-        `Spray reminder scheduled for ${alert.crop} â€” ${alert.disease}.`,
+        `Spray reminder scheduled for ${alert.crop} — ${alert.disease}.`,
       );
     } catch (e) {
       console.error(e);
@@ -335,7 +335,7 @@ export default function DiseaseAlertCenter() {
                       {alert.severity}
                     </span>
                     <h3 className="text-sm font-black text-slate-900 dark:text-white">
-                      {alert.crop} â€”{" "}
+                      {alert.crop} —{" "}
                       <span className="underline">{alert.disease}</span>
                     </h3>
                     <span className="text-[9px] bg-slate-100 dark:bg-brand-dark/25 px-2 py-0.5 rounded text-slate-400 font-bold uppercase tracking-widest">
@@ -352,7 +352,7 @@ export default function DiseaseAlertCenter() {
                       <Clock className="h-3 w-3" />
                       {alert.timestamp}
                     </span>
-                    <span>â€¢</span>
+                    <span>•</span>
                     <span className="flex items-center gap-1">
                       <Calendar className="h-3 w-3" />
                       {alert.date}
@@ -574,7 +574,7 @@ export default function DiseaseAlertCenter() {
               </div>
             </div>
           </div>,
-          document.body, // â† Renders directly into <body>, escaping all parent contexts
+          document.body, // ← Renders directly into <body>, escaping all parent contexts
         )}
     </div>
   );

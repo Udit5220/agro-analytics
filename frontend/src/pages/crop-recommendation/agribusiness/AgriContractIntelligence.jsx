@@ -11,7 +11,8 @@ import {
   CheckCircle,
   Clock,
   AlertTriangle,
-  ArrowRight
+  ArrowRight,
+  Phone
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -225,7 +226,7 @@ export default function AgriContractIntelligence() {
             </div>
 
             <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/30 border border-emerald-200 rounded-xl p-4 flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute right-2 top-2 text-emerald-200/50 font-black text-4xl">✓</div>
+              <CheckCircle className="absolute right-2 top-2 text-emerald-200/30 w-12 h-12 stroke-[1]" />
               <div>
                 <span className="text-[9px] text-[#31572c] font-black uppercase tracking-wider block">Stage 4</span>
                 <span className="text-xs font-black text-emerald-900 mt-1 block">Active Contracts</span>
@@ -310,8 +311,9 @@ export default function AgriContractIntelligence() {
               </div>
             </div>
             
-            <div className="bg-[#31572c] text-white border rounded-xl p-3 text-[10px] text-center font-bold">
-              📞 Contact FPO Coordinator: +91 98450-XXXXX
+            <div className="bg-[#31572c] text-white border rounded-xl p-3 text-[10px] text-center font-bold flex items-center justify-center gap-1.5 cursor-pointer hover:bg-[#224222] transition-colors">
+              <Phone className="w-3.5 h-3.5 shrink-0" />
+              <span>Contact FPO Coordinator: +91 98450-XXXXX</span>
             </div>
           </div>
 

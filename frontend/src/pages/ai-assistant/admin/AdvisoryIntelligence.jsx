@@ -41,7 +41,7 @@ export default function AdvisoryIntelligence() {
     { id: "ADV-903", topic: "Crop switch: Sunflower selection", category: "Crop Recs", accepted: "Yes", feedback: "Sowed, healthy sprouts", crop: "Sunflower" },
     { id: "ADV-904", topic: "Postpone sowing: heavy rainfall warning", category: "Weather advice", accepted: "Yes", feedback: "Saved seed cost", crop: "Wheat" },
     { id: "ADV-905", topic: "Paddy APMC spread target: Latur APMC", category: "Market Price", accepted: "No", feedback: "Preferred local mandi", crop: "Rice" },
-    { id: "ADV-906", topic: "Reduced Nitrogen limit mapping", category: "Fertilizer", accepted: "Yes", feedback: "Saves â‚¹800/acre input", crop: "Cotton" }
+    { id: "ADV-906", topic: "Reduced Nitrogen limit mapping", category: "Fertilizer", accepted: "Yes", feedback: "Saves ₹800/acre input", crop: "Cotton" }
   ];
 
   const filteredAdvisories = recentAdvisories.filter(adv => {
@@ -78,7 +78,7 @@ export default function AdvisoryIntelligence() {
         <StatsCard
           title="Total Advisories Generated"
           value="1,42,800"
-          trend="â†‘ 14.8%"
+          trend="↑ 14.8%"
           trendType="success"
           subtext="Generated across all active state crop systems"
           icon={
@@ -90,7 +90,7 @@ export default function AdvisoryIntelligence() {
         <StatsCard
           title="Acceptance Rate"
           value="84.6%"
-          trend="â†‘ 2.1%"
+          trend="↑ 2.1%"
           trendType="success"
           subtext="Recommendations adopted by farmers"
           icon={
@@ -102,7 +102,7 @@ export default function AdvisoryIntelligence() {
         <StatsCard
           title="Ignored Rate"
           value="10.2%"
-          trend="â†“ 1.4%"
+          trend="↓ 1.4%"
           trendType="success"
           subtext="Advisories read but not acted upon"
           icon={
@@ -115,7 +115,7 @@ export default function AdvisoryIntelligence() {
         <StatsCard
           title="Rejected Rate"
           value="5.2%"
-          trend="â†“ 0.7%"
+          trend="↓ 0.7%"
           trendType="success"
           subtext="Advisories explicitly marked incorrect"
           icon={
@@ -131,7 +131,7 @@ export default function AdvisoryIntelligence() {
         <div className="space-y-1">
           <h4 className="text-xs font-black uppercase tracking-widest text-[#ecf39e]">AI Recommendation Insights</h4>
           <p className="text-[11px] text-white/95 leading-relaxed">
-            Overall acceptance of <strong className="text-[#ecf39e]">Weather-influenced seed recommendations</strong> spiked following localized rain alerts in Punjab, preventing seed degradation loss estimated at â‚¹4,200/hectare.
+            Overall acceptance of <strong className="text-[#ecf39e]">Weather-influenced seed recommendations</strong> spiked following localized rain alerts in Punjab, preventing seed degradation loss estimated at ₹4,200/hectare.
           </p>
         </div>
         <div className="bg-[#4f772d]/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">

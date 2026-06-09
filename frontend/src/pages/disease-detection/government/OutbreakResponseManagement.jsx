@@ -335,7 +335,12 @@ export default function OutbreakResponseManagement() {
             {LIVE_RESPONSE_FEED.map((feed) => (
               <div key={feed.id} className="text-xs border-b border-gray-50 pb-2">
                 <div className="flex justify-between items-center text-[9px] font-black text-gray-400">
-                  <span>{feed.time} · 📍 {feed.district}</span>
+                  <span className="flex items-center gap-1">
+                    <span>{feed.time}</span>
+                    <span>·</span>
+                    <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
+                    <span>{feed.district}</span>
+                  </span>
                   <span className={`px-1 rounded-sm uppercase ${
                     feed.status === "critical" ? "bg-red-50 text-red-700" : feed.status === "high" ? "bg-amber-50 text-amber-900" : "bg-emerald-50 text-emerald-700"
                   }`}>

@@ -268,10 +268,10 @@
 //                   </span>
 //                   <p className="font-bold text-gray-800">
 //                     {scheduledDays.includes(selectedDay)
-//                       ? "ðŸ’§ Core irrigation event scheduled. Soil target: 5.5mm volume delivery."
+//                       ? "Core irrigation event scheduled. Soil target: 5.5mm volume delivery."
 //                       : optionalDays.includes(selectedDay)
-//                         ? "ðŸŒ± Light moisture calibration day. Optional soil micro-drenching."
-//                         : "ðŸšœ General observation day. Maintain active moisture telemetry checks."}
+//                         ? "Light moisture calibration day. Optional soil micro-drenching."
+//                         : "General observation day. Maintain active moisture telemetry checks."}
 //                   </p>
 //                 </div>
 //                 <span className="shrink-0 flex items-center gap-1 text-[10px] font-black text-[#31572c] bg-white border px-2.5 py-1 rounded-md shadow-sm uppercase">
@@ -668,8 +668,8 @@ export default function IrrigationScheduler() {
   };
 
   // Calendar (June 2025 starts on Sunday? Let's calculate properly)
-  // June 1, 2025 is a Sunday â†’ 0 blank cells
-  const blankCells = []; // Sunday start â†’ no blanks
+  // June 1, 2025 is a Sunday → 0 blank cells
+  const blankCells = []; // Sunday start → no blanks
   const daysInMonth = Array.from({ length: 30 }, (_, i) => i + 1);
   const calendarCells = [...blankCells, ...daysInMonth];
 
@@ -879,13 +879,24 @@ export default function IrrigationScheduler() {
           <div className="bg-gray-50 rounded-lg p-2.5 mt-4 text-[9px]">
             {selectedDay ? (
               <div className="flex justify-between items-center">
-                <span className="font-medium text-gray-700">
-                  June {selectedDay}:{" "}
-                  {scheduledDays.includes(selectedDay)
-                    ? "ðŸ’§ Scheduled irrigation (5-7mm water)"
-                    : optionalDays.includes(selectedDay)
-                      ? "ðŸŒ± Optional calibration (2-3mm if needed)"
-                      : "ðŸ“‹ Observation day — check soil moisture"}
+                <span className="font-medium text-gray-700 flex items-center gap-1.5">
+                  <span>June {selectedDay}:</span>
+                  {scheduledDays.includes(selectedDay) ? (
+                    <>
+                      <Droplet className="w-3.5 h-3.5 text-blue-600 inline" />
+                      <span>Scheduled irrigation (5-7mm water)</span>
+                    </>
+                  ) : optionalDays.includes(selectedDay) ? (
+                    <>
+                      <Droplet className="w-3.5 h-3.5 text-lime-600 inline" />
+                      <span>Optional calibration (2-3mm if needed)</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-gray-500 inline" />
+                      <span>Observation day — check soil moisture</span>
+                    </>
+                  )}
                 </span>
                 <CheckCircle2 className="w-3 h-3 text-[#31572c]" />
               </div>

@@ -16,6 +16,7 @@ import {
   CheckCircle2,
   Percent,
   Sprout,
+  Bug,
 } from "lucide-react";
 import { getRealOutbreakHistory } from "../../../logic/outbreakHistoryService";
 
@@ -487,8 +488,9 @@ export default function HistoricalOutbreaks() {
           {outbreakData.seasonalTrends &&
             outbreakData.seasonalTrends.length > 0 && (
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
-                <h3 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                  ðŸ“Š Seasonal Insights
+                <h3 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <BarChart3 className="w-3.5 h-3.5 text-blue-600" />
+                  Seasonal Insights
                 </h3>
                 <div className="flex flex-wrap gap-4">
                   {outbreakData.seasonalTrends.map((trend, idx) => (
@@ -599,7 +601,7 @@ export default function HistoricalOutbreaks() {
                               <div className="flex flex-col items-center p-3 bg-white dark:bg-brand-darkest rounded-xl border border-slate-50/50 dark:border-brand-dark/5 shadow-xs">
                                 <Thermometer className="w-4 h-4 text-red-500 mb-1.5" />
                                 <span className="text-[10px] text-slate-400 block font-bold">Temp</span>
-                                <span className="font-extrabold text-slate-900 dark:text-white mt-1 text-sm">{record.conditions.temp}Â°C</span>
+                                <span className="font-extrabold text-slate-900 dark:text-white mt-1 text-sm">{record.conditions.temp}°C</span>
                               </div>
                               <div className="flex flex-col items-center p-3 bg-white dark:bg-brand-darkest rounded-xl border border-slate-50/50 dark:border-brand-dark/5 shadow-xs">
                                 <Droplets className="w-4 h-4 text-sky-500 mb-1.5" />
@@ -672,11 +674,20 @@ export default function HistoricalOutbreaks() {
                             </h3>
                           </div>
                           <div className="flex flex-wrap items-center gap-x-3 text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">
-                            <span>ðŸŒ¾ {treat.crop}</span>
-                            <span className="text-slate-200 dark:text-slate-700">â€¢</span>
-                            <span>ðŸ¦  {treat.disease}</span>
-                            <span className="text-slate-200 dark:text-slate-700">â€¢</span>
-                            <span>ðŸ“… {treat.date}</span>
+                            <span className="flex items-center gap-1">
+                              <Sprout className="w-3.5 h-3.5 text-emerald-600" />
+                              {treat.crop}
+                            </span>
+                            <span className="text-slate-200 dark:text-slate-700">•</span>
+                            <span className="flex items-center gap-1">
+                              <Bug className="w-3.5 h-3.5 text-amber-600" />
+                              {treat.disease}
+                            </span>
+                            <span className="text-slate-200 dark:text-slate-700">•</span>
+                            <span className="flex items-center gap-1">
+                              <Calendar className="w-3.5 h-3.5 text-gray-500" />
+                              {treat.date}
+                            </span>
                           </div>
                         </div>
                         <div className="text-left md:text-right shrink-0">

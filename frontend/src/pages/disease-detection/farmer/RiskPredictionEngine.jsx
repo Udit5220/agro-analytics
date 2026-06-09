@@ -67,7 +67,7 @@
 //     treatments: [
 //       {
 //         priority: "Immediate",
-//         action: "Apply fungicide immediately â€” Propiconazole 0.1%",
+//         action: "Apply fungicide immediately — Propiconazole 0.1%",
 //         product: "Propiconazole",
 //       },
 //       {
@@ -349,7 +349,7 @@
 //                 <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider">
 //                   <span className="text-gray-500">Temperature</span>
 //                   <span className="text-[#31572c] font-black">
-//                     {temperature}Â°C
+//                     {temperature}°C
 //                   </span>
 //                 </div>
 //                 <input
@@ -615,7 +615,7 @@
 //             {/* Footer Integrity Meta Tag */}
 //             <div className="mt-4 pt-3 border-t border-gray-50 w-full flex items-center justify-center gap-1 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
 //               <span>
-//                 â„¹ï¸ MODEL CONFIDENCE: 91% â€” BASED ON LIVE CONDITIONS TELEMETRY
+//                 ℹ️ MODEL CONFIDENCE: 91% — BASED ON LIVE CONDITIONS TELEMETRY
 //               </span>
 //             </div>
 //           </div>
@@ -698,7 +698,6 @@
 //   );
 // }
 
-// components/RiskPredictionEngine.jsx
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Cpu,
@@ -710,6 +709,7 @@ import {
   Thermometer,
   Wind,
   RefreshCw,
+  Bot,
 } from "lucide-react";
 import { getRiskPrediction } from "../../../services/diseaseGeminiService";
 import { getSoilDataByPincode, INDIAN_STATES } from "../../../services/locationService";
@@ -733,7 +733,7 @@ export const calculateDiseaseRisk = ({
   // Rainfall contribution (25%)
   score += Math.min(rainfall / 100, 1) * 25;
 
-  // Temperature contribution (20%) - optimal around 24Â°C
+  // Temperature contribution (20%) - optimal around 24°C
   const optimalTemp = 24;
   score += Math.max(0, 20 - Math.abs(optimalTemp - temperature) * 1.2);
 
@@ -832,7 +832,7 @@ const generateTreatments = (riskScore, pathogens) => {
   if (riskScore >= 70) {
     treatments.push({
       priority: "Immediate",
-      action: "Apply fungicide immediately â€” Propiconazole 0.1%",
+      action: "Apply fungicide immediately — Propiconazole 0.1%",
       product: "Propiconazole",
     });
   }
@@ -1150,7 +1150,7 @@ export default function RiskPredictionEngine() {
               crop: selectedCrop,
               disease: topPathogen,
               severity: adjustedScore >= 85 ? "Critical" : "High",
-              message: `AI Risk Prediction Engine detected high vulnerability (${adjustedScore}% risk score) for ${selectedCrop} under current environment: Temp ${temperature}Â°C, Humidity ${humidity}%.`,
+              message: `AI Risk Prediction Engine detected high vulnerability (${adjustedScore}% risk score) for ${selectedCrop} under current environment: Temp ${temperature}°C, Humidity ${humidity}%.`,
               source: "AI Forecast",
               timestamp: "Today",
               date: new Date().toISOString().split("T")[0],
@@ -1267,7 +1267,7 @@ export default function RiskPredictionEngine() {
     locationContext,
   ]);
 
-  // Needle angle: -90Â° (Low) to +90Â° (High)
+  // Needle angle: -90° (Low) to +90° (High)
   const needleAngle = -90 + animatedRiskScore * 1.8;
 
   // Helpers
@@ -1394,7 +1394,7 @@ export default function RiskPredictionEngine() {
                     </span>
                   </div>
                   <span className="text-sm font-bold text-[#31572c]">
-                    {temperature}Â°C
+                    {temperature}°C
                   </span>
                 </div>
                 <input
@@ -1648,11 +1648,11 @@ export default function RiskPredictionEngine() {
                   * {predictionData.analysis}
                 </p>
               )}
-
               {/* Confidence Footer */}
-              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-center gap-1 text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-center gap-1.5 text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+                <Bot className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
                 <span>
-                  ðŸ¤– Model Confidence: 91% â€” Based on live conditions telemetry
+                  Model Confidence: 91% — Based on live conditions telemetry
                 </span>
               </div>
             </div>
@@ -1808,7 +1808,7 @@ export default function RiskPredictionEngine() {
                 Optimal Treatment Timing
               </span>
               <p className="text-base font-black text-[#132a13] tracking-tight">
-                {new Date(Date.now() + 3*24*60*60*1000).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})} â€“ {new Date(Date.now() + 6*24*60*60*1000).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}
+                {new Date(Date.now() + 3*24*60*60*1000).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})} – {new Date(Date.now() + 6*24*60*60*1000).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}
               </p>
               <p className="text-[10px] font-bold text-emerald-800">
                 Highly Favorable Spray Index (94/100 score)
@@ -1882,7 +1882,7 @@ export default function RiskPredictionEngine() {
 
                 <div>
                   <div className="flex justify-between text-[10px] font-semibold text-gray-700 mb-0.5">
-                    <span>Temp ({temperature}Â°C)</span>
+                    <span>Temp ({temperature}°C)</span>
                     <span className="text-emerald-600 font-bold">+{Math.round(Math.max(0, 20 - Math.abs(optimalTemp - temperature)*1.2))}% Risk</span>
                   </div>
                   <div className="bg-gray-100 rounded-full h-1 overflow-hidden">

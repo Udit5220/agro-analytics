@@ -178,7 +178,7 @@ export default function CropLifecycle() {
       </div>
 
       {loading ? (
-        // â”€â”€â”€ PULSING TIMELINE LOADER SKELETON â”€â”€â”€
+        // ─── PULSING TIMELINE LOADER SKELETON ───
         <div className="space-y-6">
           <div className="h-24 bg-gray-100 border border-gray-200/50 rounded-2xl animate-pulse flex items-center justify-center">
             <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
@@ -296,7 +296,7 @@ export default function CropLifecycle() {
               </div>
               <div className="inline-flex items-center gap-2 bg-[#ecf39e] border border-[#90a955]/30 text-[#132a13] px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider w-fit">
                 <Activity className="w-3.5 h-3.5" />
-                <span>Next: Flowering â€” Monitor forecasts</span>
+                <span>Next: Flowering — Monitor forecasts</span>
               </div>
             </div>
           </div>
@@ -311,7 +311,7 @@ export default function CropLifecycle() {
                 </h2>
               </div>
               <span className="text-[9px] font-black uppercase tracking-widest bg-[#ecf39e] text-[#132a13] px-2 py-1 rounded">
-                {activeCrop} â€” {totalStages} Stages
+                {activeCrop} — {totalStages} Stages
               </span>
             </div>
 

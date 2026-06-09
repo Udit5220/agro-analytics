@@ -17,7 +17,9 @@ import {
   AlertTriangle,
   Layers,
   Shield,
-  Droplet
+  Droplet,
+  Flame,
+  MousePointer
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -224,7 +226,10 @@ export default function NationalCommandCenter() {
                 </div>
                 {activeMapLayer === "PRODUCTION" && (
                   <div className="space-y-1.5">
-                    <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">🌾 Crop Production Volume</div>
+                    <div className="text-[9px] font-bold text-gray-550 uppercase tracking-wider flex items-center gap-1">
+                      <Sprout className="w-3.5 h-3.5 text-[#31572c] shrink-0" />
+                      <span>Crop Production Volume</span>
+                    </div>
                     <div className="flex items-center gap-2 text-[9px] font-bold">
                       <span className="w-3.5 h-3.5 rounded-full bg-[#31572c] border border-gray-300 opacity-80"></span>
                       <span>Circle Area ∝ Annual Output (M MT)</span>
@@ -233,7 +238,10 @@ export default function NationalCommandCenter() {
                 )}
                 {activeMapLayer === "CLIMATE" && (
                   <div className="space-y-1.5">
-                    <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">🔥 Climate Risk Index</div>
+                    <div className="text-[9px] font-bold text-gray-550 uppercase tracking-wider flex items-center gap-1">
+                      <Flame className="w-3.5 h-3.5 text-orange-600 shrink-0" />
+                      <span>Climate Risk Index</span>
+                    </div>
                     <div className="flex items-center gap-2 text-[9px] font-bold">
                       <span className="w-3 h-3 rounded-full bg-[#ef4444]"></span>
                       <span>High Risk (≥70)</span>
@@ -250,7 +258,10 @@ export default function NationalCommandCenter() {
                 )}
                 {activeMapLayer === "WATER" && (
                   <div className="space-y-1.5">
-                    <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">💧 Water Stress Index</div>
+                    <div className="text-[9px] font-bold text-gray-550 uppercase tracking-wider flex items-center gap-1">
+                      <Droplet className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                      <span>Water Stress Index</span>
+                    </div>
                     <div className="flex items-center gap-2 text-[9px] font-bold">
                       <span className="w-3 h-3 rounded-full bg-[#ef4444]"></span>
                       <span>Critical depletion (≥80%)</span>
@@ -267,7 +278,10 @@ export default function NationalCommandCenter() {
                 )}
                 {activeMapLayer === "SECURITY" && (
                   <div className="space-y-1.5">
-                    <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">🛡️ Agri Security score</div>
+                    <div className="text-[9px] font-bold text-gray-550 uppercase tracking-wider flex items-center gap-1">
+                      <Shield className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <span>Agri Security Score</span>
+                    </div>
                     <div className="flex items-center gap-2 text-[9px] font-bold">
                       <span className="w-3 h-3 rounded-full bg-[#34d399]"></span>
                       <span>Optimal Secure (≥85)</span>
@@ -282,8 +296,9 @@ export default function NationalCommandCenter() {
                     </div>
                   </div>
                 )}
-                <div className="text-[8px] text-gray-400 font-semibold pt-1.5 border-t border-gray-150">
-                  🖱️ Click state bubbles to reload metrics context
+                <div className="text-[8px] text-gray-400 font-semibold pt-1.5 border-t border-gray-150 flex items-center gap-1">
+                  <MousePointer className="w-3 h-3 text-gray-400 shrink-0" />
+                  <span>Click state bubbles to reload metrics context</span>
                 </div>
               </div>
             </div>

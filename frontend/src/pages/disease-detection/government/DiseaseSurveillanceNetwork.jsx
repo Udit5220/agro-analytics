@@ -349,8 +349,14 @@ export default function DiseaseSurveillanceNetwork() {
                     {getSeverityBadge(item.severity)}
                   </div>
                   <div className="flex justify-between text-[10px] font-semibold text-gray-500 mt-2">
-                    <span>📍 {item.district} ({item.crop})</span>
-                    <span>📅 {item.date}</span>
+                    <span className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      <span>{item.district} ({item.crop})</span>
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      <span>{item.date}</span>
+                    </span>
                   </div>
                 </div>
               ))}
@@ -368,8 +374,14 @@ export default function DiseaseSurveillanceNetwork() {
                     {getSeverityBadge(item.severity)}
                   </div>
                   <div className="flex justify-between text-[10px] font-semibold text-gray-500 mt-2">
-                    <span>📍 {item.district} ({item.crop})</span>
-                    <span>📅 {item.date}</span>
+                    <span className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      <span>{item.district} ({item.crop})</span>
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      <span>{item.date}</span>
+                    </span>
                   </div>
                 </div>
               ))}
@@ -387,8 +399,14 @@ export default function DiseaseSurveillanceNetwork() {
                     {getSeverityBadge(item.severity)}
                   </div>
                   <div className="flex justify-between text-[10px] font-semibold text-gray-500 mt-2">
-                    <span>📍 {item.district} ({item.crop})</span>
-                    <span>📅 {item.date}</span>
+                    <span className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      <span>{item.district} ({item.crop})</span>
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      <span>{item.date}</span>
+                    </span>
                   </div>
                 </div>
               ))}

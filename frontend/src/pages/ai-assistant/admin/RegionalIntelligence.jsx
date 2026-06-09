@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import StatsCard from "../../../components/partials/StatsCard";
 import { Chart } from "react-google-charts";
+import { ArrowLeft, AlertTriangle } from "lucide-react";
 import seededData from "../../../seed-json/seededData.json";
 
 const statsCounters = seededData.aiAssistant1.regionalStatsCounters;
@@ -75,7 +76,7 @@ export default function RegionalIntelligence() {
       {/* AI Insights Outbreak Alerts */}
       <div className="bg-[#132a13] text-white rounded-2xl p-5 shadow-sm flex items-start gap-4">
         <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 text-white">
-          ðŸš¨
+          <AlertTriangle className="w-4 h-4 text-[#ecf39e]" />
         </div>
         <div>
           <h4 className="text-xs font-black uppercase tracking-widest text-[#ecf39e]">Disease Spread Warning Feed</h4>
@@ -179,9 +180,10 @@ export default function RegionalIntelligence() {
           {drilldownState !== "India" && (
             <button
               onClick={resetDrilldown}
-              className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg border border-gray-200 transition"
+              className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg border border-gray-200 transition flex items-center gap-1.5"
             >
-              â† Reset Map Drilldown
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Reset Map Drilldown</span>
             </button>
           )}
         </div>
@@ -208,7 +210,7 @@ export default function RegionalIntelligence() {
                         onClick={() => handleStateClick(row.name)}
                         className="font-bold text-[#132a13] hover:underline cursor-pointer text-left font-sans text-xs"
                       >
-                        {row.name} {districtPerformance[row.name] ? "â€º" : ""}
+                        {row.name} {districtPerformance[row.name] ? "›" : ""}
                       </button>
                     </td>
                     <td className="p-3 font-mono">{row.users}</td>
@@ -254,7 +256,7 @@ export default function RegionalIntelligence() {
                         onClick={() => handleDistrictClick(row.name)}
                         className="font-bold text-[#132a13] hover:underline cursor-pointer text-left font-sans text-xs"
                       >
-                        {row.name} {villagePerformance[row.name] ? "â€º" : ""}
+                        {row.name} {villagePerformance[row.name] ? "›" : ""}
                       </button>
                     </td>
                     <td className="p-3 font-mono">{row.users}</td>

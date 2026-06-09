@@ -19,12 +19,12 @@ export default function FarmerSuccess() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const roiTrend = [
-    { month: "Jan", "Average Yield (Quintals/Acre)": 14.2, "Net Profit (â‚¹/Acre)": 12800 },
-    { month: "Feb", "Average Yield (Quintals/Acre)": 14.8, "Net Profit (â‚¹/Acre)": 13400 },
-    { month: "Mar", "Average Yield (Quintals/Acre)": 15.6, "Net Profit (â‚¹/Acre)": 14100 },
-    { month: "Apr", "Average Yield (Quintals/Acre)": 16.9, "Net Profit (â‚¹/Acre)": 15900 },
-    { month: "May", "Average Yield (Quintals/Acre)": 18.2, "Net Profit (â‚¹/Acre)": 17200 },
-    { month: "Jun", "Average Yield (Quintals/Acre)": 19.8, "Net Profit (â‚¹/Acre)": 19400 }
+    { month: "Jan", "Average Yield (Quintals/Acre)": 14.2, "Net Profit (₹/Acre)": 12800 },
+    { month: "Feb", "Average Yield (Quintals/Acre)": 14.8, "Net Profit (₹/Acre)": 13400 },
+    { month: "Mar", "Average Yield (Quintals/Acre)": 15.6, "Net Profit (₹/Acre)": 14100 },
+    { month: "Apr", "Average Yield (Quintals/Acre)": 16.9, "Net Profit (₹/Acre)": 15900 },
+    { month: "May", "Average Yield (Quintals/Acre)": 18.2, "Net Profit (₹/Acre)": 17200 },
+    { month: "Jun", "Average Yield (Quintals/Acre)": 19.8, "Net Profit (₹/Acre)": 19400 }
   ];
 
   const savingsTrend = [
@@ -36,11 +36,11 @@ export default function FarmerSuccess() {
   ];
 
   const successLedger = [
-    { id: "FOC-301", farmer: "Ramesh Patidar", village: "Khandwa, MP", crop: "Soybean", yieldBoost: "+24.5%", profitGain: "+â‚¹18,500", waterSaved: "18%" },
-    { id: "FOC-302", farmer: "Sukhwinder Singh", village: "Bhatinda, PB", crop: "Wheat", yieldBoost: "+18.2%", profitGain: "+â‚¹22,100", waterSaved: "22%" },
-    { id: "FOC-303", farmer: "Anil Kulkarni", village: "Sangli, MH", crop: "Grapes", yieldBoost: "+32.1%", profitGain: "+â‚¹48,900", waterSaved: "15%" },
-    { id: "FOC-304", farmer: "B. Ranga Reddy", village: "Guntur, AP", crop: "Chilli", yieldBoost: "+15.8%", profitGain: "+â‚¹14,200", waterSaved: "10%" },
-    { id: "FOC-305", farmer: "Jitendra Prasad", village: "Basti, UP", crop: "Sugarcane", yieldBoost: "+21.4%", profitGain: "+â‚¹16,800", waterSaved: "25%" }
+    { id: "FOC-301", farmer: "Ramesh Patidar", village: "Khandwa, MP", crop: "Soybean", yieldBoost: "+24.5%", profitGain: "+₹18,500", waterSaved: "18%" },
+    { id: "FOC-302", farmer: "Sukhwinder Singh", village: "Bhatinda, PB", crop: "Wheat", yieldBoost: "+18.2%", profitGain: "+₹22,100", waterSaved: "22%" },
+    { id: "FOC-303", farmer: "Anil Kulkarni", village: "Sangli, MH", crop: "Grapes", yieldBoost: "+32.1%", profitGain: "+₹48,900", waterSaved: "15%" },
+    { id: "FOC-304", farmer: "B. Ranga Reddy", village: "Guntur, AP", crop: "Chilli", yieldBoost: "+15.8%", profitGain: "+₹14,200", waterSaved: "10%" },
+    { id: "FOC-305", farmer: "Jitendra Prasad", village: "Basti, UP", crop: "Sugarcane", yieldBoost: "+21.4%", profitGain: "+₹16,800", waterSaved: "25%" }
   ];
 
   const filteredSuccess = successLedger.filter(item => {
@@ -77,7 +77,7 @@ export default function FarmerSuccess() {
         <StatsCard
           title="Average Yield Increase"
           value="+22.4%"
-          trend="â†‘ 1.4%"
+          trend="↑ 1.4%"
           trendType="success"
           subtext="Compared to historical pre-AI baseline"
           icon={
@@ -89,7 +89,7 @@ export default function FarmerSuccess() {
         <StatsCard
           title="Water Volume Saved"
           value="1.8M Liters"
-          trend="â†‘ 14%"
+          trend="↑ 14%"
           trendType="success"
           subtext="Saved via micro-advisory schedules"
           icon={
@@ -101,7 +101,7 @@ export default function FarmerSuccess() {
         <StatsCard
           title="Fertilizer Saved"
           value="450 Bags"
-          trend="â†‘ 8%"
+          trend="↑ 8%"
           trendType="success"
           subtext="Saved using NPK diagnostic balancing"
           icon={
@@ -112,8 +112,8 @@ export default function FarmerSuccess() {
         />
         <StatsCard
           title="Avg Net Profit Increase"
-          value="+â‚¹14,200"
-          trend="â†‘ 4.2%"
+          value="+₹14,200"
+          trend="↑ 4.2%"
           trendType="success"
           subtext="Additional income gain per acre"
           icon={
@@ -142,7 +142,7 @@ export default function FarmerSuccess() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Left: Net Profit & Yield Trend (Area Chart) */}
         <div className="bg-white border border-gray-200/60 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-xs font-black text-gray-955 uppercase tracking-widest mb-4">Yield (Q/Acre) & Net Profit (â‚¹/Acre) Growth Timeline</h3>
+          <h3 className="text-xs font-black text-gray-955 uppercase tracking-widest mb-4">Yield (Q/Acre) & Net Profit (₹/Acre) Growth Timeline</h3>
           <div className="h-56 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={roiTrend} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
@@ -157,7 +157,7 @@ export default function FarmerSuccess() {
                 <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 700, fill: "#94a3b8" }} />
                 <Tooltip />
                 <Legend wrapperStyle={{ fontSize: 10, fontWeight: 700 }} />
-                <Area type="monotone" dataKey="Net Profit (â‚¹/Acre)" stroke="#132a13" strokeWidth={2} fillOpacity={1} fill="url(#colorProfit)" />
+                <Area type="monotone" dataKey="Net Profit (₹/Acre)" stroke="#132a13" strokeWidth={2} fillOpacity={1} fill="url(#colorProfit)" />
                 <Area type="monotone" dataKey="Average Yield (Quintals/Acre)" stroke="#90a955" strokeWidth={1.5} />
               </AreaChart>
             </ResponsiveContainer>

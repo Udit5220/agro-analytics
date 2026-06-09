@@ -237,7 +237,7 @@ export default function MarketDemand() {
                       {/* Performance Indicators */}
                       <td className="p-4 text-xs font-bold text-[#15803d] text-right pr-6">
                         <span className="inline-flex items-center gap-0.5 font-mono">
-                          â†— {mandi.weeklyChange || mandi.change}%
+                          ↗ {mandi.weeklyChange || mandi.change}%
                         </span>
                       </td>
                     </tr>

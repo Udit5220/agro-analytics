@@ -143,7 +143,7 @@
 //       </div>
 
 //       {loading ? (
-//         // â”€â”€â”€ SKELETON LOADER SENSORS CANVASES â”€â”€â”€
+//         // ─── SKELETON LOADER SENSORS CANVASES ───
 //         <div className="space-y-6">
 //           <div className="h-20 bg-gray-100 border border-gray-200/50 rounded-2xl animate-pulse"></div>
 //           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -165,7 +165,7 @@
 //           </div>
 //         </div>
 //       ) : (
-//         // â”€â”€â”€ DYNAMIC METRICS POPULATE CANVASES â”€â”€â”€
+//         // ─── DYNAMIC METRICS POPULATE CANVASES ───
 //         <>
 //           {/* 2. Critical Alert Banner */}
 //           {dashData?.criticalAlert && (
@@ -374,7 +374,7 @@ const DEFAULT_ALERTS = [
   },
 ];
 
-// â”€â”€â”€ USER PROFILE (replace with real context/API call in production) â”€â”€â”€
+// ─── USER PROFILE (replace with real context/API call in production) ───
 const USER_PROFILE = {
   name: "Suresh Kumar",
   location: "Faridabad, Haryana",
@@ -509,13 +509,13 @@ export default function PestDiseaseDashboard() {
     const state = selectedFarm.state || "Haryana";
     const cropNames = selectedFarm.crops.map((c) => c.name);
 
-    // â”€â”€ Step 1: Fetch real weather (Open-Meteo, free, no key) â”€â”€
+    // ── Step 1: Fetch real weather (Open-Meteo, free, no key) ──
     const coords =
       HARYANA_DISTRICT_COORDS[district] || HARYANA_DISTRICT_COORDS["Faridabad"];
     const weather = await fetchOpenMeteoWeather(coords.lat, coords.lng);
     setWeatherData(weather.current);
 
-    // â”€â”€ Step 2: Resolve geographic zone IDs for sibling rainfall API â”€â”€
+    // ── Step 2: Resolve geographic zone IDs for sibling rainfall API ──
     let geoZone = null;
     let rainfall = null;
     try {
@@ -528,7 +528,7 @@ export default function PestDiseaseDashboard() {
       // Non-fatal: continue with weather-only data
     }
 
-    // â”€â”€ Steps 3 & 4: Combined Dashboard & Forecast via Gemini (Single Consolidated API Call) â”€â”€
+    // ── Steps 3 & 4: Combined Dashboard & Forecast via Gemini (Single Consolidated API Call) ──
     try {
       const combined = await getCombinedDashboardAndForecast(
         district,
@@ -590,7 +590,7 @@ export default function PestDiseaseDashboard() {
   const getRiskRowBadge = (level) =>
     `text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wide ${RISK_LEVEL_BADGE(level)}`;
 
-  // â”€â”€â”€ SKELETON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── SKELETON ───────────────────────────────────────────────
   const SkeletonBlock = ({ h = "h-24", extra = "" }) => (
     <div
       className={`${h} ${extra} bg-gray-100 border border-gray-200/50 rounded-2xl animate-pulse`}
@@ -599,7 +599,7 @@ export default function PestDiseaseDashboard() {
 
   return (
     <div className="space-y-6 animate-fadeIn antialiased">
-      {/* â”€â”€ Header â”€â”€ */}
+      {/* ── Header ── */}
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 border-b border-gray-100 pb-4">
         <div>
           <div className="flex items-center gap-2.5">
@@ -637,7 +637,7 @@ export default function PestDiseaseDashboard() {
             >
               {USER_PROFILE.farms.map((farm) => (
                 <option key={farm._id} value={farm._id}>
-                  ðŸŒ¾ {farm.name}
+                  {farm.name}
                 </option>
               ))}
             </select>
@@ -653,17 +653,19 @@ export default function PestDiseaseDashboard() {
         </div>
       </div>
 
-      {/* â”€â”€ Farm Context Strip â”€â”€ */}
+      {/* ── Farm Context Strip ── */}
       {selectedFarm && (
         <div className="flex flex-wrap gap-2 items-center">
           <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
             Farm context:
           </span>
-          <span className="bg-[#31572c]/8 text-[#31572c] text-[11px] font-bold px-2.5 py-1 rounded-lg">
-            ðŸ“ {selectedFarm.location}
+          <span className="bg-[#31572c]/8 text-[#31572c] text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 text-[#31572c]" />
+            {selectedFarm.location}
           </span>
-          <span className="bg-gray-100 text-gray-600 text-[11px] font-bold px-2.5 py-1 rounded-lg">
-            ðŸŒ¾ {selectedFarm.totalLand} acres
+          <span className="bg-gray-100 text-gray-600 text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+            <Sprout className="w-3.5 h-3.5 text-gray-500" />
+            {selectedFarm.totalLand} acres
           </span>
           {selectedFarm.crops.map((c) => (
             <span
@@ -674,9 +676,21 @@ export default function PestDiseaseDashboard() {
             </span>
           ))}
           {weatherData && (
-            <span className="bg-sky-50 text-sky-700 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-sky-100 ml-auto">
-              ðŸŒ¡ {weatherData.temperature}°C · ðŸ’§ {weatherData.humidity}% · ðŸŒ¬{" "}
-              {weatherData.windSpeed} km/h
+            <span className="bg-sky-50 text-sky-700 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-sky-100 ml-auto flex items-center gap-2">
+              <span className="flex items-center gap-0.5">
+                <Thermometer className="w-3.5 h-3.5 text-sky-600" />
+                {weatherData.temperature}°C
+              </span>
+              <span>·</span>
+              <span className="flex items-center gap-0.5">
+                <Droplets className="w-3.5 h-3.5 text-sky-600" />
+                {weatherData.humidity}%
+              </span>
+              <span>·</span>
+              <span className="flex items-center gap-0.5">
+                <Wind className="w-3.5 h-3.5 text-sky-600" />
+                {weatherData.windSpeed} km/h
+              </span>
             </span>
           )}
         </div>
@@ -705,7 +719,7 @@ export default function PestDiseaseDashboard() {
         </div>
       ) : (
         <>
-          {/* â”€â”€ Critical Alert Banner â”€â”€ */}
+          {/* ── Critical Alert Banner ── */}
           {dashData?.criticalAlert && (
             <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3 shadow-sm">
               <AlertTriangle className="h-5 w-5 text-red-600 shrink-0 mt-0.5 animate-pulse" />
@@ -726,7 +740,7 @@ export default function PestDiseaseDashboard() {
             </div>
           )}
 
-          {/* â”€â”€ New Executive Farm Health Overview Section â”€â”€ */}
+          {/* ── New Executive Farm Health Overview Section ── */}
           {(() => {
             const activeAlerts = localAlerts.filter((a) => !a.resolved);
             let healthScore = 100;
@@ -862,12 +876,12 @@ export default function PestDiseaseDashboard() {
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block font-sans">Weather-Disease Correlation</span>
                     <div className="grid grid-cols-2 gap-2 text-[10px] font-bold">
                       <div className="bg-blue-50 dark:bg-blue-950/10 border border-blue-100 dark:border-blue-900/30 rounded-lg p-1.5 text-center">
-                        <span className="text-blue-700 dark:text-blue-400 block font-black">Humidity â†‘</span>
-                        <span className="text-gray-500 dark:text-slate-400 block font-normal text-[9px] mt-0.5">Disease Risk â†‘</span>
+                        <span className="text-blue-700 dark:text-blue-400 block font-black">Humidity ↑</span>
+                        <span className="text-gray-500 dark:text-slate-400 block font-normal text-[9px] mt-0.5">Disease Risk ↑</span>
                       </div>
                       <div className="bg-amber-50 dark:bg-amber-950/10 border border-amber-100 dark:border-amber-900/30 rounded-lg p-1.5 text-center">
-                        <span className="text-amber-700 dark:text-amber-400 block font-black">Wind Speed â†“</span>
-                        <span className="text-gray-500 dark:text-slate-400 block font-normal text-[9px] mt-0.5">Spore Loading â†‘</span>
+                        <span className="text-amber-700 dark:text-amber-400 block font-black">Wind Speed ↓</span>
+                        <span className="text-gray-500 dark:text-slate-400 block font-normal text-[9px] mt-0.5">Spore Loading ↑</span>
                       </div>
                     </div>
                   </div>
@@ -877,7 +891,7 @@ export default function PestDiseaseDashboard() {
             );
           })()}
 
-          {/* â”€â”€ Recent Scan Results Card Section â”€â”€ */}
+          {/* ── Recent Scan Results Card Section ── */}
           <div className="bg-white border border-slate-200 dark:border-brand-dark/20 dark:bg-brand-darkest rounded-2xl p-5 shadow-sm space-y-3.5 my-6 text-left hover:shadow-md transition-shadow">
             <div className="flex justify-between items-center border-b border-slate-100 dark:border-brand-dark/10 pb-2.5">
               <h3 className="text-sm font-black text-gray-800 dark:text-white tracking-wide">
@@ -918,7 +932,7 @@ export default function PestDiseaseDashboard() {
             )}
           </div>
 
-          {/* â”€â”€ Metrics Grid â”€â”€ */}
+          {/* ── Metrics Grid ── */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Object.entries(dashData?.metrics || {}).map(([key, value]) => {
               const cfg = getMetricConfig(key);
@@ -950,7 +964,7 @@ export default function PestDiseaseDashboard() {
             })}
           </div>
 
-          {/* â”€â”€ Today's Risk Summary Table â”€â”€ */}
+          {/* ── Today's Risk Summary Table ── */}
           <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4 overflow-hidden">
             <div className="flex items-center justify-between">
               <span className="text-sm font-bold text-gray-800 tracking-wide">
@@ -1007,7 +1021,7 @@ export default function PestDiseaseDashboard() {
             </div>
           </div>
 
-          {/* â”€â”€ Weather Influence Cards â”€â”€ */}
+          {/* ── Weather Influence Cards ── */}
           <div>
             <span className="text-sm font-bold text-[#31572c] tracking-wide mb-3 block">
               Weather Influence on Disease Risk
@@ -1055,7 +1069,7 @@ export default function PestDiseaseDashboard() {
             </div>
           </div>
 
-          {/* â”€â”€ 4-Day Forecast Strip â”€â”€ */}
+          {/* ── 4-Day Forecast Strip ── */}
           <div>
             <span className="text-sm font-bold text-gray-800 tracking-wide mb-3 block">
               Next 4-Day Disease Risk Forecast
@@ -1113,8 +1127,9 @@ export default function PestDiseaseDashboard() {
                           {day.overallRisk}
                         </span>
                       </div>
-                      <div className="text-[10px] text-gray-500 font-semibold">
-                        âš  {day.topThreat?.crop} — {day.topThreat?.disease}
+                      <div className="text-[10px] text-gray-500 font-semibold flex items-center gap-1">
+                        <AlertTriangle className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                        <span>{day.topThreat?.crop} — {day.topThreat?.disease}</span>
                       </div>
                       <div className="text-[10px] text-gray-600 font-medium leading-snug border-t border-gray-100 pt-2">
                         {day.action}

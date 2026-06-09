@@ -11,7 +11,8 @@ import {
   Bug,
   Thermometer,
   AlertTriangle,
-  Compass
+  Compass,
+  Lightbulb
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -234,8 +235,9 @@ export default function AgriSupplyRiskCenter() {
                 </div>
               </div>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-[10px] text-gray-300">
-              💡 <strong>Risk Mitigation:</strong> Secure alternative sourcing clusters inside the Central / West Zone to buffer high-risk spots.
+            <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-[10px] text-gray-300 flex items-start gap-1.5">
+              <Lightbulb className="w-3.5 h-3.5 text-[#ecf39e] shrink-0 mt-0.5" />
+              <span><strong>Risk Mitigation:</strong> Secure alternative sourcing clusters inside the Central / West Zone to buffer high-risk spots.</span>
             </div>
           </div>
 

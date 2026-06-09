@@ -1312,7 +1312,7 @@ export default function LifecycleGuidance() {
                         )}
                         {phase.id === 4 && isCompleted && (
                           <div className="mt-2 text-[9px] text-emerald-600 bg-emerald-50 p-2 rounded-lg text-center">
-                            âœ“ Phase completed - Critical irrigation marked
+                            ✓ Phase completed - Critical irrigation marked
                           </div>
                         )}
                       </div>

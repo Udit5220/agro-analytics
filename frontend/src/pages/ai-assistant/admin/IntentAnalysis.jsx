@@ -181,7 +181,7 @@ export default function IntentAnalysis() {
       {/* AI Insights Panel */}
       <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl flex items-start gap-3">
         <div className="w-6 h-6 rounded bg-[#132a13] flex items-center justify-center flex-shrink-0 text-white text-xs">
-          â˜…
+          ★
         </div>
         <div>
           <h4 className="text-xs font-black text-gray-955">AI Intent Outbreak Warning</h4>

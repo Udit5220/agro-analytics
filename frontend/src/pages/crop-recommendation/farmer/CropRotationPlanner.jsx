@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { profileApi } from "../../../services/apiService";
 
-// â”€â”€â”€ CROP ROTATION COMPATIBILITY REGISTRY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── CROP ROTATION COMPATIBILITY REGISTRY ─────────────────────────
 const ROTATION_CROPS = [
   { id: "wheat", name: "Wheat", hindi: "गेहूं", season: "Rabi", family: "Cereal", nitrogen: -40, color: "#4f772d" },
   { id: "rice", name: "Rice", hindi: "धान", season: "Kharif", family: "Cereal", nitrogen: -35, color: "#132a13" },
@@ -33,28 +33,28 @@ const ROTATION_CROPS = [
   { id: "watermelon", name: "Watermelon", hindi: "तरबूज", season: "Zaid", family: "Cucurbit", nitrogen: -10, color: "#e57373" },
 ];
 
-// â”€â”€â”€ COMPATIBILITY MATRIX â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── COMPATIBILITY MATRIX ──────────────────────────────────────────
 const COMPATIBILITY = {
-  "Cerealâ†’Legume": { score: 95, label: "Excellent", reason: "Legumes fix nitrogen depleted by cereals" },
-  "Cerealâ†’Oilseed": { score: 75, label: "Good", reason: "Different nutrient uptake profiles reduce depletion" },
-  "Cerealâ†’Cereal": { score: 35, label: "Poor", reason: "Continuous cereals deplete same nutrients and invite pests" },
-  "Legumeâ†’Cereal": { score: 90, label: "Excellent", reason: "Nitrogen-enriched soil boosts cereal yields significantly" },
-  "Legumeâ†’Legume": { score: 50, label: "Fair", reason: "Marginal benefit — no nutrient contrast" },
-  "Legumeâ†’Oilseed": { score: 70, label: "Good", reason: "Residual nitrogen benefits oilseed establishment" },
-  "Oilseedâ†’Cereal": { score: 80, label: "Good", reason: "Deep taproots break compaction for shallow cereal roots" },
-  "Oilseedâ†’Legume": { score: 85, label: "Excellent", reason: "Complementary root architectures rebuild soil structure" },
-  "Oilseedâ†’Oilseed": { score: 30, label: "Poor", reason: "Same pest vector and nutrient drawdown" },
-  "Fiberâ†’Legume": { score: 88, label: "Excellent", reason: "Cotton exhausts soil — legume recovery is ideal" },
-  "Fiberâ†’Cereal": { score: 55, label: "Fair", reason: "Both are heavy nitrogen consumers" },
-  "Milletâ†’Legume": { score: 92, label: "Excellent", reason: "Millet-legume rotation is gold-standard for dryland farming" },
-  "Milletâ†’Cereal": { score: 60, label: "Fair", reason: "Similar root profiles but different pest cycles" },
-  "Cashâ†’Legume": { score: 85, label: "Excellent", reason: "Sugarcane depletes heavily — legumes restore balance" },
-  "Cucurbitâ†’Cereal": { score: 72, label: "Good", reason: "Different pest cycles and root depths" },
-  "Cucurbitâ†’Legume": { score: 80, label: "Good", reason: "Light feeder followed by nitrogen fixer" },
+  "Cereal→Legume": { score: 95, label: "Excellent", reason: "Legumes fix nitrogen depleted by cereals" },
+  "Cereal→Oilseed": { score: 75, label: "Good", reason: "Different nutrient uptake profiles reduce depletion" },
+  "Cereal→Cereal": { score: 35, label: "Poor", reason: "Continuous cereals deplete same nutrients and invite pests" },
+  "Legume→Cereal": { score: 90, label: "Excellent", reason: "Nitrogen-enriched soil boosts cereal yields significantly" },
+  "Legume→Legume": { score: 50, label: "Fair", reason: "Marginal benefit — no nutrient contrast" },
+  "Legume→Oilseed": { score: 70, label: "Good", reason: "Residual nitrogen benefits oilseed establishment" },
+  "Oilseed→Cereal": { score: 80, label: "Good", reason: "Deep taproots break compaction for shallow cereal roots" },
+  "Oilseed→Legume": { score: 85, label: "Excellent", reason: "Complementary root architectures rebuild soil structure" },
+  "Oilseed→Oilseed": { score: 30, label: "Poor", reason: "Same pest vector and nutrient drawdown" },
+  "Fiber→Legume": { score: 88, label: "Excellent", reason: "Cotton exhausts soil — legume recovery is ideal" },
+  "Fiber→Cereal": { score: 55, label: "Fair", reason: "Both are heavy nitrogen consumers" },
+  "Millet→Legume": { score: 92, label: "Excellent", reason: "Millet-legume rotation is gold-standard for dryland farming" },
+  "Millet→Cereal": { score: 60, label: "Fair", reason: "Similar root profiles but different pest cycles" },
+  "Cash→Legume": { score: 85, label: "Excellent", reason: "Sugarcane depletes heavily — legumes restore balance" },
+  "Cucurbit→Cereal": { score: 72, label: "Good", reason: "Different pest cycles and root depths" },
+  "Cucurbit→Legume": { score: 80, label: "Good", reason: "Light feeder followed by nitrogen fixer" },
 };
 
 const getCompatibility = (fromFamily, toFamily) => {
-  const key = `${fromFamily}â†’${toFamily}`;
+  const key = `${fromFamily}→${toFamily}`;
   return COMPATIBILITY[key] || { score: 60, label: "Fair", reason: "No specific data — generic rotation benefit applies" };
 };
 
@@ -65,12 +65,12 @@ const getScoreBadge = (score) => {
   return "bg-red-50 text-red-950 border border-red-300";
 };
 
-// â”€â”€â”€ PREDEFINED ROTATION TEMPLATES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── PREDEFINED ROTATION TEMPLATES ────────────────────────────────
 const ROTATION_TEMPLATES = [
-  { label: "Classic Cereal-Legume", slots: ["rice", "wheat", "moong"], desc: "Rice â†’ Wheat â†’ Moong — the gold standard for Indo-Gangetic plains" },
-  { label: "Oilseed Rotation", slots: ["bajra", "mustard", "watermelon"], desc: "Bajra â†’ Mustard â†’ Watermelon — ideal for sandy-loam soils" },
-  { label: "Cotton Recovery", slots: ["cotton", "chana", "maize"], desc: "Cotton â†’ Chana â†’ Maize — restores nitrogen after fiber depletion" },
-  { label: "Pulse Focus", slots: ["maize", "peas", "soybean"], desc: "Maize â†’ Peas â†’ Soybean — maximum nitrogen enrichment" },
+  { label: "Classic Cereal-Legume", slots: ["rice", "wheat", "moong"], desc: "Rice → Wheat → Moong — the gold standard for Indo-Gangetic plains" },
+  { label: "Oilseed Rotation", slots: ["bajra", "mustard", "watermelon"], desc: "Bajra → Mustard → Watermelon — ideal for sandy-loam soils" },
+  { label: "Cotton Recovery", slots: ["cotton", "chana", "maize"], desc: "Cotton → Chana → Maize — restores nitrogen after fiber depletion" },
+  { label: "Pulse Focus", slots: ["maize", "peas", "soybean"], desc: "Maize → Peas → Soybean — maximum nitrogen enrichment" },
 ];
 
 export default function CropRotationPlanner() {
@@ -78,7 +78,7 @@ export default function CropRotationPlanner() {
   const [selectedFarmId, setSelectedFarmId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  // 3-slot rotation: Kharif â†’ Rabi â†’ Zaid
+  // 3-slot rotation: Kharif → Rabi → Zaid
   const [slot1, setSlot1] = useState("rice");
   const [slot2, setSlot2] = useState("wheat");
   const [slot3, setSlot3] = useState("moong");
@@ -147,7 +147,7 @@ export default function CropRotationPlanner() {
               <span className="bg-[#31572c]/10 text-[#132a13] font-black px-2 py-0.5 rounded">{crop.family}</span>
             </div>
             <div className="flex items-center justify-between text-[10px] font-bold text-gray-800">
-              <span>Nâ‚‚ Balance</span>
+              <span>N₂ Balance</span>
               <span className={`font-black px-2 py-0.5 rounded ${crop.nitrogen > 0 ? "bg-emerald-50 text-emerald-800" : "bg-red-50 text-red-800"}`}>
                 {crop.nitrogen > 0 ? "+" : ""}{crop.nitrogen} kg/ha
               </span>
@@ -304,7 +304,7 @@ export default function CropRotationPlanner() {
               <div key={idx} className="bg-gray-50 border border-gray-200 rounded-xl p-3 space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-black text-gray-950">
-                    {pair.from.name} â†’ {pair.to.name}
+                    {pair.from.name} → {pair.to.name}
                   </span>
                   <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${getScoreBadge(pair.compat.score)}`}>
                     {pair.compat.label} ({pair.compat.score}%)
@@ -343,10 +343,18 @@ export default function CropRotationPlanner() {
                   style={{ width: `${Math.min(100, Math.abs(totalNitrogen) + 50)}%` }}
                 />
               </div>
-              <p className="text-[10px] text-gray-700 font-semibold mt-1.5">
-                {totalNitrogen >= 0
-                  ? "âœ“ Positive nitrogen balance — soil enrichment active"
-                  : "âš  Negative balance — consider adding a legume phase"}
+              <p className="text-[10px] text-gray-700 font-semibold mt-1.5 flex items-center gap-1.5">
+                {totalNitrogen >= 0 ? (
+                  <>
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Positive nitrogen balance — soil enrichment active</span>
+                  </>
+                ) : (
+                  <>
+                    <AlertTriangle className="w-3.5 h-3.5 text-red-600 shrink-0" />
+                    <span>Negative balance — consider adding a legume phase</span>
+                  </>
+                )}
               </p>
             </div>
 

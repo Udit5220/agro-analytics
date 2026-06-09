@@ -18,6 +18,7 @@ import {
   DollarSign,
   TrendingDown,
   Layers,
+  Lightbulb,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -298,8 +299,9 @@ export default function CropRecBenchmarking() {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t text-[10px] text-gray-500 font-bold">
-            💡 Sliders recalculate values based on regional crop budgets
+          <div className="mt-4 pt-3 border-t text-[10px] text-gray-500 font-bold flex items-center gap-1.5">
+            <Lightbulb className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+            <span>Sliders recalculate values based on regional crop budgets</span>
           </div>
         </div>
 

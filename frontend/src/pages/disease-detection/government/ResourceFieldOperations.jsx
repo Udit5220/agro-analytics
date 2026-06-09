@@ -125,7 +125,7 @@ export default function ResourceFieldOperations() {
     mapInstanceRef.current = map;
 
     window.L.tileLayer(
-      "https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=Js3t7mr8sd7cdIiAAyVp",
+      `https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=${import.meta.env.VITE_MAPTILER_KEY || "Js3t7mr8sd7cdIiAAyVp"}`,
       {
         attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>',
         maxZoom: 18
@@ -312,7 +312,10 @@ export default function ResourceFieldOperations() {
                   <div>
                     <span className="text-gray-950 font-bold">{item.officer}</span>
                     <p className="text-[10px] text-gray-500 font-bold mt-0.5">Task: {item.task}</p>
-                    <p className="text-[9px] text-[#31572c] mt-0.5 font-bold">📍 {item.district} ({item.crop})</p>
+                    <p className="text-[9px] text-[#31572c] mt-0.5 font-bold flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                      <span>{item.district} ({item.crop})</span>
+                    </p>
                   </div>
                   <div className="flex items-center gap-2">
                     {getPriorityChip(item.priority)}

@@ -24,7 +24,7 @@ export default function UserAnalytics() {
       {/* Page Title Header without state-controller, filters, or export buttons */}
       <div className="bg-white border border-gray-200/60 p-5 rounded-2xl shadow-sm">
         <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1">
-          <span>Intelligence</span> <span>â€º</span>{" "}
+          <span>Intelligence</span> <span>›</span>{" "}
           <span className="text-gray-900 font-black">User Analytics</span>
         </div>
         <h1 className="text-xl md:text-2xl font-bold tracking-tight text-gray-955 mt-0.5">

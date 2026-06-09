@@ -511,7 +511,7 @@ export default function MultiCropCompare() {
     }
   };
 
-  // âœ¨ RESTRUCTURED MATHEMATICAL MODEL: Uniform axis-specific scaling mapping values 0-100 perfectly
+  // ✨ RESTRUCTURED MATHEMATICAL MODEL: Uniform axis-specific scaling mapping values 0-100 perfectly
   const getNormalizedAxisValue = (axis, crop) => {
     switch (axis) {
       case "suitability":

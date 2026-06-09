@@ -14,6 +14,7 @@ import {
   User,
   Clock,
   ArrowUpRight,
+  MapPin,
 } from "lucide-react";
 
 const generateId = () =>
@@ -189,7 +190,7 @@ function getDynamicFallback(query, role) {
 }
 
 
-// ðŸŒŸ ROLE-SPECIFIC INITIAL HISTORICAL CHATS PROFILE DICTIONARY
+// ROLE-SPECIFIC INITIAL HISTORICAL CHATS PROFILE DICTIONARY
 const roleHistoricalChatsMatrix = {
   farmer: [
     {
@@ -984,7 +985,10 @@ export default function AIChatInterface() {
               <p className="text-[10px] font-bold text-gray-400 mt-0.5 uppercase tracking-wider flex items-center gap-1.5">
                 <span>Model: {activeChat.model}</span>
                 <span className="text-gray-200 font-normal">•</span>
-                <span>ðŸ“ Context: {activeChat.location}</span>
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-3 h-3 text-gray-400" />
+                  Context: {activeChat.location}
+                </span>
               </p>
             </div>
           </div>

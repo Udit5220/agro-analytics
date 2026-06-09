@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --brand-darkest: #132a13;
+  --brand-dark: #31572c;
+  --brand-medium: #4f772d;
+  --brand-light: #90a955;
+  --brand-accent: #ecf39e;
+  --brand-lightest: #f4f7f4;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 13.5px; /* Clean vector-based layout scaling (approx 85%) to prevent eye strain and browser zoom blur */
