@@ -159,6 +159,7 @@ export const profileApi = {
   updateFarm:     (id, data)  => request(`/profile/farms/${id}`, { method: 'PUT',    body: JSON.stringify(data) }),
   deleteFarm:     (id)        => request(`/profile/farms/${id}`, { method: 'DELETE' }),
   getCropRankings: (data)     => request('/crop-ranking',      { method: 'POST',   body: JSON.stringify(data) }),
+  chatWithSchemeAI: (data)    => request('/gov-schemes/chat',  { method: 'POST',   body: JSON.stringify(data) }),
 };
 
 // ─── Campaign APIs (MongoDB) ───────────────────────────────────────────────

@@ -14,7 +14,7 @@ import {
   UserCircle,
   Tractor,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { uiConfig } from "../../utils/uiConfig";
 import { homeContent } from "../../content/homeContent";
 import { useRole } from "../../context/RoleContext";
@@ -22,6 +22,7 @@ import { useRole } from "../../context/RoleContext";
 export default function Navbar() {
   const { activeRole, switchRole, allRoles } = useRole();
   const navigate = useNavigate();
+  const { moduleId } = useParams();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -150,8 +151,10 @@ export default function Navbar() {
                           const newRole = e.target.value;
                           switchRole(newRole);
                           setIsProfileOpen(false);
-                          // Route seamlessly based on chosen role
-                          navigate("/module/disease-detection");
+                          // Route seamlessly based on current module if any
+                          if (moduleId) {
+                            navigate(`/module/${moduleId}`);
+                          }
                         }}
                         className="w-full bg-gray-50 dark:bg-brand-dark/30 border border-gray-200 dark:border-brand-light/10 text-xs text-gray-800 dark:text-white rounded-lg px-2 py-1.5 font-bold focus:outline-none focus:ring-1 focus:ring-[#31572c] cursor-pointer"
                       >
@@ -242,8 +245,7 @@ export default function Navbar() {
                 className="w-full py-3 bg-brand-accent text-brand-darkest font-bold rounded-xl text-center active:scale-[0.98] transition-transform duration-100 cursor-pointer"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  const path = activeRole === "farmer" ? "/module/crop-recommendation" : "/module/crop-recommendation-1";
-                  navigate(path);
+                  navigate("/module/crop-recommendation");
                 }}
               >
                 Launch Dashboard

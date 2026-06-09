@@ -812,7 +812,7 @@ export default function CropRecommendationDashboard() {
                         </div>
 
                         <div className="relative h-14 w-14 flex items-center justify-center shrink-0">
-                          <svg className="transform -rotate-90 w-full h-full">
+                          <svg className="transform -rotate-90 w-full h-full" viewBox="0 0 56 56">
                             <circle
                               cx="28"
                               cy="28"
@@ -826,12 +826,7 @@ export default function CropRecommendationDashboard() {
                               cy="28"
                               r="24"
                               fill="transparent"
-                              stroke="currentColor"
-                              className={
-                                isBestMatch
-                                  ? "text-[#31572c]"
-                                  : "text-[#90a955]"
-                              }
+                              stroke={isBestMatch ? "#31572c" : "#90a955"}
                               strokeWidth="4.5"
                               pathLength="100"
                               strokeDasharray={`${score}, 100`}

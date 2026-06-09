@@ -10,12 +10,12 @@ export const uiConfig = {
   // UI Theme Configuration
   theme: {
     colors: {
-      brandDarkest: '#0A2414',
-      brandDark: '#006837',
-      brandMedium: '#00A550',
-      brandLight: '#88D49E',
-      brandAccent: '#D0F0C0',
-      brandLightest: '#E8F8F0',
+      brandDarkest: '#132a13',
+      brandDark: '#31572c',
+      brandMedium: '#4f772d',
+      brandLight: '#90a955',
+      brandAccent: '#ecf39e',
+      brandLightest: '#f4f7f4',
     }
   },
 

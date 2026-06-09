@@ -694,7 +694,7 @@ export default function SeasonalCalendar() {
 
       {/* Environmental Metadata Parameter Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white border border-gray-300 rounded-2xl p-4 flex items-center gap-4text-left">
+        <div className="bg-white border border-gray-300 rounded-2xl p-4 flex items-center gap-4 text-left">
           <div className="h-10 w-10 rounded-xl bg-red-500/10 text-red-700 flex items-center justify-center border border-red-500/20">
             <Thermometer size={20} />
           </div>
@@ -814,7 +814,7 @@ export default function SeasonalCalendar() {
                         return (
                           <div
                             key={m}
-                            className={`min-h-[70px] border border-dashed rounded-xl flex flex-col items-center justify-center p-1 bg-white ${isCurrentMonth ? "border-[#4f772d]/40 shadow-inner bg-[#4f772d]/[0.02]" : "border-gray-300"}`}
+                            className={`min-h-[70px] border border-dashed rounded-xl flex flex-col items-center justify-center p-1 gap-1.5 bg-white ${isCurrentMonth ? "border-[#4f772d]/40 shadow-inner bg-[#4f772d]/[0.02]" : "border-gray-300"}`}
                           >
                             {phase.map((p, i) => (
                               <span

@@ -117,11 +117,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => {
-                if (activeRole === "farmer") {
-                  navigate("/module/crop-recommendation");
-                } else {
-                  navigate("/module/crop-recommendation-1");
-                }
+                navigate("/module/crop-recommendation");
               }}
               className={`${uiConfig.styles.buttonAccent} w-full sm:w-auto flex items-center justify-center space-x-2 cursor-pointer`}
             >
@@ -220,10 +216,7 @@ export default function Home() {
             {aiTools.map((card) => {
               let resolvedLink = card.linkUrl;
               if (card.id === "crop-rec") {
-                resolvedLink =
-                  activeRole === "farmer"
-                    ? "/module/crop-recommendation"
-                    : "/module/crop-recommendation-1";
+                resolvedLink = "/module/crop-recommendation";
               }
               return (
                 <Aitoolcard

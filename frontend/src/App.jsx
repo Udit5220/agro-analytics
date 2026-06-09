@@ -40,7 +40,7 @@ import {
   TreatmentCampaignCenter,
   DiseaseAlertsAdvisories,
   ImpactAnalytics,
-  HistoricalDiseaseIntelligence
+  HistoricalDiseaseIntelligence,
 } from "./pages/disease-detection/fpo";
 import AgriDiseaseCommandCenter from "./pages/disease-detection/agribusiness/AgriDiseaseCommandCenter";
 import AgriRegionalIntelligence from "./pages/disease-detection/agribusiness/RegionalIntelligence";
@@ -74,6 +74,38 @@ import OperationalControlCenter from "./pages/disease-detection/admin/Operationa
 import DiseaseRepository from "./pages/disease-detection/admin/DiseaseRepository";
 // import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoirDashboard";
 import GovSchemesDashboard from "./pages/gov-schemes/GovSchemesDashboard";
+import FarmDashboard from "./pages/gov-schemes/farmer/FarmDashboard";
+import FarmDiscovery from "./pages/gov-schemes/farmer/FarmDiscovery";
+import FarmSchemeDetails from "./pages/gov-schemes/farmer/FarmSchemeDetails";
+import FarmEligibilityCenter from "./pages/gov-schemes/farmer/FarmEligibilityCenter";
+import FarmApplications from "./pages/gov-schemes/farmer/FarmApplications";
+import FarmBenefitsWallet from "./pages/gov-schemes/farmer/FarmBenefitsWallet";
+import FarmSubsidyCenter from "./pages/gov-schemes/farmer/FarmSubsidyCenter";
+import FarmCropInsurance from "./pages/gov-schemes/farmer/FarmCropInsurance";
+import FarmLoanCenter from "./pages/gov-schemes/farmer/FarmLoanCenter";
+import FarmDocumentVault from "./pages/gov-schemes/farmer/FarmDocumentVault";
+import FarmSchemeCalendar from "./pages/gov-schemes/farmer/FarmSchemeCalendar";
+import FarmAIAdvisor from "./pages/gov-schemes/farmer/FarmAIAdvisor";
+import FpoOpportunityCommandCenter from "./pages/gov-schemes/fpo/FpoCommandCenter";
+import FpoOpportunityExplorer from "./pages/gov-schemes/fpo/FpoExplorer";
+import FpoFundingPipeline from "./pages/gov-schemes/fpo/FpoPipeline";
+import FpoEligibilityReadiness from "./pages/gov-schemes/fpo/FpoReadiness";
+import FpoMemberCoverage from "./pages/gov-schemes/fpo/FpoMemberCoverage";
+import FpoInfrastructureSupport from "./pages/gov-schemes/fpo/FpoInfrastructure";
+import FpoImpactAnalytics from "./pages/gov-schemes/fpo/FpoImpactAnalytics";
+import FpoComplianceDocumentation from "./pages/gov-schemes/fpo/FpoCompliance";
+import FpoStrategicSimulator from "./pages/gov-schemes/fpo/FpoSimulator";
+import FpoAiOpportunityAdvisor from "./pages/gov-schemes/fpo/FpoAIAdvisor";
+import GovGovernanceCommandCenter from "./pages/gov-schemes/gov/GovGovernanceCommandCenter";
+import GovSchemePerformance from "./pages/gov-schemes/gov/GovSchemePerformance";
+import GovBeneficiaryCoverage from "./pages/gov-schemes/gov/GovBeneficiaryCoverage";
+import GovFpoEcosystem from "./pages/gov-schemes/gov/GovFpoEcosystem";
+import GovBudgetUtilization from "./pages/gov-schemes/gov/GovBudgetUtilization";
+import GovApplicationMonitoring from "./pages/gov-schemes/gov/GovApplicationMonitoring";
+import GovInfrastructureIntelligence from "./pages/gov-schemes/gov/GovInfrastructureIntelligence";
+import GovPolicyImpact from "./pages/gov-schemes/gov/GovPolicyImpact";
+import GovComplianceAudit from "./pages/gov-schemes/gov/GovComplianceAudit";
+import GovPolicyCommand from "./pages/gov-schemes/gov/GovPolicyCommand";
 import ResearchAiDashboard from "./pages/research-ai/ResearchAiDashboard";
 import NewsIntelDashboard from "./pages/news-intel/NewsIntelDashboard";
 // import MarketplaceDashboard from "./pages/marketplace/MarketplaceDashboard";
@@ -208,6 +240,7 @@ import CompanyRegionalExpansion from "./pages/crop-recommendation/company/Compan
 import CompanySupplyChainPerformance from "./pages/crop-recommendation/company/CompanySupplyChainPerformance";
 import CompanyProcurementInventory from "./pages/crop-recommendation/company/CompanyProcurementInventory";
 import CompanyMarketExpansion from "./pages/crop-recommendation/company/CompanyMarketExpansion";
+// import FarmDiscovery from "./pages/gov-schemes/farmer/FarmDiscovery";
 
 // Wrapper layout for the main landing page — UNCHANGED
 function LandingPage() {
@@ -230,10 +263,7 @@ function DashboardSwitcher() {
   }
 
   // Crop Recommendation modules — sub-page routing based on role
-  if (
-    moduleId === "crop-recommendation" ||
-    moduleId === "crop-recommendation-1"
-  ) {
+  if (moduleId === "crop-recommendation") {
     if (activeRole === "farmer") {
       if (subPath === "crop-ranking") {
         return <CropRankingEngine />;
@@ -269,24 +299,31 @@ function DashboardSwitcher() {
       return <CropRecommendationDashboard />;
     } else if (activeRole === "government") {
       if (subPath === "food-security") return <FoodSecurity />;
-      if (subPath === "strategic-intervention") return <StrategicInterventionCenter />;
+      if (subPath === "strategic-intervention")
+        return <StrategicInterventionCenter />;
       if (subPath === "crop-intelligence") return <CropIntelligence />;
       if (subPath === "climate-risk") return <ClimateRisk />;
       if (subPath === "water-security") return <WaterSecurity />;
       if (subPath === "pest-disease") return <PestDiseaseMonitor />;
       if (subPath === "policy-impact") return <PolicyImpactIntelligence />;
-      if (subPath === "subsidy-intelligence") return <SubsidySchemeIntelligence />;
-      if (subPath === "regional-performance") return <RegionalPerformanceIntelligence />;
+      if (subPath === "subsidy-intelligence")
+        return <SubsidySchemeIntelligence />;
+      if (subPath === "regional-performance")
+        return <RegionalPerformanceIntelligence />;
       if (subPath === "policy-sim") return <PolicySimulationLab />;
       return <NationalCommandCenter />;
     } else if (activeRole === "company" || activeRole === "admin") {
       if (subPath === "demand-supply") return <CompanyDemandSupplyPlanning />;
       if (subPath === "contract-farming") return <CompanyContractFarming />;
       if (subPath === "yield-forecast") return <CompanyYieldForecast />;
-      if (subPath === "commodity-opportunity") return <CompanyCommodityOpportunity />;
-      if (subPath === "regional-suitability") return <CompanyRegionalExpansion />;
-      if (subPath === "supply-chain-performance") return <CompanySupplyChainPerformance />;
-      if (subPath === "procurement-inventory") return <CompanyProcurementInventory />;
+      if (subPath === "commodity-opportunity")
+        return <CompanyCommodityOpportunity />;
+      if (subPath === "regional-suitability")
+        return <CompanyRegionalExpansion />;
+      if (subPath === "supply-chain-performance")
+        return <CompanySupplyChainPerformance />;
+      if (subPath === "procurement-inventory")
+        return <CompanyProcurementInventory />;
       if (subPath === "market-expansion") return <CompanyMarketExpansion />;
       return <CompanySupplyCommandCenter />;
     } else {
@@ -354,9 +391,10 @@ function DashboardSwitcher() {
       if (subPath === "platform-impact") return <PlatformImpactIntelligence />;
       if (subPath === "operations") return <OperationalControlCenter />;
       if (subPath === "repository") return <DiseaseRepository />;
-      
+
       // Fallbacks
-      if (subPath === "regional-intelligence") return <AgriRegionalIntelligence />;
+      if (subPath === "regional-intelligence")
+        return <AgriRegionalIntelligence />;
       if (subPath === "supply-chain-risk") return <SupplyChainOutbreakRisk />;
       if (subPath === "contract-farming") return <ContractCropHealthMonitor />;
       if (subPath === "forecasting") return <DiseaseForecasting />;
@@ -370,8 +408,10 @@ function DashboardSwitcher() {
       if (subPath === "early-warning") return <EarlyWarningCenter />;
       if (subPath === "food-security") return <FoodSecurityImpactMonitor />;
       if (subPath === "risk-map") return <NationalRiskMap />;
-      if (subPath === "outbreak-response") return <OutbreakResponseManagement />;
-      if (subPath === "policy-interventions") return <PolicyInterventionAnalytics />;
+      if (subPath === "outbreak-response")
+        return <OutbreakResponseManagement />;
+      if (subPath === "policy-interventions")
+        return <PolicyInterventionAnalytics />;
       if (subPath === "field-operations") return <ResourceFieldOperations />;
       if (subPath === "history") return <HistoricalIntelligenceRepository />;
       return <GovtDiseaseCommandCenter />;
@@ -514,7 +554,47 @@ function DashboardSwitcher() {
 
   // ── Government Scheme Center (existing) ───────────────────────────────────
   if (moduleId === "gov-schemes") {
-    if (subPath === "matching") return <SchemeMatcher />;
+    if (activeRole === "farmer") {
+      if (subPath === "discovery") return <FarmDiscovery />;
+      if (subPath === "scheme-details") return <FarmSchemeDetails />;
+      if (subPath === "eligibility") return <FarmEligibilityCenter />;
+      if (subPath === "applications") return <FarmApplications />;
+      if (subPath === "benefits") return <FarmBenefitsWallet />;
+      if (subPath === "subsidy") return <FarmSubsidyCenter />;
+      if (subPath === "insurance") return <FarmCropInsurance />;
+      if (subPath === "loans") return <FarmLoanCenter />;
+      if (subPath === "documents") return <FarmDocumentVault />;
+      if (subPath === "calendar") return <FarmSchemeCalendar />;
+      if (subPath === "advisor") return <FarmAIAdvisor />;
+      return <FarmDashboard />;
+    }
+    if (activeRole === "fpo") {
+      if (subPath === "explorer") return <FpoOpportunityExplorer />;
+      if (subPath === "pipeline") return <FpoFundingPipeline />;
+      if (subPath === "readiness") return <FpoEligibilityReadiness />;
+      if (subPath === "coverage") return <FpoMemberCoverage />;
+      if (subPath === "infrastructure") return <FpoInfrastructureSupport />;
+      if (subPath === "analytics") return <FpoImpactAnalytics />;
+      if (subPath === "compliance") return <FpoComplianceDocumentation />;
+      if (subPath === "simulator") return <FpoStrategicSimulator />;
+      if (subPath === "advisor") return <FpoAiOpportunityAdvisor />;
+      return <FpoOpportunityCommandCenter />;
+    }
+    if (activeRole === "government") {
+      if (subPath === "scheme-performance") return <GovSchemePerformance />;
+      if (subPath === "beneficiary-coverage") return <GovBeneficiaryCoverage />;
+      if (subPath === "fpo-ecosystem") return <GovFpoEcosystem />;
+      if (subPath === "budget-utilization") return <GovBudgetUtilization />;
+      if (subPath === "application-monitoring")
+        return <GovApplicationMonitoring />;
+      if (subPath === "infrastructure-intelligence")
+        return <GovInfrastructureIntelligence />;
+      if (subPath === "policy-impact") return <GovPolicyImpact />;
+      if (subPath === "compliance-audit") return <GovComplianceAudit />;
+      if (subPath === "policy-command") return <GovPolicyCommand />;
+      return <GovGovernanceCommandCenter />;
+    }
+    if (subPath === "matchi") return <SchemeMatcher />;
     if (subPath === "subsidies") return <SubsidyTracker />;
     if (subPath === "applications") return <ApplicationCenter />;
     if (subPath === "state-grants") return <StateGrants />;
@@ -626,10 +706,19 @@ function App() {
             <Route path="dashboard" element={<AdminExecutiveDashboard />} />
             <Route path="global-intelligence" element={<GlobalDiseaseMap />} />
             <Route path="customer-risk" element={<CustomerRiskMonitor />} />
-            <Route path="model-performance" element={<ModelPerformanceCenter />} />
+            <Route
+              path="model-performance"
+              element={<ModelPerformanceCenter />}
+            />
             <Route path="alerts" element={<AlertOperations />} />
-            <Route path="interventions" element={<InterventionEffectiveness />} />
-            <Route path="platform-impact" element={<PlatformImpactIntelligence />} />
+            <Route
+              path="interventions"
+              element={<InterventionEffectiveness />}
+            />
+            <Route
+              path="platform-impact"
+              element={<PlatformImpactIntelligence />}
+            />
             <Route path="operations" element={<OperationalControlCenter />} />
             <Route path="repository" element={<DiseaseRepository />} />
           </Route>

@@ -114,7 +114,9 @@ export default function ModuleLayout() {
                         switchRole(newRole);
                         setIsProfileOpen(false);
                         // Route dynamically based on active role
-                        navigate("/module/disease-detection");
+                        if (moduleId) {
+                          navigate(`/module/${moduleId}`);
+                        }
                       }}
                       className="w-full bg-gray-50 border border-gray-200 text-xs text-gray-800 rounded-lg px-2 py-1.5 font-bold focus:outline-none focus:ring-1 focus:ring-[#31572c] cursor-pointer"
                     >

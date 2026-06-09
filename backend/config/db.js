@@ -117,3 +117,6 @@ const connectDB = async () => {
 export const getIsConnected = () => isConnected;
 
 export default connectDB;
+
+// Trigger database reload to refresh connection configurations
+

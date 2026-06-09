@@ -9,12 +9,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'brand-darkest': 'var(--brand-darkest)',
-        'brand-dark': 'var(--brand-dark)',
-        'brand-medium': 'var(--brand-medium)',
-        'brand-light': 'var(--brand-light)',
-        'brand-accent': 'var(--brand-accent)',
-        'brand-lightest': 'var(--brand-lightest)',
+        'brand-darkest': '#132a13',
+        'brand-dark': '#31572c',
+        'brand-medium': '#4f772d',
+        'brand-light': '#90a955',
+        'brand-accent': '#ecf39e',
+        'brand-lightest': '#f4f7f4',
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],

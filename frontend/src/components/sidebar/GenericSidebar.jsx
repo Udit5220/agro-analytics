@@ -13,29 +13,12 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
 
   // Resolve default active menu array based on active moduleId path param
   let activeModuleKey = moduleId;
-  if (
-    moduleId &&
-    (sidebarMenus[moduleId] || moduleId === "crop-recommendation-1")
-  ) {
+  if (moduleId && sidebarMenus[moduleId]) {
     sessionStorage.setItem("lastActiveModule", moduleId);
   } else {
     const saved = sessionStorage.getItem("lastActiveModule");
     activeModuleKey =
-      saved && (sidebarMenus[saved] || saved === "crop-recommendation-1")
-        ? saved
-        : "crop-recommendation";
-  }
-
-  // Force crop-recommendation vs crop-recommendation-1 based on active role
-  if (
-    activeModuleKey === "crop-recommendation" ||
-    activeModuleKey === "crop-recommendation-1"
-  ) {
-    if (activeRole === "farmer") {
-      activeModuleKey = "crop-recommendation";
-    } else {
-      activeModuleKey = "crop-recommendation-1";
-    }
+      saved && sidebarMenus[saved] ? saved : "crop-recommendation";
   }
 
   let currentMenu = sidebarMenus[activeModuleKey];
@@ -44,26 +27,74 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
       // Inherits default farmer items from sidebarMenus
     } else if (activeRole === "company" || activeRole === "admin") {
       currentMenu = [
-        { label: "Executive Operations", path: "dashboard", icon: "LayoutDashboard" },
-        { label: "Global Intelligence", path: "global-intelligence", icon: "Globe" },
-        { label: "Customer Risk Monitoring", path: "customer-risk", icon: "Users" },
-        { label: "AI Model Performance", path: "model-performance", icon: "Cpu" },
+        {
+          label: "Executive Operations",
+          path: "dashboard",
+          icon: "LayoutDashboard",
+        },
+        {
+          label: "Global Intelligence",
+          path: "global-intelligence",
+          icon: "Globe",
+        },
+        {
+          label: "Customer Risk Monitoring",
+          path: "customer-risk",
+          icon: "Users",
+        },
+        {
+          label: "AI Model Performance",
+          path: "model-performance",
+          icon: "Cpu",
+        },
         { label: "Alert Operations", path: "alerts", icon: "Bell" },
-        { label: "Intervention Effectiveness", path: "interventions", icon: "ShieldAlert" },
+        {
+          label: "Intervention Effectiveness",
+          path: "interventions",
+          icon: "ShieldAlert",
+        },
         { label: "Platform Impact", path: "platform-impact", icon: "Award" },
         { label: "Operational Control", path: "operations", icon: "Sliders" },
-        { label: "Intelligence Repository", path: "repository", icon: "Database" },
+        {
+          label: "Intelligence Repository",
+          path: "repository",
+          icon: "Database",
+        },
       ];
     } else if (activeRole === "government") {
       currentMenu = [
         { label: "National Command Center", path: "", icon: "LayoutDashboard" },
-        { label: "Disease Surveillance Network", path: "surveillance", icon: "Radio" },
+        {
+          label: "Disease Surveillance Network",
+          path: "surveillance",
+          icon: "Radio",
+        },
         { label: "National Risk Map", path: "risk-map", icon: "Map" },
-        { label: "Early Warning Center", path: "early-warning", icon: "Compass" },
-        { label: "Outbreak Response Management", path: "outbreak-response", icon: "Activity" },
-        { label: "Resource & Field Operations", path: "field-operations", icon: "Users" },
-        { label: "Food Security Impact Monitor", path: "food-security", icon: "ShieldAlert" },
-        { label: "Policy & Intervention", path: "policy-interventions", icon: "ClipboardList" },
+        {
+          label: "Early Warning Center",
+          path: "early-warning",
+          icon: "Compass",
+        },
+        {
+          label: "Outbreak Response Management",
+          path: "outbreak-response",
+          icon: "Activity",
+        },
+        {
+          label: "Resource & Field Operations",
+          path: "field-operations",
+          icon: "Users",
+        },
+        {
+          label: "Food Security Impact Monitor",
+          path: "food-security",
+          icon: "ShieldAlert",
+        },
+        {
+          label: "Policy & Intervention",
+          path: "policy-interventions",
+          icon: "ClipboardList",
+        },
         { label: "Historical Repository", path: "history", icon: "History" },
       ];
     } else {
@@ -73,50 +104,161 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
         { label: "Disease Intelligence Map", path: "map", icon: "Map" },
         { label: "Farmer Case Management", path: "cases", icon: "Users" },
         { label: "Risk Forecasting", path: "predictions", icon: "TrendingUp" },
-        { label: "Treatment Campaign Center", path: "campaigns", icon: "Shield" },
+        {
+          label: "Treatment Campaign Center",
+          path: "campaigns",
+          icon: "Shield",
+        },
         { label: "Disease Alerts & Advisories", path: "alerts", icon: "Bell" },
         { label: "Impact Analytics", path: "analytics", icon: "BarChart3" },
-        { label: "Historical Disease Intelligence", path: "history", icon: "History" },
+        {
+          label: "Historical Disease Intelligence",
+          path: "history",
+          icon: "History",
+        },
       ];
     }
-  } else if (activeModuleKey === "crop-recommendation-1") {
+  } else if (
+    activeModuleKey === "crop-recommendation" &&
+    activeRole !== "farmer"
+  ) {
     if (activeRole === "government") {
       currentMenu = [
         { label: "National Command Center", path: "", icon: "LayoutDashboard" },
-        { label: "Food Security Center", path: "food-security", icon: "Shield" },
-        { label: "Strategic Intervention", path: "strategic-intervention", icon: "Activity" },
-        { label: "Crop Intelligence", path: "crop-intelligence", icon: "Sprout" },
-        { label: "Climate Risk Center", path: "climate-risk", icon: "CloudLightning" },
-        { label: "Water Security Center", path: "water-security", icon: "Droplets" },
+        {
+          label: "Food Security Center",
+          path: "food-security",
+          icon: "Shield",
+        },
+        {
+          label: "Strategic Intervention",
+          path: "strategic-intervention",
+          icon: "Activity",
+        },
+        {
+          label: "Crop Intelligence",
+          path: "crop-intelligence",
+          icon: "Sprout",
+        },
+        {
+          label: "Climate Risk Center",
+          path: "climate-risk",
+          icon: "CloudLightning",
+        },
+        {
+          label: "Water Security Center",
+          path: "water-security",
+          icon: "Droplets",
+        },
         { label: "Pest & Disease Monitor", path: "pest-disease", icon: "Bug" },
-        { label: "Policy Impact Intel", path: "policy-impact", icon: "LineChart" },
-        { label: "Subsidy & Scheme Intel", path: "subsidy-intelligence", icon: "Coins" },
-        { label: "Regional Performance Intel", path: "regional-performance", icon: "Map" },
+        {
+          label: "Policy Impact Intel",
+          path: "policy-impact",
+          icon: "LineChart",
+        },
+        {
+          label: "Subsidy & Scheme Intel",
+          path: "subsidy-intelligence",
+          icon: "Coins",
+        },
+        {
+          label: "Regional Performance Intel",
+          path: "regional-performance",
+          icon: "Map",
+        },
         { label: "Policy Simulation Lab", path: "policy-sim", icon: "Cpu" },
       ];
     } else if (activeRole === "company" || activeRole === "admin") {
       currentMenu = [
-        { label: "Executive Supply Command Center", path: "", icon: "LayoutDashboard" },
-        { label: "Demand & Supply Planning Center", path: "demand-supply", icon: "CalendarRange" },
-        { label: "Contract Farming Intelligence", path: "contract-farming", icon: "FileText" },
-        { label: "Yield & Production Forecast", path: "yield-forecast", icon: "TrendingUp" },
-        { label: "Commodity Opportunity Engine", path: "commodity-opportunity", icon: "Coins" },
-        { label: "Regional Suitability & Expansion", path: "regional-suitability", icon: "MapPin" },
-        { label: "Supply Chain Performance Intel", path: "supply-chain-performance", icon: "Award" },
-        { label: "Procurement & Inventory Intel", path: "procurement-inventory", icon: "Warehouse" },
-        { label: "Market Expansion & Opportunity", path: "market-expansion", icon: "Compass" },
+        {
+          label: "Executive Supply Command Center",
+          path: "",
+          icon: "LayoutDashboard",
+        },
+        {
+          label: "Demand & Supply Planning Center",
+          path: "demand-supply",
+          icon: "CalendarRange",
+        },
+        {
+          label: "Contract Farming Intelligence",
+          path: "contract-farming",
+          icon: "FileText",
+        },
+        {
+          label: "Yield & Production Forecast",
+          path: "yield-forecast",
+          icon: "TrendingUp",
+        },
+        {
+          label: "Commodity Opportunity Engine",
+          path: "commodity-opportunity",
+          icon: "Coins",
+        },
+        {
+          label: "Regional Suitability & Expansion",
+          path: "regional-suitability",
+          icon: "MapPin",
+        },
+        {
+          label: "Supply Chain Performance Intel",
+          path: "supply-chain-performance",
+          icon: "Award",
+        },
+        {
+          label: "Procurement & Inventory Intel",
+          path: "procurement-inventory",
+          icon: "Warehouse",
+        },
+        {
+          label: "Market Expansion & Opportunity",
+          path: "market-expansion",
+          icon: "Compass",
+        },
       ];
     } else {
       currentMenu = [
         { label: "FPO Command Center", path: "", icon: "LayoutDashboard" },
-        { label: "Crop Planning & Allocation", path: "crop-planning", icon: "Sprout" },
-        { label: "Production Forecast Center", path: "forecast-center", icon: "TrendingUp" },
-        { label: "Input Demand Intelligence", path: "demand-forecast", icon: "LineChart" },
-        { label: "Farmer Engagement & Adoption", path: "adoption-analytics", icon: "Users" },
-        { label: "Procurement & Aggregation Intelligence", path: "procurement", icon: "ShoppingCart" },
-        { label: "Market Linkage & Buyer Intelligence", path: "market-linkage", icon: "Compass" },
-        { label: "Risk Intelligence Center", path: "risk-intelligence", icon: "ShieldAlert" },
-        { label: "Farmer Income & Business Performance", path: "benchmarking", icon: "BarChart3" },
+        {
+          label: "Crop Planning & Allocation",
+          path: "crop-planning",
+          icon: "Sprout",
+        },
+        {
+          label: "Production Forecast Center",
+          path: "forecast-center",
+          icon: "TrendingUp",
+        },
+        {
+          label: "Input Demand Intelligence",
+          path: "demand-forecast",
+          icon: "LineChart",
+        },
+        {
+          label: "Farmer Engagement & Adoption",
+          path: "adoption-analytics",
+          icon: "Users",
+        },
+        {
+          label: "Procurement & Aggregation Intelligence",
+          path: "procurement",
+          icon: "ShoppingCart",
+        },
+        {
+          label: "Market Linkage & Buyer Intelligence",
+          path: "market-linkage",
+          icon: "Compass",
+        },
+        {
+          label: "Risk Intelligence Center",
+          path: "risk-intelligence",
+          icon: "ShieldAlert",
+        },
+        {
+          label: "Farmer Income & Business Performance",
+          path: "benchmarking",
+          icon: "BarChart3",
+        },
       ];
     }
   } else if (
@@ -181,6 +323,51 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
         icon: "Droplets",
       },
       { label: "Scheme Finder", path: "scheme-finder", icon: "Shield" },
+    ];
+  } else if (activeModuleKey === "gov-schemes" && activeRole === "farmer") {
+    currentMenu = [
+      { label: "Farm Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "Scheme Discovery Center", path: "discovery", icon: "Compass" },
+      { label: "Scheme Details", path: "scheme-details", icon: "FileText" },
+      {
+        label: "Eligibility Center",
+        path: "eligibility",
+        icon: "CheckCircle2",
+      },
+      { label: "My Applications", path: "applications", icon: "FolderKanban" },
+      { label: "Benefits Wallet", path: "benefits", icon: "Wallet" },
+      { label: "Subsidy Center", path: "subsidy", icon: "Sprout" },
+      { label: "Crop Insurance", path: "insurance", icon: "Shield" },
+      { label: "KCC & Loans", path: "loans", icon: "CreditCard" },
+      { label: "Document Vault", path: "documents", icon: "FolderKanban" },
+      { label: "Scheme Calendar", path: "calendar", icon: "Calendar" },
+      { label: "AI Advisor", path: "advisor", icon: "MessageSquare" },
+    ];
+  } else if (activeModuleKey === "gov-schemes" && activeRole === "fpo") {
+    currentMenu = [
+      { label: "Opportunity Command Center", path: "", icon: "LayoutDashboard" },
+      { label: "Opportunity Explorer", path: "explorer", icon: "Compass" },
+      { label: "Funding Pipeline", path: "pipeline", icon: "FolderKanban" },
+      { label: "Eligibility & Readiness", path: "readiness", icon: "CheckCircle2" },
+      { label: "Member Benefit Coverage", path: "coverage", icon: "Users" },
+      { label: "Infrastructure Support", path: "infrastructure", icon: "Building2" },
+      { label: "Impact Analytics Center", path: "analytics", icon: "BarChart3" },
+      { label: "Compliance & Documentation", path: "compliance", icon: "FileText" },
+      { label: "Strategic Simulator", path: "simulator", icon: "PlayCircle" },
+      { label: "AI Opportunity Advisor", path: "advisor", icon: "MessageSquare" },
+    ];
+  } else if (activeModuleKey === "gov-schemes" && activeRole === "government") {
+    currentMenu = [
+      { label: "Governance Command Center", path: "", icon: "LayoutDashboard" },
+      { label: "Scheme Performance", path: "scheme-performance", icon: "Activity" },
+      { label: "Beneficiary Coverage", path: "beneficiary-coverage", icon: "Users" },
+      { label: "FPO Ecosystem Monitoring", path: "fpo-ecosystem", icon: "Network" },
+      { label: "Budget & Financials", path: "budget-utilization", icon: "CircleDollarSign" },
+      { label: "Service Delivery", path: "application-monitoring", icon: "Clock" },
+      { label: "Infrastructure Assets", path: "infrastructure-intelligence", icon: "Building2" },
+      { label: "Policy Impact Analytics", path: "policy-impact", icon: "BarChart3" },
+      { label: "Compliance & Governance", path: "compliance-audit", icon: "ShieldAlert" },
+      { label: "AI Policy Command Center", path: "policy-command", icon: "Bot" },
     ];
   }
 
@@ -256,11 +443,16 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
             {userProfile.avatar}
           </div>
           <div className="min-w-0 flex-1">
-            <h4 className="text-white font-bold text-xs tracking-wide truncate" title={userProfile.name}>
+            <h4
+              className="text-white font-bold text-xs tracking-wide truncate"
+              title={userProfile.name}
+            >
               {userProfile.name}
             </h4>
             <p className="text-[9px] font-medium text-gray-400 flex items-center space-x-1 mt-0.5 min-w-0">
-              <span className="truncate" title={userProfile.role}>{userProfile.role}</span>
+              <span className="truncate" title={userProfile.role}>
+                {userProfile.role}
+              </span>
               <span className="text-gray-500 shrink-0">•</span>
               <span className="text-[9px] font-semibold bg-[#4f772d]/30 text-[#ecf39e] px-1.5 py-0.5 rounded-md border border-[#90a955]/10 shrink-0">
                 {userProfile.hindiRole}

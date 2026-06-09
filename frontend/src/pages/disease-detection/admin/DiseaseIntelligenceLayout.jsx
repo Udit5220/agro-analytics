@@ -93,15 +93,15 @@ export default function DiseaseIntelligenceLayout() {
 
       {/* LEFT SIDEBAR (Fixed & Collapsible) */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 bg-[#0f172a] text-white flex flex-col justify-between transition-all duration-300 z-30 shadow-xl border-r border-slate-800/50 ${
+        className={`fixed top-0 bottom-0 left-0 bg-[#132a13] text-white flex flex-col justify-between transition-all duration-300 z-30 shadow-none ${
           collapsed ? "w-16" : "w-60"
         } ${mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >
         <div className="flex flex-col overflow-y-auto overflow-x-hidden flex-1 scrollbar-thin">
           {/* Logo Branding */}
-          <div className="h-14 flex items-center px-4 border-b border-slate-800 shrink-0 justify-between">
+          <div className="h-14 flex items-center px-4 shrink-0 justify-between">
             <div className="flex items-center space-x-2.5 overflow-hidden">
-              <div className="h-7 w-7 rounded-lg bg-[#31572c] flex items-center justify-center shrink-0 border border-[#90a955]/30">
+              <div className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
                 <span className="font-extrabold text-[#ecf39e] text-sm font-mono">A</span>
               </div>
               {!collapsed && (
@@ -117,7 +117,7 @@ export default function DiseaseIntelligenceLayout() {
             {/* Collapse Toggle (Desktop only) */}
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="hidden lg:flex h-6 w-6 rounded-md bg-slate-800 hover:bg-slate-700 items-center justify-center text-slate-400 hover:text-white transition active:scale-95 shrink-0"
+              className="hidden lg:flex h-6 w-6 rounded-md bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition active:scale-95 shrink-0"
             >
               {collapsed ? <ChevronRight size={13} /> : <ChevronLeft size={13} />}
             </button>
@@ -129,11 +129,11 @@ export default function DiseaseIntelligenceLayout() {
               <div key={sIdx} className="space-y-1">
                 {/* Section header */}
                 {!collapsed ? (
-                  <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-2.5 mb-1.5 mt-2">
+                  <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest px-2.5 mb-1.5 mt-2">
                     {section.section}
                   </div>
                 ) : (
-                  <div className="h-px bg-slate-800 my-3" />
+                  <div className="h-px bg-white/10 my-3" />
                 )}
 
                 {section.items.map((item, iIdx) => {
@@ -146,15 +146,15 @@ export default function DiseaseIntelligenceLayout() {
                       to={item.path}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition duration-200 text-xs font-bold relative group ${
                         isActive
-                          ? "bg-[#ecf39e]/10 border-l-2 border-[#ecf39e] text-[#ecf39e]"
-                          : "text-gray-400 hover:text-white hover:bg-white/5"
+                          ? "bg-[#4f772d] text-white shadow-none"
+                          : "text-slate-300 hover:text-white hover:bg-white/5"
                       }`}
                       title={collapsed ? item.label : ""}
                     >
                       <Icon
                         size={15}
                         className={`shrink-0 transition-transform duration-200 group-hover:scale-110 ${
-                          isActive ? "text-[#ecf39e]" : "text-gray-400 group-hover:text-white"
+                          isActive ? "text-[#ecf39e]" : "text-slate-300 group-hover:text-white"
                         }`}
                       />
                       {!collapsed && <span className="truncate">{item.label}</span>}
@@ -167,9 +167,9 @@ export default function DiseaseIntelligenceLayout() {
         </div>
 
         {/* Sidebar Footer User Info */}
-        <div className="p-3 border-t border-slate-800 shrink-0 bg-slate-900/50">
+        <div className="p-3 shrink-0 bg-white/5">
           <div className="flex items-center gap-3">
-            <div className="h-8.5 w-8.5 rounded-xl bg-[#31572c] border border-[#90a955]/20 flex items-center justify-center text-sm font-black text-[#ecf39e] shrink-0 shadow-inner">
+            <div className="h-8.5 w-8.5 rounded-xl bg-white/10 flex items-center justify-center text-sm font-black text-[#ecf39e] shrink-0">
               OP
             </div>
             {!collapsed && (
@@ -186,7 +186,7 @@ export default function DiseaseIntelligenceLayout() {
                   // Back to landing page
                   navigate("/");
                 }}
-                className="text-slate-400 hover:text-red-400 transition shrink-0 p-1 rounded-lg hover:bg-slate-800"
+                className="text-slate-300 hover:text-red-400 transition shrink-0 p-1 rounded-lg hover:bg-white/10"
                 title="Exit Command Center"
               >
                 <LogOut size={13} />
@@ -199,21 +199,21 @@ export default function DiseaseIntelligenceLayout() {
       {/* TOP HEADER & CONTENT CONTAINER */}
       <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${collapsed ? "lg:pl-16" : "lg:pl-60"}`}>
         {/* Top Header (h-14, sticky top) */}
-        <header className="h-14 bg-white border-b border-gray-200/60 flex items-center justify-between px-6 sticky top-0 z-20 shadow-sm shrink-0">
+        <header className="h-14 bg-[#132a13] flex items-center justify-between px-6 sticky top-0 z-20 shadow-sm shrink-0">
           {/* Left: Mobile Menu Toggle, Title and Context Chip */}
           <div className="flex items-center space-x-3">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-1.5 rounded-lg text-slate-500 hover:bg-slate-100 transition"
+              className="lg:hidden p-1.5 rounded-lg text-slate-200 hover:bg-white/10 transition"
             >
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
 
-            <h1 className="text-sm font-black text-gray-900 uppercase tracking-wider font-mono">
+            <h1 className="text-sm font-black text-white uppercase tracking-wider font-mono">
               {activeItem.label}
             </h1>
 
-            <span className="hidden md:inline-flex items-center bg-gray-100 text-gray-600 text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-full border border-gray-200 shadow-sm">
+            <span className="hidden md:inline-flex items-center bg-white/10 text-[#ecf39e] text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-full border border-white/10">
               Viewing as: {activeItem.persona}
             </span>
           </div>
@@ -221,22 +221,22 @@ export default function DiseaseIntelligenceLayout() {
           {/* Right: Date Picker, Notifications, User Avatar */}
           <div className="flex items-center space-x-3 text-xs font-bold">
             {/* Date Range Picker */}
-            <div className="relative flex items-center bg-gray-50 border border-gray-200 rounded-xl px-2.5 py-1 text-gray-600 hover:bg-gray-100 transition shadow-sm">
-              <Calendar size={13} className="text-[#31572c] mr-1.5 shrink-0" />
+            <div className="relative flex items-center bg-white/10 border border-white/10 rounded-xl px-2.5 py-1 text-slate-200 hover:bg-white/20 transition">
+              <Calendar size={13} className="text-[#ecf39e] mr-1.5 shrink-0" />
               <select
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
                 className="bg-transparent text-[10px] font-bold border-none focus:outline-none focus:ring-0 cursor-pointer"
               >
-                <option value="Last 7 Days">7D</option>
-                <option value="Last 30 Days">30D</option>
-                <option value="Last 90 Days">90D</option>
-                <option value="Last 1 Year">1Y</option>
+                <option value="Last 7 Days" className="text-slate-900 font-bold bg-white">7D</option>
+                <option value="Last 30 Days" className="text-slate-900 font-bold bg-white">30D</option>
+                <option value="Last 90 Days" className="text-slate-900 font-bold bg-white">90D</option>
+                <option value="Last 1 Year" className="text-slate-900 font-bold bg-white">1Y</option>
               </select>
             </div>
 
             {/* Notification Bell */}
-            <button className="h-8 w-8 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center text-slate-500 hover:text-[#31572c] hover:bg-gray-100 transition relative shadow-sm">
+            <button className="h-8 w-8 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/20 transition relative">
               <Bell size={14} />
               <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 bg-red-500 rounded-full animate-pulse" />
             </button>
@@ -246,7 +246,7 @@ export default function DiseaseIntelligenceLayout() {
               onClick={() => {
                 alert(`Exporting current report data for range: ${dateRange}`);
               }}
-              className="hidden sm:flex items-center gap-1.5 bg-[#31572c] hover:bg-[#4f772d] text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-xl shadow-md transition active:scale-95"
+              className="hidden sm:flex items-center gap-1.5 bg-[#4f772d] hover:bg-[#4f772d]/90 text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-xl transition active:scale-95 border border-white/10"
             >
               <Download size={12} /> Export Report
             </button>
@@ -255,7 +255,7 @@ export default function DiseaseIntelligenceLayout() {
             <div className="relative">
               <button
                 onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-                className="h-8.5 w-8.5 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-[#ecf39e] flex items-center justify-center font-black text-xs border border-slate-700 shadow-md cursor-pointer transition active:scale-95"
+                className="h-8.5 w-8.5 rounded-xl bg-[#132a13] hover:bg-[#132a13]/80 text-[#ecf39e] flex items-center justify-center font-black text-xs border border-white/10 cursor-pointer transition active:scale-95"
               >
                 AA
               </button>
