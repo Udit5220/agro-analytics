@@ -5,6 +5,7 @@ const GenericTable = ({
   columns,
   data,
   onRowClick,
+  rowClassName,
   actions,
   itemsPerPage = 10,
   showSearch = true,
@@ -75,7 +76,7 @@ const GenericTable = ({
                   setSearchQuery(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full text-sm bg-white border border-gray-200 rounded-lg px-3 py-2 pl-9 focus:outline-none focus:border-[#4f772d] focus:ring-1 focus:ring-[#4f772d]/30"
+                className="w-full text-sm bg-white border border-gray-200 rounded-lg px-3 py-2 pl-9 focus:outline-none focus:border-[#28a745] focus:ring-1 focus:ring-[#28a745]/30"
               />
               <svg
                 className="w-4 h-4 absolute left-2.5 top-2.5 text-gray-400"
@@ -95,7 +96,7 @@ const GenericTable = ({
           {showSort && sortColumn && (
             <div className="text-[10px] text-gray-400">
               Sorting by:{" "}
-              <span className="font-semibold text-[#31572c]">
+              <span className="font-semibold text-[#208837]">
                 {columns.find((c) => c.accessor === sortColumn)?.header}
               </span>{" "}
               ({sortDirection === "asc" ? "Ascending" : "Descending"})
@@ -114,7 +115,7 @@ const GenericTable = ({
                   key={idx}
                   className={`text-left py-3 px-4 ${
                     col.sortable !== false
-                      ? "cursor-pointer hover:text-[#31572c]"
+                      ? "cursor-pointer hover:text-[#208837]"
                       : ""
                   } ${col.className || ""}`}
                   onClick={() =>
@@ -126,7 +127,7 @@ const GenericTable = ({
                       {col.header}
                     </span>
                     {col.sortable !== false && sortColumn === col.accessor && (
-                      <span className="text-[10px] text-[#31572c]">
+                      <span className="text-[10px] text-[#208837]">
                         {sortDirection === "asc" ? "↑" : "↓"}
                       </span>
                     )}
@@ -157,7 +158,9 @@ const GenericTable = ({
                 <tr
                   key={rowIdx}
                   onClick={() => onRowClick?.(row)}
-                  className="border-b border-gray-100 hover:bg-gray-50/50 transition cursor-pointer"
+                  className={`border-b border-gray-100 transition cursor-pointer ${
+                    rowClassName ? rowClassName(row) : "hover:bg-gray-50/50"
+                  }`}
                 >
                   {columns.map((col, colIdx) => (
                     <td
@@ -179,7 +182,7 @@ const GenericTable = ({
                               e.stopPropagation();
                               action.onClick(row);
                             }}
-                            className={`text-xs font-medium ${action.className || "text-[#31572c] hover:underline"}`}
+                            className={`text-xs font-medium ${action.className || "text-[#208837] hover:underline"}`}
                           >
                             {action.label}
                           </button>
@@ -206,7 +209,7 @@ const GenericTable = ({
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-3 py-1 rounded border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition text-xs"
+              className="px-3 py-1 rounded border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-55 transition text-xs"
             >
               Previous
             </button>
@@ -218,7 +221,7 @@ const GenericTable = ({
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
               disabled={currentPage === totalPages}
-              className="px-3 py-1 rounded border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition text-xs"
+              className="px-3 py-1 rounded border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-55 transition text-xs"
             >
               Next
             </button>

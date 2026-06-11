@@ -1,15 +1,29 @@
 {
   "farmerProfile": {
-    "name": "Rajesh Kumar",
+    "name": "Suresh Kumar",
     "location": "Sonipat, Haryana",
-    "lastUpdated": "10 Dec 2024, 08:30 AM"
+    "lastUpdated": "09 Jun 2026, 02:30 PM",
+    "landSize": 4.5,
+    "crops": ["Wheat", "Rice", "Sugarcane", "Mustard"],
+    "irrigation": "Drip",
+    "category": ["SC", "Small Farmer"],
+    "annualIncome": "₹2.8L",
+    "livestock": 2,
+    "machinery": "Tractor",
+    "aadhaarLast4": "4821",
+    "bankAccount": "XXXX XXXX 4821",
+    "kccNumber": "KCC-2026-00341",
+    "familyMembers": 5,
+    "farmingExperience": "12 years",
+    "district": "Sonipat",
+    "state": "Haryana"
   },
   "kpiCards": [
     {
       "id": 1,
       "title": "ELIGIBLE SCHEMES",
-      "value": "14",
-      "trend": "+3 new",
+      "value": "22",
+      "trend": "+5 new",
       "trendType": "success",
       "subtext": "this month",
       "iconName": "CheckCircle2"
@@ -17,17 +31,17 @@
     {
       "id": 2,
       "title": "ACTIVE APPLICATIONS",
-      "value": "4",
-      "trend": "",
+      "value": "6",
+      "trend": "2 in progress",
       "trendType": "info",
-      "subtext": "2 In Review · 1 Verification Pending · 1 Approved",
+      "subtext": "3 Approved · 2 In Review · 1 Action Needed",
       "iconName": "FileText"
     },
     {
       "id": 3,
       "title": "BENEFITS RECEIVED",
-      "value": "₹42,500",
-      "trend": "₹18,000",
+      "value": "₹64,200",
+      "trend": "₹21,700",
       "trendType": "success",
       "subtext": "this year",
       "iconName": "IndianRupee"
@@ -35,130 +49,2066 @@
     {
       "id": 4,
       "title": "PENDING BENEFITS",
-      "value": "₹12,000",
-      "trend": "",
+      "value": "₹15,000",
+      "trend": "Release scheduled",
       "trendType": "info",
-      "subtext": "est. release: 15 Dec",
+      "subtext": "est. release: 20 Jun",
       "iconName": "Clock"
     },
     {
       "id": 5,
       "title": "NEXT DEADLINE",
-      "value": "8 days",
-      "trend": "",
+      "value": "12 days",
+      "trend": "Critical",
       "trendType": "danger",
-      "subtext": "PMFBY enrollment closes Dec 31",
+      "subtext": "PMFBY enrollment closes Jun 30",
       "iconName": "CalendarDays"
     },
     {
       "id": 6,
       "title": "REJECTED APPLICATIONS",
       "value": "1",
-      "trend": "fix available",
+      "trend": "Fix available",
       "trendType": "warning",
       "subtext": "PMKSY - Incomplete certificate",
       "iconName": "AlertCircle"
     }
   ],
   "benefitDistribution": [
-    { "name": "PM Kisan", "value": 35, "amount": 14875, "color": "#2D4A3E" },
-    { "name": "PMFBY", "value": 22, "amount": 9350, "color": "#4A7C59" },
-    { "name": "Irrigation Subsidy", "value": 18, "amount": 7650, "color": "#8FB89A" },
-    { "name": "Solar Subsidy", "value": 12, "amount": 5100, "color": "#1A2E25" },
-    { "name": "Machinery Subsidy", "value": 8, "amount": 3400, "color": "#132a13" },
-    { "name": "Livestock", "value": 5, "amount": 2125, "color": "#2D4A3E" }
+    { "name": "PM Kisan", "value": 30, "amount": 19260, "color": "#132a13" },
+    { "name": "PMFBY", "value": 25, "amount": 16050, "color": "#31572c" },
+    {
+      "name": "Irrigation Subsidy",
+      "value": 20,
+      "amount": 12840,
+      "color": "#4f772d"
+    },
+    {
+      "name": "Solar Subsidy",
+      "value": 15,
+      "amount": 9630,
+      "color": "#90a955"
+    },
+    {
+      "name": "Machinery Subsidy",
+      "value": 8,
+      "amount": 5136,
+      "color": "#132a13"
+    },
+    { "name": "Livestock", "value": 2, "amount": 1284, "color": "#31572c" }
   ],
   "trendData": [
-    { "month": "Jan 23", "Received": 2000, "Approved": 2000, "Pending": 0 },
-    { "month": "Feb 23", "Received": 0, "Approved": 2000, "Pending": 0 },
-    { "month": "Mar 23", "Received": 0, "Approved": 0, "Pending": 0 },
-    { "month": "Apr 23", "Received": 2000, "Approved": 4000, "Pending": 2000 },
-    { "month": "May 23", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Jun 23", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Jul 23", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Aug 23", "Received": 2000, "Approved": 2000, "Pending": 2000 },
-    { "month": "Sep 23", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Oct 23", "Received": 2000, "Approved": 4000, "Pending": 2000 },
-    { "month": "Nov 23", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Dec 23", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Jan 24", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Feb 24", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Mar 24", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Apr 24", "Received": 2000, "Approved": 4000, "Pending": 2000 },
-    { "month": "May 24", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Jun 24", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Jul 24", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Aug 24", "Received": 2000, "Approved": 2000, "Pending": 2000 },
-    { "month": "Sep 24", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Oct 24", "Received": 2000, "Approved": 4000, "Pending": 2000 },
-    { "month": "Nov 24", "Received": 0, "Approved": 0, "Pending": 2000 },
-    { "month": "Dec 24", "Received": 0, "Approved": 0, "Pending": 2000 }
+    { "month": "Jan 25", "Received": 2000, "Approved": 2000, "Pending": 0 },
+    { "month": "Feb 25", "Received": 0, "Approved": 2000, "Pending": 0 },
+    { "month": "Mar 25", "Received": 1700, "Approved": 1700, "Pending": 0 },
+    { "month": "Apr 25", "Received": 2000, "Approved": 4000, "Pending": 2000 },
+    { "month": "May 25", "Received": 0, "Approved": 0, "Pending": 2000 },
+    { "month": "Jun 25", "Received": 0, "Approved": 0, "Pending": 2000 },
+    {
+      "month": "Jul 25",
+      "Received": 25000,
+      "Approved": 25000,
+      "Pending": 2000
+    },
+    {
+      "month": "Aug 25",
+      "Received": 22000,
+      "Approved": 22000,
+      "Pending": 2000
+    },
+    { "month": "Sep 25", "Received": 0, "Approved": 0, "Pending": 2000 },
+    { "month": "Oct 25", "Received": 2000, "Approved": 4000, "Pending": 2000 },
+    { "month": "Nov 25", "Received": 0, "Approved": 0, "Pending": 2000 },
+    { "month": "Dec 25", "Received": 0, "Approved": 0, "Pending": 2000 },
+    { "month": "Jan 26", "Received": 2000, "Approved": 2000, "Pending": 0 },
+    { "month": "Feb 26", "Received": 0, "Approved": 0, "Pending": 0 },
+    { "month": "Mar 26", "Received": 1700, "Approved": 1700, "Pending": 0 },
+    { "month": "Apr 26", "Received": 2000, "Approved": 4000, "Pending": 2000 },
+    { "month": "May 26", "Received": 0, "Approved": 0, "Pending": 2000 },
+    { "month": "Jun 26", "Received": 0, "Approved": 0, "Pending": 2000 }
   ],
   "aiRecommendedSchemes": [
     {
-      "id": 1,
+      "id": 3,
       "name": "PM Kusum — Solar Pump Subsidy",
       "benefit": "₹1,20,000",
       "match": "94%",
       "matchScore": 94,
-      "reason": "Drip irrigation owner, 4.5 acre land, Haryana state",
+      "reason": "Drip irrigation owner, 4.5 acre land, Haryana state resident",
       "missing": "Solar feasibility report",
-      "color": "#2D4A3E"
+      "color": "#132a13"
     },
     {
-      "id": 2,
+      "id": 5,
       "name": "PMKSY Micro Irrigation",
       "benefit": "₹45,000",
       "match": "89%",
       "matchScore": 89,
-      "reason": "Cultivating water-intensive crops with drip",
+      "reason": "Cultivating water-intensive crops (Rice/Sugarcane) with drip",
       "missing": "Installation certificate",
-      "color": "#4A7C59"
+      "color": "#31572c"
     },
     {
-      "id": 3,
-      "name": "SC Farmer Scheme — Haryana",
+      "id": 6,
+      "name": "Haryana SC Farmer Scheme",
       "benefit": "₹25,000",
       "match": "87%",
       "matchScore": 87,
-      "reason": "SC category, landholding above 2 acres",
+      "reason": "SC category, landholding above 2 acres, resident of Haryana",
       "missing": "Caste certificate renewal",
-      "color": "#8FB89A"
+      "color": "#4f772d"
     }
   ],
   "upcomingActions": [
-    { "priority": "HIGH", "text": "Upload latest land records for PMFBY", "due": "due in 3 days", "color": "red" },
-    { "priority": "HIGH", "text": "Complete Aadhaar-Bank seeding for PM Kisan", "due": "overdue", "color": "red" },
-    { "priority": "MEDIUM", "text": "Apply for PM Kusum before Dec 31 window closes", "due": "", "color": "yellow" },
-    { "priority": "MEDIUM", "text": "Renew crop insurance for Rabi season", "due": "", "color": "yellow" },
-    { "priority": "LOW", "text": "Update tractor ownership in profile for machinery subsidy", "due": "", "color": "green" }
+    {
+      "priority": "HIGH",
+      "text": "Upload latest land records for PMFBY",
+      "due": "due in 5 days",
+      "color": "red"
+    },
+    {
+      "priority": "HIGH",
+      "text": "Complete Aadhaar-Bank seeding for PM Kisan",
+      "due": "overdue",
+      "color": "red"
+    },
+    {
+      "priority": "MEDIUM",
+      "text": "Apply for PM Kusum before current window closes",
+      "due": "due in 12 days",
+      "color": "yellow"
+    },
+    {
+      "priority": "MEDIUM",
+      "text": "Renew crop insurance for Kharif season",
+      "due": "due in 12 days",
+      "color": "yellow"
+    },
+    {
+      "priority": "LOW",
+      "text": "Update Tractor RC in vault for machinery subsidy",
+      "due": "no deadline",
+      "color": "green"
+    }
   ],
+  "schemes": [
+    {
+      "id": 1,
+      "name": "PM Kisan Samman Nidhi",
+      "category": "Direct Benefit",
+      "categoryColor": "#132a13",
+      "dept": "Ministry of Agriculture",
+      "benefit": "₹6,000/year",
+      "matchScore": 95,
+      "status": "Applied",
+      "statusType": "applied",
+      "deadline": "Ongoing",
+      "docsRequired": 3,
+      "docsUploaded": 3,
+      "estApproval": "7-14 days"
+    },
+    {
+      "id": 2,
+      "name": "PMFBY Crop Insurance",
+      "category": "Insurance",
+      "categoryColor": "#31572c",
+      "dept": "Ministry of Agriculture",
+      "benefit": "₹1,80,000 coverage",
+      "matchScore": 92,
+      "status": "Active",
+      "statusType": "active",
+      "deadline": "Closes Jun 30",
+      "docsRequired": 5,
+      "docsUploaded": 5,
+      "estApproval": "21-30 days"
+    },
+    {
+      "id": 3,
+      "name": "PM Kusum Solar Pump",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of New & Renewable Energy",
+      "benefit": "₹1,20,000",
+      "matchScore": 94,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Closes Jun 30",
+      "docsRequired": 6,
+      "docsUploaded": 4,
+      "estApproval": "45-60 days"
+    },
+    {
+      "id": 4,
+      "name": "Kisan Credit Card",
+      "category": "Credit",
+      "categoryColor": "#132a13",
+      "dept": "Ministry of Finance",
+      "benefit": "₹3,00,000 limit",
+      "matchScore": 88,
+      "status": "Active",
+      "statusType": "active",
+      "deadline": "Rolling",
+      "docsRequired": 4,
+      "docsUploaded": 4,
+      "estApproval": "7-10 days"
+    },
+    {
+      "id": 5,
+      "name": "PMKSY Micro Irrigation",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of Water Resources",
+      "benefit": "₹45,000",
+      "matchScore": 89,
+      "status": "Action Needed",
+      "statusType": "action_needed",
+      "deadline": "Closes Dec 31",
+      "docsRequired": 5,
+      "docsUploaded": 4,
+      "estApproval": "30-45 days"
+    },
+    {
+      "id": 6,
+      "name": "Haryana SC Farmer Scheme",
+      "category": "State Subsidy",
+      "categoryColor": "#90a955",
+      "dept": "Haryana Govt",
+      "benefit": "₹25,000",
+      "matchScore": 87,
+      "status": "Approved",
+      "statusType": "approved",
+      "deadline": "Closes Feb 28",
+      "docsRequired": 4,
+      "docsUploaded": 4,
+      "estApproval": "15-21 days"
+    },
+    {
+      "id": 7,
+      "name": "PM Formalisation of Micro Food Processing",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of Food Processing",
+      "benefit": "₹1,00,000",
+      "matchScore": 76,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Closes Jan 30",
+      "docsRequired": 7,
+      "docsUploaded": 1,
+      "estApproval": "60-90 days"
+    },
+    {
+      "id": 8,
+      "name": "National Livestock Mission",
+      "category": "Livestock",
+      "categoryColor": "#132a13",
+      "dept": "Ministry of Fisheries",
+      "benefit": "₹50,000",
+      "matchScore": 68,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Closes Mar 15",
+      "docsRequired": 4,
+      "docsUploaded": 1,
+      "estApproval": "30-45 days"
+    },
+    {
+      "id": 9,
+      "name": "Sub-Mission on Agricultural Mechanization",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of Agriculture",
+      "benefit": "₹80,000",
+      "matchScore": 85,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Rolling",
+      "docsRequired": 5,
+      "docsUploaded": 2,
+      "estApproval": "45-60 days"
+    },
+    {
+      "id": 10,
+      "name": "Soil Health Card Scheme",
+      "category": "Service",
+      "categoryColor": "#90a955",
+      "dept": "Ministry of Agriculture",
+      "benefit": "Free soil test & guidance",
+      "matchScore": 98,
+      "status": "Active",
+      "statusType": "active",
+      "deadline": "Ongoing",
+      "docsRequired": 2,
+      "docsUploaded": 2,
+      "estApproval": "5-7 days"
+    },
+    {
+      "id": 11,
+      "name": "Paramparagat Krishi Vikas Yojana",
+      "category": "Organic",
+      "categoryColor": "#31572c",
+      "dept": "Ministry of Agriculture",
+      "benefit": "₹50,000/ha",
+      "matchScore": 72,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Closes Nov 30",
+      "docsRequired": 4,
+      "docsUploaded": 0,
+      "estApproval": "30-45 days"
+    },
+    {
+      "id": 12,
+      "name": "Rashtriya Krishi Vikas Yojana",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of Agriculture",
+      "benefit": "Infrastructure support",
+      "matchScore": 81,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Rolling",
+      "docsRequired": 5,
+      "docsUploaded": 1,
+      "estApproval": "45-60 days"
+    },
+    {
+      "id": 13,
+      "name": "Mission for Integrated Dev of Horticulture",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of Agriculture",
+      "benefit": "50% plant subsidy",
+      "matchScore": 65,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Closes Sep 15",
+      "docsRequired": 6,
+      "docsUploaded": 0,
+      "estApproval": "30-45 days"
+    },
+    {
+      "id": 14,
+      "name": "National Mission for Sustainable Agriculture",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of Agriculture",
+      "benefit": "Rainfed area incentive",
+      "matchScore": 78,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Rolling",
+      "docsRequired": 5,
+      "docsUploaded": 2,
+      "estApproval": "30-45 days"
+    },
+    {
+      "id": 15,
+      "name": "e-NAM National Agriculture Market",
+      "category": "Service",
+      "categoryColor": "#90a955",
+      "dept": "Ministry of Agriculture",
+      "benefit": "Direct online selling",
+      "matchScore": 92,
+      "status": "Active",
+      "statusType": "active",
+      "deadline": "Ongoing",
+      "docsRequired": 3,
+      "docsUploaded": 3,
+      "estApproval": "1-3 days"
+    },
+    {
+      "id": 16,
+      "name": "PM-AASHA Price Support Scheme",
+      "category": "Subsidy",
+      "categoryColor": "#132a13",
+      "dept": "Ministry of Agriculture",
+      "benefit": "MSP floor assurance",
+      "matchScore": 90,
+      "status": "Active",
+      "statusType": "active",
+      "deadline": "Ongoing",
+      "docsRequired": 3,
+      "docsUploaded": 3,
+      "estApproval": "2-3 days"
+    },
+    {
+      "id": 17,
+      "name": "PMKSY Har Khet Ko Pani",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of Water Resources",
+      "benefit": "Tube-well subsidy",
+      "matchScore": 82,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Closes Jul 31",
+      "docsRequired": 5,
+      "docsUploaded": 2,
+      "estApproval": "30-45 days"
+    },
+    {
+      "id": 18,
+      "name": "Agri-Clinic & Agri-Business Centres",
+      "category": "Credit",
+      "categoryColor": "#132a13",
+      "dept": "NABARD",
+      "benefit": "36% credit subsidy",
+      "matchScore": 70,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Rolling",
+      "docsRequired": 6,
+      "docsUploaded": 0,
+      "estApproval": "60-90 days"
+    },
+    {
+      "id": 19,
+      "name": "Agriculture Infrastructure Fund",
+      "category": "Credit",
+      "categoryColor": "#132a13",
+      "dept": "Ministry of Agriculture",
+      "benefit": "3% interest subvention",
+      "matchScore": 80,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Rolling",
+      "docsRequired": 6,
+      "docsUploaded": 1,
+      "estApproval": "45-60 days"
+    },
+    {
+      "id": 20,
+      "name": "PM Matsya Sampada Yojana",
+      "category": "Livestock",
+      "categoryColor": "#132a13",
+      "dept": "Ministry of Fisheries",
+      "benefit": "40% pond subsidy",
+      "matchScore": 52,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Closes Aug 30",
+      "docsRequired": 5,
+      "docsUploaded": 0,
+      "estApproval": "45-60 days"
+    },
+    {
+      "id": 21,
+      "name": "Integrated Scheme for Ag Marketing",
+      "category": "Subsidy",
+      "categoryColor": "#4f772d",
+      "dept": "Ministry of Agriculture",
+      "benefit": "Cold storage subsidy",
+      "matchScore": 75,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Rolling",
+      "docsRequired": 6,
+      "docsUploaded": 1,
+      "estApproval": "60-90 days"
+    },
+    {
+      "id": 22,
+      "name": "Haryana Women Farmer Dairy Scheme",
+      "category": "State Subsidy",
+      "categoryColor": "#90a955",
+      "dept": "Haryana Govt",
+      "benefit": "₹25,000 incentive",
+      "matchScore": 45,
+      "status": "Not Applied",
+      "statusType": "not_applied",
+      "deadline": "Closes Oct 31",
+      "docsRequired": 4,
+      "docsUploaded": 0,
+      "estApproval": "21-30 days"
+    }
+  ],
+  "discoveryFilters": {
+    "states": [
+      "Haryana",
+      "Punjab",
+      "Uttar Pradesh",
+      "Rajasthan",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Gujarat",
+      "Bihar"
+    ],
+    "districts": [
+      "Sonipat",
+      "Panipat",
+      "Karnal",
+      "Rohtak",
+      "Hisar",
+      "Ambala",
+      "Gurugram"
+    ],
+    "crops": [
+      "Wheat",
+      "Rice",
+      "Sugarcane",
+      "Cotton",
+      "Maize",
+      "Mustard",
+      "Barley",
+      "Gram"
+    ],
+    "irrigationTypes": [
+      "Drip",
+      "Sprinkler",
+      "Flood",
+      "Furrow",
+      "Rainfed",
+      "Canal"
+    ],
+    "farmerCategories": [
+      "SC",
+      "ST",
+      "OBC",
+      "General",
+      "Small Farmer",
+      "Marginal Farmer",
+      "Women Farmer",
+      "Young Farmer",
+      "FPO Member",
+      "Organic",
+      "Livestock"
+    ]
+  },
+  "matchBreakdown": {
+    "landSize": { "eligible": 20, "total": 22 },
+    "crop": { "eligible": 18, "total": 22 },
+    "state": { "eligible": 22, "total": 22 },
+    "category": { "eligible": 15, "total": 22 },
+    "income": { "eligible": 21, "total": 22 }
+  },
+  "blockingFactors": [
+    { "factor": "Aadhaar-Bank unseeded", "affects": 5 },
+    { "factor": "Land record not uploaded", "affects": 3 },
+    { "factor": "Caste certificate expiring", "affects": 2 }
+  ],
+  "schemeDetails": {
+    "1": {
+      "id": 1,
+      "name": "PM Kisan Samman Nidhi",
+      "ministry": "Ministry of Agriculture & Farmers Welfare",
+      "status": "Active Scheme",
+      "launchYear": 2019,
+      "target": "14 crore farmers",
+      "budget": "₹60,000 Cr/year",
+      "benefits": {
+        "maximumBenefit": "₹6,000/year",
+        "perInstallment": "₹2,000 (3 installments)",
+        "subsidyType": "Direct Bank Transfer",
+        "coverage": "All landholding farmers"
+      },
+      "eligibilityMatrix": [
+        {
+          "criterion": "Land Ownership",
+          "requirement": "Required (up to 2 hectares for small/marginal benefits)",
+          "status": true,
+          "value": "Owns 4.5 acres"
+        },
+        {
+          "criterion": "Income",
+          "requirement": "No income tax payers, non-institutional",
+          "status": true,
+          "value": "Income level: ₹2.8L"
+        },
+        {
+          "criterion": "Crop Type",
+          "requirement": "All crops",
+          "status": true,
+          "value": "No restriction"
+        },
+        {
+          "criterion": "Location",
+          "requirement": "All states",
+          "status": true,
+          "value": "Haryana resident"
+        },
+        {
+          "criterion": "Farmer Category",
+          "requirement": "All farmers",
+          "status": true,
+          "value": "Small Farmer, SC"
+        }
+      ],
+      "documents": [
+        {
+          "name": "Aadhaar Card",
+          "status": "verified",
+          "statusType": "verified",
+          "uploadedDate": "Mar 2024"
+        },
+        {
+          "name": "Bank Passbook",
+          "status": "Seeding Pending",
+          "statusType": "pending",
+          "uploadedDate": "Mar 2024"
+        },
+        {
+          "name": "Land Records (Khasra/Khatauni)",
+          "status": "Uploaded",
+          "statusType": "verified",
+          "uploadedDate": "Mar 2024"
+        }
+      ],
+      "timeline": {
+        "steps": [
+          {
+            "name": "Registration",
+            "status": "done",
+            "date": "Oct 12",
+            "description": "Successfully registered on PM Kisan portal"
+          },
+          {
+            "name": "Document Upload",
+            "status": "done",
+            "date": "Oct 15",
+            "description": "All required documents uploaded"
+          },
+          {
+            "name": "Verification",
+            "status": "in-progress",
+            "date": null,
+            "description": "Bank seeding pending - action required"
+          },
+          {
+            "name": "Approval",
+            "status": "locked",
+            "date": null,
+            "description": "Awaiting verification completion"
+          }
+        ],
+        "blocker": "Bank account not seeded with Aadhaar. Fix this to unlock ₹2,000 installment."
+      },
+      "faq": [
+        {
+          "question": "When will I get the next installment?",
+          "answer": "PM Kisan installments are released every 4 months. The next installment of ₹2,000 is expected in December/June, provided your verification is complete."
+        },
+        {
+          "question": "Why was my previous installment rejected?",
+          "answer": "Your previous installment may have been rejected due to incomplete Aadhaar-Bank seeding. Please visit your bank branch to link your Aadhaar with your bank account."
+        }
+      ]
+    },
+    "2": {
+      "id": 2,
+      "name": "PMFBY Crop Insurance",
+      "ministry": "Ministry of Agriculture & Farmers Welfare",
+      "status": "Active Scheme",
+      "launchYear": 2016,
+      "target": "All crop cultivators",
+      "budget": "₹16,000 Cr/year",
+      "benefits": {
+        "maximumBenefit": "Crop yield risk coverage",
+        "perInstallment": "Premium subsidy (90%+ subsidized)",
+        "subsidyType": "Insurance Cover",
+        "coverage": "Food crops, oilseeds, commercial crops"
+      },
+      "eligibilityMatrix": [
+        {
+          "criterion": "Crops",
+          "requirement": "Notified crops in notified areas",
+          "status": true,
+          "value": "Wheat and Rice notified"
+        },
+        {
+          "criterion": "Farmer Status",
+          "requirement": "Sharecroppers, tenants, or owners",
+          "status": true,
+          "value": "Landholder"
+        }
+      ],
+      "documents": [
+        {
+          "name": "Aadhaar Card",
+          "status": "verified",
+          "statusType": "verified",
+          "uploadedDate": "Mar 2024"
+        },
+        {
+          "name": "Land Records",
+          "status": "verified",
+          "statusType": "verified",
+          "uploadedDate": "Mar 2024"
+        },
+        {
+          "name": "Sowing Certificate",
+          "status": "verified",
+          "statusType": "verified",
+          "uploadedDate": "Nov 2024"
+        }
+      ],
+      "timeline": {
+        "steps": [
+          {
+            "name": "Premium Payment",
+            "status": "done",
+            "date": "Nov 02",
+            "description": "Premium of ₹1,500 paid successfully"
+          },
+          {
+            "name": "Policy Issuance",
+            "status": "done",
+            "date": "Nov 05",
+            "description": "Policy PMFBY-WHEAT-2024 generated"
+          },
+          {
+            "name": "Inspection",
+            "status": "done",
+            "date": "Jan 15",
+            "description": "No localized damage reported"
+          }
+        ],
+        "blocker": null
+      },
+      "faq": [
+        {
+          "question": "What is the premium rate for farmers?",
+          "answer": "The premium paid by farmers is capped at 2% for Kharif crops, 1.5% for Rabi crops, and 5% for commercial/horticultural crops."
+        }
+      ]
+    },
+    "3": {
+      "id": 3,
+      "name": "PM Kusum Solar Pump",
+      "ministry": "Ministry of New & Renewable Energy",
+      "status": "Open Scheme",
+      "launchYear": 2019,
+      "target": "Individual farmers & Cooperatives",
+      "budget": "₹34,000 Cr total",
+      "benefits": {
+        "maximumBenefit": "₹1,20,000 subsidy",
+        "perInstallment": "60% central & state subsidy",
+        "subsidyType": "Capital Subsidy",
+        "coverage": "Solar water pumps up to 7.5 HP"
+      },
+      "eligibilityMatrix": [
+        {
+          "criterion": "Water Source",
+          "requirement": "Must have irrigation system (Drip preferred)",
+          "status": true,
+          "value": "Has Drip irrigation"
+        },
+        {
+          "criterion": "Land Size",
+          "requirement": "Minimum 1 acre clear title",
+          "status": true,
+          "value": "4.5 acres"
+        }
+      ],
+      "documents": [
+        {
+          "name": "Aadhaar Card",
+          "status": "verified",
+          "statusType": "verified",
+          "uploadedDate": "Mar 2024"
+        },
+        {
+          "name": "Land Registry Document",
+          "status": "verified",
+          "statusType": "verified",
+          "uploadedDate": "Mar 2024"
+        },
+        {
+          "name": "Solar Feasibility Report",
+          "status": "missing",
+          "statusType": "missing",
+          "uploadedDate": null
+        }
+      ],
+      "timeline": {
+        "steps": [
+          {
+            "name": "Apply Online",
+            "status": "in-progress",
+            "date": null,
+            "description": "Draft saved. Complete feasibility report to submit."
+          }
+        ],
+        "blocker": "Solar feasibility report is missing. Obtain it from a certified vendor."
+      },
+      "faq": [
+        {
+          "question": "How much contribution is required from the farmer?",
+          "answer": "The farmer contributes 40% of the total cost (10% upfront, 30% via bank loan if preferred)."
+        }
+      ]
+    }
+  },
+  "eligibilityData": {
+    "governmentReadinessScore": 82,
+    "scoreLabel": "Excellent — 2 actions to maximize",
+    "scoreBreakdown": [
+      { "name": "Documentation", "score": 85, "color": "#132a13" },
+      { "name": "KYC Verification", "score": 78, "color": "#31572c" },
+      { "name": "Profile Completeness", "score": 95, "color": "#4f772d" },
+      { "name": "Scheme Coverage", "score": 80, "color": "#90a955" },
+      { "name": "Bank Linkage", "score": 60, "color": "#ecf39e" }
+    ],
+    "eligibilitySummary": {
+      "eligible": { "count": 22, "potential": "₹5,42,000" },
+      "partiallyEligible": {
+        "count": 5,
+        "potential": "₹1,90,000",
+        "blocking": "1 document missing each"
+      },
+      "notEligible": {
+        "count": 12,
+        "reasons": [
+          "Non-irrigated land required (3)",
+          "Women farmer only (2)",
+          "FPO membership required (4)",
+          "Others (3)"
+        ]
+      }
+    },
+    "missingRequirements": [
+      {
+        "name": "Bank-Aadhaar seeding",
+        "affects": 5,
+        "fixAction": "Visit your bank branch with Aadhaar card",
+        "fixLink": "how-to-fix"
+      },
+      {
+        "name": "Income certificate upload",
+        "affects": 3,
+        "fixAction": "Upload valid income certificate to vault",
+        "fixLink": "upload-now"
+      },
+      {
+        "name": "Caste certificate renewal",
+        "affects": 2,
+        "fixAction": "Renew Caste Certificate from Tehsildar office",
+        "fixLink": "upload-now"
+      },
+      {
+        "name": "Tractor RC upload",
+        "affects": 1,
+        "fixAction": "Upload Registration Certificate of tractor",
+        "fixLink": "upload-now"
+      }
+    ],
+    "benefitOpportunity": {
+      "estimatedYearly": "₹5,42,000",
+      "currentlyAccessing": "₹64,200",
+      "opportunityGap": "₹4,77,800",
+      "insuranceCoverage": "₹1,80,000",
+      "kccLoanAvailable": "₹3,00,000"
+    }
+  },
+  "applicationsData": {
+    "summaryCards": {
+      "submitted": 8,
+      "underReview": 2,
+      "approved": 5,
+      "rejected": 1,
+      "benefitsReleased": "₹64,200"
+    },
+    "applicationsList": [
+      {
+        "id": "PMKS-2026-04821",
+        "schemeName": "PM Kisan Samman Nidhi",
+        "submittedDate": "Mar 10, 2026",
+        "currentStage": "Bank Verification",
+        "expectedApproval": "Blocked",
+        "benefitAmount": "₹2,000",
+        "status": "action_needed",
+        "statusText": "Action Needed",
+        "statusColor": "amber"
+      },
+      {
+        "id": "PMFBY-2026-00932",
+        "schemeName": "PMFBY Kharif Insurance",
+        "submittedDate": "May 05, 2026",
+        "currentStage": "District Review",
+        "expectedApproval": "Jun 28, 2026",
+        "benefitAmount": "₹1,80,000",
+        "status": "in_review",
+        "statusText": "In Review",
+        "statusColor": "blue"
+      },
+      {
+        "id": "HRYSC-2026-1124",
+        "schemeName": "Haryana SC Farmer Scheme",
+        "submittedDate": "Apr 20, 2026",
+        "currentStage": "Approved",
+        "expectedApproval": "Completed",
+        "benefitAmount": "₹25,000",
+        "status": "approved",
+        "statusText": "Approved",
+        "statusColor": "green"
+      },
+      {
+        "id": "KCC-2026-00341",
+        "schemeName": "Kisan Credit Card Renewal",
+        "submittedDate": "Jan 15, 2026",
+        "currentStage": "Active",
+        "expectedApproval": "Active",
+        "benefitAmount": "₹3,00,000 limit",
+        "status": "active",
+        "statusText": "Active",
+        "statusColor": "green"
+      },
+      {
+        "id": "PMKSY-2026-2291",
+        "schemeName": "PMKSY Micro Irrigation",
+        "submittedDate": "Feb 01, 2026",
+        "currentStage": "Rejected",
+        "expectedApproval": "Rejected",
+        "benefitAmount": "₹45,000",
+        "status": "rejected",
+        "statusText": "Rejected",
+        "statusColor": "red"
+      },
+      {
+        "id": "SHC-2026-55912",
+        "schemeName": "Soil Health Card Scheme",
+        "submittedDate": "Mar 01, 2026",
+        "currentStage": "Approved",
+        "expectedApproval": "Completed",
+        "benefitAmount": "Free Testing",
+        "status": "approved",
+        "statusText": "Approved",
+        "statusColor": "green"
+      },
+      {
+        "id": "ENAM-2026-88123",
+        "schemeName": "e-NAM Registration",
+        "submittedDate": "Feb 10, 2026",
+        "currentStage": "Approved",
+        "expectedApproval": "Completed",
+        "benefitAmount": "Online Trading",
+        "status": "approved",
+        "statusText": "Approved",
+        "statusColor": "green"
+      },
+      {
+        "id": "AIF-2026-33421",
+        "schemeName": "Agriculture Infrastructure Fund",
+        "submittedDate": "May 20, 2026",
+        "currentStage": "Lending Bank Review",
+        "expectedApproval": "Jul 15, 2026",
+        "benefitAmount": "₹5,00,000 limit",
+        "status": "in_review",
+        "statusText": "In Review",
+        "statusColor": "blue"
+      }
+    ],
+    "pipelineStages": [
+      { "name": "Submitted", "applications": ["AIF-2026-33421"] },
+      { "name": "Verification", "applications": ["PMKS-2026-04821"] },
+      { "name": "District Review", "applications": ["PMFBY-2026-00932"] },
+      { "name": "State Review", "applications": [] },
+      { "name": "Approval", "applications": ["HRYSC-2026-1124"] },
+      { "name": "Payment", "applications": [] }
+    ],
+    "rejectionAnalysis": {
+      "schemeName": "PMKSY Micro Irrigation",
+      "applicationId": "PMKSY-2026-2291",
+      "reason": "Incomplete drip irrigation installation certificate",
+      "missingDocuments": "Installation certificate from empanelled vendor",
+      "suggestedFix": "Upload completion certificate from Haryana Irrigation Dept empanelled vendor"
+    }
+  },
+  "benefitsWalletData": {
+    "summaryCards": {
+      "lifetimeBenefits": "₹1,24,200",
+      "currentYear": "₹48,700",
+      "pending": "₹15,000",
+      "upcoming90Days": "₹12,000"
+    },
+    "transactionLedger": [
+      {
+        "date": "Jun 20, 2026",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "1st Installment (Rabi)",
+        "amount": "₹2,000",
+        "status": "pending",
+        "referenceNo": "PMKS-NR-2026-88234",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Apr 15, 2026",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "3rd Installment (Kharif)",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2026-66221",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Mar 10, 2026",
+        "scheme": "Soil Health Card Scheme",
+        "installment": "Subsidy Benefit (Testing)",
+        "amount": "₹1,000",
+        "status": "success",
+        "referenceNo": "SHC-SUB-2026-992",
+        "mode": "Direct Benefit Transfer"
+      },
+      {
+        "date": "Jan 20, 2026",
+        "scheme": "Kisan Credit Card",
+        "installment": "Interest Subvention",
+        "amount": "₹1,700",
+        "status": "success",
+        "referenceNo": "KCC-SUB-2026-882",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Dec 15, 2025",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "2nd Installment",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2025-44211",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Aug 20, 2025",
+        "scheme": "PMFBY Crop Insurance",
+        "installment": "Claim Settlement (Rice Flood)",
+        "amount": "₹22,000",
+        "status": "success",
+        "referenceNo": "PMFBY-HR-2025-4432",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Jul 10, 2025",
+        "scheme": "Haryana SC Farmer Scheme",
+        "installment": "One-time Benefit",
+        "amount": "₹25,000",
+        "status": "success",
+        "referenceNo": "HRYSC-HR-2025-1124",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Apr 15, 2025",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "1st Installment",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2025-11249",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Dec 20, 2024",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "3rd Installment",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2024-99821",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Aug 15, 2024",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "2nd Installment",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2024-77654",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Apr 10, 2024",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "1st Installment",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2024-11029",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Dec 18, 2023",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "3rd Installment",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2023-33921",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Aug 12, 2023",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "2nd Installment",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2023-22102",
+        "mode": "Direct Bank Transfer"
+      },
+      {
+        "date": "Apr 08, 2023",
+        "scheme": "PM Kisan Samman Nidhi",
+        "installment": "1st Installment",
+        "amount": "₹2,000",
+        "status": "success",
+        "referenceNo": "PMKS-NR-2023-99021",
+        "mode": "Direct Bank Transfer"
+      }
+    ],
+    "monthlyBenefits": [
+      { "month": "Jan", "amount": 2000 },
+      { "month": "Feb", "amount": 0 },
+      { "month": "Mar", "amount": 2700 },
+      { "month": "Apr", "amount": 2000 },
+      { "month": "May", "amount": 0 },
+      { "month": "Jun", "amount": 0 },
+      { "month": "Jul", "amount": 25000 },
+      { "month": "Aug", "amount": 22000 },
+      { "month": "Sep", "amount": 0 },
+      { "month": "Oct", "amount": 2000 },
+      { "month": "Nov", "amount": 0 },
+      { "month": "Dec", "amount": 2000 }
+    ],
+    "yearlyBenefitsByScheme": [
+      {
+        "year": "2023",
+        "PM Kisan": 6000,
+        "PMFBY": 0,
+        "SC Scheme": 0,
+        "KCC": 0
+      },
+      {
+        "year": "2024",
+        "PM Kisan": 6000,
+        "PMFBY": 0,
+        "SC Scheme": 0,
+        "KCC": 1700
+      },
+      {
+        "year": "2025",
+        "PM Kisan": 6000,
+        "PMFBY": 22000,
+        "SC Scheme": 25000,
+        "KCC": 1700
+      },
+      {
+        "year": "2026",
+        "PM Kisan": 4000,
+        "PMFBY": 0,
+        "SC Scheme": 25000,
+        "KCC": 1700
+      }
+    ],
+    "forecastData": [
+      {
+        "month": "Jun 26",
+        "projected": 2000,
+        "actual": null,
+        "baseline": 2000
+      },
+      {
+        "month": "Jul 26",
+        "projected": 3500,
+        "actual": null,
+        "baseline": 2000
+      },
+      {
+        "month": "Aug 26",
+        "projected": 15000,
+        "actual": null,
+        "baseline": 2000
+      },
+      {
+        "month": "Sep 26",
+        "projected": 3500,
+        "actual": null,
+        "baseline": 2000
+      },
+      {
+        "month": "Oct 26",
+        "projected": 2000,
+        "actual": null,
+        "baseline": 2000
+      },
+      {
+        "month": "Nov 26",
+        "projected": 2000,
+        "actual": null,
+        "baseline": 2000
+      },
+      {
+        "month": "Dec 26",
+        "projected": 4000,
+        "actual": null,
+        "baseline": 2000
+      }
+    ],
+    "totalForecast": "₹82,000"
+  },
+  "subsidyData": {
+    "categories": [
+      "Irrigation",
+      "Machinery",
+      "Solar",
+      "Storage",
+      "Cold Chain",
+      "Greenhouse",
+      "Organic",
+      "Livestock"
+    ],
+    "subsidies": {
+      "Irrigation": [
+        {
+          "id": 1,
+          "name": "PMKSY Drip Irrigation",
+          "department": "Ministry of Water Resources",
+          "subsidyPercent": 55,
+          "maxAmount": "₹45,000",
+          "farmerContribution": "₹36,818",
+          "window": "Jan 1 – Dec 31, 2026",
+          "eligibilityChips": [
+            "SC Farmers",
+            "Small Farmers",
+            "Drip Irrigation"
+          ],
+          "extraInfo": "SC farmers get extra 10% subsidy",
+          "color": "#132a13"
+        },
+        {
+          "id": 2,
+          "name": "Haryana Micro Irrigation Scheme",
+          "department": "Haryana Agriculture Dept",
+          "subsidyPercent": 75,
+          "maxAmount": "₹60,000",
+          "farmerContribution": "₹20,000",
+          "window": "Jan 1 – Dec 31, 2026",
+          "eligibilityChips": [
+            "Small Farmers Only",
+            "Haryana Resident",
+            "Below 5 acres"
+          ],
+          "extraInfo": "Priority for groundwater critical blocks",
+          "color": "#31572c"
+        }
+      ],
+      "Machinery": [
+        {
+          "id": 9,
+          "name": "Sub-Mission on Agricultural Mechanization",
+          "department": "Ministry of Agriculture",
+          "subsidyPercent": 40,
+          "maxAmount": "₹80,000",
+          "farmerContribution": "₹1,20,000",
+          "window": "Rolling Scheme",
+          "eligibilityChips": ["Small Farmers", "SC/ST", "Tractor Owner"],
+          "extraInfo": "Subsidy for rotavators, power tillers, seed drills",
+          "color": "#4f772d"
+        }
+      ],
+      "Solar": [
+        {
+          "id": 3,
+          "name": "PM Kusum Solar Pump Component-B",
+          "department": "Ministry of New & Renewable Energy",
+          "subsidyPercent": 60,
+          "maxAmount": "₹1,20,000",
+          "farmerContribution": "₹80,000",
+          "window": "Jun 1 – Jun 30, 2026",
+          "eligibilityChips": ["Drip Irrigation", "Off-Grid", "Open Wells"],
+          "extraInfo": "Includes 5 years manufacturer warranty & insurance",
+          "color": "#90a955"
+        }
+      ],
+      "Storage": [
+        {
+          "id": 19,
+          "name": "Agri Infrastructure Storage Subsidy",
+          "department": "NABARD",
+          "subsidyPercent": 25,
+          "maxAmount": "₹2,50,000",
+          "farmerContribution": "₹7,50,000",
+          "window": "Rolling Scheme",
+          "eligibilityChips": ["Individual Farmer", "Storage Godown"],
+          "extraInfo": "To build on-farm storage godowns of 100 MT capacity",
+          "color": "#132a13"
+        }
+      ],
+      "Cold Chain": [
+        {
+          "id": 21,
+          "name": "MIDH Cold Storage Scheme",
+          "department": "National Horticulture Board",
+          "subsidyPercent": 35,
+          "maxAmount": "₹5,00,000",
+          "farmerContribution": "₹9,50,000",
+          "window": "Rolling Scheme",
+          "eligibilityChips": ["Horticulture crop grower", "Cold room setup"],
+          "extraInfo": "Applicable for cold storage of fruits and vegetables",
+          "color": "#31572c"
+        }
+      ],
+      "Greenhouse": [
+        {
+          "id": 13,
+          "name": "Polyhouse & Shade Net Subsidy",
+          "department": "State Horticulture Mission",
+          "subsidyPercent": 50,
+          "maxAmount": "₹3,50,000",
+          "farmerContribution": "₹3,50,000",
+          "window": "Closes Jul 31, 2026",
+          "eligibilityChips": [
+            "Protected Cultivation",
+            "Flower/Vegetable grower"
+          ],
+          "extraInfo": "Available for polyhouse area of 1000 sq. meters",
+          "color": "#4f772d"
+        }
+      ],
+      "Organic": [
+        {
+          "id": 11,
+          "name": "PKVY Organic Cluster Mobilization",
+          "department": "Ministry of Agriculture",
+          "subsidyPercent": 100,
+          "maxAmount": "₹50,000",
+          "farmerContribution": "₹0",
+          "window": "Rolling Scheme",
+          "eligibilityChips": ["Organic Farming", "Cluster Member"],
+          "extraInfo": "Distributed over 3 years for inputs & biofertilizers",
+          "color": "#90a955"
+        }
+      ],
+      "Livestock": [
+        {
+          "id": 8,
+          "name": "National Livestock Mission Breed Subsidy",
+          "department": "Ministry of Fisheries & Animal Husbandry",
+          "subsidyPercent": 50,
+          "maxAmount": "₹50,000",
+          "farmerContribution": "₹50,000",
+          "window": "Closes Dec 31, 2026",
+          "eligibilityChips": ["Livestock Owners", "SC/ST Priority"],
+          "extraInfo": "For purchasing elite milch cows or buffaloes",
+          "color": "#132a13"
+        }
+      ]
+    },
+    "roiCalculator": {
+      "investmentRange": [0, 200000],
+      "defaultInvestment": 45000,
+      "defaultSubsidyPercent": 55,
+      "waterSavingsPerYear": "₹18,000",
+      "paybackExample": 2.3
+    }
+  },
+  "cropInsuranceData": {
+    "overviewCards": {
+      "insuredCrops": 3,
+      "coverageValue": "₹2,60,000",
+      "premiumPaid": "₹4,740",
+      "claimsSubmitted": 1,
+      "claimsApproved": 1,
+      "claimsAmount": "₹22,000"
+    },
+    "coverageCards": [
+      {
+        "crop": "Wheat",
+        "season": "Rabi 2025-26",
+        "scheme": "PMFBY",
+        "sumInsured": "₹1,00,000",
+        "premium": "₹1,500",
+        "status": "Active",
+        "seasonPeriod": "Nov 2025 – Apr 2026"
+      },
+      {
+        "crop": "Rice",
+        "season": "Kharif 2025",
+        "scheme": "PMFBY",
+        "sumInsured": "₹80,000",
+        "premium": "₹1,740",
+        "status": "Claim Settled",
+        "seasonPeriod": "Jun 2025 – Oct 2025",
+        "claimAmount": "₹22,000"
+      },
+      {
+        "crop": "Sugarcane",
+        "season": "Annual 2025-26",
+        "scheme": "PMFBY",
+        "sumInsured": "₹80,000",
+        "premium": "₹1,500",
+        "status": "Active",
+        "seasonPeriod": "Mar 2025 – Feb 2026"
+      }
+    ],
+    "coverageByCrop": [
+      { "name": "Wheat", "value": 40, "amount": 100000, "color": "#132a13" },
+      { "name": "Rice", "value": 30, "amount": 80000, "color": "#31572c" },
+      { "name": "Sugarcane", "value": 30, "amount": 80000, "color": "#4f772d" }
+    ],
+    "premiumVsClaims": [
+      { "year": "2023", "premium": 2800, "claims": 0 },
+      { "year": "2024", "premium": 3240, "claims": 0 },
+      { "year": "2025", "premium": 4740, "claims": 22000 }
+    ],
+    "monthlyClaimsTrend": [
+      { "month": "Jun", "claims": 0 },
+      { "month": "Jul", "claims": 0 },
+      { "month": "Aug", "claims": 0 },
+      { "month": "Sep", "claims": 0 },
+      { "month": "Oct", "claims": 0 },
+      { "month": "Nov", "claims": 22000 },
+      { "month": "Dec", "claims": 0 }
+    ],
+    "claimTracker": {
+      "claimId": "PMFBY-2025-HR-4421",
+      "crop": "Rice",
+      "season": "Kharif 2025",
+      "filedDate": "Nov 15, 2025",
+      "cause": "Excessive rainfall and localized flooding",
+      "compensation": "₹22,000",
+      "timeline": [
+        { "stage": "Filed", "date": "Nov 15, 2025", "status": "completed" },
+        {
+          "stage": "Survey Assigned",
+          "date": "Nov 18, 2025",
+          "status": "completed"
+        },
+        {
+          "stage": "Field Assessment",
+          "date": "Nov 25, 2025",
+          "status": "completed"
+        },
+        {
+          "stage": "State Approval",
+          "date": "Dec 10, 2025",
+          "status": "completed"
+        },
+        {
+          "stage": "Payment Released",
+          "date": "Dec 22, 2025",
+          "status": "completed"
+        }
+      ]
+    },
+    "riskIntelligence": {
+      "district": "Sonipat",
+      "risks": [
+        { "name": "Flood Risk", "level": "Moderate", "color": "blue" },
+        { "name": "Drought Risk", "level": "Low", "color": "green" },
+        { "name": "Heat Stress", "level": "High", "color": "red" },
+        { "name": "Pest Alert", "level": "Moderate", "color": "yellow" }
+      ],
+      "recommendations": [
+        "Sow heat-tolerant wheat varieties (e.g. DBW 187) early in Rabi season.",
+        "Monitor yellow rust outbreak warnings in Sonipat region.",
+        "Clear all field drainage inlets to avoid waterlogging during intense Kharif rain spells."
+      ]
+    }
+  },
+  "loanCenterData": {
+    "creditDashboard": {
+      "eligibleLimit": "₹3,00,000",
+      "used": "₹85,000",
+      "available": "₹2,15,000",
+      "interestSubsidySaved": "₹1,700"
+    },
+    "creditUtilization": 28,
+    "creditScore": {
+      "govtLoanReadiness": 85,
+      "repaymentPerformance": 96,
+      "creditUtilization": 28
+    },
+    "loanPrograms": [
+      {
+        "program": "KCC (Crop Loan)",
+        "limit": "₹3,00,000",
+        "interestRate": "7%",
+        "subsidy": "3% subvention + 2% prompt repayment interest relief",
+        "status": "Active",
+        "statusColor": "green"
+      },
+      {
+        "program": "Tractor Loan (NABARD)",
+        "limit": "₹5,00,000",
+        "interestRate": "8.5%",
+        "subsidy": "25% capital subsidy",
+        "status": "Eligible",
+        "statusColor": "blue"
+      },
+      {
+        "program": "Solar Pump Loan",
+        "limit": "₹2,00,000",
+        "interestRate": "5%",
+        "subsidy": "30% capital subsidy from state",
+        "status": "Not Applied",
+        "statusColor": "gray"
+      },
+      {
+        "program": "Livestock Purchase Loan",
+        "limit": "₹1,50,000",
+        "interestRate": "7.2%",
+        "subsidy": "33% subsidy for SC farmers",
+        "status": "Eligible",
+        "statusColor": "blue"
+      },
+      {
+        "program": "Warehouse Receipt Loan",
+        "limit": "₹2,50,000",
+        "interestRate": "6%",
+        "subsidy": "Post-harvest interest concession",
+        "status": "Eligible",
+        "statusColor": "blue"
+      },
+      {
+        "program": "Micro Irrigation Loan",
+        "limit": "₹1,00,000",
+        "interestRate": "5.5%",
+        "subsidy": "Linked with PMKSY micro irrigation program",
+        "status": "Eligible",
+        "statusColor": "blue"
+      },
+      {
+        "program": "Cold Storage Infra Loan",
+        "limit": "₹8,00,000",
+        "interestRate": "8%",
+        "subsidy": "3% interest subvention under AIF",
+        "status": "Eligible",
+        "statusColor": "blue"
+      },
+      {
+        "program": "Land Purchase Loan",
+        "limit": "₹10,00,000",
+        "interestRate": "9%",
+        "subsidy": "No subsidy",
+        "status": "Ineligible",
+        "statusColor": "red"
+      }
+    ],
+    "repaymentSchedule": [
+      {
+        "month": "Jun 2026",
+        "amount": 14167,
+        "status": "upcoming",
+        "dueDate": "Jun 15"
+      },
+      {
+        "month": "Jul 2026",
+        "amount": 14167,
+        "status": "upcoming",
+        "dueDate": "Jul 15"
+      },
+      {
+        "month": "Aug 2026",
+        "amount": 14167,
+        "status": "upcoming",
+        "dueDate": "Aug 15"
+      },
+      {
+        "month": "Sep 2026",
+        "amount": 14167,
+        "status": "upcoming",
+        "dueDate": "Sep 15"
+      },
+      {
+        "month": "Oct 2026",
+        "amount": 14167,
+        "status": "upcoming",
+        "dueDate": "Oct 15"
+      },
+      {
+        "month": "Nov 2026",
+        "amount": 14167,
+        "status": "upcoming",
+        "dueDate": "Nov 15"
+      }
+    ]
+  },
+  "documentVaultData": {
+    "storageSummary": {
+      "totalDocuments": 10,
+      "verified": 6,
+      "pendingReview": 2,
+      "expiringSoon": 1,
+      "missing": 1
+    },
+    "documents": [
+      {
+        "id": 1,
+        "name": "Aadhaar Card",
+        "type": "Identity",
+        "status": "Verified",
+        "statusType": "verified",
+        "uploadDate": "Mar 2024",
+        "expiryDate": "Lifetime",
+        "iconName": "IdCard"
+      },
+      {
+        "id": 2,
+        "name": "PAN Card",
+        "type": "Identity",
+        "status": "Verified",
+        "statusType": "verified",
+        "uploadDate": "Mar 2024",
+        "expiryDate": "Lifetime",
+        "iconName": "CreditCard"
+      },
+      {
+        "id": 3,
+        "name": "Land Records (Khasra/Khatauni)",
+        "type": "Land",
+        "status": "Verified",
+        "statusType": "verified",
+        "uploadDate": "Mar 2024",
+        "expiryDate": "Valid",
+        "iconName": "FileText"
+      },
+      {
+        "id": 4,
+        "name": "Bank Passbook",
+        "type": "Financial",
+        "status": "Seeding Pending",
+        "statusType": "pending",
+        "uploadDate": "Mar 2024",
+        "expiryDate": null,
+        "iconName": "Wallet"
+      },
+      {
+        "id": 5,
+        "name": "Income Certificate",
+        "type": "Income",
+        "status": "Under Review",
+        "statusType": "pending",
+        "uploadDate": "May 2026",
+        "expiryDate": "May 2027",
+        "iconName": "FileText"
+      },
+      {
+        "id": 6,
+        "name": "Caste Certificate (SC)",
+        "type": "Category",
+        "status": "Expiring",
+        "statusType": "expiring",
+        "uploadDate": "Jun 2021",
+        "expiryDate": "Jun 2026",
+        "iconName": "FileText"
+      },
+      {
+        "id": 7,
+        "name": "Crop Insurance Policy (Rabi)",
+        "type": "Insurance",
+        "status": "Verified",
+        "statusType": "verified",
+        "uploadDate": "Nov 2025",
+        "expiryDate": "Apr 2026",
+        "iconName": "Shield"
+      },
+      {
+        "id": 8,
+        "name": "Tractor RC Document",
+        "type": "Asset",
+        "status": "Missing",
+        "statusType": "missing",
+        "uploadDate": null,
+        "expiryDate": null,
+        "iconName": "Tractor",
+        "requiredFor": "Machinery subsidy (₹80,000)"
+      },
+      {
+        "id": 9,
+        "name": "Drip System Invoice",
+        "type": "Asset",
+        "status": "Verified",
+        "statusType": "verified",
+        "uploadDate": "Feb 2026",
+        "expiryDate": null,
+        "iconName": "FileText"
+      },
+      {
+        "id": 10,
+        "name": "Soil Health Test Report",
+        "type": "Agriculture",
+        "status": "Verified",
+        "statusType": "verified",
+        "uploadDate": "Mar 2026",
+        "expiryDate": "Mar 2029",
+        "iconName": "FileText"
+      }
+    ],
+    "aiVerificationActions": [
+      {
+        "action": "Renew caste certificate (expiring in 12 days)",
+        "unlocks": "3 state schemes",
+        "benefit": "₹25,000",
+        "priority": "high"
+      },
+      {
+        "action": "Upload tractor RC",
+        "unlocks": "Machinery subsidy",
+        "benefit": "₹40,000",
+        "priority": "medium"
+      },
+      {
+        "action": "Complete bank-Aadhaar seeding",
+        "unlocks": "PM Kisan installment + 5 other schemes",
+        "benefit": "₹1,20,000",
+        "priority": "high"
+      }
+    ],
+    "expiryTimeline": [
+      { "month": "Jun 2026", "documents": ["Caste Certificate"] },
+      { "month": "Jul 2026", "documents": [] },
+      { "month": "Aug 2026", "documents": [] },
+      { "month": "Sep 2026", "documents": [] },
+      { "month": "Oct 2026", "documents": [] },
+      { "month": "Nov 2026", "documents": [] },
+      { "month": "Dec 2026", "documents": [] },
+      { "month": "Jan 2027", "documents": [] },
+      { "month": "Feb 2027", "documents": [] },
+      { "month": "Mar 2027", "documents": [] },
+      { "month": "Apr 2027", "documents": [] },
+      { "month": "May 2027", "documents": ["Income Certificate"] }
+    ]
+  },
+  "scheduleData": {
+    "currentMonth": "June 2026",
+    "events": [
+      {
+        "id": 1,
+        "date": "2026-06-10",
+        "title": "District Agriculture Officer Camp",
+        "location": "Sonipat CSC Center",
+        "type": "training",
+        "priority": "medium",
+        "description": "Visit the village camp for scheme registration, document correction, and direct bank seeding verification"
+      },
+      {
+        "id": 2,
+        "date": "2026-06-15",
+        "title": "KCC Interest Due Date",
+        "amount": "₹14,167",
+        "type": "payment",
+        "priority": "high",
+        "description": "Monthly interest installment payment due for KCC crop loan"
+      },
+      {
+        "id": 3,
+        "date": "2026-06-20",
+        "title": "PM Kisan Installment Scheduled",
+        "amount": "₹2,000",
+        "type": "installment",
+        "priority": "high",
+        "description": "1st installment release for the financial year under PM Kisan portal"
+      },
+      {
+        "id": 4,
+        "date": "2026-06-25",
+        "title": "PMKSY Solar Application closes",
+        "type": "deadline",
+        "priority": "medium",
+        "description": "Last date to apply for solar micro-irrigation system subsidies"
+      },
+      {
+        "id": 5,
+        "date": "2026-06-30",
+        "title": "PMFBY Enrollment Deadline",
+        "type": "deadline",
+        "priority": "urgent",
+        "description": "Kharif crop insurance enrollment closes. Protect Rice and Sugarcane crop cover"
+      }
+    ],
+    "monthEvents": [
+      {
+        "date": "2026-06-10",
+        "events": [
+          {
+            "title": "District Agriculture Officer Camp",
+            "type": "training",
+            "priority": "medium"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-15",
+        "events": [
+          {
+            "title": "KCC Interest Due Date",
+            "type": "payment",
+            "priority": "high"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-20",
+        "events": [
+          {
+            "title": "PM Kisan Installment Expected",
+            "type": "installment",
+            "priority": "high"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-25",
+        "events": [
+          {
+            "title": "PMKSY Solar Application closes",
+            "type": "deadline",
+            "priority": "medium"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-30",
+        "events": [
+          {
+            "title": "PMFBY Enrollment Deadline",
+            "type": "deadline",
+            "priority": "urgent"
+          }
+        ]
+      }
+    ],
+    "alerts": [
+      {
+        "id": 1,
+        "type": "urgent",
+        "title": "PMFBY enrollment closes June 30",
+        "daysLeft": 12,
+        "impact": "₹1,80,000 coverage at risk",
+        "action": "Apply Now"
+      },
+      {
+        "id": 2,
+        "type": "urgent",
+        "title": "Caste certificate expires",
+        "daysLeft": 12,
+        "impact": "3 state schemes affected",
+        "action": "Renew Now"
+      },
+      {
+        "id": 3,
+        "type": "upcoming",
+        "title": "PM Kisan installment June 20",
+        "impact": "Blocked by bank seeding",
+        "action": "Fix Seeding"
+      },
+      {
+        "id": 4,
+        "type": "info",
+        "title": "Haryana Solar Subsidy window open",
+        "impact": "60% subsidy available",
+        "action": "Learn More"
+      }
+    ],
+    "missedOpportunities": [
+      {
+        "scheme": "PMKSY Application",
+        "closedDate": "Sept 30, 2025",
+        "lostAmount": "₹45,000",
+        "reason": "Application window closed before verification"
+      },
+      {
+        "scheme": "Haryana Women Farmer Scheme",
+        "closedDate": "Aug 15, 2025",
+        "lostAmount": "₹25,000",
+        "reason": "Not applicable to male farmer profile"
+      }
+    ]
+  },
+  "aiAdvisorData": {
+    "suggestedQuestions": [
+      "Which scheme should I apply for first?",
+      "Why is my PM Kisan payment delayed?",
+      "How much can I get for drip irrigation?",
+      "Am I eligible for tractor subsidy?",
+      "What do I need to do before June 30?"
+    ],
+    "sampleConversations": [
+      {
+        "id": 1,
+        "userQuestion": "Why is my PM Kisan payment delayed?",
+        "aiResponse": {
+          "title": "PM Kisan Payment Status",
+          "summary": "Your PM Kisan installment (₹2,000) is blocked due to incomplete Aadhaar-Bank seeding.",
+          "rootCause": "Your bank account ending 4821 is not seeded with Aadhaar number in the NPCI mapper.",
+          "steps": [
+            "Visit your bank branch with Aadhaar card",
+            "Request 'Aadhaar seeding and KYC verification for PM Kisan'",
+            "SMS confirmation arrives within 24–48 hours"
+          ],
+          "result": "Once done: Payment releases in the next batch (typically within 7–14 days)",
+          "deadline": "Complete before June 20 to receive this installment",
+          "helpline": "PM Kisan Helpline — 155261 | pmkisan.gov.in"
+        }
+      },
+      {
+        "id": 2,
+        "userQuestion": "How much can I get for solar pump?",
+        "aiResponse": {
+          "title": "PM Kusum Solar Pump Subsidy",
+          "summary": "You are eligible for ₹1,20,000 benefit under PM Kusum Component B",
+          "details": "Based on your profile: 4.5 acres land, drip irrigation system, Haryana state",
+          "matchScore": "94%",
+          "requiredDocs": [
+            "Land ownership documents",
+            "Drip irrigation installation certificate",
+            "Solar feasibility report",
+            "Aadhaar card",
+            "Bank account details"
+          ],
+          "applicationWindow": "Open until June 30, 2026",
+          "benefit": "₹1,20,000 (60% subsidy on solar pump installation)"
+        }
+      }
+    ],
+    "farmerContext": {
+      "name": "Rajesh Kumar",
+      "location": "Sonipat, Haryana",
+      "eligibleSchemes": 22,
+      "activeApplications": 6,
+      "benefitsReceived": "₹64,200",
+      "pendingBenefits": "₹15,000"
+    }
+  },
   "fpoOpportunityData": {
     "index": { "score": 84, "trend": "+6.5%" },
     "kpis": [
-      { "id": "kpi-opportunities", "title": "Eligible Opportunities", "value": "42 Available", "subtext": "+8 new this month · 3 expiring soon", "trend": "+8 opportunities", "trendType": "success" },
-      { "id": "kpi-potential", "title": "Potential Funding", "value": "₹7.80 Cr", "subtext": "Infra: ₹4Cr · Proc: ₹1.5Cr · Credit: ₹2.3Cr", "trend": "Max benefit path active", "trendType": "info" },
-      { "id": "kpi-pipeline", "title": "Funding Pipeline", "value": "12 In-Flight", "subtext": "₹2.5 Cr under review · ₹1.2 Cr awaiting release", "trend": "Average: 45 days review", "trendType": "info" },
-      { "id": "kpi-secured", "title": "Funding Secured", "value": "₹5.40 Cr", "subtext": "Current Year: ₹1.8 Cr · Lifetime: ₹12.5 Cr", "trend": "+24% growth YoY", "trendType": "success" },
-      { "id": "kpi-readiness", "title": "Compliance Readiness", "value": "84%", "subtext": "Readiness: Good · 3 critical action items", "trend": "+4.2% from audit", "trendType": "success" },
-      { "id": "kpi-coverage", "title": "Member Scheme Coverage", "value": "68.5%", "subtext": "480 covered · 220 uncovered members", "trend": "+5% expansion", "trendType": "success" }
+      {
+        "id": "kpi-opportunities",
+        "title": "Eligible Opportunities",
+        "value": "42 Available",
+        "subtext": "+8 new this month · 3 expiring soon",
+        "trend": "+8 opportunities",
+        "trendType": "success"
+      },
+      {
+        "id": "kpi-potential",
+        "title": "Potential Funding",
+        "value": "₹7.80 Cr",
+        "subtext": "Infra: ₹4Cr · Proc: ₹1.5Cr · Credit: ₹2.3Cr",
+        "trend": "Max benefit path active",
+        "trendType": "info"
+      },
+      {
+        "id": "kpi-pipeline",
+        "title": "Funding Pipeline",
+        "value": "12 In-Flight",
+        "subtext": "₹2.5 Cr under review · ₹1.2 Cr awaiting release",
+        "trend": "Average: 45 days review",
+        "trendType": "info"
+      },
+      {
+        "id": "kpi-secured",
+        "title": "Funding Secured",
+        "value": "₹5.40 Cr",
+        "subtext": "Current Year: ₹1.8 Cr · Lifetime: ₹12.5 Cr",
+        "trend": "+24% growth YoY",
+        "trendType": "success"
+      },
+      {
+        "id": "kpi-readiness",
+        "title": "Compliance Readiness",
+        "value": "84%",
+        "subtext": "Readiness: Good · 3 critical action items",
+        "trend": "+4.2% from audit",
+        "trendType": "success"
+      },
+      {
+        "id": "kpi-coverage",
+        "title": "Member Scheme Coverage",
+        "value": "68.5%",
+        "subtext": "480 covered · 220 uncovered members",
+        "trend": "+5% expansion",
+        "trendType": "success"
+      }
     ],
     "distribution": [
-      { "name": "Infrastructure", "value": 40, "amount": 40000000, "color": "#132a13" },
-      { "name": "Value Addition", "value": 15, "amount": 15000000, "color": "#31572c" },
+      {
+        "name": "Infrastructure",
+        "value": 40,
+        "amount": 40000000,
+        "color": "#132a13"
+      },
+      {
+        "name": "Value Addition",
+        "value": 15,
+        "amount": 15000000,
+        "color": "#31572c"
+      },
       { "name": "Credit", "value": 20, "amount": 20000000, "color": "#4f772d" },
-      { "name": "Market Access", "value": 10, "amount": 10000000, "color": "#90a955" },
-      { "name": "Capacity Building", "value": 8, "amount": 8000000, "color": "#ecf39e" },
-      { "name": "Insurance Support", "value": 5, "amount": 5000000, "color": "#132a13" },
-      { "name": "Export Promotion", "value": 2, "amount": 2000000, "color": "#31572c" }
+      {
+        "name": "Market Access",
+        "value": 10,
+        "amount": 10000000,
+        "color": "#90a955"
+      },
+      {
+        "name": "Capacity Building",
+        "value": 8,
+        "amount": 8000000,
+        "color": "#ecf39e"
+      },
+      {
+        "name": "Insurance Support",
+        "value": 5,
+        "amount": 5000000,
+        "color": "#132a13"
+      },
+      {
+        "name": "Export Promotion",
+        "value": 2,
+        "amount": 2000000,
+        "color": "#31572c"
+      }
     ],
     "deadlines": [
-      { "priority": "HIGH", "action": "AIF Infrastructure Grant", "type": "Application", "daysLeft": 12, "amount": "₹2.0 Cr", "color": "red" },
-      { "priority": "HIGH", "action": "FPO Annual General Meeting Audit", "type": "Compliance", "daysLeft": 15, "amount": "Unlocks ₹1.5 Cr", "color": "red" },
-      { "priority": "MEDIUM", "action": "PM-Formalisation of Micro Food Enterprises", "type": "Subsidies", "daysLeft": 28, "amount": "₹50 Lakh", "color": "orange" },
-      { "priority": "LOW", "action": "Horticulture Development Scheme", "type": "Subsidies", "daysLeft": 45, "amount": "₹30 Lakh", "color": "green" },
-      { "priority": "LOW", "action": "Caste Sub-plan (SC Scheme) renewal", "type": "Renewal", "daysLeft": 60, "amount": "₹15 Lakh", "color": "green" }
+      {
+        "priority": "HIGH",
+        "action": "AIF Infrastructure Grant",
+        "type": "Application",
+        "daysLeft": 12,
+        "amount": "₹2.0 Cr",
+        "color": "red"
+      },
+      {
+        "priority": "HIGH",
+        "action": "FPO Annual General Meeting Audit",
+        "type": "Compliance",
+        "daysLeft": 15,
+        "amount": "Unlocks ₹1.5 Cr",
+        "color": "red"
+      },
+      {
+        "priority": "MEDIUM",
+        "action": "PM-Formalisation of Micro Food Enterprises",
+        "type": "Subsidies",
+        "daysLeft": 28,
+        "amount": "₹50 Lakh",
+        "color": "orange"
+      },
+      {
+        "priority": "LOW",
+        "action": "Horticulture Development Scheme",
+        "type": "Subsidies",
+        "daysLeft": 45,
+        "amount": "₹30 Lakh",
+        "color": "green"
+      },
+      {
+        "priority": "LOW",
+        "action": "Caste Sub-plan (SC Scheme) renewal",
+        "type": "Renewal",
+        "daysLeft": 60,
+        "amount": "₹15 Lakh",
+        "color": "green"
+      }
     ],
+    "pipelineForecast": [
+      { "name": "30 Days", "projected": 15, "actual": 12, "unit": "Lakhs" },
+      { "name": "90 Days", "projected": 45, "actual": 35, "unit": "Lakhs" },
+      { "name": "180 Days", "projected": 120, "actual": 95, "unit": "Lakhs" },
+      { "name": "12 Months", "projected": 380, "actual": 310, "unit": "Lakhs" }
+    ],
+    "pipelineSummary": {
+      "totalPipelineValue": "8.45",
+      "avgDaysInStage": 18,
+      "conversionRate": "42",
+      "highRiskCount": 2
+    },
     "explorer": [
       {
         "id": "opp-1",
@@ -170,7 +2120,12 @@
         "probability": "92%",
         "complexity": "Medium",
         "deadline": "22 Jun 2026",
-        "requiredDocs": ["Detailed Project Report (DPR)", "Land Registry", "Board Resolution", "Financial Audits"],
+        "requiredDocs": [
+          "Detailed Project Report (DPR)",
+          "Land Registry",
+          "Board Resolution",
+          "Financial Audits"
+        ],
         "approvalTime": "45-60 days",
         "impact": "High (Storage and warehouse expansion)",
         "description": "Provides 3% interest subvention and credit guarantee coverage for post-harvest management infrastructure projects.",
@@ -187,74 +2142,128 @@
         "probability": "84%",
         "complexity": "High",
         "deadline": "15 Jul 2026",
-        "requiredDocs": ["Processing Unit Feasibility", "Board Resolution", "GST Returns", "FSSAI License Draft"],
+        "requiredDocs": [
+          "Processing Unit Feasibility",
+          "Board Resolution",
+          "GST Returns",
+          "FSSAI License Draft"
+        ],
         "approvalTime": "60-90 days",
         "impact": "High (Milling and value addition setup)",
         "description": "Supports micro food processing units with 35% subsidy for technology upgradation, capacity building, and branding.",
         "roi": "18.2%",
         "risk": "Medium"
-      },
-      {
-        "id": "opp-3",
-        "name": "SMAM Agricultural Mechanization Hub Grant",
-        "department": "Department of Agriculture & Cooperation",
-        "amount": "₹75 Lakh",
-        "type": "Machinery Subsidy",
-        "matchScore": 85,
-        "probability": "78%",
-        "complexity": "Medium",
-        "deadline": "30 Jun 2026",
-        "requiredDocs": ["Member Demand List", "Custom Hiring Proposal", "FPO Registration Certificate"],
-        "approvalTime": "30-45 days",
-        "impact": "Medium (Custom Hiring Center equipment)",
-        "description": "Up to 80% subsidy for setting up Custom Hiring Centers (CHCs) of agricultural machinery for FPO members.",
-        "roi": "15.0%",
-        "risk": "Low"
-      },
-      {
-        "id": "opp-4",
-        "name": "National Horticulture Board Cold Chain Subsidy",
-        "department": "National Horticulture Board",
-        "amount": "₹1.20 Cr",
-        "type": "Capital Subsidy",
-        "matchScore": 76,
-        "probability": "65%",
-        "complexity": "Very High",
-        "deadline": "15 Aug 2026",
-        "requiredDocs": ["DPR from Accredited Consultant", "Land Title Deeds", "Bank Appraisal Report", "GST Compliance"],
-        "approvalTime": "90-120 days",
-        "impact": "High (Multi-chamber cold storage unit)",
-        "description": "Capital investment subsidy of 35% to 50% for commercial horticulture projects including cold rooms, pack houses, and reefer vans.",
-        "roi": "22.1%",
-        "risk": "High"
-      },
-      {
-        "id": "opp-5",
-        "name": "NCDC Cooperative Capacity Building Scheme",
-        "department": "National Cooperative Development Corporation",
-        "amount": "₹30 Lakh",
-        "type": "Capacity Grant",
-        "matchScore": 92,
-        "probability": "95%",
-        "complexity": "Low",
-        "deadline": "Ongoing",
-        "requiredDocs": ["Audited Financials (3 Years)", "Members Training Calendar", "Registration Certificate"],
-        "approvalTime": "15-21 days",
-        "impact": "Medium (Member training and brand exposure)",
-        "description": "Financial assistance for FPOs and cooperatives to train management, establish IT networks, and set up offices.",
-        "roi": "12.0%",
-        "risk": "Low"
       }
     ],
     "pipeline": [
-      { "id": "card-1", "name": "Warehouse Infrastructure Grant", "amount": "₹1.5 Cr", "stage": "Submitted", "officer": "Ramesh Singh", "lastUpdate": "2 days ago", "daysInStage": 14, "risk": "Low", "decisionDate": "15 Jul 2026" },
-      { "id": "card-2", "name": "Custom Hiring Center Subsidy", "amount": "₹80 Lakh", "stage": "Under Review", "officer": "Anil Dev", "lastUpdate": "1 day ago", "daysInStage": 25, "risk": "Medium", "decisionDate": "30 Jun 2026" },
-      { "id": "card-3", "name": "Cold Storage Capital Subvention", "amount": "₹2.2 Cr", "stage": "Preparing", "officer": "Preeti Sen", "lastUpdate": "5 days ago", "daysInStage": 8, "risk": "High", "decisionDate": "12 Aug 2026" },
-      { "id": "card-4", "name": "Member Seed Subsidy Allocation", "amount": "₹15 Lakh", "stage": "Approved", "officer": "Ramesh Singh", "lastUpdate": "Today", "daysInStage": 2, "risk": "Low", "decisionDate": "Released" },
-      { "id": "card-5", "name": "FPO Marketing & Branding Subsidy", "amount": "₹25 Lakh", "stage": "Clarification Requested", "officer": "Vipul Verma", "lastUpdate": "3 days ago", "daysInStage": 12, "risk": "High", "decisionDate": "20 Jul 2026" },
-      { "id": "card-6", "name": "NCDC Office IT Subsidy", "amount": "₹30 Lakh", "stage": "Disbursed", "officer": "Preeti Sen", "lastUpdate": "1 week ago", "daysInStage": 30, "risk": "Low", "decisionDate": "Completed" }
+      {
+        "id": "card-1",
+        "name": "Warehouse Infrastructure Grant",
+        "amount": "₹1.5 Cr",
+        "stage": "Submitted",
+        "officer": "Ramesh Singh",
+        "lastUpdate": "2 days ago",
+        "daysInStage": 14,
+        "risk": "Low",
+        "decisionDate": "15 Jul 2026",
+        "matchScore": 96,
+        "complexity": "Medium",
+        "deadline": "22 Jun 2026",
+        "type": "Infrastructure",
+        "progress": 75
+      },
+      {
+        "id": "card-2",
+        "name": "Custom Hiring Center Subsidy",
+        "amount": "₹80 Lakh",
+        "stage": "Under Review",
+        "officer": "Anil Dev",
+        "lastUpdate": "1 day ago",
+        "daysInStage": 25,
+        "risk": "Medium",
+        "decisionDate": "30 Jun 2026",
+        "matchScore": 85,
+        "complexity": "Medium",
+        "deadline": "30 Jun 2026",
+        "type": "Machinery",
+        "progress": 60
+      },
+      {
+        "id": "card-3",
+        "name": "Cold Storage Capital Subvention",
+        "amount": "₹2.2 Cr",
+        "stage": "Preparing",
+        "officer": "Preeti Sen",
+        "lastUpdate": "5 days ago",
+        "daysInStage": 8,
+        "risk": "High",
+        "decisionDate": "12 Aug 2026",
+        "matchScore": 78,
+        "complexity": "High",
+        "deadline": "15 Aug 2026",
+        "type": "Infrastructure",
+        "progress": 40
+      },
+      {
+        "id": "card-4",
+        "name": "Member Seed Subsidy Allocation",
+        "amount": "₹15 Lakh",
+        "stage": "Approved",
+        "officer": "Ramesh Singh",
+        "lastUpdate": "Today",
+        "daysInStage": 2,
+        "risk": "Low",
+        "decisionDate": "Released",
+        "matchScore": 92,
+        "complexity": "Low",
+        "deadline": null,
+        "type": "Subsidy",
+        "progress": 100
+      },
+      {
+        "id": "card-5",
+        "name": "FPO Marketing & Branding Subsidy",
+        "amount": "₹25 Lakh",
+        "stage": "Clarification Requested",
+        "officer": "Vipul Verma",
+        "lastUpdate": "3 days ago",
+        "daysInStage": 12,
+        "risk": "High",
+        "decisionDate": "20 Jul 2026",
+        "matchScore": 82,
+        "complexity": "Medium",
+        "deadline": "20 Jul 2026",
+        "type": "Market Access",
+        "progress": 65
+      },
+      {
+        "id": "card-6",
+        "name": "NCDC Office IT Subsidy",
+        "amount": "₹30 Lakh",
+        "stage": "Disbursed",
+        "officer": "Preeti Sen",
+        "lastUpdate": "1 week ago",
+        "daysInStage": 30,
+        "risk": "Low",
+        "decisionDate": "Completed",
+        "matchScore": 95,
+        "complexity": "Low",
+        "deadline": null,
+        "type": "Capacity Building",
+        "progress": 100
+      }
     ],
-    "pipelineStages": ["Identified", "Preparing", "Ready", "Submitted", "Under Review", "Clarification Requested", "Approved", "Disbursed", "Rejected"],
+    "pipelineStages": [
+      "Identified",
+      "Preparing",
+      "Ready",
+      "Submitted",
+      "Under Review",
+      "Clarification Requested",
+      "Approved",
+      "Disbursed",
+      "Rejected"
+    ],
     "readiness": {
       "overall": 84,
       "components": [
@@ -266,9 +2275,24 @@
         { "name": "Member Readiness", "score": 82 }
       ],
       "missing": [
-        { "name": "Audited Financial Statement FY25-26", "impact": "Blocks AIF & PMFME grants", "value": "₹3.5 Cr", "status": "Missing" },
-        { "name": "Annual General Meeting Resolution", "impact": "Blocks NCDC capacity loans", "value": "₹30 Lakh", "status": "Pending Draft" },
-        { "name": "GST Returns (Q4 Filing)", "impact": "Restricts all tax-linked inputs", "value": "₹20 Lakh", "status": "Overdue" }
+        {
+          "name": "Audited Financial Statement FY25-26",
+          "impact": "Blocks AIF & PMFME grants",
+          "value": "₹3.5 Cr",
+          "status": "Missing"
+        },
+        {
+          "name": "Annual General Meeting Resolution",
+          "impact": "Blocks NCDC capacity loans",
+          "value": "₹30 Lakh",
+          "status": "Pending Draft"
+        },
+        {
+          "name": "GST Returns (Q4 Filing)",
+          "impact": "Restricts all tax-linked inputs",
+          "value": "₹20 Lakh",
+          "status": "Overdue"
+        }
       ],
       "timeline": [
         { "month": "Jan", "score": 70 },
@@ -286,42 +2310,1066 @@
       "coveragePercent": 68.5,
       "potentialPercent": 92.0,
       "schemes": [
-        { "name": "PM Kisan Samman Nidhi", "eligible": 620, "applied": 540, "approved": 490, "pending": 30, "rejected": 20, "percent": 79.0 },
-        { "name": "Pradhan Mantri Fasal Bima Yojana", "eligible": 680, "applied": 450, "approved": 410, "pending": 20, "rejected": 20, "percent": 60.3 },
-        { "name": "Kisan Credit Card (KCC)", "eligible": 580, "applied": 380, "approved": 340, "pending": 15, "rejected": 25, "percent": 58.6 },
-        { "name": "Solar Pump Subsidies", "eligible": 240, "applied": 80, "approved": 60, "pending": 10, "rejected": 10, "percent": 25.0 }
+        {
+          "name": "PM Kisan Samman Nidhi",
+          "eligible": 620,
+          "applied": 540,
+          "approved": 490,
+          "pending": 30,
+          "rejected": 20,
+          "percent": 79.0
+        },
+        {
+          "name": "Pradhan Mantri Fasal Bima Yojana",
+          "eligible": 680,
+          "applied": 450,
+          "approved": 410,
+          "pending": 20,
+          "rejected": 20,
+          "percent": 60.3
+        },
+        {
+          "name": "Kisan Credit Card (KCC)",
+          "eligible": 580,
+          "applied": 380,
+          "approved": 340,
+          "pending": 15,
+          "rejected": 25,
+          "percent": 58.6
+        },
+        {
+          "name": "Solar Pump Subsidies",
+          "eligible": 240,
+          "applied": 80,
+          "approved": 60,
+          "pending": 10,
+          "rejected": 10,
+          "percent": 25.0
+        }
       ],
       "villages": [
-        { "name": "Kharindwa", "covered": 180, "total": 240, "lat": 29.02, "lng": 77.01, "intensity": "high" },
-        { "name": "Bhadana", "covered": 120, "total": 180, "lat": 29.05, "lng": 76.98, "intensity": "medium" },
-        { "name": "Murthal Outskirts", "covered": 90, "total": 150, "lat": 29.08, "lng": 77.05, "intensity": "medium" },
-        { "name": "Sonipat Northern Plot", "covered": 60, "total": 80, "lat": 28.98, "lng": 77.03, "intensity": "low" },
-        { "name": "Ganaur Boundary", "covered": 30, "total": 50, "lat": 29.12, "lng": 77.02, "intensity": "low" }
+        {
+          "name": "Kharindwa",
+          "covered": 180,
+          "total": 240,
+          "lat": 29.02,
+          "lng": 77.01,
+          "intensity": "high"
+        },
+        {
+          "name": "Bhadana",
+          "covered": 120,
+          "total": 180,
+          "lat": 29.05,
+          "lng": 76.98,
+          "intensity": "medium"
+        },
+        {
+          "name": "Murthal Outskirts",
+          "covered": 90,
+          "total": 150,
+          "lat": 29.08,
+          "lng": 77.05,
+          "intensity": "medium"
+        },
+        {
+          "name": "Sonipat Northern Plot",
+          "covered": 60,
+          "total": 80,
+          "lat": 28.98,
+          "lng": 77.03,
+          "intensity": "low"
+        },
+        {
+          "name": "Ganaur Boundary",
+          "covered": 30,
+          "total": 50,
+          "lat": 29.12,
+          "lng": 77.02,
+          "intensity": "low"
+        }
       ]
     },
     "infrastructure": {
-      "warehouse": { "current": "1,000 MT", "required": "2,500 MT", "gap": "1,500 MT", "utilization": "92%", "forecast": "3,000 MT in 2 years", "cost": 4500000, "subsidy": 1500000, "roi": 18.2, "payback": 3.8 },
-      "cold_storage": { "current": "50 MT", "required": "200 MT", "gap": "150 MT", "utilization": "95%", "forecast": "350 MT in 2 years", "cost": 6500000, "subsidy": 2275000, "roi": 22.5, "payback": 4.2 },
-      "pack_house": { "current": "2 units", "required": "4 units", "gap": "2 units", "utilization": "78%", "forecast": "5 units in 3 years", "cost": 1500000, "subsidy": 750000, "roi": 14.8, "payback": 5.0 },
-      "processing_unit": { "current": "1 unit", "required": "2 units", "gap": "1 unit", "utilization": "85%", "forecast": "3 units in 4 years", "cost": 8000000, "subsidy": 2800000, "roi": 26.4, "payback": 3.2 }
+      "warehouse": {
+        "current": "1,000 MT",
+        "required": "2,500 MT",
+        "gap": "1,500 MT",
+        "utilization": "92%",
+        "forecast": "3,000 MT in 2 years",
+        "cost": 4500000,
+        "subsidy": 1500000,
+        "roi": 18.2,
+        "payback": 3.8
+      },
+      "cold_storage": {
+        "current": "50 MT",
+        "required": "200 MT",
+        "gap": "150 MT",
+        "utilization": "95%",
+        "forecast": "350 MT in 2 years",
+        "cost": 6500000,
+        "subsidy": 2275000,
+        "roi": 22.5,
+        "payback": 4.2
+      },
+      "pack_house": {
+        "current": "2 units",
+        "required": "4 units",
+        "gap": "2 units",
+        "utilization": "78%",
+        "forecast": "5 units in 3 years",
+        "cost": 1500000,
+        "subsidy": 750000,
+        "roi": 14.8,
+        "payback": 5.0
+      },
+      "processing_unit": {
+        "current": "1 unit",
+        "required": "2 units",
+        "gap": "1 unit",
+        "utilization": "85%",
+        "forecast": "3 units in 4 years",
+        "cost": 8000000,
+        "subsidy": 2800000,
+        "roi": 26.4,
+        "payback": 3.2
+      }
     },
     "compliance": {
       "score": 80,
       "level": "Medium Risk",
       "checklist": [
-        { "name": "Annual General Meeting (AGM) Audit", "status": "Completed", "dueDate": "30 Sep 2025" },
-        { "name": "Q4 GST Return Filing", "status": "Pending", "dueDate": "10 Jul 2026" },
-        { "name": "Annual Financial Report Filing", "status": "Completed", "dueDate": "30 Oct 2025" },
-        { "name": "Board of Directors Election Renewal", "status": "Overdue", "dueDate": "15 May 2026" },
-        { "name": "Soil Testing License", "status": "Active", "dueDate": "31 Mar 2029" },
-        { "name": "Cold Room Electricity Subvention Renewal", "status": "Pending", "dueDate": "30 Jun 2026" }
+        {
+          "name": "Annual General Meeting (AGM) Audit",
+          "status": "Completed",
+          "dueDate": "30 Sep 2025"
+        },
+        {
+          "name": "Q4 GST Return Filing",
+          "status": "Pending",
+          "dueDate": "10 Jul 2026"
+        },
+        {
+          "name": "Annual Financial Report Filing",
+          "status": "Completed",
+          "dueDate": "30 Oct 2025"
+        },
+        {
+          "name": "Board of Directors Election Renewal",
+          "status": "Overdue",
+          "dueDate": "15 May 2026"
+        },
+        {
+          "name": "Soil Testing License",
+          "status": "Active",
+          "dueDate": "31 Mar 2029"
+        },
+        {
+          "name": "Cold Room Electricity Subvention Renewal",
+          "status": "Pending",
+          "dueDate": "30 Jun 2026"
+        }
       ],
       "documents": [
-        { "name": "Audited Balance Sheet FY24-25", "category": "Finance", "expiry": "Valid" },
-        { "name": "AGM 2025 Board Minutes Resolution", "category": "Governance", "expiry": "Valid" },
-        { "name": "FPO Incorporation License Certificate", "category": "Legal", "expiry": "Lifetime" },
-        { "name": "Custom Hiring License (SMAM)", "category": "Asset", "expiry": "30 Nov 2026" }
+        {
+          "name": "Audited Balance Sheet FY24-25",
+          "category": "Finance",
+          "expiry": "Valid"
+        },
+        {
+          "name": "AGM 2025 Board Minutes Resolution",
+          "category": "Governance",
+          "expiry": "Valid"
+        },
+        {
+          "name": "FPO Incorporation License Certificate",
+          "category": "Legal",
+          "expiry": "Lifetime"
+        },
+        {
+          "name": "Custom Hiring License (SMAM)",
+          "category": "Asset",
+          "expiry": "30 Nov 2026"
+        }
+      ],
+      "memberDemographics": {
+        "gender": { "male": 420, "female": 260, "total": 700 },
+        "categories": { "SC": 280, "ST": 45, "OBC": 210, "General": 165 },
+        "landSize": {
+          "marginal": 180,
+          "small": 320,
+          "medium": 150,
+          "large": 50
+        },
+        "ageGroups": { "18-30": 95, "31-45": 280, "46-60": 250, "60+": 75 }
+      },
+      "memberDetails": [
+        {
+          "id": "FPO-001",
+          "name": "Suresh Kumar",
+          "village": "Kharindwa",
+          "category": "SC",
+          "landSize": "4.5 acres",
+          "age": 48,
+          "gender": "Male",
+          "mobile": "9876543210",
+          "aadhaarSeeded": true,
+          "email": "suresh@example.com",
+          "benefitsReceived": "₹64,200",
+          "pendingBenefits": "₹15,000",
+          "enrolledSchemes": 6,
+          "lastActive": "2026-06-01"
+        },
+        {
+          "id": "FPO-002",
+          "name": "Rajesh Singh",
+          "village": "Kharindwa",
+          "category": "OBC",
+          "landSize": "2.0 acres",
+          "age": 35,
+          "gender": "Male",
+          "mobile": "9876543211",
+          "aadhaarSeeded": true,
+          "email": "rajesh@example.com",
+          "benefitsReceived": "₹32,000",
+          "pendingBenefits": "₹8,000",
+          "enrolledSchemes": 4,
+          "lastActive": "2026-05-28"
+        },
+        {
+          "id": "FPO-003",
+          "name": "Sunita Devi",
+          "village": "Bhadana",
+          "category": "SC",
+          "landSize": "3.2 acres",
+          "age": 42,
+          "gender": "Female",
+          "mobile": "9876543212",
+          "aadhaarSeeded": false,
+          "email": "sunita@example.com",
+          "benefitsReceived": "₹28,000",
+          "pendingBenefits": "₹25,000",
+          "enrolledSchemes": 3,
+          "lastActive": "2026-06-05"
+        },
+        {
+          "id": "FPO-004",
+          "name": "Mohan Lal",
+          "village": "Bhadana",
+          "category": "General",
+          "landSize": "6.0 acres",
+          "age": 52,
+          "gender": "Male",
+          "mobile": "9876543213",
+          "aadhaarSeeded": true,
+          "email": "mohan@example.com",
+          "benefitsReceived": "₹85,000",
+          "pendingBenefits": "₹12,000",
+          "enrolledSchemes": 7,
+          "lastActive": "2026-05-30"
+        },
+        {
+          "id": "FPO-005",
+          "name": "Neha Sharma",
+          "village": "Murthal",
+          "category": "OBC",
+          "landSize": "1.5 acres",
+          "age": 29,
+          "gender": "Female",
+          "mobile": "9876543214",
+          "aadhaarSeeded": true,
+          "email": "neha@example.com",
+          "benefitsReceived": "₹18,000",
+          "pendingBenefits": "₹35,000",
+          "enrolledSchemes": 2,
+          "lastActive": "2026-06-03"
+        },
+        {
+          "id": "FPO-006",
+          "name": "Amarjeet Kaur",
+          "village": "Murthal",
+          "category": "SC",
+          "landSize": "2.8 acres",
+          "age": 38,
+          "gender": "Female",
+          "mobile": "",
+          "aadhaarSeeded": false,
+          "email": "",
+          "benefitsReceived": "₹12,000",
+          "pendingBenefits": "₹28,000",
+          "enrolledSchemes": 2,
+          "lastActive": "2026-05-20"
+        },
+        {
+          "id": "FPO-007",
+          "name": "Ramesh Chand",
+          "village": "Sonipat",
+          "category": "General",
+          "landSize": "5.5 acres",
+          "age": 55,
+          "gender": "Male",
+          "mobile": "9876543216",
+          "aadhaarSeeded": true,
+          "email": "ramesh@example.com",
+          "benefitsReceived": "₹72,000",
+          "pendingBenefits": "₹20,000",
+          "enrolledSchemes": 5,
+          "lastActive": "2026-06-02"
+        },
+        {
+          "id": "FPO-008",
+          "name": "Savita Rani",
+          "village": "Kharindwa",
+          "category": "SC",
+          "landSize": "2.2 acres",
+          "age": 34,
+          "gender": "Female",
+          "mobile": "9876543217",
+          "aadhaarSeeded": false,
+          "email": "savita@example.com",
+          "benefitsReceived": "₹0",
+          "pendingBenefits": "₹45,000",
+          "enrolledSchemes": 0,
+          "lastActive": "2026-04-15"
+        }
+      ],
+      "criticalIssues": {
+        "aadhaarNotSeeded": 3,
+        "mobileNotVerified": 2,
+        "noSchemesEnrolled": 1,
+        "benefitsOverdue": 4
+      },
+      "schemePerformance": [
+        {
+          "name": "PM Kisan Samman Nidhi",
+          "eligible": 620,
+          "applied": 540,
+          "approved": 490,
+          "pending": 30,
+          "rejected": 20,
+          "percent": 79.0,
+          "rejectionRate": 3.2
+        },
+        {
+          "name": "Pradhan Mantri Fasal Bima Yojana",
+          "eligible": 680,
+          "applied": 450,
+          "approved": 410,
+          "pending": 20,
+          "rejected": 20,
+          "percent": 60.3,
+          "rejectionRate": 4.4
+        },
+        {
+          "name": "Kisan Credit Card (KCC)",
+          "eligible": 580,
+          "applied": 380,
+          "approved": 340,
+          "pending": 15,
+          "rejected": 25,
+          "percent": 58.6,
+          "rejectionRate": 6.9
+        },
+        {
+          "name": "Solar Pump Subsidies",
+          "eligible": 240,
+          "applied": 80,
+          "approved": 60,
+          "pending": 10,
+          "rejected": 10,
+          "percent": 25.0,
+          "rejectionRate": 12.5
+        },
+        {
+          "name": "PM Kusum Yojana",
+          "eligible": 180,
+          "applied": 45,
+          "approved": 35,
+          "pending": 5,
+          "rejected": 5,
+          "percent": 19.4,
+          "rejectionRate": 11.1
+        },
+        {
+          "name": "PMKSY Micro Irrigation",
+          "eligible": 320,
+          "applied": 120,
+          "approved": 95,
+          "pending": 15,
+          "rejected": 10,
+          "percent": 29.7,
+          "rejectionRate": 8.3
+        }
       ]
     }
+  },
+  "fpoReadinessData": {
+    "overall": 84,
+    "blockedFunds": 35000000,
+    "totalOpportunity": 78000000,
+    "components": [
+      { "name": "Financial Readiness", "score": 85, "color": "#132a13" },
+      { "name": "Governance Readiness", "score": 90, "color": "#31572c" },
+      { "name": "Compliance Readiness", "score": 80, "color": "#4f772d" },
+      { "name": "Documentation Readiness", "score": 95, "color": "#90a955" },
+      { "name": "Infrastructure Readiness", "score": 75, "color": "#ecf39e" },
+      { "name": "Member Readiness", "score": 82, "color": "#132a13" }
+    ],
+    "missingRequirements": [
+      {
+        "name": "Audited Financial Statement FY25-26",
+        "impact": "Blocks AIF & PMFME grants",
+        "value": "₹3.5 Cr",
+        "status": "Missing",
+        "pendingDays": null,
+        "riskLevel": "Critical",
+        "assignedTo": "FPO Accountant",
+        "lastFiled": "Oct 2024",
+        "requiredFormat": "PDF, signed by CA",
+        "submissionDeadline": "30 Jun 2026"
+      },
+      {
+        "name": "Annual General Meeting Resolution",
+        "impact": "Blocks NCDC capacity loans",
+        "value": "₹30 Lakh",
+        "status": "Pending Draft",
+        "pendingDays": 8,
+        "riskLevel": "High",
+        "assignedTo": "Board Secretary",
+        "lastFiled": "Mar 2025",
+        "requiredFormat": "PDF with seal",
+        "submissionDeadline": "25 Jun 2026"
+      },
+      {
+        "name": "GST Returns (Q4 Filing)",
+        "impact": "Restricts all tax-linked inputs",
+        "value": "₹20 Lakh",
+        "status": "Overdue",
+        "pendingDays": 15,
+        "riskLevel": "Critical",
+        "assignedTo": "Tax Consultant",
+        "lastFiled": "Dec 2025",
+        "requiredFormat": "GSTR-3B PDF",
+        "submissionDeadline": "20 Jun 2026"
+      }
+    ],
+    "workflowStages": [
+      {
+        "stage": "Document Preparation",
+        "status": "completed",
+        "date": "May 25",
+        "assignedTo": "FPO Team",
+        "daysSpent": 3,
+        "comments": "Initial draft prepared"
+      },
+      {
+        "stage": "CA/CS Verification",
+        "status": "in_progress",
+        "date": "Jun 01",
+        "assignedTo": "M/s Sharma & Associates",
+        "daysSpent": 8,
+        "comments": "Awaiting partner signature"
+      },
+      {
+        "stage": "District Level Review",
+        "status": "pending",
+        "date": null,
+        "assignedTo": "District Agriculture Officer",
+        "daysSpent": 0,
+        "comments": "Not yet submitted"
+      },
+      {
+        "stage": "State Level Committee",
+        "status": "pending",
+        "date": null,
+        "assignedTo": "Joint Director (Agri)",
+        "daysSpent": 0,
+        "comments": "Pending district approval"
+      },
+      {
+        "stage": "Fund Disbursement",
+        "status": "locked",
+        "date": null,
+        "assignedTo": "NABARD",
+        "daysSpent": 0,
+        "comments": "Locked until compliance met"
+      }
+    ],
+    "riskAssessment": [
+      {
+        "name": "Financial Audit",
+        "risk": "High",
+        "impact": "₹3.5 Cr",
+        "probability": 85,
+        "color": "#ef4444",
+        "mitigation": "Engage CA immediately"
+      },
+      {
+        "name": "Governance Docs",
+        "risk": "Medium",
+        "impact": "₹2.0 Cr",
+        "probability": 60,
+        "color": "#f97316",
+        "mitigation": "Schedule emergency board meet"
+      },
+      {
+        "name": "Tax Compliance",
+        "risk": "High",
+        "impact": "₹1.8 Cr",
+        "probability": 90,
+        "color": "#ef4444",
+        "mitigation": "File with penalty before 20th"
+      },
+      {
+        "name": "Member KYC",
+        "risk": "Low",
+        "impact": "₹50 Lakh",
+        "probability": 25,
+        "color": "#10b981",
+        "mitigation": "Batch upload next week"
+      },
+      {
+        "name": "Infrastructure Cert",
+        "risk": "Medium",
+        "impact": "₹2.5 Cr",
+        "probability": 55,
+        "color": "#f97316",
+        "mitigation": "Schedule inspection"
+      }
+    ],
+    "complianceTrend": [
+      { "month": "Jan", "score": 70, "submissions": 3, "target": 75 },
+      { "month": "Feb", "score": 72, "submissions": 4, "target": 75 },
+      { "month": "Mar", "score": 75, "submissions": 5, "target": 78 },
+      { "month": "Apr", "score": 80, "submissions": 6, "target": 80 },
+      { "month": "May", "score": 82, "submissions": 4, "target": 82 },
+      { "month": "Jun", "score": 84, "submissions": 2, "target": 85 }
+    ],
+    "whatUnlocks": [
+      {
+        "name": "Infrastructure Grant",
+        "amount": "₹2.0 Cr",
+        "scheme": "AIF - Warehouse & Cold Storage",
+        "status": "Blocked"
+      },
+      {
+        "name": "Value Addition Subsidy",
+        "amount": "₹1.5 Cr",
+        "scheme": "PMFME - Food Processing",
+        "status": "Partially Blocked"
+      },
+      {
+        "name": "Credit Lines & Subvention",
+        "amount": "₹2.3 Cr",
+        "scheme": "NCDC & NABARD Loans",
+        "status": "Available"
+      }
+    ],
+    "recentActivity": [
+      {
+        "date": "Jun 05, 2026",
+        "action": "Income Tax Return filed",
+        "user": "FPO Accountant",
+        "status": "success"
+      },
+      {
+        "date": "Jun 03, 2026",
+        "action": "Board resolution draft created",
+        "user": "Board Secretary",
+        "status": "pending"
+      },
+      {
+        "date": "May 30, 2026",
+        "action": "Bank statements uploaded",
+        "user": "System",
+        "status": "success"
+      },
+      {
+        "date": "May 28, 2026",
+        "action": "GST notice received for Q3",
+        "user": "Tax Consultant",
+        "status": "alert"
+      }
+    ],
+    "officerContacts": [
+      {
+        "name": "Shri Ramesh Singh",
+        "designation": "District Agriculture Officer",
+        "phone": "98123-45678",
+        "email": "dao.sonipat@gov.in",
+        "jurisdiction": "Sonipat District"
+      },
+      {
+        "name": "Smt. Preeti Sen",
+        "designation": "NABARD District Lead",
+        "phone": "98765-43210",
+        "email": "preeti.sen@nabard.org",
+        "jurisdiction": "Haryana North"
+      }
+    ],
+    "deadlineSummary": {
+      "critical": 2,
+      "upcoming": 3,
+      "completed": 8,
+      "nextDeadline": "20 Jun 2026"
+    }
+  },
+  "fpoImpactAnalyticsData": {
+    "impactSecuredData": [
+      { "year": "2023", "secured": 1.2, "utilized": 1.0, "roi": 18.5 },
+      { "year": "2024", "secured": 2.8, "utilized": 2.2, "roi": 22.3 },
+      { "year": "2025", "secured": 4.5, "utilized": 3.8, "roi": 28.7 },
+      { "year": "2026", "secured": 5.4, "utilized": 4.2, "roi": 32.1 }
+    ],
+    "schemeROI": [
+      {
+        "name": "AIF Warehouse Grant",
+        "investment": "2.0",
+        "return": "2.8",
+        "roi": "40",
+        "status": "excellent",
+        "color": "#132a13"
+      },
+      {
+        "name": "PMFME Processing Unit",
+        "investment": "1.5",
+        "return": "1.95",
+        "roi": "30",
+        "status": "good",
+        "color": "#31572c"
+      },
+      {
+        "name": "PM Kusum Solar",
+        "investment": "1.2",
+        "return": "1.44",
+        "roi": "20",
+        "status": "good",
+        "color": "#4f772d"
+      },
+      {
+        "name": "Cold Storage Subsidy",
+        "investment": "0.8",
+        "return": "0.88",
+        "roi": "10",
+        "status": "average",
+        "color": "#90a955"
+      }
+    ],
+    "memberImpactData": [
+      {
+        "id": "FPO-001",
+        "name": "Suresh Kumar",
+        "beforeIncome": 280000,
+        "afterIncome": 370000,
+        "increase": 32,
+        "scheme": "PM Kisan + KCC",
+        "village": "Kharindwa"
+      },
+      {
+        "id": "FPO-004",
+        "name": "Mohan Lal",
+        "beforeIncome": 320000,
+        "afterIncome": 410000,
+        "increase": 28,
+        "scheme": "AIF + PMFME",
+        "village": "Bhadana"
+      },
+      {
+        "id": "FPO-007",
+        "name": "Ramesh Chand",
+        "beforeIncome": 250000,
+        "afterIncome": 320000,
+        "increase": 28,
+        "scheme": "PM Kusum",
+        "village": "Sonipat"
+      },
+      {
+        "id": "FPO-003",
+        "name": "Sunita Devi",
+        "beforeIncome": 180000,
+        "afterIncome": 230000,
+        "increase": 27,
+        "scheme": "PMFBY + SC Scheme",
+        "village": "Bhadana"
+      },
+      {
+        "id": "FPO-002",
+        "name": "Rajesh Singh",
+        "beforeIncome": 220000,
+        "afterIncome": 270000,
+        "increase": 23,
+        "scheme": "KCC",
+        "village": "Kharindwa"
+      },
+      {
+        "id": "FPO-005",
+        "name": "Neha Sharma",
+        "beforeIncome": 150000,
+        "afterIncome": 190000,
+        "increase": 27,
+        "scheme": "PMFME",
+        "village": "Murthal"
+      },
+      {
+        "id": "FPO-006",
+        "name": "Amarjeet Kaur",
+        "beforeIncome": 120000,
+        "afterIncome": 155000,
+        "increase": 29,
+        "scheme": "SC Scheme",
+        "village": "Murthal"
+      },
+      {
+        "id": "FPO-008",
+        "name": "Savita Rani",
+        "beforeIncome": 90000,
+        "afterIncome": 130000,
+        "increase": 44,
+        "scheme": "PM Kisan",
+        "village": "Kharindwa"
+      }
+    ],
+    "infraMetrics": [
+      {
+        "name": "Warehouse",
+        "capacity": 1000,
+        "utilized": 920,
+        "utilization": 92,
+        "revenue": 24,
+        "yoy": 18,
+        "unit": "MT"
+      },
+      {
+        "name": "Cold Storage",
+        "capacity": 50,
+        "utilized": 47.5,
+        "utilization": 95,
+        "revenue": 8.5,
+        "yoy": 32,
+        "unit": "MT"
+      },
+      {
+        "name": "Processing Unit",
+        "capacity": 200,
+        "utilized": 170,
+        "utilization": 85,
+        "revenue": 12,
+        "yoy": 25,
+        "unit": "hrs/month"
+      },
+      {
+        "name": "Solar Pumps",
+        "capacity": 25,
+        "utilized": 18,
+        "utilization": 72,
+        "revenue": 3.2,
+        "yoy": 15,
+        "unit": "units"
+      }
+    ],
+    "jobCreationData": [
+      {
+        "scheme": "AIF Warehouse",
+        "directJobs": 12,
+        "indirectJobs": 25,
+        "totalBeneficiaries": 320
+      },
+      {
+        "scheme": "PMFME Processing",
+        "directJobs": 8,
+        "indirectJobs": 18,
+        "totalBeneficiaries": 180
+      },
+      {
+        "scheme": "Cold Storage",
+        "directJobs": 4,
+        "indirectJobs": 10,
+        "totalBeneficiaries": 95
+      },
+      {
+        "scheme": "Solar Pumps",
+        "directJobs": 2,
+        "indirectJobs": 5,
+        "totalBeneficiaries": 45
+      }
+    ],
+    "predictiveImpact": [
+      {
+        "quarter": "Q1 2026",
+        "projectedIncome": 385000,
+        "actualIncome": 370000,
+        "targetIncome": 400000
+      },
+      {
+        "quarter": "Q2 2026",
+        "projectedIncome": 395000,
+        "actualIncome": null,
+        "targetIncome": 420000
+      },
+      {
+        "quarter": "Q3 2026",
+        "projectedIncome": 410000,
+        "actualIncome": null,
+        "targetIncome": 440000
+      },
+      {
+        "quarter": "Q4 2026",
+        "projectedIncome": 430000,
+        "actualIncome": null,
+        "targetIncome": 460000
+      }
+    ],
+    "exportQualityMetrics": [
+      { "grade": "Grade A", "before": 25, "after": 45, "color": "#132a13" },
+      { "grade": "Grade B", "before": 45, "after": 38, "color": "#31572c" },
+      { "grade": "Grade C", "before": 30, "after": 17, "color": "#4f772d" }
+    ],
+    "comparativeBenchmark": {
+      "ourFpo": 32.1,
+      "districtAvg": 24.5,
+      "stateAvg": 28.2,
+      "topPerformer": 38.5
+    },
+    "statsCards": [
+      {
+        "title": "TOTAL GRANTS SECURED",
+        "value": "₹5.40 Cr",
+        "trend": "+24% YoY",
+        "trendType": "success",
+        "subtext": "Lifetime: ₹12.5 Cr",
+        "icon": "DollarSign"
+      },
+      {
+        "title": "AVERAGE MEMBER ROI",
+        "value": "+32%",
+        "trend": "+8% from FY25",
+        "trendType": "success",
+        "subtext": "Income increase per farmer",
+        "icon": "TrendingUp"
+      },
+      {
+        "title": "INFRA UTILIZATION",
+        "value": "86%",
+        "trend": "+12% capacity",
+        "trendType": "success",
+        "subtext": "Warehouse + Cold Storage",
+        "icon": "Warehouse"
+      },
+      {
+        "title": "JOBS CREATED",
+        "value": "84",
+        "trend": "+26 this year",
+        "trendType": "success",
+        "subtext": "Direct + Indirect",
+        "icon": "Users"
+      }
+    ]
+  },
+  "fpoComplianceData": {
+    "complianceScore": {
+      "overall": 82,
+      "trend": "+4.2%",
+      "previousQuarter": 78,
+      "target": 95
+    },
+    "riskIndicators": [
+      {
+        "name": "GST Return Q4 Filing",
+        "risk": "High",
+        "impact": "Blocks ₹20 Lakh funding",
+        "deadline": "20 Jun 2026",
+        "status": "Overdue"
+      },
+      {
+        "name": "Board Election Renewal",
+        "risk": "Critical",
+        "impact": "Invalidates FPO registration",
+        "deadline": "15 May 2026",
+        "status": "Overdue"
+      },
+      {
+        "name": "Annual Financial Audit",
+        "risk": "High",
+        "impact": "Blocks AIF & PMFME grants",
+        "deadline": "30 Jun 2026",
+        "status": "Pending"
+      },
+      {
+        "name": "AGM Minutes Filing",
+        "risk": "Medium",
+        "impact": "Blocks NCDC loans",
+        "deadline": "15 Jul 2026",
+        "status": "Upcoming"
+      }
+    ],
+    "requiredDocuments": [
+      {
+        "name": "Audited Balance Sheet",
+        "category": "Financial",
+        "required": true,
+        "uploaded": false,
+        "expiry": null,
+        "lastUpdated": null,
+        "blocking": "AIF, PMFME, NCDC"
+      },
+      {
+        "name": "GST Registration Certificate",
+        "category": "Tax",
+        "required": true,
+        "uploaded": true,
+        "expiry": "31 Mar 2027",
+        "lastUpdated": "10 Jan 2026",
+        "blocking": "All tax-linked schemes"
+      },
+      {
+        "name": "FPO Incorporation Certificate",
+        "category": "Legal",
+        "required": true,
+        "uploaded": true,
+        "expiry": "Lifetime",
+        "lastUpdated": "15 Mar 2021",
+        "blocking": "FPO existence"
+      },
+      {
+        "name": "Board Resolution AGM 2025",
+        "category": "Governance",
+        "required": true,
+        "uploaded": false,
+        "expiry": null,
+        "lastUpdated": null,
+        "blocking": "NCDC, State subsidies"
+      },
+      {
+        "name": "Tax Returns (ITR)",
+        "category": "Tax",
+        "required": true,
+        "uploaded": true,
+        "expiry": "Valid",
+        "lastUpdated": "31 Jul 2025",
+        "blocking": "Credit linkages"
+      },
+      {
+        "name": "Bank Account Verification",
+        "category": "Financial",
+        "required": true,
+        "uploaded": true,
+        "expiry": "Valid",
+        "lastUpdated": "05 Feb 2024",
+        "blocking": "DBT schemes"
+      },
+      {
+        "name": "Member KYC Register",
+        "category": "Member",
+        "required": true,
+        "uploaded": false,
+        "expiry": null,
+        "lastUpdated": null,
+        "blocking": "PM Kisan, PMFBY"
+      },
+      {
+        "name": "Land Ownership Proof",
+        "category": "Asset",
+        "required": false,
+        "uploaded": true,
+        "expiry": "Valid",
+        "lastUpdated": "20 Mar 2024",
+        "blocking": null
+      }
+    ],
+    "auditTrail": [
+      {
+        "date": "05 Jun 2026",
+        "action": "GST Return Q4 Filed",
+        "user": "Tax Consultant",
+        "document": "GSTR-3B",
+        "status": "submitted"
+      },
+      {
+        "date": "01 Jun 2026",
+        "action": "Document Uploaded",
+        "user": "FPO Manager",
+        "document": "Bank Statement Mar 2026",
+        "status": "pending_review"
+      },
+      {
+        "date": "28 May 2026",
+        "action": "Compliance Alert",
+        "user": "System",
+        "document": "AGM Minutes Due",
+        "status": "alert"
+      },
+      {
+        "date": "20 May 2026",
+        "action": "Renewal Submitted",
+        "user": "Board Secretary",
+        "document": "Board Member List",
+        "status": "approved"
+      },
+      {
+        "date": "15 May 2026",
+        "action": "Document Expired",
+        "user": "System",
+        "document": "Caste Certificate",
+        "status": "expired"
+      }
+    ],
+    "upcomingDeadlines": [
+      {
+        "task": "File Q4 GST Return",
+        "dueDate": "20 Jun 2026",
+        "daysLeft": 11,
+        "priority": "critical",
+        "penalty": "₹5,000 per day"
+      },
+      {
+        "task": "Submit Annual Audit Report",
+        "dueDate": "30 Jun 2026",
+        "daysLeft": 21,
+        "priority": "high",
+        "penalty": "Grant suspension"
+      },
+      {
+        "task": "Renew Board Election",
+        "dueDate": "Overdue",
+        "daysLeft": -25,
+        "priority": "critical",
+        "penalty": "Legal notice"
+      },
+      {
+        "task": "File AGM Minutes",
+        "dueDate": "15 Jul 2026",
+        "daysLeft": 36,
+        "priority": "medium",
+        "penalty": "Loan block"
+      },
+      {
+        "task": "Update Member Register",
+        "dueDate": "31 Jul 2026",
+        "daysLeft": 52,
+        "priority": "low",
+        "penalty": "Scheme ineligibility"
+      }
+    ],
+    "blockedGrants": [
+      {
+        "grant": "AIF Infrastructure Fund",
+        "amount": "₹2.0 Cr",
+        "blockedBy": "Audited Financial Statement",
+        "status": "Blocked"
+      },
+      {
+        "grant": "PMFME Processing Subsidy",
+        "amount": "₹1.5 Cr",
+        "blockedBy": "Board Resolution",
+        "status": "Blocked"
+      },
+      {
+        "grant": "NCDC Capacity Loan",
+        "amount": "₹30 Lakh",
+        "blockedBy": "AGM Minutes",
+        "status": "Partially Blocked"
+      }
+    ]
   }
 }

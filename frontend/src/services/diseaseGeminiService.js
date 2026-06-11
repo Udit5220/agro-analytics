@@ -952,7 +952,7 @@
 // PRIMARY: Gemini API (gemini-3.5-flash / gemini-3.1-pro-preview)
 // FALLBACK: Static hardcoded data from original component
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
+const API_KEY = localStorage.getItem("gemini_api_key") || import.meta.env.VITE_GEMINI_API_KEY || "";
 const BASE = "/api";
 
 // Centralized internal fetch wrapper to route paths cleanly through the Vite proxy context

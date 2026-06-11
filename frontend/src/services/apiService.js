@@ -10,7 +10,17 @@
  *  - Greenleaf proxy (/api/gl/*): direct passthrough to Greenleaf backend
  */
 
-const BASE = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? 'https://agroindia-backend.onrender.com/api' : '/api');
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    return 'http://localhost:5000/api';
+  }
+  return import.meta.env.PROD ? 'https://agroindia-backend.onrender.com/api' : '/api';
+};
+const BASE = getApiBaseUrl();
+
 
 const request = async (url, options = {}) => {
   try {
@@ -160,6 +170,17 @@ export const profileApi = {
   deleteFarm:     (id)        => request(`/profile/farms/${id}`, { method: 'DELETE' }),
   getCropRankings: (data)     => request('/crop-ranking',      { method: 'POST',   body: JSON.stringify(data) }),
   chatWithSchemeAI: (data)    => request('/gov-schemes/chat',  { method: 'POST',   body: JSON.stringify(data) }),
+  // New Scheme Setup endpoints
+  saveFarmerProfile: (data)   => request('/farmer/profile',     { method: 'POST',   body: JSON.stringify(data) }),
+  getFarmerProfileById: (id)  => request(`/farmer/profile/${id}`),
+};
+
+// ─── Government Schemes APIs ──────────────────────────────────────────────────
+export const govSchemesApi = {
+  getSchemes:          (params = {}) => request(`/gov-schemes?${qs(params)}`),
+  getSchemeById:       (id)          => request(`/gov-schemes/${id}`),
+  getDashboard:        ()            => request('/gov-schemes/dashboard'),
+  chatWithSchemeAI:    (data)        => request('/gov-schemes/chat',  { method: 'POST',   body: JSON.stringify(data) }),
 };
 
 // ─── Campaign APIs (MongoDB) ───────────────────────────────────────────────
@@ -170,4 +191,5 @@ export const campaignApi = {
   deleteCampaign: (id)          => request(`/campaigns/${id}`, { method: 'DELETE' }),
 };
 
-export default { commodityApi, greenleafApi, weatherApi, marketplaceApi, profileApi, analyticsApi, campaignApi };
+export default { commodityApi, greenleafApi, weatherApi, marketplaceApi, profileApi, analyticsApi, campaignApi, govSchemesApi };
+

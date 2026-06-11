@@ -750,7 +750,7 @@ export default function CropRecPlaning() {
               Estimated business output at different farmer adoption stages
             </p>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* 30% Preset */}
               <div className="border border-gray-200 rounded-xl p-3 bg-gray-50 flex flex-col justify-between">
                 <div>

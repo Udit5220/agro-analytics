@@ -449,3 +449,85 @@ export const getCropRankingsBackend = async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 };
+
+// ─── POST /api/farmer/profile ──────────────────────────────────────────────────
+export const createOrUpdateFarmerProfile = async (req, res) => {
+  try {
+    const {
+      name,
+      state,
+      district,
+      landSize,
+      crops,
+      casteCategory,
+      annualIncome,
+      aadhaarSeedingStatus,
+      bankSeedingStatus,
+      irrigationMethod
+    } = req.body;
+
+    let profile = await FarmerProfile.findOne({ userId: 'guest' });
+
+    if (!profile) {
+      profile = new FarmerProfile({ userId: 'guest' });
+    }
+
+    if (name !== undefined) profile.name = name;
+    if (state !== undefined) profile.state = state;
+    if (district !== undefined) profile.district = district;
+    if (landSize !== undefined) profile.landSize = Number(landSize);
+    if (crops !== undefined) profile.crops = crops;
+    if (casteCategory !== undefined) profile.casteCategory = casteCategory;
+    if (annualIncome !== undefined) profile.annualIncome = Number(annualIncome);
+    if (aadhaarSeedingStatus !== undefined) profile.aadhaarSeedingStatus = aadhaarSeedingStatus;
+    if (bankSeedingStatus !== undefined) profile.bankSeedingStatus = bankSeedingStatus;
+    if (irrigationMethod !== undefined) profile.irrigationMethod = irrigationMethod;
+
+    // Sync legacy/compatibility fields
+    if (district || state) {
+      profile.location = `${district || 'Sonipat'}, ${state || 'Haryana'}`;
+    }
+    if (crops) {
+      profile.primaryCrops = crops;
+    }
+    if (landSize !== undefined) {
+      if (profile.farms && profile.farms.length > 0) {
+        profile.farms[0].totalLand = Number(landSize);
+      } else {
+        profile.farms = [{
+          name: 'Home Plot',
+          location: district || 'Haryana Region',
+          totalLand: Number(landSize),
+          crops: crops ? crops.map(c => ({ name: c, sowingDate: '', sownArea: 0 })) : []
+        }];
+      }
+    }
+
+    await profile.save();
+    res.json({ success: true, message: 'Farmer profile saved successfully', data: profile });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+// ─── GET /api/farmer/profile/:id ────────────────────────────────────────────────
+export const getFarmerProfileById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let profile;
+    if (id === 'guest') {
+      profile = await FarmerProfile.findOne({ userId: 'guest' });
+    } else {
+      profile = await FarmerProfile.findById(id);
+    }
+
+    if (!profile) {
+      return res.status(404).json({ success: false, error: 'Farmer profile not found' });
+    }
+
+    res.json({ success: true, data: profile });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+

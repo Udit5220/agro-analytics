@@ -109,7 +109,13 @@ export default function CropRecDashboard() {
     );
     const adoptionRate = 78;
     const businessHealthScore = Math.round(
-      (85 * 0.2) + (adoptionRate * 0.25) + (88 * 0.2) + (81 * 0.15) + (68 * 0.15) - (38 * 0.1) + 10
+      85 * 0.2 +
+        adoptionRate * 0.25 +
+        88 * 0.2 +
+        81 * 0.15 +
+        68 * 0.15 -
+        38 * 0.1 +
+        10,
     ); // ~83%
 
     return {

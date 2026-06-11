@@ -8,6 +8,7 @@ import marketplaceRoutes from './routes/marketplace.routes.js';
 import profileRoutes from './routes/profile.routes.js';
 import journalRoutes from './routes/journal.routes.js';
 import campaignRoutes from './routes/campaign.routes.js';
+import govSchemesRoutes from './routes/govSchemes.routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -63,6 +64,7 @@ app.use('/api', journalRoutes);
 app.use('/api/weather', weatherRoutes);
 app.use('/api/marketplace', marketplaceRoutes);
 app.use('/api', campaignRoutes);
+app.use('/api', govSchemesRoutes);
 
 // ─── 404 Handler ─────────────────────────────────────────────────────────────
 app.use((req, res) => {

@@ -76,20 +76,20 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-brand-darkest/95 backdrop-blur-md shadow-lg border-b border-brand-light/10 py-3"
-          : "bg-gradient-to-b from-[#132a13]/80 via-[#132a13]/45 to-transparent backdrop-blur-[2px] py-5"
+          ? "bg-brand-lightest/95 backdrop-blur-md shadow-md py-3"
+          : "bg-brand-lightest/80 backdrop-blur-[2px] py-5"
       }`}
     >
       <div className={uiConfig.layout.container}>
         <div className="flex items-center justify-between">
           {/* Left: Brand Logo */}
           <a href="#" className="flex items-center space-x-2.5 group">
-            <div className="p-2 bg-brand-accent/25 rounded-xl border border-brand-accent/20 group-hover:scale-110 transition-transform duration-300">
-              <Sprout className="h-6 w-6 text-brand-accent" />
+            <div className="p-2 bg-brand-darkest/10 rounded-xl group-hover:scale-110 transition-transform duration-300">
+              <Sprout className="h-6 w-6 text-brand-darkest" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-white">
+            <span className="text-xl font-bold tracking-tight text-brand-darkest">
               AgroIndia
-              <span className="text-brand-accent font-extrabold">.</span>
+              <span className="text-brand-medium font-extrabold">.</span>
             </span>
           </a>
 
@@ -99,10 +99,10 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-semibold text-white hover:text-brand-accent transition-colors duration-200 relative group"
+                className="text-sm font-semibold text-brand-darkest/85 hover:text-brand-darkest transition-colors duration-200 relative group"
               >
                 {link.label}
-                <span className="absolute bottom-[-4px] left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-[-4px] left-0 w-0 h-0.5 bg-brand-darkest transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
@@ -114,7 +114,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="h-9 w-9 rounded-full bg-brand-accent/20 border border-brand-accent/30 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-brand-darkest transition-all duration-300 text-base cursor-pointer"
+                className="h-9 w-9 rounded-full bg-brand-darkest/10 flex items-center justify-center text-brand-darkest hover:bg-brand-dark hover:text-brand-darkest transition-all duration-300 text-base cursor-pointer"
                 title={`Active Role: ${allRoles[activeRole.toUpperCase()]?.label || activeRole}`}
               >
                 {allRoles[activeRole.toUpperCase()]?.icon || "🌾"}
@@ -124,7 +124,7 @@ export default function Navbar() {
                 <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-brand-darkest rounded-xl shadow-xl border border-gray-100 dark:border-brand-dark/30 z-50 p-3.5 animate-fadeIn">
                   {/* Top: User Info */}
                   <div className="flex items-center gap-3 pb-3">
-                    <div className="h-10 w-10 rounded-xl bg-[#31572c] flex items-center justify-center text-lg shrink-0 shadow-inner">
+                    <div className="h-10 w-10 rounded-xl bg-brand-dark flex items-center justify-center text-lg shrink-0 shadow-inner">
                       {allRoles[activeRole.toUpperCase()]?.icon || "🌾"}
                     </div>
                     <div className="overflow-hidden">
@@ -156,7 +156,7 @@ export default function Navbar() {
                             navigate(`/module/${moduleId}`);
                           }
                         }}
-                        className="w-full bg-gray-50 dark:bg-brand-dark/30 border border-gray-200 dark:border-brand-light/10 text-xs text-gray-800 dark:text-white rounded-lg px-2 py-1.5 font-bold focus:outline-none focus:ring-1 focus:ring-[#31572c] cursor-pointer"
+                        className="w-full bg-gray-50 dark:bg-brand-dark/30 border border-gray-200 dark:border-brand-light/10 text-xs text-gray-800 dark:text-white rounded-lg px-2 py-1.5 font-bold focus:outline-none focus:ring-1 focus:ring-brand-medium cursor-pointer"
                       >
                         {Object.values(allRoles).map((role) => (
                           <option key={role.id} value={role.id} className="text-gray-950 font-bold bg-white">
@@ -178,9 +178,9 @@ export default function Navbar() {
                         setIsProfileOpen(false);
                         navigate("/module/profile");
                       }}
-                      className="w-full text-left text-gray-700 dark:text-slate-300 hover:bg-[#f4f7f4] dark:hover:bg-brand-dark/20 rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
+                      className="w-full text-left text-gray-700 dark:text-slate-300 hover:bg-brand-lightest dark:hover:bg-brand-dark/20 rounded-lg px-2 py-1.5 transition-all text-xs flex items-center gap-2 font-medium cursor-pointer"
                     >
-                      <UserCircle className="h-3.5 w-3.5 text-[#90a955]" />
+                      <UserCircle className="h-3.5 w-3.5 text-brand-medium" />
                       My Profile
                     </button>
                   </div>
@@ -210,12 +210,12 @@ export default function Navbar() {
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+              className="p-2 rounded-lg text-brand-darkest hover:text-brand-medium hover:bg-brand-darkest/10 transition-all duration-200"
             >
               {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-6 w-6 text-brand-darkest" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6 text-brand-darkest" />
               )}
             </button>
           </div>
@@ -224,7 +224,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 top-[60px] bg-brand-darkest/98 dark:bg-brand-darkest/98 z-40 md:hidden animate-slideDown border-t border-brand-light/10">
+        <div className="fixed inset-0 top-[60px] bg-brand-lightest z-40 md:hidden animate-slideDown">
           <div className="px-6 py-8 flex flex-col space-y-6">
             {/* Navigation links */}
             {homeContent.navbarLinks.map((link) => (
@@ -232,7 +232,7 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-lg font-semibold text-white/90 hover:text-brand-accent transition-colors duration-200 border-b border-white/5 pb-3"
+                className="text-lg font-semibold text-brand-darkest hover:text-brand-medium transition-colors duration-200 border-b border-brand-darkest/10 pb-3"
               >
                 {link.label}
               </a>
@@ -242,7 +242,7 @@ export default function Navbar() {
             <div className="flex flex-col space-y-4 pt-4">
               <button
                 type="button"
-                className="w-full py-3 bg-brand-accent text-brand-darkest font-bold rounded-xl text-center active:scale-[0.98] transition-transform duration-100 cursor-pointer"
+                className="w-full py-3 bg-brand-medium text-brand-darkest font-bold rounded-xl text-center active:scale-[0.98] transition-transform duration-100 cursor-pointer"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   navigate("/module/crop-recommendation");

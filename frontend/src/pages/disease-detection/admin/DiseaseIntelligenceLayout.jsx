@@ -118,8 +118,9 @@ export default function DiseaseIntelligenceLayout() {
             <button
               onClick={() => setCollapsed(!collapsed)}
               className="hidden lg:flex h-6 w-6 rounded-md bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition active:scale-95 shrink-0"
+              title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
             >
-              {collapsed ? <ChevronRight size={13} /> : <ChevronLeft size={13} />}
+              {collapsed ? <ChevronRight size={15} /> : <ChevronLeft size={15} />}
             </button>
           </div>
 
@@ -152,7 +153,7 @@ export default function DiseaseIntelligenceLayout() {
                       title={collapsed ? item.label : ""}
                     >
                       <Icon
-                        size={15}
+                        size={17}
                         className={`shrink-0 transition-transform duration-200 group-hover:scale-110 ${
                           isActive ? "text-[#ecf39e]" : "text-slate-300 group-hover:text-white"
                         }`}
@@ -189,7 +190,7 @@ export default function DiseaseIntelligenceLayout() {
                 className="text-slate-300 hover:text-red-400 transition shrink-0 p-1 rounded-lg hover:bg-white/10"
                 title="Exit Command Center"
               >
-                <LogOut size={13} />
+                <LogOut size={17} />
               </button>
             )}
           </div>
@@ -282,8 +283,10 @@ export default function DiseaseIntelligenceLayout() {
         </header>
 
         {/* MAIN OUTLET CANVAS */}
-        <main className="flex-1 p-6 z-10 overflow-y-auto relative scrollbar-thin">
-          <Outlet context={{ dateRange }} />
+        <main className="flex-1 px-6 py-6 md:px-8 md:py-8 z-10 overflow-y-auto relative scrollbar-thin">
+          <div className="w-full">
+            <Outlet context={{ dateRange }} />
+          </div>
         </main>
       </div>
     </div>

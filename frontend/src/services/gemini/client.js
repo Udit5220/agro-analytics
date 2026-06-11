@@ -6,9 +6,9 @@
  * packages requirement. Dynamically registers the API key from Vite environment.
  */
 
-// Retrieve key from Vite environment
+// Retrieve key from LocalStorage or Vite environment
 const getApiKey = () => {
-  return import.meta.env.VITE_GEMINI_API_KEY || '';
+  return localStorage.getItem("gemini_api_key") || import.meta.env.VITE_GEMINI_API_KEY || '';
 };
 
 /**

@@ -1,27 +1,137 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+/* ================================================================
+   GREENLEAF / AGRO MATICS — CSS THEME TOKEN SYSTEM
+   Mirrors the GreenLeaf index.css semantic color classes.
+   Brand identity: Green (#28a745) + Dark Gray shell (#1F2937)
+   ================================================================ */
+
 :root {
-  --brand-darkest: #132a13;
-  --brand-dark: #31572c;
-  --brand-medium: #4f772d;
-  --brand-light: #90a955;
-  --brand-accent: #ecf39e;
-  --brand-lightest: #f4f7f4;
+  /* Core brand palette - Overhauled growth theme */
+  --primary-900: #31572c;
+  --primary-700: #1a5c1a;
+  --primary-500: #2d8a2d;
+  --primary-300: #6bc46b;
+  --primary-100: #e8f5e8;
+
+  --bg-main: #f7f5f0;
+  --bg-card: #ffffff;
+  --bg-sidebar: #31572c;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #5c5c5c;
+  --text-muted: #8a8a8a;
+  --border-subtle: #e5e2dc;
+
+  --success: #22a559;
+  --warning: #e8a838;
+  --danger: #dc4446;
+  --info: #3b82f6;
+
+  --accent-gold: #c9a84c;
+  --accent-earth: #a67c52;
+
+  /* Compatibility bindings for legacy brand classes */
+  --brand-darkest: var(--primary-900);
+  --brand-dark: var(--bg-sidebar);
+  --brand-medium: var(--primary-500);
+  --brand-light: var(--primary-300);
+  --brand-accent: var(--primary-100);
+  --brand-lightest: var(--bg-main);
 }
 
+/* ── Base Typography ── */
 html {
   scroll-behavior: smooth;
-  font-size: 13.5px; /* Clean vector-based layout scaling (approx 85%) to prevent eye strain and browser zoom blur */
+  font-size: 11px;
 }
 
 body {
-  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  background-color: var(--bg-main);
 }
 
-/* Custom premium scrollbar - Sleek, modern, and eye-friendly */
+/* ================================================================
+   1. SEMANTIC COLOR TOKENS — bg / border / text triplets
+   ================================================================ */
+
+/* Primary */
+.bg-theme-primary { background-color: var(--primary-500); }
+.border-theme-primary { border-color: var(--primary-500); }
+.text-theme-primary { color: var(--primary-500); }
+
+/* Secondary */
+.bg-theme-secondary { background-color: var(--primary-300); }
+.border-theme-secondary { border-color: var(--primary-300); }
+.text-theme-secondary { color: var(--primary-300); }
+
+/* Positive */
+.bg-theme-positive { background-color: var(--success); }
+.border-theme-positive { border-color: var(--success); }
+.text-theme-positive { color: var(--success); }
+
+/* Negative */
+.bg-theme-negative { background-color: var(--danger); }
+.border-theme-negative { border-color: var(--danger); }
+.text-theme-negative { color: var(--danger); }
+
+/* Neutral */
+.bg-theme-neutral { background-color: var(--text-muted); }
+.border-theme-neutral { border-color: var(--border-subtle); }
+.text-theme-neutral { color: var(--text-muted); }
+
+/* Contrast */
+.bg-theme-contrast { background-color: var(--primary-900); }
+.border-theme-contrast { border-color: var(--primary-900); }
+.text-theme-contrast { color: var(--primary-900); }
+
+/* Brand Green */
+.bg-theme-green { background-color: var(--primary-700); }
+.border-theme-green { border-color: var(--primary-700); }
+
+/* ================================================================
+   2. SHELL / LAYOUT CLASSES
+   ================================================================ */
+
+/* Sidebar & Navbar background */
+.main-background-theme {
+  background-color: var(--bg-main);
+}
+
+/* Main container border */
+.main-border-theme {
+  border-color: transparent;
+}
+
+/* Form input border */
+.input-border {
+  border-color: #E5E7EB;
+}
+
+/* ================================================================
+   3. GLASSMORPHISM TOOLTIP (ApexCharts)
+   ================================================================ */
+.apexcharts-tooltip.custom-tooltip-wrapper {
+  background: transparent !important;
+  border: none !important;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* ================================================================
+   4. CUSTOM SCROLLBAR (Greenleaf .custom-scrollbar pattern)
+   ================================================================ */
+
+/* Global scrollbar — Sleek, modern */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -37,27 +147,40 @@ body {
   background: #94a3b8; /* slate-400 */
 }
 
-/* Animations definitions */
+/* Explicit .custom-scrollbar class (Greenleaf compat) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ================================================================
+   5. ANIMATIONS
+   ================================================================ */
+
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 .animate-fadeIn {
@@ -68,7 +191,15 @@ body {
   animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Custom scrollbar utility for asset sub-tickers */
+.animate-slideInRight {
+  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ================================================================
+   6. UTILITY CLASSES
+   ================================================================ */
+
+/* Hide scrollbar for horizontal carousels / tickers */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -77,18 +208,15 @@ body {
   scrollbar-width: none;
 }
 
-/* Slide animation for the AI panel slide-over widget */
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+/* Global override to eliminate empty margin spaces on dashboard pages when zooming */
+main > .w-full > *,
+main > div.flex-1 > *,
+main > .flex-1 > * {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
 }
 
-.animate-slideInRight {
-  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+
+

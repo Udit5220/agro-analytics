@@ -3371,5 +3371,186 @@
         "status": "Partially Blocked"
       }
     ]
+  },
+  "fpoSimulatorData": {
+    "projectTypes": [
+      {
+        "id": "warehouse",
+        "name": "Warehouse",
+        "icon": "Warehouse",
+        "baseCost": 4500000,
+        "subsidyRate": 0.33,
+        "roi": 18.2,
+        "payback": 3.8,
+        "schemes": ["AIF Infrastructure Fund", "SMAM Subsidy"],
+        "schemeDetails": [
+          {
+            "name": "AIF Infrastructure Fund",
+            "subsidy": "3% interest subvention",
+            "maxAmount": "₹2.0 Cr",
+            "deadline": "22 Jun 2026"
+          },
+          {
+            "name": "SMAM Subsidy",
+            "subsidy": "40% capital subsidy",
+            "maxAmount": "₹80 Lakh",
+            "deadline": "Rolling"
+          }
+        ],
+        "risks": [
+          {
+            "type": "Market",
+            "level": "Medium",
+            "description": "Warehouse occupancy rate volatility"
+          },
+          {
+            "type": "Operational",
+            "level": "Low",
+            "description": "Staff training required"
+          }
+        ],
+        "memberImpact": {
+          "farmersBenefited": 450,
+          "incomeIncrease": 18,
+          "jobsCreated": 12
+        },
+        "timeline": {
+          "approvalDays": 45,
+          "constructionDays": 120,
+          "breakevenMonths": 46
+        },
+        "historicalROI": { "similarProjects": 16.5, "range": "14-22%" }
+      },
+      {
+        "id": "coldStorage",
+        "name": "Cold Storage",
+        "icon": "Snowflake",
+        "baseCost": 6500000,
+        "subsidyRate": 0.35,
+        "roi": 22.5,
+        "payback": 4.2,
+        "schemes": ["MIDH Cold Chain", "NHB Subsidy"],
+        "schemeDetails": [
+          {
+            "name": "MIDH Cold Chain",
+            "subsidy": "35% capital subsidy",
+            "maxAmount": "₹5.0 Cr",
+            "deadline": "31 Dec 2026"
+          },
+          {
+            "name": "NHB Subsidy",
+            "subsidy": "25% back-ended subsidy",
+            "maxAmount": "₹2.5 Cr",
+            "deadline": "Rolling"
+          }
+        ],
+        "risks": [
+          {
+            "type": "Technical",
+            "level": "Medium",
+            "description": "Power backup requirements"
+          },
+          {
+            "type": "Market",
+            "level": "Low",
+            "description": "High demand for cold storage"
+          }
+        ],
+        "memberImpact": {
+          "farmersBenefited": 680,
+          "incomeIncrease": 25,
+          "jobsCreated": 18
+        },
+        "timeline": {
+          "approvalDays": 60,
+          "constructionDays": 150,
+          "breakevenMonths": 50
+        },
+        "historicalROI": { "similarProjects": 20.8, "range": "18-26%" }
+      },
+      {
+        "id": "solarProject",
+        "name": "Solar Project",
+        "icon": "Sun",
+        "baseCost": 2500000,
+        "subsidyRate": 0.5,
+        "roi": 26.4,
+        "payback": 3.2,
+        "schemes": ["PM Kusum", "State Solar Subsidy"],
+        "schemeDetails": [
+          {
+            "name": "PM Kusum",
+            "subsidy": "60% capital subsidy",
+            "maxAmount": "₹1.2 Cr",
+            "deadline": "30 Jun 2026"
+          },
+          {
+            "name": "State Solar Subsidy",
+            "subsidy": "20% additional",
+            "maxAmount": "₹50 Lakh",
+            "deadline": "Rolling"
+          }
+        ],
+        "risks": [
+          {
+            "type": "Technical",
+            "level": "Low",
+            "description": "Solar panel maintenance"
+          },
+          {
+            "type": "Regulatory",
+            "level": "Low",
+            "description": "Grid connectivity approvals"
+          }
+        ],
+        "memberImpact": {
+          "farmersBenefited": 320,
+          "incomeIncrease": 12,
+          "jobsCreated": 6
+        },
+        "timeline": {
+          "approvalDays": 30,
+          "constructionDays": 60,
+          "breakevenMonths": 38
+        },
+        "historicalROI": { "similarProjects": 24.5, "range": "22-28%" }
+      }
+    ],
+    "comparativeAnalysis": {
+      "metrics": [
+        "ROI",
+        "Payback Years",
+        "Farmer Benefit",
+        "Jobs Created",
+        "Risk Level",
+        "Approval Time"
+      ]
+    },
+    "seasonalAdjustments": {
+      "Kharif": { "coldStorage": 1.2, "warehouse": 1.1, "solarProject": 1.0 },
+      "Rabi": { "coldStorage": 0.9, "warehouse": 1.0, "solarProject": 1.1 }
+    },
+    "documentChecklist": {
+      "warehouse": [
+        "Land Ownership Proof",
+        "DPR Document",
+        "Financial Audit",
+        "Board Resolution",
+        "GST Certificate"
+      ],
+      "coldStorage": [
+        "Land Ownership Proof",
+        "Technical Feasibility",
+        "Power Connection",
+        "FSSAI License",
+        "Environmental Clearance"
+      ],
+      "solarProject": [
+        "Land Ownership Proof",
+        "Solar Feasibility Report",
+        "Grid Connectivity Approval",
+        "Vendor Empanelment"
+      ]
+    }
   }
 }

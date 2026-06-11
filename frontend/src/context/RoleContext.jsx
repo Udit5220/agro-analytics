@@ -18,8 +18,8 @@ export const ROLES = {
       "Scheme Finder",
     ],
   },
-  FPO: {
-    id: "fpo",
+  FPO_MANAGER: {
+    id: "fpo_manager",
     label: "FPO Manager",
     icon: "👥",
     color: "blue",

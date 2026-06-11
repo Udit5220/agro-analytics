@@ -345,54 +345,114 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
     ];
   } else if (activeModuleKey === "gov-schemes" && activeRole === "fpo") {
     currentMenu = [
-      { label: "Opportunity Command Center", path: "", icon: "LayoutDashboard" },
+      {
+        label: "Opportunity Command Center",
+        path: "",
+        icon: "LayoutDashboard",
+      },
       { label: "Opportunity Explorer", path: "explorer", icon: "Compass" },
       { label: "Funding Pipeline", path: "pipeline", icon: "FolderKanban" },
-      { label: "Eligibility & Readiness", path: "readiness", icon: "CheckCircle2" },
+      {
+        label: "Eligibility & Readiness",
+        path: "readiness",
+        icon: "CheckCircle2",
+      },
       { label: "Member Benefit Coverage", path: "coverage", icon: "Users" },
-      { label: "Infrastructure Support", path: "infrastructure", icon: "Building2" },
-      { label: "Impact Analytics Center", path: "analytics", icon: "BarChart3" },
-      { label: "Compliance & Documentation", path: "compliance", icon: "FileText" },
+      {
+        label: "Infrastructure Support",
+        path: "infrastructure",
+        icon: "Building2",
+      },
+      {
+        label: "Impact Analytics Center",
+        path: "analytics",
+        icon: "BarChart3",
+      },
+      {
+        label: "Compliance & Documentation",
+        path: "compliance",
+        icon: "FileText",
+      },
       { label: "Strategic Simulator", path: "simulator", icon: "PlayCircle" },
-      { label: "AI Opportunity Advisor", path: "advisor", icon: "MessageSquare" },
+      {
+        label: "AI Opportunity Advisor",
+        path: "advisor",
+        icon: "MessageSquare",
+      },
     ];
   } else if (activeModuleKey === "gov-schemes" && activeRole === "government") {
     currentMenu = [
       { label: "Governance Command Center", path: "", icon: "LayoutDashboard" },
-      { label: "Scheme Performance", path: "scheme-performance", icon: "Activity" },
-      { label: "Beneficiary Coverage", path: "beneficiary-coverage", icon: "Users" },
-      { label: "FPO Ecosystem Monitoring", path: "fpo-ecosystem", icon: "Network" },
-      { label: "Budget & Financials", path: "budget-utilization", icon: "CircleDollarSign" },
-      { label: "Service Delivery", path: "application-monitoring", icon: "Clock" },
-      { label: "Infrastructure Assets", path: "infrastructure-intelligence", icon: "Building2" },
-      { label: "Policy Impact Analytics", path: "policy-impact", icon: "BarChart3" },
-      { label: "Compliance & Governance", path: "compliance-audit", icon: "ShieldAlert" },
-      { label: "AI Policy Command Center", path: "policy-command", icon: "Bot" },
+      {
+        label: "Scheme Performance",
+        path: "scheme-performance",
+        icon: "Activity",
+      },
+      {
+        label: "Beneficiary Coverage",
+        path: "beneficiary-coverage",
+        icon: "Users",
+      },
+      {
+        label: "FPO Ecosystem Monitoring",
+        path: "fpo-ecosystem",
+        icon: "Network",
+      },
+      {
+        label: "Budget & Financials",
+        path: "budget-utilization",
+        icon: "CircleDollarSign",
+      },
+      {
+        label: "Service Delivery",
+        path: "application-monitoring",
+        icon: "Clock",
+      },
+      {
+        label: "Infrastructure Assets",
+        path: "infrastructure-intelligence",
+        icon: "Building2",
+      },
+      {
+        label: "Policy Impact Analytics",
+        path: "policy-impact",
+        icon: "BarChart3",
+      },
+      {
+        label: "Compliance & Governance",
+        path: "compliance-audit",
+        icon: "ShieldAlert",
+      },
+      {
+        label: "AI Policy Command Center",
+        path: "policy-command",
+        icon: "Bot",
+      },
     ];
   }
 
   return (
-    <aside className="w-60 bg-[#132a13] border-r border-[#132a13]/25 flex flex-col justify-between shrink-0 h-full min-h-0 p-3 text-white overflow-hidden">
+    <aside className="w-[200px] bg-[#31572c] flex flex-col justify-between shrink-0 h-full min-h-0 p-4 text-white overflow-hidden border-r border-[#e5e2dc]/10">
       <div className="flex flex-col min-h-0 flex-1">
         {/* Top Header & Collapsible Close Button */}
-        <div className="flex items-center justify-between pb-3 border-b border-[#31572c]/30">
+        <div className="flex items-center justify-between pb-3.5 border-b border-white/5">
           <div className="flex items-center space-x-2">
-            <LucideIcons.Sprout className="h-4 w-4 text-[#ecf39e]" />
-            <span className="text-[10px] font-bold tracking-widest uppercase text-gray-400">
+            <LucideIcons.Sprout className="h-[18px] w-[18px] text-[#6bc46b]" />
+            <span className="text-[10px] font-bold tracking-wider uppercase text-white/70">
               Navigation
             </span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(false)}
-            className="bg-[#4f772d]/25 hover:bg-[#4f772d]/45 text-gray-300 hover:text-white border border-[#90a955]/20 rounded-lg p-1.5 transition-all duration-200 active:scale-[0.95]"
+            className="bg-white/10 hover:bg-white/20 text-white rounded-xl p-1.5 transition-all duration-200 active:scale-[0.95] cursor-pointer"
             title="Close Navigation Panel"
           >
-            <LucideIcons.X className="h-4 w-4" />
+            <LucideIcons.X className="h-[17px] w-[17px]" />
           </button>
         </div>
 
         {/* Dynamic Nav List */}
-        <nav className="space-y-0 mt-3 flex-1 overflow-y-auto overscroll-contain pr-0.5">
+        <nav className="space-y-1.5 mt-4 flex-1 overflow-y-auto overscroll-contain pr-0.5">
           {currentMenu.map((item, idx) => {
             const IconComponent =
               LucideIcons[item.icon] || LucideIcons.HelpCircle;
@@ -406,10 +466,10 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
                 to={pathUrl}
                 end
                 className={({ isActive }) =>
-                  `min-h-[2.25rem] py-2 flex items-start gap-2.5 w-full transition-all duration-200 font-semibold text-[12px] relative group ${
+                  `min-h-[2.25rem] px-3 py-2 flex items-start gap-2.5 w-full transition-all duration-200 text-[10.5px] rounded-xl group ${
                     isActive
-                      ? "bg-[#4f772d]/20 text-white border-l-4 border-[#ecf39e] pl-1.5 shadow-sm"
-                      : "text-gray-400 hover:text-gray-200 hover:bg-[#4f772d]/10 border-l-4 border-transparent pl-1.5"
+                      ? "bg-[#e8f5e8] text-[#31572c] font-semibold shadow-sm"
+                      : "text-[#a3b8a3] hover:text-white hover:bg-white/5 font-medium"
                   }`
                 }
                 title={item.label}
@@ -417,10 +477,10 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
                 {({ isActive }) => (
                   <>
                     <IconComponent
-                      className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110 mt-0.5 ${
+                      className={`h-[17px] w-[17px] shrink-0 transition-transform duration-200 group-hover:scale-110 mt-0.5 ${
                         isActive
-                          ? "text-[#ecf39e]"
-                          : "text-gray-400 group-hover:text-gray-200"
+                          ? "text-[#31572c]"
+                          : "text-[#a3b8a3] group-hover:text-white"
                       }`}
                     />
 
@@ -436,10 +496,10 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
       </div>
 
       {/* Fixed Bottom Profile Block (Isolated at bottom) */}
-      <div className="border-t border-[#31572c]/30 pt-4 flex items-center justify-between gap-2 overflow-hidden">
-        <div className="flex items-center space-x-2.5 min-w-0 flex-1">
+      <div className="pt-4 flex items-center justify-between gap-2.5 overflow-hidden border-t border-white/5 mt-4">
+        <div className="flex items-center space-x-3 min-w-0 flex-1">
           {/* Avatar Emblems */}
-          <div className="h-8 w-8 rounded-lg bg-[#4f772d]/30 border border-[#90a955]/30 text-[#ecf39e] font-bold flex items-center justify-center text-[11px] shrink-0">
+          <div className="h-9 w-9 rounded-xl bg-white/10 text-white font-bold flex items-center justify-center text-[12px] shrink-0 border border-white/5">
             {userProfile.avatar}
           </div>
           <div className="min-w-0 flex-1">
@@ -449,12 +509,12 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
             >
               {userProfile.name}
             </h4>
-            <p className="text-[9px] font-medium text-gray-400 flex items-center space-x-1 mt-0.5 min-w-0">
+            <p className="text-[9px] font-medium text-[#a3b8a3] flex items-center space-x-1 mt-0.5 min-w-0">
               <span className="truncate" title={userProfile.role}>
                 {userProfile.role}
               </span>
-              <span className="text-gray-500 shrink-0">•</span>
-              <span className="text-[9px] font-semibold bg-[#4f772d]/30 text-[#ecf39e] px-1.5 py-0.5 rounded-md border border-[#90a955]/10 shrink-0">
+              <span className="text-white/20 shrink-0">•</span>
+              <span className="text-[9px] font-bold bg-[#e8f5e8] text-[#31572c] px-1.5 py-0.5 rounded-md shrink-0">
                 {userProfile.hindiRole}
               </span>
             </p>
@@ -465,9 +525,9 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
         <Link
           to="/"
           title="Sign Out"
-          className="text-gray-400 hover:text-[#ecf39e] hover:bg-[#4f772d]/20 p-1.5 rounded-lg border border-[#31572c]/30 transition-all duration-300 active:scale-[0.92]"
+          className="text-[#a3b8a3] hover:text-white hover:bg-white/5 p-2 rounded-xl transition-all duration-300 active:scale-[0.92]"
         >
-          <LucideIcons.LogOut className="h-3.5 w-3.5" />
+          <LucideIcons.LogOut className="h-[17px] w-[17px]" />
         </Link>
       </div>
     </aside>

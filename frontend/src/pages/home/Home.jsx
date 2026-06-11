@@ -158,7 +158,7 @@ export default function Home() {
       {/* 2. FLOATING METRICS RIBBON */}
       <section className="relative z-20 -mt-16 sm:-mt-20">
         <div className={uiConfig.layout.container}>
-          <div className="bg-white dark:bg-brand-darkest border border-slate-100 dark:border-brand-dark/25 shadow-2xl rounded-3xl p-8 lg:p-10">
+          <div className="bg-white dark:bg-brand-darkest shadow-2xl rounded-3xl p-8 lg:p-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 divide-y sm:divide-y-0 lg:divide-x divide-slate-100 dark:divide-brand-dark/15">
               {metrics.map((item, index) => {
                 const IconComponent =
@@ -239,7 +239,7 @@ export default function Home() {
       {/* 4. PLATFORM FLOW SECTION */}
       <section
         id="platform"
-        className={`bg-slate-50 dark:bg-brand-darkest/40 border-y border-slate-100 dark:border-brand-dark/10 ${uiConfig.layout.sectionPadding}`}
+        className={`bg-slate-50 dark:bg-brand-darkest/40 ${uiConfig.layout.sectionPadding}`}
       >
         <div className={uiConfig.layout.container}>
           {/* Section Header */}
@@ -274,7 +274,7 @@ export default function Home() {
       </section>
 
       {/* 5. FOOTER */}
-      <footer className="bg-brand-darkest text-slate-400 py-12 border-t border-brand-dark/30">
+      <footer className="bg-brand-darkest text-slate-400 py-12">
         <div className={uiConfig.layout.container}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center space-x-2">

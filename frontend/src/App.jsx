@@ -74,38 +74,34 @@ import OperationalControlCenter from "./pages/disease-detection/admin/Operationa
 import DiseaseRepository from "./pages/disease-detection/admin/DiseaseRepository";
 // import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoirDashboard";
 import GovSchemesDashboard from "./pages/gov-schemes/GovSchemesDashboard";
-import FarmDashboard from "./pages/gov-schemes/farmer/FarmDashboard";
-import FarmDiscovery from "./pages/gov-schemes/farmer/FarmDiscovery";
-import FarmSchemeDetails from "./pages/gov-schemes/farmer/FarmSchemeDetails";
-import FarmEligibilityCenter from "./pages/gov-schemes/farmer/FarmEligibilityCenter";
-import FarmApplications from "./pages/gov-schemes/farmer/FarmApplications";
-import FarmBenefitsWallet from "./pages/gov-schemes/farmer/FarmBenefitsWallet";
-import FarmSubsidyCenter from "./pages/gov-schemes/farmer/FarmSubsidyCenter";
-import FarmCropInsurance from "./pages/gov-schemes/farmer/FarmCropInsurance";
-import FarmLoanCenter from "./pages/gov-schemes/farmer/FarmLoanCenter";
-import FarmDocumentVault from "./pages/gov-schemes/farmer/FarmDocumentVault";
-import FarmSchemeCalendar from "./pages/gov-schemes/farmer/FarmSchemeCalendar";
-import FarmAIAdvisor from "./pages/gov-schemes/farmer/FarmAIAdvisor";
-import FpoOpportunityCommandCenter from "./pages/gov-schemes/fpo/FpoCommandCenter";
-import FpoOpportunityExplorer from "./pages/gov-schemes/fpo/FpoExplorer";
-import FpoFundingPipeline from "./pages/gov-schemes/fpo/FpoPipeline";
-import FpoEligibilityReadiness from "./pages/gov-schemes/fpo/FpoReadiness";
-import FpoMemberCoverage from "./pages/gov-schemes/fpo/FpoMemberCoverage";
-import FpoInfrastructureSupport from "./pages/gov-schemes/fpo/FpoInfrastructure";
-import FpoImpactAnalytics from "./pages/gov-schemes/fpo/FpoImpactAnalytics";
-import FpoComplianceDocumentation from "./pages/gov-schemes/fpo/FpoCompliance";
-import FpoStrategicSimulator from "./pages/gov-schemes/fpo/FpoSimulator";
-import FpoAiOpportunityAdvisor from "./pages/gov-schemes/fpo/FpoAIAdvisor";
-import GovGovernanceCommandCenter from "./pages/gov-schemes/gov/GovGovernanceCommandCenter";
+import MySchemes from "./pages/gov-schemes/farmer/MySchemes";
+import ApplyAndTrack from "./pages/gov-schemes/farmer/ApplyAndTrack";
+import BenefitsReceived from "./pages/gov-schemes/farmer/BenefitsReceived";
+import AIAdvisor from "./pages/gov-schemes/farmer/AIAdvisor";
+import FpoSchemeOverview from "./pages/gov-schemes/fpo/FpoSchemeOverview";
+import FpoFarmerEnrollment from "./pages/gov-schemes/fpo/FpoFarmerEnrollment";
+import FpoDisbursementIssues from "./pages/gov-schemes/fpo/FpoDisbursementIssues";
+import FpoApplications from "./pages/gov-schemes/fpo/FpoApplications";
+import FpoBoardReport from "./pages/gov-schemes/fpo/FpoBoardReport";
+import GovGovernanceCommandCenter from "./pages/gov-schemes/gov/GovCommandCenter";
 import GovSchemePerformance from "./pages/gov-schemes/gov/GovSchemePerformance";
 import GovBeneficiaryCoverage from "./pages/gov-schemes/gov/GovBeneficiaryCoverage";
 import GovFpoEcosystem from "./pages/gov-schemes/gov/GovFpoEcosystem";
-import GovBudgetUtilization from "./pages/gov-schemes/gov/GovBudgetUtilization";
-import GovApplicationMonitoring from "./pages/gov-schemes/gov/GovApplicationMonitoring";
 import GovInfrastructureIntelligence from "./pages/gov-schemes/gov/GovInfrastructureIntelligence";
 import GovPolicyImpact from "./pages/gov-schemes/gov/GovPolicyImpact";
-import GovComplianceAudit from "./pages/gov-schemes/gov/GovComplianceAudit";
+import GovComplianceAudit from "./pages/gov-schemes/gov/GovComplianceAndPolicy";
 import GovPolicyCommand from "./pages/gov-schemes/gov/GovPolicyCommand";
+
+// Corporate Admin Government Schemes Pages
+import AdminSchemeDiscovery from "./pages/gov-schemes/admin/AdminSchemeDiscovery";
+import AdminSchemeDetail from "./pages/gov-schemes/admin/AdminSchemeDetail";
+import AdminApplicationsTracker from "./pages/gov-schemes/admin/AdminApplicationsTracker";
+import AdminComplianceCenter from "./pages/gov-schemes/admin/AdminComplianceCenter";
+import AdminFinancialImpact from "./pages/gov-schemes/admin/AdminFinancialImpact";
+import AdminCompanyProfile from "./pages/gov-schemes/admin/AdminCompanyProfile";
+import AdminUserGuidance from "./pages/gov-schemes/admin/AdminUserGuidance";
+import AdminAlertsCenter from "./pages/gov-schemes/admin/AdminAlertsCenter";
+
 import ResearchAiDashboard from "./pages/research-ai/ResearchAiDashboard";
 import NewsIntelDashboard from "./pages/news-intel/NewsIntelDashboard";
 // import MarketplaceDashboard from "./pages/marketplace/MarketplaceDashboard";
@@ -144,6 +140,18 @@ import PriceTrends from "./pages/market-intelligence/PriceTrends";
 import NearbyMarkets from "./pages/market-intelligence/NearbyMarkets";
 import MyWatchlist from "./pages/market-intelligence/MyWatchlist";
 import PriceAlerts from "./pages/market-intelligence/PriceAlerts";
+
+// Farmer Market Intelligence Pages
+import FarmerMarketDashboard from "./pages/market-intelligence/farmer/MarketIntelligenceDashboard";
+import FarmerPriceIntelligence from "./pages/market-intelligence/farmer/PriceIntelligence";
+import FarmerDemandIntelligence from "./pages/market-intelligence/farmer/DemandIntelligence";
+import FarmerMandiIntelligence from "./pages/market-intelligence/farmer/MandiIntelligence";
+import FarmerSupplyArrival from "./pages/market-intelligence/farmer/SupplyArrivalIntelligence";
+import FarmerSellingIntelligence from "./pages/market-intelligence/farmer/SellingIntelligence";
+import FarmerTransportProfit from "./pages/market-intelligence/farmer/TransportProfitAnalyzer";
+import FarmerCommodityWatchlist from "./pages/market-intelligence/farmer/CommodityWatchlist";
+import FarmerMarketAlerts from "./pages/market-intelligence/farmer/MarketAlertsCenter";
+import FarmerMarketReports from "./pages/market-intelligence/farmer/MarketReportsAnalytics";
 
 // ─── Weather & Reservoir Intelligence Pages ───────────────────────────────────
 import WeatherDashboard from "./pages/weather-reservoir/WeatherDashboard";
@@ -240,6 +248,10 @@ import CompanyRegionalExpansion from "./pages/crop-recommendation/company/Compan
 import CompanySupplyChainPerformance from "./pages/crop-recommendation/company/CompanySupplyChainPerformance";
 import CompanyProcurementInventory from "./pages/crop-recommendation/company/CompanyProcurementInventory";
 import CompanyMarketExpansion from "./pages/crop-recommendation/company/CompanyMarketExpansion";
+import GovCommandCenter from "./pages/gov-schemes/gov/GovCommandCenter";
+import GovBudgetAndSpending from "./pages/gov-schemes/gov/GovBudgetAndSpending";
+import GovComplianceAndPolicy from "./pages/gov-schemes/gov/GovComplianceAndPolicy";
+import GovApplicationPipeline from "./pages/gov-schemes/gov/GovApplicationPipeline";
 // import FarmDiscovery from "./pages/gov-schemes/farmer/FarmDiscovery";
 
 // Wrapper layout for the main landing page — UNCHANGED
@@ -255,8 +267,14 @@ function LandingPage() {
 // Router switcher to dynamic active sub-views with interactive mock alerts
 function DashboardSwitcher() {
   const { moduleId, "*": subPath } = useParams();
-  const { activeRole } = useRole();
+  const { activeRole, switchRole } = useRole();
   console.log("ROUTE DBG:", { moduleId, subPath, activeRole });
+
+  React.useEffect(() => {
+    if (moduleId === "market-intelligence" && subPath?.startsWith("farmer/") && activeRole !== "farmer") {
+      switchRole("farmer");
+    }
+  }, [moduleId, subPath, activeRole, switchRole]);
 
   if (moduleId === "profile") {
     return <Profile />;
@@ -531,14 +549,27 @@ function DashboardSwitcher() {
   }
 
   // ── Commodity Market Intelligence (NEW) ────────────────────────────────────
-  // Handled by specific route in App component
   if (moduleId === "market-intelligence") {
-    if (subPath === "live-prices") return <LiveMandiPrices />;
-    if (subPath === "price-trends") return <PriceTrends />;
-    if (subPath === "nearby-markets") return <NearbyMarkets />;
-    if (subPath === "watchlist") return <MyWatchlist />;
-    if (subPath === "price-alerts") return <PriceAlerts />;
-    return <MarketDashboard />;
+    if (activeRole === "farmer" || subPath?.startsWith("farmer/")) {
+      if (subPath === "farmer/dashboard" || !subPath || subPath === "farmer") return <FarmerMarketDashboard />;
+      if (subPath === "farmer/price-intelligence") return <FarmerPriceIntelligence />;
+      if (subPath === "farmer/demand-intelligence") return <FarmerDemandIntelligence />;
+      if (subPath === "farmer/mandi-intelligence") return <FarmerMandiIntelligence />;
+      if (subPath === "farmer/supply-arrival") return <FarmerSupplyArrival />;
+      if (subPath === "farmer/selling-intelligence") return <FarmerSellingIntelligence />;
+      if (subPath === "farmer/transport-profit") return <FarmerTransportProfit />;
+      if (subPath === "farmer/watchlist") return <FarmerCommodityWatchlist />;
+      if (subPath === "farmer/alerts") return <FarmerMarketAlerts />;
+      if (subPath === "farmer/reports") return <FarmerMarketReports />;
+      return <FarmerMarketDashboard />;
+    } else {
+      if (subPath === "live-prices") return <LiveMandiPrices />;
+      if (subPath === "price-trends") return <PriceTrends />;
+      if (subPath === "nearby-markets") return <NearbyMarkets />;
+      if (subPath === "watchlist") return <MyWatchlist />;
+      if (subPath === "price-alerts") return <PriceAlerts />;
+      return <MarketDashboard />;
+    }
   }
 
   // ── Weather & Reservoir Intelligence (NEW) ─────────────────────────────────
@@ -554,45 +585,37 @@ function DashboardSwitcher() {
 
   // ── Government Scheme Center (existing) ───────────────────────────────────
   if (moduleId === "gov-schemes") {
-    if (activeRole === "farmer") {
-      if (subPath === "discovery") return <FarmDiscovery />;
-      if (subPath === "scheme-details") return <FarmSchemeDetails />;
-      if (subPath === "eligibility") return <FarmEligibilityCenter />;
-      if (subPath === "applications") return <FarmApplications />;
-      if (subPath === "benefits") return <FarmBenefitsWallet />;
-      if (subPath === "subsidy") return <FarmSubsidyCenter />;
-      if (subPath === "insurance") return <FarmCropInsurance />;
-      if (subPath === "loans") return <FarmLoanCenter />;
-      if (subPath === "documents") return <FarmDocumentVault />;
-      if (subPath === "calendar") return <FarmSchemeCalendar />;
-      if (subPath === "advisor") return <FarmAIAdvisor />;
-      return <FarmDashboard />;
+    if (activeRole === "admin" || activeRole === "company") {
+      if (subPath === "admin") return <AdminSchemeDiscovery />;
+      if (subPath === "admin/tracker") return <AdminApplicationsTracker />;
+      if (subPath === "admin/compliance") return <AdminComplianceCenter />;
+      if (subPath === "admin/financial-impact") return <AdminFinancialImpact />;
+      if (subPath === "admin/profile") return <AdminCompanyProfile />;
+      if (subPath === "admin/user-guidance") return <AdminUserGuidance />;
+      if (subPath === "admin/alerts") return <AdminAlertsCenter />;
+      if (subPath === "admin/detail" || (subPath && subPath.startsWith("admin/detail/"))) return <AdminSchemeDetail />;
+      return <Navigate to="/module/gov-schemes/admin" replace />;
     }
-    if (activeRole === "fpo") {
-      if (subPath === "explorer") return <FpoOpportunityExplorer />;
-      if (subPath === "pipeline") return <FpoFundingPipeline />;
-      if (subPath === "readiness") return <FpoEligibilityReadiness />;
-      if (subPath === "coverage") return <FpoMemberCoverage />;
-      if (subPath === "infrastructure") return <FpoInfrastructureSupport />;
-      if (subPath === "analytics") return <FpoImpactAnalytics />;
-      if (subPath === "compliance") return <FpoComplianceDocumentation />;
-      if (subPath === "simulator") return <FpoStrategicSimulator />;
-      if (subPath === "advisor") return <FpoAiOpportunityAdvisor />;
-      return <FpoOpportunityCommandCenter />;
+    if (activeRole === "farmer") {
+      if (subPath === "track") return <ApplyAndTrack />;
+      if (subPath === "benefits") return <BenefitsReceived />;
+      if (subPath === "advisor") return <AIAdvisor />;
+      return <MySchemes />;
+    }
+    if (activeRole === "fpo_manager" || activeRole === "fpo") {
+      if (subPath === "enrollment") return <FpoFarmerEnrollment />;
+      if (subPath === "disbursement") return <FpoDisbursementIssues />;
+      if (subPath === "applications") return <FpoApplications />;
+      if (subPath === "board-report") return <FpoBoardReport />;
+      return <FpoSchemeOverview />;
     }
     if (activeRole === "government") {
+      if (subPath === "gov-command-center") return <GovCommandCenter />;
       if (subPath === "scheme-performance") return <GovSchemePerformance />;
       if (subPath === "beneficiary-coverage") return <GovBeneficiaryCoverage />;
-      if (subPath === "fpo-ecosystem") return <GovFpoEcosystem />;
-      if (subPath === "budget-utilization") return <GovBudgetUtilization />;
-      if (subPath === "application-monitoring")
-        return <GovApplicationMonitoring />;
-      if (subPath === "infrastructure-intelligence")
-        return <GovInfrastructureIntelligence />;
-      if (subPath === "policy-impact") return <GovPolicyImpact />;
-      if (subPath === "compliance-audit") return <GovComplianceAudit />;
-      if (subPath === "policy-command") return <GovPolicyCommand />;
-      return <GovGovernanceCommandCenter />;
+      if (subPath === "budget") return <GovBudgetAndSpending />;
+      if (subPath === "pipeline") return <GovApplicationPipeline />;
+      if (subPath === "compliance-policy") return <GovComplianceAndPolicy />;
     }
     if (subPath === "matchi") return <SchemeMatcher />;
     if (subPath === "subsidies") return <SubsidyTracker />;
@@ -670,6 +693,7 @@ function DashboardSwitcher() {
     </div>
   );
 }
+
 
 function App() {
   return (

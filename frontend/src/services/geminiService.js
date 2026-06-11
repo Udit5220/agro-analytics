@@ -5,8 +5,8 @@ import { dashboardContent } from "../content/dashboardContent";
 import { profileApi } from "./apiService";
 import seededData from "../seed-json/seededData.json";
 
-// Retrieve Gemini API Key from Vite env context
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
+// Retrieve Gemini API Key from LocalStorage or Vite env context
+const GEMINI_API_KEY = localStorage.getItem("gemini_api_key") || import.meta.env.VITE_GEMINI_API_KEY || "";
 
 // Standard local mathematical calculator for Yield/ROI as a fallback to match existing formulas
 function calculateLocalYieldRoiFallback(

@@ -18,7 +18,7 @@ export default function Aitoolcard({
     <Link
       to={linkUrl}
       className={`group block overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${
-        highlighted ? "border-[#4f772d]/25 bg-[#f5f8e7]" : ""
+        highlighted ? "border-[#28a745]/25 bg-[#f5f8e7]" : ""
       }`}
     >
       {image && (
