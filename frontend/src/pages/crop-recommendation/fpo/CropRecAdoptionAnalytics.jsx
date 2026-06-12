@@ -428,7 +428,7 @@ export default function CropRecAdoptionAnalytics() {
               </div>
             </div>
 
-            <div className="bg-[#31572c]/5 border border-[#31572c]/10 rounded-xl p-3 text-[10px] text-gray-600 leading-relaxed font-semibold mt-3">
+            <div className="bg-brand-dark/5 border border-[#31572c]/10 rounded-xl p-3 text-[10px] text-gray-600 leading-relaxed font-semibold mt-3">
               <span className="font-black text-[#31572c] uppercase block">Spatial Action Advice</span>
               {selectedVillage.rate < 55 ? (
                 <span>Priority training area! Barriers of <b>{selectedVillage.barrier}</b> are slowing community momentum. Arrange a field visit immediately.</span>
@@ -525,7 +525,7 @@ export default function CropRecAdoptionAnalytics() {
       </div>
 
       {/* SECTION 6 - AI BEHAVIORAL ANALYTICS */}
-      <div className="bg-[#4f772d]/5 border border-[#31572c]/20 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-brand-medium/5 border border-[#31572c]/20 rounded-2xl overflow-hidden shadow-sm">
         <div className="bg-gradient-to-r from-[#31572c] to-[#4f772d] p-4 flex justify-between items-center text-white">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 animate-pulse text-white" />

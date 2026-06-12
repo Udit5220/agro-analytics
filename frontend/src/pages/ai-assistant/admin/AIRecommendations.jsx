@@ -23,7 +23,7 @@ import {
 const getSelectedTabClasses = (id) => {
   switch (id) {
     case "all":
-      return "bg-[#31572c] text-white border-[#31572c] shadow-sm";
+      return "bg-brand-dark text-white border-[#31572c] shadow-sm";
     case "high":
       return "bg-red-600 text-white border-red-600 shadow-sm";
     case "market":
@@ -33,7 +33,7 @@ const getSelectedTabClasses = (id) => {
     case "operational":
       return "bg-blue-600 text-white border-blue-600 shadow-sm";
     default:
-      return "bg-[#31572c] text-white border-[#31572c] shadow-sm";
+      return "bg-brand-dark text-white border-[#31572c] shadow-sm";
   }
 };
 
@@ -282,11 +282,11 @@ export default function AIRecommendations({ role = "farmer" }) {
   // Unified theme classes referencing the brand green configurations
   const theme = {
     primaryText: "text-[#31572c]",
-    primaryBg: "bg-[#31572c]/8 border-[#31572c]/15",
-    accentBg: "bg-[#31572c]",
-    btn: "bg-[#31572c] hover:bg-[#132a13] text-white focus:ring-0 active:scale-[0.98]",
+    primaryBg: "bg-brand-dark/8 border-[#31572c]/15",
+    accentBg: "bg-brand-dark",
+    btn: "bg-brand-dark hover:bg-[#132a13] text-white focus:ring-0 active:scale-[0.98]",
     border: "border-gray-200/80 hover:border-[#31572c]/30",
-    bgLight: "bg-[#31572c]/5",
+    bgLight: "bg-brand-dark/5",
     shadow: "shadow-sm",
   };
 
@@ -353,7 +353,7 @@ export default function AIRecommendations({ role = "farmer" }) {
           severity: "info",
           bgColor: "bg-emerald-50/40",
           borderColor: "border-emerald-100/80",
-          accentColor: "bg-[#31572c]",
+          accentColor: "bg-brand-dark",
           badge: "Price Premium",
           confidence: 91,
           yieldImpact: "+12% Profit Margin",
@@ -451,7 +451,7 @@ export default function AIRecommendations({ role = "farmer" }) {
           severity: "info",
           bgColor: "bg-emerald-50/40",
           borderColor: "border-emerald-100/80",
-          accentColor: "bg-[#31572c]",
+          accentColor: "bg-brand-dark",
           badge: "B2B Arbitrage",
           confidence: 88,
           yieldImpact: "+15% Net Return Rate",
@@ -573,7 +573,7 @@ export default function AIRecommendations({ role = "farmer" }) {
           severity: "info",
           bgColor: "bg-emerald-50/40",
           borderColor: "border-emerald-100/80",
-          accentColor: "bg-[#31572c]",
+          accentColor: "bg-brand-dark",
           badge: "IPM Strategy",
           confidence: 90,
           yieldImpact: "Saves 30% Chemical Costs",
@@ -647,7 +647,7 @@ export default function AIRecommendations({ role = "farmer" }) {
           severity: "info",
           bgColor: "bg-emerald-50/40",
           borderColor: "border-emerald-100/80",
-          accentColor: "bg-[#31572c]",
+          accentColor: "bg-brand-dark",
           badge: "Satellite Insights",
           confidence: 94,
           yieldImpact: "Informs District Food Security",
@@ -745,7 +745,7 @@ export default function AIRecommendations({ role = "farmer" }) {
           severity: "info",
           bgColor: "bg-emerald-50/40",
           borderColor: "border-emerald-100/80",
-          accentColor: "bg-[#31572c]",
+          accentColor: "bg-brand-dark",
           badge: "B2B Arbitrage",
           confidence: 90,
           yieldImpact: "+10% Price Premium",
@@ -819,7 +819,7 @@ export default function AIRecommendations({ role = "farmer" }) {
           severity: "info",
           bgColor: "bg-emerald-50/40",
           borderColor: "border-emerald-100/80",
-          accentColor: "bg-[#31572c]",
+          accentColor: "bg-brand-dark",
           badge: "Quota Progress",
           confidence: 96,
           yieldImpact: "Limits Storage Overhead",
@@ -845,7 +845,7 @@ export default function AIRecommendations({ role = "farmer" }) {
           severity: "info",
           bgColor: "bg-emerald-50/40",
           borderColor: "border-emerald-100/80",
-          accentColor: "bg-[#31572c]",
+          accentColor: "bg-brand-dark",
           badge: "Agronomy Trial",
           confidence: 94,
           yieldImpact: "Saves 20% Urea Input",
@@ -1254,13 +1254,13 @@ export default function AIRecommendations({ role = "farmer" }) {
                   <span className="text-gray-600 text-[11px]">
                     Whitefly (North block)
                   </span>
-                  <span className="text-[#31572c] bg-[#31572c]/8 px-1 py-0.5 rounded text-[8px] font-bold uppercase">
+                  <span className="text-[#31572c] bg-brand-dark/8 px-1 py-0.5 rounded text-[8px] font-bold uppercase">
                     Low
                   </span>
                 </div>
                 <div className="w-full bg-gray-100 h-1 rounded-full overflow-hidden">
                   <div
-                    className="bg-[#31572c] h-full rounded-full"
+                    className="bg-brand-dark h-full rounded-full"
                     style={{ width: "15%" }}
                   ></div>
                 </div>
@@ -1340,7 +1340,7 @@ export default function AIRecommendations({ role = "farmer" }) {
                 </div>
                 <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                   <div
-                    className="bg-[#31572c] h-full rounded-full"
+                    className="bg-brand-dark h-full rounded-full"
                     style={{ width: "94%" }}
                   ></div>
                 </div>
@@ -1352,13 +1352,13 @@ export default function AIRecommendations({ role = "farmer" }) {
                 </div>
                 <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                   <div
-                    className="bg-[#31572c] h-full rounded-full"
+                    className="bg-brand-dark h-full rounded-full"
                     style={{ width: "43%" }}
                   ></div>
                 </div>
               </div>
             </div>
-            <div className="bg-[#31572c]/8 p-2 rounded-lg border border-[#31572c]/15 text-[10px] font-bold text-[#31572c]">
+            <div className="bg-brand-dark/8 p-2 rounded-lg border border-[#31572c]/15 text-[10px] font-bold text-[#31572c]">
               Avg moisture parameter: 13.8%
             </div>
           </div>
@@ -1383,7 +1383,7 @@ export default function AIRecommendations({ role = "farmer" }) {
               Lab Research Metrics
             </h3>
             <div className="grid grid-cols-2 gap-2 text-center">
-              <div className="bg-[#31572c]/5 p-2.5 rounded-lg border border-[#31572c]/10">
+              <div className="bg-brand-dark/5 p-2.5 rounded-lg border border-[#31572c]/10">
                 <span className="text-base font-black text-[#31572c] block">
                   4
                 </span>
@@ -1391,7 +1391,7 @@ export default function AIRecommendations({ role = "farmer" }) {
                   Active Trials
                 </span>
               </div>
-              <div className="bg-[#31572c]/5 p-2.5 rounded-lg border border-[#31572c]/10">
+              <div className="bg-brand-dark/5 p-2.5 rounded-lg border border-[#31572c]/10">
                 <span className="text-base font-black text-[#31572c] block">
                   18
                 </span>
@@ -1618,7 +1618,7 @@ export default function AIRecommendations({ role = "farmer" }) {
                         border:
                           "border-gray-200 hover:border-emerald-200 hover:shadow-md hover:shadow-emerald-50/30",
                         borderLeft: "border-l-4 border-l-[#31572c]",
-                        accent: "bg-[#31572c]",
+                        accent: "bg-brand-dark",
                         text: "text-[#31572c]",
                         bg: "bg-emerald-50/10",
                         pill: "bg-emerald-50 text-emerald-800 border border-emerald-100/60",
@@ -1722,7 +1722,7 @@ export default function AIRecommendations({ role = "farmer" }) {
                               <div className="flex items-center gap-2">
                                 <div className="w-20 bg-gray-200 h-1.5 rounded-full overflow-hidden">
                                   <div
-                                    className="h-full bg-[#31572c] transition-all duration-300"
+                                    className="h-full bg-brand-dark transition-all duration-300"
                                     style={{ width: `${progress}%` }}
                                   ></div>
                                 </div>
@@ -1791,7 +1791,7 @@ export default function AIRecommendations({ role = "farmer" }) {
         <div className="space-y-6">
           {/* AI Core Diagnostics & Health */}
           <div className="bg-slate-900 rounded-2xl p-5 shadow-lg relative overflow-hidden border border-slate-800 text-white">
-            <div className="absolute -right-8 -top-8 w-20 h-20 rounded-full bg-[#31572c]/20 blur-xl"></div>
+            <div className="absolute -right-8 -top-8 w-20 h-20 rounded-full bg-brand-dark/20 blur-xl"></div>
 
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">

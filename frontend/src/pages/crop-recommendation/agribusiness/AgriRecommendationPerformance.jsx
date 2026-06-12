@@ -24,8 +24,8 @@ import {
 const FUNNEL_STEPS = [
   { step: "Generated", value: 120000, pct: 100, color: "bg-[#132a13]" },
   { step: "Viewed", value: 102000, pct: 85, color: "bg-[#254325]" },
-  { step: "Accepted", value: 81600, pct: 68, color: "bg-[#31572c]" },
-  { step: "Implemented", value: 64800, pct: 54, color: "bg-[#4f772d]" },
+  { step: "Accepted", value: 81600, pct: 68, color: "bg-brand-dark" },
+  { step: "Implemented", value: 64800, pct: 54, color: "bg-brand-medium" },
   { step: "Harvested", value: 57600, pct: 48, color: "bg-[#90a955]" },
 ];
 
@@ -216,7 +216,7 @@ export default function AgriRecommendationPerformance() {
                   onClick={() => setActiveTab(tab)}
                   className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-xl transition ${
                     activeTab === tab
-                      ? "bg-[#31572c] text-white"
+                      ? "bg-brand-dark text-white"
                       : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                   }`}
                 >

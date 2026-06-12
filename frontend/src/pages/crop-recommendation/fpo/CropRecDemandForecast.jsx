@@ -206,7 +206,7 @@ export default function CropRecDemandForecast() {
                 key={d}
                 onClick={() => setTimelinePeriod(d)}
                 className={`px-3 py-1 rounded-lg text-xs font-black transition-all ${
-                  timelinePeriod === d ? "bg-[#31572c] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  timelinePeriod === d ? "bg-brand-dark text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 {d}
@@ -290,7 +290,7 @@ export default function CropRecDemandForecast() {
             </thead>
             <tbody>
               {SEED_DATA.map((row, idx) => (
-                <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 transition">
+                <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 transition">
                   <td className="py-3 px-3 font-bold text-gray-900">{row.crop}</td>
                   <td className="py-3 px-3 font-mono">{row.area}</td>
                   <td className="py-3 px-3 font-mono">{row.rate}</td>
@@ -401,7 +401,7 @@ export default function CropRecDemandForecast() {
             </thead>
             <tbody>
               {PESTICIDE_DATA.map((row, idx) => (
-                <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 transition">
+                <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 transition">
                   <td className="py-3 px-3 font-bold text-gray-900">{row.name}</td>
                   <td className="py-3 px-3 font-mono">{row.forecast}</td>
                   <td className="py-3 px-3 font-mono">{row.inventory}</td>
@@ -548,7 +548,7 @@ export default function CropRecDemandForecast() {
             </thead>
             <tbody>
               {PROCUREMENT_TABLE.map((row, idx) => (
-                <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 transition">
+                <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 transition">
                   <td className="py-3 px-3 font-bold text-gray-900">{row.name}</td>
                   <td className="py-3 px-3 font-mono">{row.qty}</td>
                   <td className="py-3 px-3 font-bold text-amber-600">{row.date}</td>

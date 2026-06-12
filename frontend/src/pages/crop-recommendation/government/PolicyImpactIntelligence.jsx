@@ -159,7 +159,7 @@ export default function PolicyImpactIntelligence() {
                 cell: (v) => (
                   <div className="flex items-center gap-2">
                     <div className="w-20 bg-gray-150 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-[#31572c] h-full" style={{ width: `${v}%` }}></div>
+                      <div className="bg-brand-dark h-full" style={{ width: `${v}%` }}></div>
                     </div>
                     <span className="font-bold">{v}/100</span>
                   </div>

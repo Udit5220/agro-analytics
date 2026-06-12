@@ -242,13 +242,13 @@
 //                 onClick={() => setActiveSeason(season)}
 //                 className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-2 border cursor-pointer ${
 //                   isActive
-//                     ? "bg-[#31572c]/10 border-[#31572c]/30 text-[#132a13] font-extrabold shadow-sm"
+//                     ? "bg-brand-dark/10 border-[#31572c]/30 text-[#132a13] font-extrabold shadow-sm"
 //                     : "bg-white border-transparent text-gray-600 hover:text-[#31572c] hover:bg-gray-50"
 //                 }`}
 //               >
 //                 <span>{season} Season</span>
 //                 <span
-//                   className={`px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${isActive ? "bg-[#31572c]/15 text-[#132a13]" : "bg-gray-100 text-gray-500"}`}
+//                   className={`px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${isActive ? "bg-brand-dark/15 text-[#132a13]" : "bg-gray-100 text-gray-500"}`}
 //                 >
 //                   {labelHi}
 //                 </span>
@@ -259,7 +259,7 @@
 
 //         {/* Selected Duration Banner */}
 //         <div className="bg-white border border-gray-200 rounded-2xl px-4 py-2.5 flex items-center gap-3 shadow-sm self-stretch sm:self-auto shrink-0">
-//           <div className="p-2 bg-[#31572c]/10 rounded-xl text-[#31572c]">
+//           <div className="p-2 bg-brand-dark/10 rounded-xl text-[#31572c]">
 //             <Calendar size={15} />
 //           </div>
 //           <div>
@@ -307,7 +307,7 @@
 
 //         {/* Agronomic Overview Card */}
 //         <div className="bg-white border border-gray-200 rounded-2xl p-4.5 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
-//           <div className="h-11 w-11 rounded-xl bg-[#4f772d]/10 text-[#31572c] flex items-center justify-center shrink-0 shadow-sm border border-[#4f772d]/5">
+//           <div className="h-11 w-11 rounded-xl bg-brand-medium/10 text-[#31572c] flex items-center justify-center shrink-0 shadow-sm border border-brand-medium/5">
 //             <Info size={22} />
 //           </div>
 //           <div className="min-w-0 flex-1">
@@ -329,7 +329,7 @@
 //         {/* Title, Legend Indicators Header */}
 //         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3.5 border-b border-gray-100">
 //           <h2 className="text-[#31572c] text-sm font-bold flex items-center gap-2">
-//             <Sparkles className="h-4.5 w-4.5 text-[#4f772d]" />
+//             <Sparkles className="h-4.5 w-4.5 text-brand-medium" />
 //             <span>Timeline Rotational Matrix</span>
 //           </h2>
 //           {isLoading && (
@@ -403,7 +403,7 @@
 //                       key={month}
 //                       className={`py-1 rounded-lg flex items-center justify-center gap-1 mx-1 transition-all duration-300 ${
 //                         isCurrentMonth
-//                           ? "bg-[#4f772d]/10 text-[#132a13] font-black scale-105"
+//                           ? "bg-brand-medium/10 text-[#132a13] font-black scale-105"
 //                           : ""
 //                       }`}
 //                     >
@@ -426,7 +426,7 @@
 //                 >
 //                   {/* Left Column Crop Info */}
 //                   <div className="flex items-center gap-3 pl-1.5">
-//                     <span className="w-2 h-2 rounded-full bg-[#4f772d] group-hover:scale-125 transition-transform shrink-0" />
+//                     <span className="w-2 h-2 rounded-full bg-brand-medium group-hover:scale-125 transition-transform shrink-0" />
 //                     <div>
 //                       <h3 className="text-xs font-bold text-gray-900 leading-tight">
 //                         {crop.name}
@@ -455,7 +455,7 @@
 //                           key={month}
 //                           className={`flex flex-col gap-1.5 p-2 rounded-xl justify-center items-center min-h-[90px] border transition-all duration-200 ${
 //                             isCurrentMonth
-//                               ? "bg-[#4f772d]/[0.03] border-[#4f772d]/15 shadow-inner-sm"
+//                               ? "bg-brand-medium/[0.03] border-brand-medium/15 shadow-inner-sm"
 //                               : "border-transparent bg-transparent"
 //                           }`}
 //                         >
@@ -618,7 +618,7 @@ export default function SeasonalCalendar() {
       {/* Farm Profile Selection Dropdown */}
       <div className="bg-white border border-gray-300 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
         <div className="flex items-center gap-3 w-full sm:w-auto">
-          <div className="p-2 bg-[#31572c]/10 rounded-xl text-[#31572c]">
+          <div className="p-2 bg-brand-dark/10 rounded-xl text-[#31572c]">
             <Landmark size={18} />
           </div>
           <div className="flex-1 sm:flex-initial">
@@ -639,7 +639,7 @@ export default function SeasonalCalendar() {
           </div>
         </div>
 
-        <div className="bg-[#31572c]/5 border border-[#31572c]/10 rounded-xl px-3 py-1.5 text-right w-full sm:w-auto">
+        <div className="bg-brand-dark/5 border border-[#31572c]/10 rounded-xl px-3 py-1.5 text-right w-full sm:w-auto">
           <span className="text-[9px] font-black text-gray-700 block uppercase tracking-wider">
             Asset Registry Status
           </span>
@@ -664,13 +664,13 @@ export default function SeasonalCalendar() {
                 onClick={() => setActiveSeason(season)}
                 className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-xs font-black transition-all border cursor-pointer ${
                   isActive
-                    ? "bg-[#31572c]/10 border-[#31572c]/40 text-[#132a13] shadow-sm"
+                    ? "bg-brand-dark/10 border-[#31572c]/40 text-[#132a13] shadow-sm"
                     : "bg-white border-transparent text-gray-700 hover:text-[#31572c]"
                 }`}
               >
                 <span>{season} Season</span>
                 <span
-                  className={`px-1.5 py-0.5 rounded text-[9px] font-black ml-1.5 ${isActive ? "bg-[#31572c]/20 text-[#132a13]" : "bg-gray-200 text-gray-800"}`}
+                  className={`px-1.5 py-0.5 rounded text-[9px] font-black ml-1.5 ${isActive ? "bg-brand-dark/20 text-[#132a13]" : "bg-gray-200 text-gray-800"}`}
                 >
                   {labelHi}
                 </span>
@@ -721,7 +721,7 @@ export default function SeasonalCalendar() {
           </div>
         </div>
         <div className="bg-white border border-gray-300 rounded-2xl p-4 flex items-center gap-4 text-left">
-          <div className="h-10 w-10 rounded-xl bg-[#4f772d]/10 text-[#31572c] flex items-center justify-center border border-[#4f772d]/20">
+          <div className="h-10 w-10 rounded-xl bg-brand-medium/10 text-[#31572c] flex items-center justify-center border border-brand-medium/20">
             <Info size={20} />
           </div>
           <div className="min-w-0 flex-1">
@@ -774,7 +774,7 @@ export default function SeasonalCalendar() {
                     return (
                       <span
                         key={m}
-                        className={`py-1 rounded-lg flex items-center justify-center gap-1 mx-1 border ${isCurrentMonth ? "bg-[#4f772d]/10 text-[#132a13] border-[#31572c]/30 font-black" : "border-transparent bg-gray-50"}`}
+                        className={`py-1 rounded-lg flex items-center justify-center gap-1 mx-1 border ${isCurrentMonth ? "bg-brand-medium/10 text-[#132a13] border-[#31572c]/30 font-black" : "border-transparent bg-gray-50"}`}
                       >
                         {isCurrentMonth && (
                           <Pin
@@ -814,7 +814,7 @@ export default function SeasonalCalendar() {
                         return (
                           <div
                             key={m}
-                            className={`min-h-[70px] border border-dashed rounded-xl flex flex-col items-center justify-center p-1 gap-1.5 bg-white ${isCurrentMonth ? "border-[#4f772d]/40 shadow-inner bg-[#4f772d]/[0.02]" : "border-gray-300"}`}
+                            className={`min-h-[70px] border border-dashed rounded-xl flex flex-col items-center justify-center p-1 gap-1.5 bg-white ${isCurrentMonth ? "border-brand-medium/40 shadow-inner bg-brand-medium/[0.02]" : "border-gray-300"}`}
                           >
                             {phase.map((p, i) => (
                               <span

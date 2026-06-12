@@ -197,7 +197,7 @@ export default function RegionalIntelligence() {
               <button
                 onClick={() => setActiveLayer("satellite")}
                 className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                  activeLayer === "satellite" ? "bg-[#31572c] text-white shadow-sm" : "text-slate-500 hover:text-slate-800"
+                  activeLayer === "satellite" ? "bg-brand-dark text-white shadow-sm" : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 Satellite NDVI
@@ -205,7 +205,7 @@ export default function RegionalIntelligence() {
               <button
                 onClick={() => setActiveLayer("gov")}
                 className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                  activeLayer === "gov" ? "bg-[#31572c] text-white shadow-sm" : "text-slate-500 hover:text-slate-800"
+                  activeLayer === "gov" ? "bg-brand-dark text-white shadow-sm" : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 Gov Advisories
@@ -213,7 +213,7 @@ export default function RegionalIntelligence() {
               <button
                 onClick={() => setActiveLayer("spread")}
                 className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                  activeLayer === "spread" ? "bg-[#31572c] text-white shadow-sm" : "text-slate-500 hover:text-slate-800"
+                  activeLayer === "spread" ? "bg-brand-dark text-white shadow-sm" : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 Wind Vectors
@@ -258,7 +258,7 @@ export default function RegionalIntelligence() {
           <div className="flex gap-2.5 pt-4 border-t border-slate-100/60 mt-2">
             <button
               onClick={handleNextSimulation}
-              className="flex-1 py-2 bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+              className="flex-1 py-2 bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
             >
               <Play className="w-3.5 h-3.5" /> {simulationStep === 3 ? "Restart" : "Next Step"}
             </button>

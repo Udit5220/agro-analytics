@@ -108,11 +108,11 @@ function CustomDropdown({
                     onChange(opt.value);
                     setIsOpen(false);
                   }}
-                  className={`px-3.5 py-2.5 hover:bg-[#208837]/10 hover:text-[#2e4057] cursor-pointer transition-colors duration-150 flex items-center justify-between ${opt.value === value ? "bg-[#208837]/5 text-[#208837] border-l-2 border-l-[#208837] font-black" : ""}`}
+                  className={`px-3.5 py-2.5 hover:bg-brand-dark/10 hover:text-brand-darkest cursor-pointer transition-colors duration-150 flex items-center justify-between ${opt.value === value ? "bg-brand-dark/5 text-brand-dark border-l-2 border-l-[#208837] font-black" : ""}`}
                 >
                   <span className="truncate">{opt.label}</span>
                   {opt.value === value && (
-                    <LucideIcons.Check className="h-3.5 w-3.5 text-[#208837] shrink-0 ml-2" />
+                    <LucideIcons.Check className="h-3.5 w-3.5 text-brand-dark shrink-0 ml-2" />
                   )}
                 </li>
               ))}
@@ -320,7 +320,7 @@ export default function LocationSelector({ value, onChange, onCropSelect, select
         <div className="flex flex-col justify-center space-y-4">
           {/* Header Information */}
           <div className="flex items-start space-x-3.5">
-            <div className="p-3 bg-[#208837]/10 rounded-2xl text-[#208837] shrink-0 shadow-sm">
+            <div className="p-3 bg-brand-dark/10 rounded-2xl text-brand-dark shrink-0 shadow-sm">
               <LucideIcons.MapPin className="h-6 w-6" />
             </div>
             <div className="text-left">
@@ -357,7 +357,7 @@ export default function LocationSelector({ value, onChange, onCropSelect, select
         <div className="flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-gray-150 pt-6 lg:pt-0 lg:pl-8">
           {selectedFarmId !== "custom" && activeFarm ? (
             // Dynamic Visual readout for Selected Farm
-            <div className="bg-[#28a745]/[0.03] border border-[#cbdcd5] rounded-2xl p-5 space-y-4 text-left animate-fadeIn h-full flex flex-col justify-between shadow-sm hover:shadow transition-shadow duration-300">
+            <div className="bg-brand-medium/[0.03] border border-[#cbdcd5] rounded-2xl p-5 space-y-4 text-left animate-fadeIn h-full flex flex-col justify-between shadow-sm hover:shadow transition-shadow duration-300">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-[#cbdcd5]/40 pb-3">
                 <div>
                   <span className="text-[9px] font-black uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-100 tracking-wider">
@@ -413,13 +413,13 @@ export default function LocationSelector({ value, onChange, onCropSelect, select
                               onClick={() => onCropSelect(cropKey)}
                               className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-sm transition-all cursor-pointer border ${
                                 isSelected
-                                  ? "bg-[#208837] text-white border-[#208837]"
-                                  : "bg-white text-[#2e4057] border-[#2ec4b6]/20 hover:bg-[#208837]/10"
+                                  ? "bg-brand-dark text-white border-brand-dark"
+                                  : "bg-white text-brand-darkest border-[#2ec4b6]/20 hover:bg-brand-dark/10"
                               }`}
                             >
                               <span>🌾 {cr.name}</span>
                               <span className={`text-[9px] px-1.5 py-0.5 rounded font-black ml-0.5 ${
-                                isSelected ? "bg-white/20 text-white" : "bg-[#208837]/8 text-[#208837]"
+                                isSelected ? "bg-white/20 text-white" : "bg-brand-dark/8 text-brand-dark"
                               }`}>
                                 {cr.sownArea || 0} Ac
                               </span>
@@ -430,10 +430,10 @@ export default function LocationSelector({ value, onChange, onCropSelect, select
                         return (
                           <span
                             key={idx}
-                            className="text-[10px] font-bold uppercase bg-white text-[#2e4057] border border-[#2ec4b6]/20 px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-sm"
+                            className="text-[10px] font-bold uppercase bg-white text-brand-darkest border border-[#2ec4b6]/20 px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-sm"
                           >
                             <span>🌾 {cr.name}</span>
-                            <span className="text-[9px] bg-[#208837]/8 text-[#208837] px-1.5 py-0.5 rounded font-black ml-0.5">
+                            <span className="text-[9px] bg-brand-dark/8 text-brand-dark px-1.5 py-0.5 rounded font-black ml-0.5">
                               {cr.sownArea || 0} Ac
                             </span>
                           </span>
@@ -533,8 +533,8 @@ export default function LocationSelector({ value, onChange, onCropSelect, select
                           onClick={() => onCropSelect(cr.id)}
                           className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-sm transition-all cursor-pointer border ${
                             isSelected
-                              ? "bg-[#208837] text-white border-[#208837]"
-                              : "bg-white text-[#2e4057] border-[#2ec4b6]/20 hover:bg-[#208837]/10"
+                              ? "bg-brand-dark text-white border-brand-dark"
+                              : "bg-white text-brand-darkest border-[#2ec4b6]/20 hover:bg-brand-dark/10"
                           }`}
                         >
                           <span>🌾 {cr.name}</span>

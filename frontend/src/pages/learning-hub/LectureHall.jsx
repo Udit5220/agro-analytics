@@ -198,7 +198,7 @@ export default function LectureHall() {
       {/* Page Header */}
       <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
         <div className="flex items-start space-x-4 z-10">
-          <div className="p-3 bg-[#31572c]/10 text-[#31572c] rounded-xl mt-1 shrink-0">
+          <div className="p-3 bg-brand-dark/10 text-[#31572c] rounded-xl mt-1 shrink-0">
             <Video className="w-6 h-6" />
           </div>
           <div>
@@ -227,7 +227,7 @@ export default function LectureHall() {
           <button
             type="submit"
             disabled={searchingYoutube}
-            className="bg-[#31572c] hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
+            className="bg-brand-dark hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
           >
             {searchingYoutube ? (
               <>
@@ -314,7 +314,7 @@ export default function LectureHall() {
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                   <button 
                     onClick={() => setIsPlaying(true)}
-                    className="h-16 w-16 sm:h-20 sm:w-20 bg-[#31572c]/90 hover:bg-[#1a3018] rounded-full flex items-center justify-center text-white shadow-lg hover:scale-105 transition-all duration-300"
+                    className="h-16 w-16 sm:h-20 sm:w-20 bg-brand-dark/90 hover:bg-[#1a3018] rounded-full flex items-center justify-center text-white shadow-lg hover:scale-105 transition-all duration-300"
                   >
                     <PlayCircle className="h-10 w-10 sm:h-12 sm:w-12 ml-1" />
                   </button>
@@ -416,7 +416,7 @@ export default function LectureHall() {
                 <p className="text-xs text-gray-500 font-semibold mb-3">Translate this lecture's core takeaways and field guide steps.</p>
                 <button
                   onClick={handleGenerateStudyGuide}
-                  className="bg-[#31572c] hover:bg-[#1a3018] text-white py-2 px-4 rounded-xl text-xs font-bold transition-all shadow-xs inline-flex items-center gap-1.5"
+                  className="bg-brand-dark hover:bg-[#1a3018] text-white py-2 px-4 rounded-xl text-xs font-bold transition-all shadow-xs inline-flex items-center gap-1.5"
                 >
                   <Sparkles className="h-3.5 w-3.5" /> Generate AI Study Guide
                 </button>

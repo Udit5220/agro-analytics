@@ -44,7 +44,7 @@ export default function GovInfrastructureIntelligence() {
       <div className="flex items-center gap-2">
         <span className="font-black text-[#132a13]">{v}%</span>
         <div className="w-12 bg-gray-100 h-1.5 rounded-full overflow-hidden">
-          <div className={`h-full ${v >= 80 ? "bg-[#4f772d]" : v >= 60 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${v}%` }} />
+          <div className={`h-full ${v >= 80 ? "bg-brand-medium" : v >= 60 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${v}%` }} />
         </div>
       </div>
     )},
@@ -96,7 +96,7 @@ export default function GovInfrastructureIntelligence() {
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-            <Warehouse className="w-5 h-5 text-[#4f772d]" />
+            <Warehouse className="w-5 h-5 text-brand-medium" />
             Infrastructure Development Intelligence
           </h1>
           <p className="text-xs text-gray-500 mt-1">
@@ -105,7 +105,7 @@ export default function GovInfrastructureIntelligence() {
         </div>
         <button
           onClick={() => setShowCommissionModal(true)}
-          className="flex items-center gap-2 bg-[#132a13] hover:bg-[#31572c] text-white px-5 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap"
+          className="flex items-center gap-2 bg-[#132a13] hover:bg-brand-dark text-white px-5 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap"
         >
           <Plus className="w-4 h-4" /> Commission New Asset
         </button>
@@ -113,7 +113,7 @@ export default function GovInfrastructureIntelligence() {
 
       {/* KPI stats */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatsCard title="Total Funded Assets" value={assets.length.toString()} subtext="Warehouses, Cold Rooms, Processors" icon={<Warehouse className="text-[#4f772d]" />} />
+        <StatsCard title="Total Funded Assets" value={assets.length.toString()} subtext="Warehouses, Cold Rooms, Processors" icon={<Warehouse className="text-brand-medium" />} />
         <StatsCard title="Storage Capacity" value="3,800 MT" trend="Target: 5,000 MT" trendType="success" subtext="Calculated from active grids" />
         <StatsCard title="Avg Asset Utilization" value="70.2%" trend="Idle: 2 units" trendType="danger" subtext="Across all districts" />
         <StatsCard title="Total Public Funding" value="₹2.45 Cr" subtext="Subsidies & direct investments" />
@@ -144,7 +144,7 @@ export default function GovInfrastructureIntelligence() {
                   <span>200 MT / 74% Utilized</span>
                 </div>
                 <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
-                  <div className="bg-[#31572c] h-full" style={{ width: "74%" }}></div>
+                  <div className="bg-brand-dark h-full" style={{ width: "74%" }}></div>
                 </div>
               </div>
 
@@ -154,7 +154,7 @@ export default function GovInfrastructureIntelligence() {
                   <span>500 MT/day / 85% Utilized</span>
                 </div>
                 <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
-                  <div className="bg-[#4f772d] h-full" style={{ width: "85%" }}></div>
+                  <div className="bg-brand-medium h-full" style={{ width: "85%" }}></div>
                 </div>
               </div>
             </div>
@@ -162,7 +162,7 @@ export default function GovInfrastructureIntelligence() {
 
           <div className="mt-4 pt-4 border-t border-gray-100 bg-[#f4f7f4]/40 p-3.5 rounded-xl text-xs space-y-1">
             <p className="font-bold text-[#132a13] flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-[#4f772d]" /> Infrastructure Gap recommendation:
+              <Sparkles className="w-3.5 h-3.5 text-brand-medium" /> Infrastructure Gap recommendation:
             </p>
             <p className="text-gray-500 leading-normal">
               State cold storages show high utilization (95%) in Sonipat outskirts, indicating critical demand for commissioning additional pack houses in adjoining blocks.
@@ -235,7 +235,7 @@ export default function GovInfrastructureIntelligence() {
             <p className="text-xs text-gray-500 mb-4">Launch a new state-funded warehousing, processing, or energy asset to reduce infrastructure deficit.</p>
 
             {commissionSuccess ? (
-              <div className="text-center py-6 space-y-3 bg-[#f4f7f4]/45 border border-[#4f772d]/10 rounded-xl">
+              <div className="text-center py-6 space-y-3 bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-xl">
                 <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
                 <h4 className="font-bold text-gray-900 text-xs">Asset Commissioned Successfully!</h4>
                 <p className="text-[10px] text-gray-500 leading-normal">
@@ -250,7 +250,7 @@ export default function GovInfrastructureIntelligence() {
                     <select 
                       value={commissionType}
                       onChange={(e) => setCommissionType(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                     >
                       <option>Warehouse</option>
                       <option>Cold Storage</option>
@@ -263,7 +263,7 @@ export default function GovInfrastructureIntelligence() {
                     <select 
                       value={commissionDistrict}
                       onChange={(e) => setCommissionDistrict(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                     >
                       <option>Sonipat</option>
                       <option>Karnal</option>
@@ -281,7 +281,7 @@ export default function GovInfrastructureIntelligence() {
                       type="number"
                       value={commissionCapacity}
                       onChange={(e) => setCommissionCapacity(Number(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium"
                       required
                     />
                   </div>
@@ -291,21 +291,21 @@ export default function GovInfrastructureIntelligence() {
                       type="number"
                       value={commissionCost}
                       onChange={(e) => setCommissionCost(Number(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="p-3 bg-gray-50 border border-gray-150 rounded-xl text-[10px] text-gray-400 leading-normal font-medium flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-[#4f772d] shrink-0" />
+                  <Sparkles className="w-4 h-4 text-brand-medium shrink-0" />
                   <span>By submitting this form, you authorize district engineers to dispatch construction blueprints and release mobilization funds.</span>
                 </div>
 
                 <button
                   type="submit"
                   disabled={commissionProgress}
-                  className="w-full text-xs font-bold text-center py-2.5 bg-[#132a13] hover:bg-[#31572c] text-white rounded-xl transition"
+                  className="w-full text-xs font-bold text-center py-2.5 bg-[#132a13] hover:bg-brand-dark text-white rounded-xl transition"
                 >
                   {commissionProgress ? "Commissioning..." : "Approve and Release Funds"}
                 </button>

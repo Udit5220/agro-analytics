@@ -146,7 +146,7 @@ You can launch a direct outreach campaign by sending auto-generated SMS warnings
                 key={idx}
                 type="button"
                 onClick={() => handleSendMessage(q)}
-                className="text-[10px] font-bold px-3 py-1.5 border border-gray-255 rounded-full bg-white hover:border-[#4f772d] hover:text-[#4f772d] transition"
+                className="text-[10px] font-bold px-3 py-1.5 border border-gray-255 rounded-full bg-white hover:border-brand-medium hover:text-brand-medium transition"
               >
                 {q}
               </button>
@@ -162,7 +162,7 @@ You can launch a direct outreach campaign by sending auto-generated SMS warnings
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-            className="flex-1 px-4 py-2 border border-gray-200 rounded-full text-xs focus:outline-none focus:border-[#4f772d]"
+            className="flex-1 px-4 py-2 border border-gray-200 rounded-full text-xs focus:outline-none focus:border-brand-medium"
           />
           <button
             type="button"

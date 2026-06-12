@@ -376,7 +376,7 @@ export default function GlobalDiseaseMap() {
                     key={tab}
                     onClick={() => setTimeframe(tab)}
                     className={`text-[8px] font-black px-2 py-1 rounded transition ${
-                      timeframe === tab ? "bg-[#31572c] text-white" : "bg-gray-50 text-gray-400 hover:bg-gray-100"
+                      timeframe === tab ? "bg-brand-dark text-white" : "bg-gray-50 text-gray-400 hover:bg-gray-100"
                     }`}
                   >
                     {tab}
@@ -424,7 +424,7 @@ export default function GlobalDiseaseMap() {
                 </thead>
                 <tbody>
                   {filteredRegions.map((row, idx) => (
-                    <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 transition-colors font-semibold text-gray-700">
+                    <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 transition-colors font-semibold text-gray-700">
                       <td className="p-2 font-black text-gray-900">{row.region}</td>
                       <td className="p-2 text-right font-mono">{row.count}</td>
                       <td className="p-2 text-right">
@@ -456,7 +456,7 @@ export default function GlobalDiseaseMap() {
                 key={t}
                 onClick={() => setForecastTab(t)}
                 className={`px-2 py-1 transition ${
-                  forecastTab === t ? "bg-[#31572c] text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
+                  forecastTab === t ? "bg-brand-dark text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
                 }`}
               >
                 {t}

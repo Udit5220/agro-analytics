@@ -309,13 +309,13 @@ export default function NationalRiskMap() {
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10 flex gap-3">
             <button
               onClick={() => setIsLeftOpen(!isLeftOpen)}
-              className="px-4 py-2 bg-[#132a13] text-[#ecf39e] hover:bg-[#31572c] font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition active:scale-95 border border-[#ecf39e]/20 cursor-pointer"
+              className="px-4 py-2 bg-[#132a13] text-[#ecf39e] hover:bg-brand-dark font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition active:scale-95 border border-[#ecf39e]/20 cursor-pointer"
             >
               {isLeftOpen ? "Hide Map Layers" : "Show Map Layers"}
             </button>
             <button
               onClick={() => setIsRightOpen(!isRightOpen)}
-              className="px-4 py-2 bg-[#132a13] text-[#ecf39e] hover:bg-[#31572c] font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition active:scale-95 border border-[#ecf39e]/20 cursor-pointer"
+              className="px-4 py-2 bg-[#132a13] text-[#ecf39e] hover:bg-brand-dark font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition active:scale-95 border border-[#ecf39e]/20 cursor-pointer"
             >
               {isRightOpen ? "Hide Disease Spread Simulation" : "Show Disease Spread Simulation"}
             </button>
@@ -336,7 +336,7 @@ export default function NationalRiskMap() {
                       key={tab}
                       onClick={() => setSimHorizon(tab)}
                       className={`flex-1 py-1.5 rounded-lg text-[10px] uppercase font-black tracking-wider transition ${
-                        simHorizon === tab ? "bg-[#31572c] text-[#ecf39e] shadow-sm font-extrabold" : "hover:text-[#31572c] hover:bg-white/50"
+                        simHorizon === tab ? "bg-brand-dark text-[#ecf39e] shadow-sm font-extrabold" : "hover:text-[#31572c] hover:bg-white/50"
                       }`}
                     >
                       {tab}
@@ -357,7 +357,7 @@ export default function NationalRiskMap() {
                   </div>
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-gray-500 font-bold">Primary Vector:</span>
-                    <span className="bg-[#31572c]/10 text-[#31572c] px-2.5 py-0.5 rounded-md font-black text-[10px]">{currentSim.primaryDisease}</span>
+                    <span className="bg-brand-dark/10 text-[#31572c] px-2.5 py-0.5 rounded-md font-black text-[10px]">{currentSim.primaryDisease}</span>
                   </div>
                 </div>
 

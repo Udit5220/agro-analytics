@@ -23,7 +23,7 @@ export default function WeatherReservoirDashboard() {
       label: "Reservoir Levels",
       value: "68.4%",
       sub: "Normal volume",
-      color: "text-[#31572c] bg-[#31572c]/10",
+      color: "text-[#31572c] bg-brand-dark/10",
     },
     {
       label: "Soil Moisture Index",

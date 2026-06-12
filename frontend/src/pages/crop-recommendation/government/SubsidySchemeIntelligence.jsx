@@ -135,7 +135,7 @@ export default function SubsidySchemeIntelligence() {
             
             <button
               onClick={() => alert("Audit log report downloaded successfully.")}
-              className="bg-[#31572c] hover:bg-[#132a13] text-white border rounded-xl py-2 text-[10px] font-bold text-center active:scale-95 transition cursor-pointer"
+              className="bg-brand-dark hover:bg-[#132a13] text-white border rounded-xl py-2 text-[10px] font-bold text-center active:scale-95 transition cursor-pointer"
             >
               Export Comprehensive Audit Log
             </button>
@@ -159,7 +159,7 @@ export default function SubsidySchemeIntelligence() {
                 cell: (v) => (
                   <div className="flex items-center gap-2">
                     <div className="w-16 bg-gray-150 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-[#31572c] h-full" style={{ width: `${v}%` }}></div>
+                      <div className="bg-brand-dark h-full" style={{ width: `${v}%` }}></div>
                     </div>
                     <span className="font-bold">{v}/100</span>
                   </div>

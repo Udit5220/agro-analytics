@@ -123,7 +123,7 @@ export default function UserAnalytics() {
                   </div>
                   <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                     <div
-                      className="bg-[#31572c] h-full rounded-full"
+                      className="bg-brand-dark h-full rounded-full"
                       style={{ width: `${item.acceptance}%` }}
                     ></div>
                   </div>
@@ -185,7 +185,7 @@ export default function UserAnalytics() {
               </thead>
               <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
                 {segmentPerformance.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-[#4f772d]/5 transition-colors">
+                  <tr key={idx} className="hover:bg-brand-medium/5 transition-colors">
                     <td className="p-3 font-bold text-gray-900">{row.segment}</td>
                     <td className="p-3 font-mono text-gray-600">{row.users}</td>
                     <td className="p-3 font-mono text-gray-600">{row.activeRate}</td>

@@ -155,7 +155,7 @@ export default function AgriContractFarming() {
                     <span className="text-gray-900">{item.score}%</span>
                   </div>
                   <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                    <div className="bg-[#31572c] h-full" style={{ width: `${item.score}%` }}></div>
+                    <div className="bg-brand-dark h-full" style={{ width: `${item.score}%` }}></div>
                   </div>
                 </div>
               ))}

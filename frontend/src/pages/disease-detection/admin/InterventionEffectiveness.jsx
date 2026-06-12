@@ -229,7 +229,7 @@ export default function InterventionEffectiveness() {
                   key={t}
                   onClick={() => setSelectedMapLayer(t)}
                   className={`px-2 py-1 transition ${
-                    selectedMapLayer === t ? "bg-[#31572c] text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
+                    selectedMapLayer === t ? "bg-brand-dark text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
                   }`}
                 >
                   {t}
@@ -284,7 +284,7 @@ export default function InterventionEffectiveness() {
               </thead>
               <tbody>
                 {filteredCampaigns.map((row, idx) => (
-                  <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 font-semibold text-gray-700">
+                  <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 font-semibold text-gray-700">
                     <td className="p-2.5 pl-4 font-black text-gray-950 truncate max-w-[120px]">{row.name}</td>
                     <td className="p-2.5 text-gray-500 font-mono uppercase">{row.disease.split(" ")[0]}</td>
                     <td className="p-2.5 text-right font-mono font-bold">{row.coverage}%</td>
@@ -427,7 +427,7 @@ export default function InterventionEffectiveness() {
             </thead>
             <tbody>
               {roiData.map((row, i) => (
-                <tr key={i} className="border-b border-gray-100 hover:bg-[#4f772d]/5 transition-colors font-semibold text-gray-700">
+                <tr key={i} className="border-b border-gray-100 hover:bg-brand-medium/5 transition-colors font-semibold text-gray-700">
                   <td className="p-3 pl-6 font-bold text-gray-950">{row.campaign}</td>
                   <td className="p-3 text-right font-mono">₹{row.cost} Lakh</td>
                   <td className="p-3 text-right font-mono text-emerald-600">₹{(row.cost * row.roi / 100).toFixed(1)} Lakh</td>

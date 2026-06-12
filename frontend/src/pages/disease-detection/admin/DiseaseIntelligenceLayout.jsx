@@ -88,7 +88,7 @@ export default function DiseaseIntelligenceLayout() {
   return (
     <div className="min-h-screen bg-[#f8fafc] text-gray-800 font-sans flex antialiased">
       {/* BACKGROUND DECORATIONS */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#31572c]/5 rounded-full blur-[120px] pointer-events-none z-0" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-dark/5 rounded-full blur-[120px] pointer-events-none z-0" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#ecf39e]/10 rounded-full blur-[100px] pointer-events-none z-0" />
 
       {/* LEFT SIDEBAR (Fixed & Collapsible) */}
@@ -147,7 +147,7 @@ export default function DiseaseIntelligenceLayout() {
                       to={item.path}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition duration-200 text-xs font-bold relative group ${
                         isActive
-                          ? "bg-[#4f772d] text-white shadow-none"
+                          ? "bg-brand-medium text-white shadow-none"
                           : "text-slate-300 hover:text-white hover:bg-white/5"
                       }`}
                       title={collapsed ? item.label : ""}
@@ -247,7 +247,7 @@ export default function DiseaseIntelligenceLayout() {
               onClick={() => {
                 alert(`Exporting current report data for range: ${dateRange}`);
               }}
-              className="hidden sm:flex items-center gap-1.5 bg-[#4f772d] hover:bg-[#4f772d]/90 text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-xl transition active:scale-95 border border-white/10"
+              className="hidden sm:flex items-center gap-1.5 bg-brand-medium hover:bg-brand-medium/90 text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-xl transition active:scale-95 border border-white/10"
             >
               <Download size={12} /> Export Report
             </button>

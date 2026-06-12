@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Outlet, Link, useParams, useNavigate } from "react-router-dom";
+import { Outlet, Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   Sprout,
   Globe,
@@ -19,9 +19,34 @@ import { uiConfig } from "../../utils/uiConfig";
 import { dashboardContent } from "../../content/dashboardContent";
 import { useRole } from "../../context/RoleContext";
 
+const getRoleIcon = (roleId, className = "h-4 w-4") => {
+  switch (roleId) {
+    case "farmer":
+      return <LucideIcons.Sprout className={className} />;
+    case "fpo":
+    case "fpo_manager":
+      return <LucideIcons.Users className={className} />;
+    case "trader":
+      return <LucideIcons.TrendingUp className={className} />;
+    case "procurement":
+      return <LucideIcons.Factory className={className} />;
+    case "researcher":
+      return <LucideIcons.FlaskConical className={className} />;
+    case "government":
+      return <LucideIcons.Building2 className={className} />;
+    case "company":
+      return <LucideIcons.Briefcase className={className} />;
+    case "admin":
+      return <LucideIcons.Settings className={className} />;
+    default:
+      return <LucideIcons.Sprout className={className} />;
+  }
+};
+
 export default function ModuleLayout() {
   const { moduleId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { userProfile } = dashboardContent;
   const { activeRole, switchRole, allRoles } = useRole();
   const [darkMode, setDarkMode] = useState(false);
@@ -59,24 +84,26 @@ export default function ModuleLayout() {
     setLangDropdownOpen(false);
   };
 
+  const isFullBleedPage = location.pathname.endsWith("/advisor") || location.pathname.endsWith("/chat-workspace");
+
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[#f7f5f0] text-brand-darkest antialiased font-sans">
-      {/* 1. TOP STICKY HEADER — Premium AgroIndia Dark Green Canvas */}
-      <header className="bg-brand-darkest sticky top-0 z-40 shadow-sm h-16 px-6 flex items-center justify-between shrink-0 text-white">
+    <div className="flex flex-col h-screen overflow-hidden bg-brand-lightest text-brand-darkest antialiased font-sans">
+      {/* 1. TOP STICKY HEADER — Premium White Theme Canvas */}
+      <header className="bg-brand-darkest sticky top-0 z-40 shadow-sm h-16 px-6 flex items-center justify-between shrink-0 text-white border-b border-white/5">
         {/* Left: Branding Logo */}
         <Link to="/" className="flex items-center space-x-2.5 group">
-          <div className="p-2 bg-white/10 text-brand-light rounded-xl group-hover:scale-110 transition-transform duration-300">
-            <Sprout className="h-6 w-6" />
+          <div className="p-2 bg-white/10 text-white rounded-xl group-hover:scale-110 transition-transform duration-300">
+            <Sprout className="h-6 w-6 text-brand-light" />
           </div>
           <span className="text-white font-black text-lg flex items-center gap-2">
-            AgroIndia<span className="text-[#c9a84c] font-extrabold">.</span>
+            AgroIndia<span className="text-brand-light font-extrabold">.</span>
           </span>
         </Link>
 
         {/* Center: Module Title (Absolute horizontal center alignment) */}
         <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block z-50">
           <span
-            className="bg-brand-darkest text-white border border-white/10 rounded-full px-3.5 py-1.5 text-xs font-bold tracking-wider uppercase"
+            className="bg-brand-accent text-brand-darkest border border-brand-accent/40 rounded-full px-3.5 py-1.5 text-xs font-bold tracking-wider uppercase"
             style={{ letterSpacing: "0.5px" }}
           >
             {moduleId ? moduleId.replace("-", " ") : "Agri AI"}
@@ -90,18 +117,18 @@ export default function ModuleLayout() {
             <button
               type="button"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-lg hover:scale-105 transition-transform duration-200 shadow-sm cursor-pointer animate-fadeIn"
+              className="h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center hover:scale-105 transition-transform duration-200 shadow-sm cursor-pointer animate-fadeIn"
               title={`Active Role: ${allRoles[activeRole.toUpperCase()]?.label || activeRole}`}
             >
-              {allRoles[activeRole.toUpperCase()]?.icon || "🌾"}
+              {getRoleIcon(activeRole, "h-4.5 w-4.5")}
             </button>
 
             {isProfileOpen && (
-              <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50 p-3.5 animate-fadeIn text-gray-800">
+              <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-150 z-50 p-3.5 animate-fadeIn text-gray-800">
                 {/* Top: User Info */}
                 <div className="flex items-center gap-3 pb-3">
-                  <div className="h-10 w-10 rounded-xl bg-brand-darkest flex items-center justify-center text-lg shrink-0 shadow-inner">
-                    {allRoles[activeRole.toUpperCase()]?.icon || "🌾"}
+                  <div className="h-10 w-10 rounded-xl bg-brand-darkest flex items-center justify-center shrink-0 shadow-inner text-brand-light">
+                    {getRoleIcon(activeRole, "h-5 w-5")}
                   </div>
                   <div className="overflow-hidden">
                     <h4 className="text-xs font-bold text-gray-900 truncate">
@@ -111,7 +138,7 @@ export default function ModuleLayout() {
                           ? "Admin User"
                           : activeRole === "company"
                             ? "Agribusiness User"
-                            : activeRole === "fpo"
+                            : (activeRole === "fpo" || activeRole === "fpo_manager")
                               ? "FPO Manager"
                               : "Suresh Kumar"}
                     </h4>
@@ -130,30 +157,33 @@ export default function ModuleLayout() {
                   <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1.5 px-1">
                     Switch Active Role
                   </p>
-                  <div className="relative">
-                    <select
-                      value={activeRole}
-                      onChange={(e) => {
-                        const newRole = e.target.value;
-                        switchRole(newRole);
-                        setIsProfileOpen(false);
-                        // Route dynamically based on active role
-                        if (moduleId) {
-                          navigate(`/module/${moduleId}`);
-                        }
-                      }}
-                      className="w-full bg-gray-50 border border-gray-200 text-xs text-gray-800 rounded-lg px-2 py-1.5 font-bold focus:outline-none focus:ring-1 focus:ring-brand-medium cursor-pointer"
-                    >
-                      {Object.values(allRoles).map((role) => (
-                        <option
+                  <div className="space-y-1 max-h-48 overflow-y-auto pr-1">
+                    {Object.values(allRoles).map((role) => {
+                      const isSelected = activeRole === role.id;
+                      return (
+                        <button
                           key={role.id}
-                          value={role.id}
-                          className="text-gray-950 font-bold bg-white"
+                          type="button"
+                          onClick={() => {
+                            switchRole(role.id);
+                            setIsProfileOpen(false);
+                            if (moduleId) {
+                              navigate(`/module/${moduleId}`);
+                            }
+                          }}
+                          className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-xs rounded-lg font-bold transition-all cursor-pointer ${
+                            isSelected
+                              ? "bg-brand-accent text-brand-darkest"
+                              : "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-brand-dark/20"
+                          }`}
                         >
-                          {role.icon} {role.label}
-                        </option>
-                      ))}
-                    </select>
+                          <span className={isSelected ? "text-brand-darkest" : "text-gray-400"}>
+                            {getRoleIcon(role.id, "h-3.5 w-3.5")}
+                          </span>
+                          <span>{role.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -213,15 +243,15 @@ export default function ModuleLayout() {
             className="fixed top-20 left-4 z-40 p-2.5 bg-white hover:bg-[#f4f7f4] text-brand-darkest border border-gray-200 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center animate-fadeIn"
             title="Open Navigation"
           >
-            <LucideIcons.Menu className="h-5 w-5 text-brand-darkest" />
+            <LucideIcons.Menu className="h-5 w-5 text-[#1F4529]" />
           </button>
         )}
 
         {/* Right Column: Dynamic Outlet Page (Dynamic Padding transition when sidebar is closed) */}
         <main
-          className={`flex-1 bg-[#f7f5f0] overflow-y-auto px-6 py-6 md:px-8 md:py-8 scroll-thin transition-all duration-300 ${!isSidebarOpen ? "pl-16 md:pl-20" : ""}`}
+          className={`flex-1 bg-brand-lightest transition-all duration-300 ${isFullBleedPage ? "overflow-hidden h-full flex flex-col p-0" : "overflow-y-auto px-6 py-6 md:px-8 md:py-8 scroll-thin"} ${!isSidebarOpen ? "pl-16 md:pl-20" : ""}`}
         >
-          <div className="w-full">
+          <div className={isFullBleedPage ? "w-full h-full flex flex-col overflow-hidden" : "w-full"}>
             <Outlet />
           </div>
         </main>

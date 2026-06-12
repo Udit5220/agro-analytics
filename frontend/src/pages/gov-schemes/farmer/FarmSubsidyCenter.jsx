@@ -154,7 +154,7 @@ const FarmSubsidyCenter = () => {
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
           <div className="p-2 bg-[#132a13]/10 rounded-xl">
-            <Sparkles className="h-5 w-5 text-[#4f772d]" />
+            <Sparkles className="h-5 w-5 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#132a13]">
@@ -213,7 +213,7 @@ const FarmSubsidyCenter = () => {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-black text-[#4f772d]">
+                    <p className="text-lg font-black text-brand-medium">
                       {subsidy.subsidyPercent}%
                     </p>
                     <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">
@@ -271,7 +271,7 @@ const FarmSubsidyCenter = () => {
                   Calculate ROI
                 </button>
                 <button
-                  className="px-4 py-2 rounded-xl border border-[#4f772d]/20 bg-[#4f772d]/5 text-[#4f772d] text-xs font-bold hover:bg-[#4f772d]/10 transition"
+                  className="px-4 py-2 rounded-xl border border-brand-medium/20 bg-brand-medium/5 text-brand-medium text-xs font-bold hover:bg-brand-medium/10 transition"
                   onClick={(e) => {
                     e.stopPropagation();
                     setApplyingSubsidy(subsidy);
@@ -415,7 +415,7 @@ const FarmSubsidyCenter = () => {
                 </p>
                 <p className="text-lg font-black text-white mt-1">₹18,000</p>
               </div>
-              <div className="bg-[#4f772d] rounded-xl p-4 col-span-2 shadow-inner border border-[#ecf39e]/20">
+              <div className="bg-brand-medium rounded-xl p-4 col-span-2 shadow-inner border border-[#ecf39e]/20">
                 <p className="text-white/90 text-xs font-bold uppercase tracking-wider">
                   5-Year Net Project Return
                 </p>
@@ -517,7 +517,7 @@ const FarmSubsidyCenter = () => {
                       following investment:
                     </p>
 
-                    <div className="bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl p-3.5 mb-4 space-y-1.5 text-xs">
+                    <div className="bg-[#f4f7f4] border border-brand-medium/10 rounded-xl p-3.5 mb-4 space-y-1.5 text-xs">
                       <p className="font-bold text-[#132a13]">
                         {applyingSubsidy.name}
                       </p>
@@ -550,7 +550,7 @@ const FarmSubsidyCenter = () => {
                         </button>
                         <button
                           type="submit"
-                          className="flex-1 px-4 py-2.5 text-xs font-bold bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl transition"
+                          className="flex-1 px-4 py-2.5 text-xs font-bold bg-brand-medium hover:bg-brand-dark text-white rounded-xl transition"
                         >
                           Confirm Application
                         </button>

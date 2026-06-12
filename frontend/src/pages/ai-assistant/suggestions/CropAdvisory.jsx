@@ -73,7 +73,7 @@ function CropSpecificationSheet({ data }) {
             </span>
           </h3>
         </div>
-        <div className="flex items-center gap-1.5 bg-[#31572c]/8 text-[#31572c] font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded">
+        <div className="flex items-center gap-1.5 bg-brand-dark/8 text-[#31572c] font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded">
           <Calendar className="w-3.5 h-3.5" />
           <span>{activeData.seasonContext} Matrix</span>
         </div>
@@ -108,7 +108,7 @@ function CropSpecificationSheet({ data }) {
                 </p>
               </div>
             </div>
-            <div className="p-3.5 bg-[#31572c]/5 border border-[#31572c]/10 rounded-lg flex items-center gap-3">
+            <div className="p-3.5 bg-brand-dark/5 border border-[#31572c]/10 rounded-lg flex items-center gap-3">
               <Scale className="w-5 h-5 text-[#31572c] shrink-0" />
               <div>
                 <p className="text-[10px] font-bold text-[#31572c] uppercase">
@@ -367,7 +367,7 @@ export default function CropAdvisory() {
             <Sprout className="w-4 h-4 text-[#31572c]" />
             <span>Crop Advisory</span>
             <span className="text-gray-300 font-light text-xs">|</span>
-            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-[#31572c]/8 px-2 py-0.5 rounded-md">
+            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-brand-dark/8 px-2 py-0.5 rounded-md">
               फसल सलाह
             </span>
           </h1>
@@ -376,7 +376,7 @@ export default function CropAdvisory() {
             metrics.
           </p>
         </div>
-        <div className="flex items-center gap-1.5 self-start md:self-auto px-2 py-0.5 bg-[#31572c]/8 rounded text-[10px] font-bold text-[#31572c]">
+        <div className="flex items-center gap-1.5 self-start md:self-auto px-2 py-0.5 bg-brand-dark/8 rounded text-[10px] font-bold text-[#31572c]">
           <Calendar className="w-3.5 h-3.5 text-[#31572c]" />
           <span>{season} Season Active</span>
         </div>
@@ -422,7 +422,7 @@ export default function CropAdvisory() {
           <RefreshCw className="w-3.5 h-3.5" />
           <span>Refresh Analysis</span>
         </button>
-        <button className="px-4 py-1.5 bg-[#31572c] text-white rounded-lg text-[11px] font-medium hover:bg-[#132a13] transition-colors flex items-center gap-1.5 shadow-sm">
+        <button className="px-4 py-1.5 bg-brand-dark text-white rounded-lg text-[11px] font-medium hover:bg-[#132a13] transition-colors flex items-center gap-1.5 shadow-sm">
           <CheckCircle className="w-3.5 h-3.5" />
           <span>Commit to Profile</span>
         </button>

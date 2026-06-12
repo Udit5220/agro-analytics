@@ -204,7 +204,7 @@ export default function RegionalIntelligence() {
               </thead>
               <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
                 {statePerformance.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-[#4f772d]/5 transition-colors">
+                  <tr key={idx} className="hover:bg-brand-medium/5 transition-colors">
                     <td className="p-3">
                       <button
                         onClick={() => handleStateClick(row.name)}
@@ -250,7 +250,7 @@ export default function RegionalIntelligence() {
               </thead>
               <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
                 {districtPerformance[selectedState]?.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-[#4f772d]/5 transition-colors">
+                  <tr key={idx} className="hover:bg-brand-medium/5 transition-colors">
                     <td className="p-3">
                       <button
                         onClick={() => handleDistrictClick(row.name)}
@@ -290,7 +290,7 @@ export default function RegionalIntelligence() {
               </thead>
               <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
                 {villagePerformance[selectedDistrict]?.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-[#4f772d]/5 transition-colors">
+                  <tr key={idx} className="hover:bg-brand-medium/5 transition-colors">
                     <td className="p-3 font-bold text-gray-900">{row.name}</td>
                     <td className="p-3 font-mono">{row.users}</td>
                     <td className="p-3">{row.topCrop}</td>

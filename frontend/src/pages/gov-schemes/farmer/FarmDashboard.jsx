@@ -45,7 +45,7 @@ const FarmDashboard = () => {
   const [showActionsModal, setShowActionsModal] = useState(false);
 
   const iconMap = {
-    CheckCircle2: <CheckCircle2 className="text-[#4f772d]" />,
+    CheckCircle2: <CheckCircle2 className="text-brand-medium" />,
     FileText: <FileText className="text-[#31572c]" />,
     IndianRupee: <IndianRupee className="text-[#132a13]" />,
     Clock: <ClockIcon className="text-[#90a955]" />,
@@ -100,14 +100,14 @@ const FarmDashboard = () => {
       <div className="mb-6 flex flex-wrap justify-between items-start gap-4">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-[#132a13]/10 rounded-xl">
-            <LayoutDashboard className="h-6 w-6 text-[#4f772d]" />
+            <LayoutDashboard className="h-6 w-6 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-2xl font-bold text-[#132a13]">
               Welcome back, {farmerProfile.name}
             </h1>
             <div className="flex items-center gap-2 mt-1 text-gray-500 text-xs">
-              <MapPin className="w-3.5 h-3.5 text-[#4f772d]" />
+              <MapPin className="w-3.5 h-3.5 text-brand-medium" />
               <span>{farmerProfile.location}</span>
               <span className="text-gray-300">•</span>
               <Clock className="w-3.5 h-3.5 text-gray-400" />
@@ -234,7 +234,7 @@ const FarmDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white rounded-xl shadow-sm p-5 border border-gray-100">
           <h3 className="font-bold text-[#132a13] mb-1 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-[#4f772d]" />
+            <TrendingUp className="w-5 h-5 text-brand-medium" />
             AI Recommended Schemes
           </h3>
           <p className="text-xs text-gray-400 mb-4">
@@ -244,7 +244,7 @@ const FarmDashboard = () => {
             {aiRecommendedSchemes.map((scheme) => (
               <div
                 key={scheme.id}
-                className="border border-gray-100 rounded-xl p-4 hover:shadow-md hover:border-[#4f772d]/20 transition-all duration-200"
+                className="border border-gray-100 rounded-xl p-4 hover:shadow-md hover:border-brand-medium/20 transition-all duration-200"
               >
                 <div className="flex justify-between items-start flex-wrap gap-2">
                   <div className="flex-1">
@@ -285,7 +285,7 @@ const FarmDashboard = () => {
                     </p>
                     <button
                       onClick={() => setApplyScheme(scheme)}
-                      className="mt-3 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all duration-200 bg-[#4f772d] hover:bg-[#31572c] hover:shadow-sm"
+                      className="mt-3 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all duration-200 bg-brand-medium hover:bg-brand-dark hover:shadow-sm"
                     >
                       Apply Now
                     </button>
@@ -341,7 +341,7 @@ const FarmDashboard = () => {
           <div className="mt-6 pt-4 border-t border-gray-100">
             <button
               onClick={() => setShowActionsModal(true)}
-              className="text-xs font-bold text-[#4f772d] hover:text-[#31572c] hover:underline w-full text-center"
+              className="text-xs font-bold text-brand-medium hover:text-[#31572c] hover:underline w-full text-center"
             >
               View all pending actions
             </button>
@@ -380,12 +380,12 @@ const FarmDashboard = () => {
                 <p className="text-xs text-gray-500 mb-4">
                   Verify your details below to initiate your application for:
                 </p>
-                <div className="bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl p-3.5 mb-4">
+                <div className="bg-[#f4f7f4] border border-brand-medium/10 rounded-xl p-3.5 mb-4">
                   <p className="text-sm font-bold text-[#132a13]">
                     {applyScheme.name}
                   </p>
                   <p className="text-xs text-gray-600 mt-1">
-                    Benefit Value: <span className="font-bold text-[#4f772d]">{applyScheme.benefit}</span>
+                    Benefit Value: <span className="font-bold text-brand-medium">{applyScheme.benefit}</span>
                   </p>
                 </div>
 
@@ -435,7 +435,7 @@ const FarmDashboard = () => {
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 px-4 py-2.5 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-semibold transition"
+                      className="flex-1 px-4 py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-semibold transition"
                     >
                       Submit Details
                     </button>
@@ -495,7 +495,7 @@ const FarmDashboard = () => {
             </div>
             <button
               onClick={() => setShowActionsModal(false)}
-              className="w-full mt-5 px-4 py-2.5 bg-[#132a13] text-white rounded-xl text-xs font-semibold hover:bg-[#31572c] transition"
+              className="w-full mt-5 px-4 py-2.5 bg-[#132a13] text-white rounded-xl text-xs font-semibold hover:bg-brand-dark transition"
             >
               Close
             </button>

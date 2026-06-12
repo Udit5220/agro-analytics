@@ -191,7 +191,7 @@
 //                 key={p}
 //                 onClick={() => setPeriod(p)}
 //                 className={`px-3 py-1.5 transition ${
-//                   period === p ? "bg-[#4f772d] text-white" : "bg-[#1a3a1a] text-slate-400 hover:text-white"
+//                   period === p ? "bg-brand-medium text-white" : "bg-[#1a3a1a] text-slate-400 hover:text-white"
 //                 }`}
 //               >
 //                 {p}
@@ -255,7 +255,7 @@
 //                   key={m}
 //                   onClick={() => setValueMode(m)}
 //                   className={`px-2 py-1 transition ${
-//                     valueMode === m ? "bg-[#31572c] text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
+//                     valueMode === m ? "bg-brand-dark text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
 //                   }`}
 //                 >
 //                   {m.toUpperCase()}
@@ -810,7 +810,7 @@ export default function PlatformImpactIntelligence() {
               <button
                 key={p}
                 onClick={() => setPeriod(p)}
-                className={`px-3 py-1.5 transition ${period === p ? "bg-[#4f772d] text-white" : "bg-[#1a3a1a] text-slate-400 hover:text-white"}`}
+                className={`px-3 py-1.5 transition ${period === p ? "bg-brand-medium text-white" : "bg-[#1a3a1a] text-slate-400 hover:text-white"}`}
               >
                 {p}
               </button>
@@ -900,7 +900,7 @@ export default function PlatformImpactIntelligence() {
                 <button
                   key={m}
                   onClick={() => setValueMode(m)}
-                  className={`px-2 py-1 transition ${valueMode === m ? "bg-[#31572c] text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"}`}
+                  className={`px-2 py-1 transition ${valueMode === m ? "bg-brand-dark text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"}`}
                 >
                   {m.toUpperCase()}
                 </button>

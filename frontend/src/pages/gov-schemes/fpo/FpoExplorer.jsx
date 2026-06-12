@@ -52,7 +52,7 @@ const FpoExplorer = () => {
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-            <Compass className="w-5 h-5 text-[#4f772d]" />
+            <Compass className="w-5 h-5 text-brand-medium" />
             Opportunity Explorer
           </h1>
           <p className="text-xs text-gray-500 mt-1">Discover, evaluate, and prioritize government schemes, capital subsidies, and cooperative assistance.</p>
@@ -67,7 +67,7 @@ const FpoExplorer = () => {
             placeholder="Search opportunities by name, ministry, keyword..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 border border-gray-250 rounded-xl text-xs focus:outline-none focus:border-[#4f772d]"
+            className="w-full pl-9 pr-4 py-2 border border-gray-250 rounded-xl text-xs focus:outline-none focus:border-brand-medium"
           />
           <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
         </div>
@@ -78,7 +78,7 @@ const FpoExplorer = () => {
               onClick={() => setSelectedSector(sec)}
               className={`text-[10px] font-bold px-3 py-1.5 rounded-lg border transition ${
                 selectedSector === sec
-                  ? "bg-[#4f772d] text-white border-[#4f772d]"
+                  ? "bg-brand-medium text-white border-brand-medium"
                   : "bg-[#f4f7f4] text-gray-600 border-gray-200/60 hover:bg-gray-150"
               }`}
             >
@@ -91,16 +91,16 @@ const FpoExplorer = () => {
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((opp) => (
-          <div key={opp.id} className="bg-white rounded-2xl border border-gray-150 shadow-sm p-5 hover:shadow-md hover:border-[#4f772d]/25 transition duration-200 flex flex-col justify-between">
+          <div key={opp.id} className="bg-white rounded-2xl border border-gray-150 shadow-sm p-5 hover:shadow-md hover:border-brand-medium/25 transition duration-200 flex flex-col justify-between">
             <div className="space-y-3">
               <div className="flex justify-between items-start gap-2">
                 <span className="text-[9px] font-bold bg-[#132a13]/10 text-[#132a13] px-2 py-0.5 rounded-full uppercase tracking-wider">
                   {opp.type}
                 </span>
-                <span className="text-xs font-black text-[#4f772d]">{opp.amount}</span>
+                <span className="text-xs font-black text-brand-medium">{opp.amount}</span>
               </div>
               <div>
-                <h3 className="font-bold text-sm text-[#132a13] hover:text-[#4f772d] cursor-pointer" onClick={() => setViewingDetail(opp)}>
+                <h3 className="font-bold text-sm text-[#132a13] hover:text-brand-medium cursor-pointer" onClick={() => setViewingDetail(opp)}>
                   {opp.name}
                 </h3>
                 <p className="text-[10px] text-gray-400 font-semibold mt-0.5">{opp.department}</p>
@@ -126,7 +126,7 @@ const FpoExplorer = () => {
               <button
                 type="button"
                 onClick={() => setViewingDetail(opp)}
-                className="text-xs font-bold bg-[#132a13] text-white px-3 py-1.5 rounded-lg hover:bg-[#31572c] transition flex items-center gap-1"
+                className="text-xs font-bold bg-[#132a13] text-white px-3 py-1.5 rounded-lg hover:bg-brand-dark transition flex items-center gap-1"
               >
                 View Details
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -149,7 +149,7 @@ const FpoExplorer = () => {
               >
                 <X className="w-5 h-5" />
               </button>
-              <span className="text-[10px] font-extrabold bg-[#4f772d]/10 text-[#4f772d] px-2.5 py-1 rounded-full uppercase tracking-wider">
+              <span className="text-[10px] font-extrabold bg-brand-medium/10 text-brand-medium px-2.5 py-1 rounded-full uppercase tracking-wider">
                 {viewingDetail.type}
               </span>
               <h2 className="text-lg font-black text-[#132a13] mt-3 leading-tight pr-8">{viewingDetail.name}</h2>
@@ -185,7 +185,7 @@ const FpoExplorer = () => {
                   <div className="mt-2 space-y-1.5">
                     {viewingDetail.requiredDocs.map((doc, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-xs font-bold text-gray-700">
-                        <CheckCircle2 className="w-4 h-4 text-[#4f772d]" />
+                        <CheckCircle2 className="w-4 h-4 text-brand-medium" />
                         <span>{doc}</span>
                       </div>
                     ))}
@@ -209,7 +209,7 @@ const FpoExplorer = () => {
                   setProjectBudget(viewingDetail.amount);
                   setShowApplyModal(true);
                 }}
-                className="flex-1 py-2.5 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                className="flex-1 py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
               >
                 Initiate Application
               </button>
@@ -231,7 +231,7 @@ const FpoExplorer = () => {
             </button>
             
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <FileText className="w-5 h-5 text-[#4f772d]" />
+              <FileText className="w-5 h-5 text-brand-medium" />
               Initiate Subsidy Application
             </h2>
             <p className="text-xs text-gray-500 mb-4">
@@ -276,9 +276,9 @@ const FpoExplorer = () => {
                   </div>
                 </div>
 
-                <div className="p-3.5 bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl space-y-1.5 text-xs text-gray-650 font-semibold">
+                <div className="p-3.5 bg-[#f4f7f4] border border-brand-medium/10 rounded-xl space-y-1.5 text-xs text-gray-650 font-semibold">
                   <p className="font-bold text-[#132a13] flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-[#4f772d]" />
+                    <Sparkles className="w-4 h-4 text-brand-medium" />
                     AI Eligibility Verification
                   </p>
                   <p>Cooperative meets **95% eligibility** criteria. Dynamic match rating is **96/100** based on active Sonipat land logs.</p>
@@ -294,7 +294,7 @@ const FpoExplorer = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                   >
                     Initialize Draft
                   </button>

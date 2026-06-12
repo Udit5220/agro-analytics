@@ -101,25 +101,25 @@ export default function MarketReportsAnalytics() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Market Reports & Analytics</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Market Reports & Analytics</h1>
           <p className="text-xs text-gray-500 mt-1">Deep analytical reporting and market insights</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+        <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
           <RefreshCw className="w-4 h-4" /> Refresh Data
         </button>
       </div>
 
       {/* Report Dashboard */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Report Dashboard</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Report Dashboard</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {reportCards.map((card, index) => (
-            <div key={index} className="border border-gray-200 rounded-xl p-4 hover:border-[#28a745] transition cursor-pointer">
+            <div key={index} className="border border-gray-200 rounded-xl p-4 hover:border-brand-medium transition cursor-pointer">
               <div className="flex items-center gap-3 mb-3">
                 <div className={`p-2.5 rounded-xl ${card.color}`}>
                   <card.icon className="w-5 h-5" />
                 </div>
-                <span className="text-2xl font-black text-[#2e4057]">{card.count}</span>
+                <span className="text-2xl font-black text-brand-darkest">{card.count}</span>
               </div>
               <p className="text-xs text-gray-500 font-semibold">{card.type}</p>
             </div>
@@ -129,16 +129,16 @@ export default function MarketReportsAnalytics() {
 
       {/* Top Performing Commodities */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Top Performing Commodities</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Top Performing Commodities</h2>
         <div className="space-y-3">
           {topPerformingCommodities.map((item) => (
             <div key={item.rank} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
               <div className="flex items-center gap-3">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white ${item.rank <= 3 ? "bg-[#28a745]" : "bg-gray-400"}`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white ${item.rank <= 3 ? "bg-brand-medium" : "bg-gray-400"}`}>
                   {item.rank}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-[#2e4057]">{item.commodity}</p>
+                  <p className="text-sm font-bold text-brand-darkest">{item.commodity}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -159,7 +159,7 @@ export default function MarketReportsAnalytics() {
       {/* Market Trend Analysis */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Market Trend Analysis</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Market Trend Analysis</h2>
           <div className="flex items-center gap-1">
             {reportTypes.map((type) => (
               <button
@@ -167,7 +167,7 @@ export default function MarketReportsAnalytics() {
                 onClick={() => setSelectedReport(type)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                   selectedReport === type
-                    ? "bg-[#2e4057] text-white"
+                    ? "bg-brand-darkest text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -189,7 +189,7 @@ export default function MarketReportsAnalytics() {
               }}
             />
             <Legend />
-            <Area type="monotone" dataKey="price" stroke="#28a745" fill="#28a745" fillOpacity={0.3} name="Price (₹)" />
+            <Area type="monotone" dataKey="price" stroke="var(--brand-medium)" fill="var(--brand-medium)" fillOpacity={0.3} name="Price (₹)" />
             <Area type="monotone" dataKey="demand" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.3} name="Demand (%)" />
             <Area type="monotone" dataKey="supply" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.3} name="Supply (%)" />
           </AreaChart>
@@ -198,7 +198,7 @@ export default function MarketReportsAnalytics() {
 
       {/* Demand vs Supply Insights */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Demand vs Supply Insights</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Demand vs Supply Insights</h2>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={demandSupplyData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -212,7 +212,7 @@ export default function MarketReportsAnalytics() {
               }}
             />
             <Legend />
-            <Bar dataKey="demand" fill="#28a745" name="Demand (%)" />
+            <Bar dataKey="demand" fill="var(--brand-medium)" name="Demand (%)" />
             <Bar dataKey="supply" fill="#3b82f6" name="Supply (%)" />
           </BarChart>
         </ResponsiveContainer>
@@ -220,15 +220,15 @@ export default function MarketReportsAnalytics() {
 
       {/* Download Center */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Download Center</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Download Center</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {downloadOptions.map((option, index) => (
-            <button key={index} className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-[#28a745] hover:bg-gray-50 transition">
+            <button key={index} className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-brand-medium hover:bg-gray-50 transition">
               <div className={`p-2.5 rounded-xl ${option.color}`}>
                 <option.icon className="w-5 h-5" />
               </div>
               <div className="flex-1 text-left">
-                <p className="text-xs font-bold text-[#2e4057]">Download as {option.format}</p>
+                <p className="text-xs font-bold text-brand-darkest">Download as {option.format}</p>
                 <p className="text-[10px] text-gray-400">Full report data</p>
               </div>
               <Download className="w-4 h-4 text-gray-400" />
@@ -238,7 +238,7 @@ export default function MarketReportsAnalytics() {
       </div>
 
       {/* Executive Market Summary */}
-      <div className="bg-gradient-to-r from-[#2e4057] to-[#208837] rounded-2xl p-6 shadow-lg text-white">
+      <div className="bg-gradient-to-r from-brand-darkest to-[#208837] rounded-2xl p-6 shadow-lg text-white">
         <div className="flex items-center gap-3 mb-6">
           <div className="p-2.5 bg-white/20 rounded-xl">
             <BarChart3 className="w-6 h-6" />

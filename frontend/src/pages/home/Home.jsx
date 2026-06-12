@@ -130,9 +130,9 @@ export default function Home() {
                 const el = document.getElementById("platform");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
-              className={`${uiConfig.styles.buttonOutline} w-full sm:w-auto flex items-center justify-center space-x-2 cursor-pointer`}
+              className="px-6 py-3 rounded-xl border-2 border-white/30 text-white font-medium hover:border-brand-light hover:text-brand-light transition-all duration-300 active:scale-[0.98] w-full sm:w-auto flex items-center justify-center space-x-2 cursor-pointer"
             >
-              <LucideIcons.Play className="h-4 w-4 fill-white" />
+              <LucideIcons.Play className="h-4 w-4 fill-current" />
               <span>{hero.ctaSecondary}</span>
             </button>
           </div>

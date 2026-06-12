@@ -132,7 +132,7 @@ export default function Dashboard() {
               className="bg-white dark:bg-brand-darkest p-4 rounded-xl border border-gray-200/60 dark:border-brand-dark/20 shadow-2xs hover:shadow-xs transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[105px] h-full hover:-translate-y-0.5"
             >
               <div>
-                <div className="w-7 h-7 rounded-full bg-[#dbe7c4]/50 dark:bg-[#31572c]/30 text-[#31572c] dark:text-[#ecf39e] flex items-center justify-center mb-2.5 shadow-2xs">
+                <div className="w-7 h-7 rounded-full bg-[#dbe7c4]/50 dark:bg-brand-dark/30 text-[#31572c] dark:text-[#ecf39e] flex items-center justify-center mb-2.5 shadow-2xs">
                   <DynamicActionIcon typeKey={action.key} />
                 </div>
                 <h3 className="text-[11px] font-black text-gray-955 dark:text-slate-200 uppercase tracking-widest leading-tight">
@@ -175,7 +175,7 @@ export default function Dashboard() {
                 className="p-3 bg-gray-50/50 dark:bg-brand-dark/10 rounded-xl border border-gray-100 dark:border-brand-dark/20 flex items-center justify-between gap-4 hover:bg-green-50/20 dark:hover:bg-brand-dark/20 transition-all cursor-pointer group"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-7 h-7 rounded-lg bg-[#dbe7c4]/40 dark:bg-[#31572c]/30 flex items-center justify-center shrink-0 text-[#31572c] dark:text-[#ecf39e]">
+                  <div className="w-7 h-7 rounded-lg bg-[#dbe7c4]/40 dark:bg-brand-dark/30 flex items-center justify-center shrink-0 text-[#31572c] dark:text-[#ecf39e]">
                     {chat.type === "crop" && <Sprout className="w-3.5 h-3.5" />}
                     {chat.type === "market" && (
                       <TrendingUp className="w-3.5 h-3.5" />

@@ -69,7 +69,7 @@ const GovComplianceAudit = () => {
       trend: "8 within SLA",
       trendType: "neutral",
       subtext: "Open audit observations",
-      icon: <Clock className="text-[#4f772d]" />
+      icon: <Clock className="text-brand-medium" />
     }
   ];
 
@@ -168,7 +168,7 @@ const GovComplianceAudit = () => {
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex justify-between items-center">
         <div>
           <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-            <ShieldCheck className="w-6 h-6 text-[#4f772d]" />
+            <ShieldCheck className="w-6 h-6 text-brand-medium" />
             Compliance & Audit Monitoring
           </h1>
           <p className="text-xs text-gray-500 mt-1">
@@ -180,7 +180,7 @@ const GovComplianceAudit = () => {
             <Filter size={16} />
             Filter Audits
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-[#132a13] text-white rounded-xl text-sm font-bold hover:bg-[#31572c] transition">
+          <button className="flex items-center gap-2 px-4 py-2 bg-[#132a13] text-white rounded-xl text-sm font-bold hover:bg-brand-dark transition">
             <Download size={16} />
             Export Report
           </button>

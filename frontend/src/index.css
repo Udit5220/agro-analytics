@@ -11,9 +11,8 @@
    Mirrors the GreenLeaf index.css semantic color classes.
    Brand identity: Green (#28a745) + Dark Gray shell (#1F2937)
    ================================================================ */
-
+/* 
 :root {
-  /* Core brand palette - Overhauled growth theme */
   --primary-900: #31572c;
   --primary-700: #1a5c1a;
   --primary-500: #2d8a2d;
@@ -37,19 +36,37 @@
   --accent-gold: #c9a84c;
   --accent-earth: #a67c52;
 
-  /* Compatibility bindings for legacy brand classes */
   --brand-darkest: var(--primary-900);
   --brand-dark: var(--bg-sidebar);
   --brand-medium: var(--primary-500);
   --brand-light: var(--primary-300);
   --brand-accent: var(--primary-100);
   --brand-lightest: var(--bg-main);
+} */
+
+:root {
+  --primary-900: #0F2E1F;   /* darkest green - header/footer */
+  --primary-700: #1A3A2A;   /* sidebar/dark sections */
+  --primary-500: #2d5a3d;   /* mid green (derived, for buttons if needed) */
+  --primary-300: #C5F547;   /* lime accent - CTAs, highlights */
+  --primary-100: #E8F5C0;   /* soft lime - icon bg, badges */
+
+  --bg-main: var(--brand-lightest, #f4f7f0);
+  --bg-card: #ffffff;
+  --bg-sidebar: var(--brand-dark, #1A3A2A);
+
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B6B6B;
+  --text-muted: #8A8A8A;
+  --border-subtle: #E5E2DC;
+
+  --accent-gold: #C5F547;   /* swap gold → lime to match Aggrotech CTA */
 }
 
 /* ── Base Typography ── */
 html {
   scroll-behavior: smooth;
-  font-size: 11px;
+  font-size: 13.5px;
 }
 
 body {

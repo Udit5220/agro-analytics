@@ -231,7 +231,7 @@ export default function AgribusinessLayout({
           </h3>
           <button
             onClick={runAiQuery}
-            className="bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-black px-4 py-2 rounded-xl transition active:scale-95 cursor-pointer shadow"
+            className="bg-brand-dark hover:bg-[#132a13] text-white text-xs font-black px-4 py-2 rounded-xl transition active:scale-95 cursor-pointer shadow"
           >
             Generate Briefing
           </button>

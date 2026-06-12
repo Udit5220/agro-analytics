@@ -211,7 +211,7 @@ export default function ResearchDrafting() {
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
       <div className="flex items-center gap-2.5 mb-6">
-        <div className="p-2.5 bg-[#31572c]/10 rounded-xl">
+        <div className="p-2.5 bg-brand-dark/10 rounded-xl">
           <FileSignature className="h-6 w-6 text-[#31572c]" />
         </div>
         <div>
@@ -311,7 +311,7 @@ export default function ResearchDrafting() {
             <button
               type="submit"
               disabled={drafting}
-              className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-60"
+              className="w-full bg-brand-dark hover:bg-[#1a3018] text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-60"
             >
               {drafting ? (
                 <>
@@ -371,7 +371,7 @@ export default function ResearchDrafting() {
                 </div>
                 <button
                   onClick={handleDownloadPDF}
-                  className="bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 shrink-0"
+                  className="bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 shrink-0"
                 >
                   <Download className="h-4 w-4" /> Download PDF
                 </button>

@@ -57,7 +57,7 @@ export default function GovApplicationMonitoring() {
       <div className="flex items-center gap-2">
         <span className="font-black text-[#132a13]">{v}%</span>
         <div className="w-12 bg-gray-100 h-1.5 rounded-full overflow-hidden">
-          <div className={`h-full ${v >= 90 ? "bg-[#4f772d]" : v >= 70 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${v}%` }} />
+          <div className={`h-full ${v >= 90 ? "bg-brand-medium" : v >= 70 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${v}%` }} />
         </div>
       </div>
     )},
@@ -103,7 +103,7 @@ export default function GovApplicationMonitoring() {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <Clock className="w-5 h-5 text-[#4f772d]" />
+          <Clock className="w-5 h-5 text-brand-medium" />
           Application & Service Delivery Monitoring
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -113,7 +113,7 @@ export default function GovApplicationMonitoring() {
 
       {/* SLA summary KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatsCard title="Total Applications" value="14,500" subtext="Current Kharif season" icon={<Clock className="text-[#4f772d]" />} />
+        <StatsCard title="Total Applications" value="14,500" subtext="Current Kharif season" icon={<Clock className="text-brand-medium" />} />
         <StatsCard title="Avg Approval Cycle" value="5.8 Days" trend="SLA Target: 7 Days" trendType="success" subtext="State level average" />
         <StatsCard title="Verification Backlogs" value={Object.values(backlogs).reduce((a, b) => a + b, 0)} trend="+4.2% week-on-week" trendType="danger" subtext="Cases pending review" />
         <StatsCard title="SLA Compliance Rate" value="81.2%" trend="Breached: 1 District" trendType="danger" subtext="State compliance average" />
@@ -130,7 +130,7 @@ export default function GovApplicationMonitoring() {
                 <span>{step.pct}% Yield</span>
               </div>
               <h4 className="font-bold text-[#132a13] text-xs">{step.stage}</h4>
-              <p className="text-lg font-black text-[#4f772d]">{step.count}</p>
+              <p className="text-lg font-black text-brand-medium">{step.count}</p>
             </div>
           ))}
         </div>
@@ -143,14 +143,14 @@ export default function GovApplicationMonitoring() {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <UserCheck className="w-4 h-4 text-[#4f772d]" /> Caseload Reallocator (SLA Bypass)
+              <UserCheck className="w-4 h-4 text-brand-medium" /> Caseload Reallocator (SLA Bypass)
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               Simulate dispatching verify workloads from backlogged offices to high-performing districts.
             </p>
 
             {reallocateSuccess ? (
-              <div className="text-center py-6 space-y-3 bg-[#f4f7f4]/45 border border-[#4f772d]/10 rounded-2xl animate-fadeIn">
+              <div className="text-center py-6 space-y-3 bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-2xl animate-fadeIn">
                 <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto border border-emerald-100">
                   <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                 </div>
@@ -160,7 +160,7 @@ export default function GovApplicationMonitoring() {
                 </p>
                 <button 
                   onClick={() => setReallocateSuccess(false)}
-                  className="text-[10px] font-bold text-[#4f772d] hover:underline"
+                  className="text-[10px] font-bold text-brand-medium hover:underline"
                 >
                   Transfer more workload
                 </button>
@@ -173,7 +173,7 @@ export default function GovApplicationMonitoring() {
                     <select 
                       value={reallocateFrom}
                       onChange={(e) => setReallocateFrom(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                     >
                       {Object.keys(backlogs).map(k => (
                         <option key={k} value={k}>{k} ({backlogs[k]} cases)</option>
@@ -185,7 +185,7 @@ export default function GovApplicationMonitoring() {
                     <select 
                       value={reallocateTo}
                       onChange={(e) => setReallocateTo(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                     >
                       {Object.keys(backlogs).map(k => (
                         <option key={k} value={k}>{k}</option>
@@ -201,7 +201,7 @@ export default function GovApplicationMonitoring() {
                     value={backlogTransferCount}
                     onChange={(e) => setBacklogTransferCount(Number(e.target.value))}
                     max={backlogs[reallocateFrom]}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d]"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium"
                     required
                   />
                 </div>
@@ -211,7 +211,7 @@ export default function GovApplicationMonitoring() {
                   disabled={reallocateProgress || reallocateFrom === reallocateTo}
                   className={`w-full text-xs font-bold text-center py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 ${
                     reallocateFrom !== reallocateTo 
-                      ? "bg-[#132a13] hover:bg-[#31572c] text-white" 
+                      ? "bg-[#132a13] hover:bg-brand-dark text-white" 
                       : "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
                   }`}
                 >
@@ -234,7 +234,7 @@ export default function GovApplicationMonitoring() {
         <div className="lg:col-span-2 bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <ShieldAlert className="w-4 h-4 text-[#4f772d]" /> SLA Breach & Backlog Warnings
+              <ShieldAlert className="w-4 h-4 text-brand-medium" /> SLA Breach & Backlog Warnings
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               Geographic units violating the 7-day state-mandated scheme clearance timeline. Action required.

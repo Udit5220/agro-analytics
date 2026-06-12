@@ -165,7 +165,7 @@
 //           <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
 //             <span>AI Agriculture Assistant</span>
 //             <span className="text-gray-300 font-light text-xl">|</span>
-//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-[#31572c]/8 px-2.5 py-0.5 rounded-md">
+//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-brand-dark/8 px-2.5 py-0.5 rounded-md">
 //               कृषि एआई सहायक
 //             </span>
 //           </h1>
@@ -193,7 +193,7 @@
 //         <div className="flex-1 p-6 space-y-4 overflow-y-auto max-h-[420px]">
 //           {/* Default initial welcome bot message */}
 //           <div className="flex items-start gap-3 text-left">
-//             <div className="w-9 h-9 rounded-full bg-[#31572c]/8 flex items-center justify-center text-[#31572c] shrink-0">
+//             <div className="w-9 h-9 rounded-full bg-brand-dark/8 flex items-center justify-center text-[#31572c] shrink-0">
 //               <Leaf className="w-4 h-4" />
 //             </div>
 //             <div className="bg-white border border-gray-200/60 rounded-2xl rounded-tl-sm p-4 max-w-2xl shadow-sm space-y-1">
@@ -217,7 +217,7 @@
 //               <div
 //                 className={`p-3.5 rounded-2xl max-w-xl text-xs font-bold shadow-sm border text-left leading-relaxed ${
 //                   chat.role === "user"
-//                     ? "bg-[#31572c] text-white border-[#31572c]"
+//                     ? "bg-brand-dark text-white border-[#31572c]"
 //                     : "bg-gray-50 text-gray-900 border-gray-200/60"
 //                 }`}
 //               >
@@ -229,13 +229,13 @@
 //           {/* AI Thinking/Typing Indicator */}
 //           {isAiThinking && (
 //             <div className="flex items-start gap-3 text-left animate-pulse">
-//               <div className="w-9 h-9 rounded-full bg-[#31572c]/8 flex items-center justify-center text-[#31572c] shrink-0">
+//               <div className="w-9 h-9 rounded-full bg-brand-dark/8 flex items-center justify-center text-[#31572c] shrink-0">
 //                 <Leaf className="w-4 h-4 animate-spin" />
 //               </div>
 //               <div className="bg-gray-50 border border-gray-200/60 rounded-2xl rounded-tl-sm p-3.5 max-w-2xl shadow-sm flex items-center gap-1.5">
-//                 <span className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce" style={{ animationDelay: "0ms" }}></span>
-//                 <span className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce" style={{ animationDelay: "150ms" }}></span>
-//                 <span className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce" style={{ animationDelay: "300ms" }}></span>
+//                 <span className="w-2 h-2 rounded-full bg-brand-dark animate-bounce" style={{ animationDelay: "0ms" }}></span>
+//                 <span className="w-2 h-2 rounded-full bg-brand-dark animate-bounce" style={{ animationDelay: "150ms" }}></span>
+//                 <span className="w-2 h-2 rounded-full bg-brand-dark animate-bounce" style={{ animationDelay: "300ms" }}></span>
 //                 <span className="text-[10px] font-black text-gray-500 ml-1.5 uppercase tracking-wider">Krishi Saathi typing...</span>
 //               </div>
 //             </div>
@@ -261,7 +261,7 @@
 //                 className={`border border-[#31572c]/10 text-xs font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm text-left ${
 //                   isAiThinking
 //                     ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-60"
-//                     : "bg-[#31572c]/5 text-[#31572c] hover:bg-[#31572c]/10"
+//                     : "bg-brand-dark/5 text-[#31572c] hover:bg-brand-dark/10"
 //                 }`}
 //               >
 //                 {suggestion}
@@ -295,7 +295,7 @@
 //               <button
 //                 type="submit"
 //                 disabled={isAiThinking || !inputMessage.trim()}
-//                 className="w-8 h-8 rounded-lg bg-[#31572c] text-white hover:bg-[#132a13] disabled:bg-gray-300 disabled:text-gray-500 flex items-center justify-center cursor-pointer transition-colors shadow-sm absolute right-2 border-none disabled:cursor-not-allowed"
+//                 className="w-8 h-8 rounded-lg bg-brand-dark text-white hover:bg-[#132a13] disabled:bg-gray-300 disabled:text-gray-500 flex items-center justify-center cursor-pointer transition-colors shadow-sm absolute right-2 border-none disabled:cursor-not-allowed"
 //               >
 //                 <SendHorizontal className="w-3.5 h-3.5" />
 //               </button>
@@ -652,7 +652,7 @@ export default function AiAssistant() {
               AI Agriculture Assistant
             </h1>
             <span className="text-gray-300 font-light text-xl">|</span>
-            <span className="text-[#31572c] font-bold text-xs md:text-sm bg-[#31572c]/8 px-2.5 py-0.5 rounded-md">
+            <span className="text-[#31572c] font-bold text-xs md:text-sm bg-brand-dark/8 px-2.5 py-0.5 rounded-md">
               कृषि एआई सहायक
             </span>
             {/* Role Badge */}
@@ -713,7 +713,7 @@ export default function AiAssistant() {
               <div
                 className={`p-3.5 rounded-2xl max-w-xl text-xs font-bold shadow-sm border text-left leading-relaxed ${
                   chat.role === "user"
-                    ? "bg-[#31572c] text-white border-[#31572c]"
+                    ? "bg-brand-dark text-white border-[#31572c]"
                     : "bg-gray-50 text-gray-900 border-gray-200/60"
                 }`}
               >
@@ -732,15 +732,15 @@ export default function AiAssistant() {
               </div>
               <div className="bg-gray-50 border border-gray-200/60 rounded-2xl rounded-tl-sm p-3.5 max-w-2xl shadow-sm flex items-center gap-1.5">
                 <span
-                  className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce"
+                  className="w-2 h-2 rounded-full bg-brand-dark animate-bounce"
                   style={{ animationDelay: "0ms" }}
                 ></span>
                 <span
-                  className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce"
+                  className="w-2 h-2 rounded-full bg-brand-dark animate-bounce"
                   style={{ animationDelay: "150ms" }}
                 ></span>
                 <span
-                  className="w-2 h-2 rounded-full bg-[#31572c] animate-bounce"
+                  className="w-2 h-2 rounded-full bg-brand-dark animate-bounce"
                   style={{ animationDelay: "300ms" }}
                 ></span>
                 <span className="text-[10px] font-black text-gray-500 ml-1.5 uppercase tracking-wider">
@@ -766,7 +766,7 @@ export default function AiAssistant() {
                 className={`border border-[#31572c]/10 text-xs font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm text-left ${
                   isAiThinking
                     ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-60"
-                    : "bg-[#31572c]/5 text-[#31572c] hover:bg-[#31572c]/10"
+                    : "bg-brand-dark/5 text-[#31572c] hover:bg-brand-dark/10"
                 }`}
               >
                 {suggestion}
@@ -809,7 +809,7 @@ export default function AiAssistant() {
               <button
                 type="submit"
                 disabled={isAiThinking || !inputMessage.trim()}
-                className="w-8 h-8 rounded-lg bg-[#31572c] text-white hover:bg-[#132a13] disabled:bg-gray-300 disabled:text-gray-500 flex items-center justify-center cursor-pointer transition-colors shadow-sm absolute right-2 border-none disabled:cursor-not-allowed"
+                className="w-8 h-8 rounded-lg bg-brand-dark text-white hover:bg-[#132a13] disabled:bg-gray-300 disabled:text-gray-500 flex items-center justify-center cursor-pointer transition-colors shadow-sm absolute right-2 border-none disabled:cursor-not-allowed"
               >
                 <SendHorizontal className="w-3.5 h-3.5" />
               </button>

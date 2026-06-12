@@ -125,7 +125,7 @@ const FarmApplications = () => {
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
           <div className="p-2 bg-[#132a13]/10 rounded-xl">
-            <FolderOpen className="h-5 w-5 text-[#4f772d]" />
+            <FolderOpen className="h-5 w-5 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#132a13]">
@@ -192,7 +192,7 @@ const FarmApplications = () => {
             placeholder="Search by scheme name..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-xs focus:outline-none focus:border-[#4f772d] bg-white shadow-sm"
+            className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-xs focus:outline-none focus:border-brand-medium bg-white shadow-sm"
           />
         </div>
         <select
@@ -283,7 +283,7 @@ const FarmApplications = () => {
                   <td className="px-4 py-3 text-center">
                     <button
                       onClick={() => setViewingApp(app)}
-                      className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-[#4f772d] transition-all"
+                      className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-brand-medium transition-all"
                     >
                       <Eye className="w-4 h-4" />
                     </button>
@@ -326,7 +326,7 @@ const FarmApplications = () => {
                     return app ? (
                       <div
                         key={appIdx}
-                        className="bg-white border border-gray-150 rounded-lg p-2.5 shadow-sm hover:border-[#4f772d] cursor-pointer transition-all"
+                        className="bg-white border border-gray-150 rounded-lg p-2.5 shadow-sm hover:border-brand-medium cursor-pointer transition-all"
                         onClick={() => setViewingApp(app)}
                       >
                         <p className="text-xs font-bold text-gray-800 leading-tight">
@@ -385,7 +385,7 @@ const FarmApplications = () => {
             </div>
             <button
               onClick={handleReapply}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white transition-all bg-[#132a13] hover:bg-[#31572c] hover:shadow-sm shrink-0"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white transition-all bg-[#132a13] hover:bg-brand-dark hover:shadow-sm shrink-0"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Reapply
@@ -413,7 +413,7 @@ const FarmApplications = () => {
                 </p>
 
                 <div className="space-y-4">
-                  <div className="bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl p-3.5">
+                  <div className="bg-[#f4f7f4] border border-brand-medium/10 rounded-xl p-3.5">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
                       Scheme
                     </p>
@@ -433,7 +433,7 @@ const FarmApplications = () => {
                         <span className="text-[10px] text-gray-400 font-bold block uppercase tracking-wider">
                           Benefit Value
                         </span>
-                        <span className="text-xs font-bold text-[#4f772d]">
+                        <span className="text-xs font-bold text-brand-medium">
                           {viewingApp.benefitAmount}
                         </span>
                       </div>
@@ -446,7 +446,7 @@ const FarmApplications = () => {
                     </p>
                     <div className="space-y-3 pl-3 border-l-2 border-gray-150 relative">
                       <div className="relative">
-                        <div className="absolute -left-[17px] top-1 w-2 h-2 rounded-full bg-[#4f772d]"></div>
+                        <div className="absolute -left-[17px] top-1 w-2 h-2 rounded-full bg-brand-medium"></div>
                         <p className="text-xs font-bold text-gray-800 font-semibold">
                           Sowing/Land Docs Verified
                         </p>
@@ -455,7 +455,7 @@ const FarmApplications = () => {
                         </p>
                       </div>
                       <div className="relative">
-                        <div className="absolute -left-[17px] top-1 w-2 h-2 rounded-full bg-[#4f772d]"></div>
+                        <div className="absolute -left-[17px] top-1 w-2 h-2 rounded-full bg-brand-medium"></div>
                         <p className="text-xs font-bold text-gray-800 font-semibold">
                           Current Stage: {viewingApp.currentStage}
                         </p>
@@ -518,7 +518,7 @@ const FarmApplications = () => {
                     <p className="text-[11px] text-gray-600 leading-relaxed font-semibold">
                       By clicking submit, you confirm that you have updated the
                       required{" "}
-                      <span className="text-[#4f772d]">
+                      <span className="text-brand-medium">
                         {rejectionAnalysis.missingDocuments}
                       </span>{" "}
                       in your vault.
@@ -534,7 +534,7 @@ const FarmApplications = () => {
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 px-4 py-2.5 text-xs font-bold bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl transition"
+                      className="flex-1 px-4 py-2.5 text-xs font-bold bg-brand-medium hover:bg-brand-dark text-white rounded-xl transition"
                     >
                       Confirm Submit
                     </button>

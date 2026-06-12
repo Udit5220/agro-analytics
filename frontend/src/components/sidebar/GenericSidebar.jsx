@@ -326,113 +326,43 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
     ];
   } else if (activeModuleKey === "gov-schemes" && activeRole === "farmer") {
     currentMenu = [
-      { label: "Farm Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "Scheme Discovery Center", path: "discovery", icon: "Compass" },
-      { label: "Scheme Details", path: "scheme-details", icon: "FileText" },
-      {
-        label: "Eligibility Center",
-        path: "eligibility",
-        icon: "CheckCircle2",
-      },
-      { label: "My Applications", path: "applications", icon: "FolderKanban" },
-      { label: "Benefits Wallet", path: "benefits", icon: "Wallet" },
-      { label: "Subsidy Center", path: "subsidy", icon: "Sprout" },
-      { label: "Crop Insurance", path: "insurance", icon: "Shield" },
-      { label: "KCC & Loans", path: "loans", icon: "CreditCard" },
-      { label: "Document Vault", path: "documents", icon: "FolderKanban" },
+      { label: "Government Schemes Directory", path: "", icon: "LayoutDashboard" },
+      { label: "DBT & Subsidy Rates", path: "benefits", icon: "Wallet" },
       { label: "Scheme Calendar", path: "calendar", icon: "Calendar" },
-      { label: "AI Advisor", path: "advisor", icon: "MessageSquare" },
+      { label: "AI Scheme Advisor", path: "advisor", icon: "MessageSquare" },
+      { label: "Regional Analytics", path: "analytics", icon: "BarChart3" },
     ];
-  } else if (activeModuleKey === "gov-schemes" && activeRole === "fpo") {
+  } else if (activeModuleKey === "gov-schemes" && (activeRole === "fpo" || activeRole === "fpo_manager")) {
     currentMenu = [
-      {
-        label: "Opportunity Command Center",
-        path: "",
-        icon: "LayoutDashboard",
-      },
-      { label: "Opportunity Explorer", path: "explorer", icon: "Compass" },
-      { label: "Funding Pipeline", path: "pipeline", icon: "FolderKanban" },
-      {
-        label: "Eligibility & Readiness",
-        path: "readiness",
-        icon: "CheckCircle2",
-      },
-      { label: "Member Benefit Coverage", path: "coverage", icon: "Users" },
-      {
-        label: "Infrastructure Support",
-        path: "infrastructure",
-        icon: "Building2",
-      },
-      {
-        label: "Impact Analytics Center",
-        path: "analytics",
-        icon: "BarChart3",
-      },
-      {
-        label: "Compliance & Documentation",
-        path: "compliance",
-        icon: "FileText",
-      },
-      { label: "Strategic Simulator", path: "simulator", icon: "PlayCircle" },
-      {
-        label: "AI Opportunity Advisor",
-        path: "advisor",
-        icon: "MessageSquare",
-      },
+      { label: "Scheme Overview", path: "", icon: "LayoutDashboard" },
+      { label: "Farmer Enrollment", path: "enrollment", icon: "Users" },
+      { label: "Disbursement & Issues", path: "disbursement", icon: "AlertTriangle" },
+      { label: "FPO Applications", path: "applications", icon: "FolderKanban" },
+      { label: "Board Report", path: "board-report", icon: "FileText" },
     ];
   } else if (activeModuleKey === "gov-schemes" && activeRole === "government") {
     currentMenu = [
-      { label: "Governance Command Center", path: "", icon: "LayoutDashboard" },
-      {
-        label: "Scheme Performance",
-        path: "scheme-performance",
-        icon: "Activity",
-      },
-      {
-        label: "Beneficiary Coverage",
-        path: "beneficiary-coverage",
-        icon: "Users",
-      },
-      {
-        label: "FPO Ecosystem Monitoring",
-        path: "fpo-ecosystem",
-        icon: "Network",
-      },
-      {
-        label: "Budget & Financials",
-        path: "budget-utilization",
-        icon: "CircleDollarSign",
-      },
-      {
-        label: "Service Delivery",
-        path: "application-monitoring",
-        icon: "Clock",
-      },
-      {
-        label: "Infrastructure Assets",
-        path: "infrastructure-intelligence",
-        icon: "Building2",
-      },
-      {
-        label: "Policy Impact Analytics",
-        path: "policy-impact",
-        icon: "BarChart3",
-      },
-      {
-        label: "Compliance & Governance",
-        path: "compliance-audit",
-        icon: "ShieldAlert",
-      },
-      {
-        label: "AI Policy Command Center",
-        path: "policy-command",
-        icon: "Bot",
-      },
+      { label: "Command Center", path: "", icon: "LayoutDashboard" },
+      { label: "Scheme Performance", path: "scheme-performance", icon: "Activity" },
+      { label: "Beneficiary Coverage", path: "beneficiary-coverage", icon: "Users" },
+      { label: "Budget & Spending", path: "budget", icon: "CircleDollarSign" },
+      { label: "Application Pipeline", path: "pipeline", icon: "FolderKanban" },
+      { label: "Compliance & Policy", path: "compliance-policy", icon: "ShieldAlert" },
+    ];
+  } else if (activeModuleKey === "gov-schemes" && (activeRole === "admin" || activeRole === "company")) {
+    currentMenu = [
+      { label: "Scheme Discovery", path: "admin", icon: "Search" },
+      { label: "Opportunity Tracker", path: "admin/tracker", icon: "FolderKanban" },
+      { label: "Eligibility & Readiness", path: "admin/compliance", icon: "Shield" },
+      { label: "Opportunity Intelligence", path: "admin/financial-impact", icon: "BarChart3" },
+      { label: "Company Profile", path: "admin/profile", icon: "User" },
+      { label: "Outreach & Guidance", path: "admin/user-guidance", icon: "HelpCircle" },
+      { label: "Alerts & Updates", path: "admin/alerts", icon: "Bell" },
     ];
   }
 
   return (
-    <aside className="w-[200px] bg-[#31572c] flex flex-col justify-between shrink-0 h-full min-h-0 p-4 text-white overflow-hidden border-r border-[#e5e2dc]/10">
+    <aside className="w-[200px] bg-brand-dark flex flex-col justify-between shrink-0 h-full min-h-0 p-4 text-white overflow-hidden border-r border-[#e5e2dc]/10">
       <div className="flex flex-col min-h-0 flex-1">
         {/* Top Header & Collapsible Close Button */}
         <div className="flex items-center justify-between pb-3.5 border-b border-white/5">
@@ -452,7 +382,7 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
         </div>
 
         {/* Dynamic Nav List */}
-        <nav className="space-y-1.5 mt-4 flex-1 overflow-y-auto overscroll-contain pr-0.5">
+        <nav className="space-y-2.5 mt-4 flex-1 overflow-y-auto overscroll-contain pr-0.5">
           {currentMenu.map((item, idx) => {
             const IconComponent =
               LucideIcons[item.icon] || LucideIcons.HelpCircle;
@@ -468,7 +398,7 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
                 className={({ isActive }) =>
                   `min-h-[2.25rem] px-3 py-2 flex items-start gap-2.5 w-full transition-all duration-200 text-[10.5px] rounded-xl group ${
                     isActive
-                      ? "bg-[#e8f5e8] text-[#31572c] font-semibold shadow-sm"
+                      ? "bg-brand-accent text-brand-darkest font-semibold shadow-sm"
                       : "text-[#a3b8a3] hover:text-white hover:bg-white/5 font-medium"
                   }`
                 }
@@ -479,7 +409,7 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
                     <IconComponent
                       className={`h-[17px] w-[17px] shrink-0 transition-transform duration-200 group-hover:scale-110 mt-0.5 ${
                         isActive
-                          ? "text-[#31572c]"
+                          ? "text-brand-darkest"
                           : "text-[#a3b8a3] group-hover:text-white"
                       }`}
                     />
@@ -496,7 +426,7 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
       </div>
 
       {/* Fixed Bottom Profile Block (Isolated at bottom) */}
-      <div className="pt-4 flex items-center justify-between gap-2.5 overflow-hidden border-t border-white/5 mt-4">
+      <div className="pt-4 flex items-center justify-between gap-2.5 overflow-hidden border-t border-white/12 mt-4">
         <div className="flex items-center space-x-3 min-w-0 flex-1">
           {/* Avatar Emblems */}
           <div className="h-9 w-9 rounded-xl bg-white/10 text-white font-bold flex items-center justify-center text-[12px] shrink-0 border border-white/5">
@@ -514,7 +444,7 @@ export default function GenericSidebar({ isSidebarOpen, setIsSidebarOpen }) {
                 {userProfile.role}
               </span>
               <span className="text-white/20 shrink-0">•</span>
-              <span className="text-[9px] font-bold bg-[#e8f5e8] text-[#31572c] px-1.5 py-0.5 rounded-md shrink-0">
+              <span className="text-[9px] font-bold bg-brand-accent text-brand-darkest px-1.5 py-0.5 rounded-md shrink-0">
                 {userProfile.hindiRole}
               </span>
             </p>

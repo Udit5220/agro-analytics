@@ -168,7 +168,7 @@ export default function CropLifecycle() {
             onClick={() => setActiveCrop(crop)}
             className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all border cursor-pointer ${
               activeCrop === crop
-                ? "bg-[#31572c] border-[#31572c] text-white shadow-sm font-extrabold"
+                ? "bg-brand-dark border-[#31572c] text-white shadow-sm font-extrabold"
                 : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
             }`}
           >
@@ -198,7 +198,7 @@ export default function CropLifecycle() {
               {/* Absolute Horizontal Connecting Progress Line */}
               <div className="absolute top-[22px] left-10 right-10 h-1 bg-gray-200 z-0">
                 <div
-                  className="h-full bg-[#4f772d] transition-all duration-500 rounded-full"
+                  className="h-full bg-brand-medium transition-all duration-500 rounded-full"
                   style={{ width: `${horizontalBarWidth}%` }}
                 ></div>
               </div>
@@ -216,7 +216,7 @@ export default function CropLifecycle() {
                     <div
                       className={`w-11 h-11 rounded-full flex items-center justify-center transition-all ${
                         isCompleted
-                          ? "bg-[#4f772d] text-white shadow-sm"
+                          ? "bg-brand-medium text-white shadow-sm"
                           : isCurrent
                             ? "bg-white border-4 border-[#31572c] text-[#31572c] scale-110 shadow-md"
                             : "bg-white border-2 border-gray-200 text-gray-300"
@@ -373,17 +373,17 @@ export default function CropLifecycle() {
                       <div
                         className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                           stage.status === "completed"
-                            ? "border-[#4f772d] bg-[#f4f7f4]"
+                            ? "border-brand-medium bg-[#f4f7f4]"
                             : isCurrent
                               ? "border-[#31572c] bg-white"
                               : "border-gray-200 bg-white"
                         }`}
                       >
                         {isCurrent && (
-                          <div className="w-2 h-2 rounded-full bg-[#31572c]"></div>
+                          <div className="w-2 h-2 rounded-full bg-brand-dark"></div>
                         )}
                         {stage.status === "completed" && (
-                          <div className="w-2 h-2 rounded-full bg-[#4f772d]"></div>
+                          <div className="w-2 h-2 rounded-full bg-brand-medium"></div>
                         )}
                       </div>
 
@@ -448,7 +448,7 @@ export default function CropLifecycle() {
                           <ul className="space-y-1.5 text-xs font-bold text-gray-600">
                             {(stage.actions || []).map((act, aIdx) => (
                               <li key={aIdx} className="flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#4f772d]"></span>{" "}
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-medium"></span>{" "}
                                 {act}
                               </li>
                             ))}

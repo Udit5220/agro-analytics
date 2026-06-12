@@ -26,7 +26,7 @@ const WEATHER_CORRELATION = [
 ];
 
 const DRIVER_ANALYSIS = [
-  { driver: "Relative Humidity (>85%)", impact: 42, color: "bg-[#31572c]" },
+  { driver: "Relative Humidity (>85%)", impact: 42, color: "bg-brand-dark" },
   { driver: "Spore Concentration (PPM)", impact: 28, color: "bg-red-500" },
   { driver: "Ambient Temperature Drift", impact: 18, color: "bg-amber-500" },
   { driver: "Wind Direction Vectors", impact: 12, color: "bg-blue-500" }

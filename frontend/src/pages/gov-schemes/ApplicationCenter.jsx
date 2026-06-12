@@ -255,7 +255,7 @@ export default function ApplicationCenter() {
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-2.5">
-          <div className="p-2.5 bg-[#31572c]/10 rounded-xl">
+          <div className="p-2.5 bg-brand-dark/10 rounded-xl">
             <MousePointerClick className="h-6 w-6 text-[#31572c]" />
           </div>
           <div>
@@ -263,7 +263,7 @@ export default function ApplicationCenter() {
             <p className="text-sm text-gray-500">Unified document locker & auto-fill applications</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 bg-[#31572c]/5 text-[#31572c] px-3.5 py-1.5 rounded-xl border border-[#31572c]/10 text-xs font-semibold">
+        <div className="flex items-center gap-2 bg-brand-dark/5 text-[#31572c] px-3.5 py-1.5 rounded-xl border border-[#31572c]/10 text-xs font-semibold">
           <ShieldCheck className="h-4 w-4" /> Secured via UIDAI & State Land API
         </div>
       </div>
@@ -386,10 +386,10 @@ export default function ApplicationCenter() {
                   khasraStatus === 'verified' 
                     ? 'border-emerald-200 bg-emerald-50/20 opacity-75' 
                     : isDragOver
-                    ? 'border-[#31572c] bg-[#31572c]/10 scale-[0.99]'
+                    ? 'border-[#31572c] bg-brand-dark/10 scale-[0.99]'
                     : khasraStatus !== 'update_required'
                     ? 'border-gray-200 bg-gray-50/50 cursor-not-allowed pointer-events-none'
-                    : 'border-gray-300 hover:border-[#31572c] hover:bg-[#31572c]/5 cursor-pointer'
+                    : 'border-gray-300 hover:border-[#31572c] hover:bg-brand-dark/5 cursor-pointer'
                 }`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -402,7 +402,7 @@ export default function ApplicationCenter() {
                     <h4 className="text-sm font-bold text-gray-900">Uploading Document</h4>
                     <div className="w-full bg-gray-100 rounded-full h-1.5 max-w-xs mt-3 overflow-hidden">
                       <div 
-                        className="bg-[#31572c] h-1.5 rounded-full transition-all duration-150" 
+                        className="bg-brand-dark h-1.5 rounded-full transition-all duration-150" 
                         style={{ width: `${uploadProgress}%` }}
                       />
                     </div>
@@ -452,7 +452,7 @@ export default function ApplicationCenter() {
                 <h2 className="text-lg font-bold text-gray-900">Pre-Approved for You</h2>
                 <p className="text-xs text-gray-500 mt-0.5">Based on your land size, crop types, and location profile</p>
               </div>
-              <span className="text-xs font-bold bg-[#31572c]/10 text-[#31572c] px-3 py-1 rounded-full shrink-0">
+              <span className="text-xs font-bold bg-brand-dark/10 text-[#31572c] px-3 py-1 rounded-full shrink-0">
                 {catalog.length} Ready
               </span>
             </div>
@@ -475,7 +475,7 @@ export default function ApplicationCenter() {
                           <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">{scheme.agency}</span>
                           <h3 className="text-base font-bold text-gray-900 group-hover:text-[#31572c] transition-colors">{scheme.name}</h3>
                         </div>
-                        <span className="bg-[#31572c]/5 text-[#31572c] text-[10px] font-bold px-2.5 py-1 rounded-md shrink-0 border border-[#31572c]/10">
+                        <span className="bg-brand-dark/5 text-[#31572c] text-[10px] font-bold px-2.5 py-1 rounded-md shrink-0 border border-[#31572c]/10">
                           {scheme.badge}
                         </span>
                       </div>
@@ -506,8 +506,8 @@ export default function ApplicationCenter() {
                         disabled={isSubmitting}
                         className={`text-xs font-bold text-white px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 min-w-[110px] justify-center ${
                           isSubmitting
-                            ? 'bg-[#31572c]/70 cursor-not-allowed'
-                            : 'bg-[#31572c] hover:bg-[#1f371c] active:scale-[0.98]'
+                            ? 'bg-brand-dark/70 cursor-not-allowed'
+                            : 'bg-brand-dark hover:bg-[#1f371c] active:scale-[0.98]'
                         }`}
                       >
                         {isSubmitting ? (
@@ -555,7 +555,7 @@ export default function ApplicationCenter() {
               </div>
               <div className="flex justify-between items-center py-1.5 border-b border-slate-200/50">
                 <span className="text-gray-500 font-medium">Tracking ID</span>
-                <span className="text-[#31572c] font-black tracking-wider font-mono text-[13px] bg-[#31572c]/5 px-2 py-0.5 rounded border border-[#31572c]/10">{successModal.trackingId}</span>
+                <span className="text-[#31572c] font-black tracking-wider font-mono text-[13px] bg-brand-dark/5 px-2 py-0.5 rounded border border-[#31572c]/10">{successModal.trackingId}</span>
               </div>
               <div className="flex justify-between items-center py-1.5 border-b border-slate-200/50">
                 <span className="text-gray-500 font-medium">Timestamp</span>
@@ -582,7 +582,7 @@ export default function ApplicationCenter() {
             <div className="mt-8 flex gap-3">
               <button 
                 onClick={() => setSuccessModal(null)} 
-                className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs"
+                className="w-full bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs"
               >
                 Track Status on Dashboard
               </button>

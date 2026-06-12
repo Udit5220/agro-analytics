@@ -208,7 +208,7 @@ export default function ResearchAiDashboard() {
             <button
               type="submit"
               disabled={searching}
-              className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-60"
+              className="w-full bg-brand-dark hover:bg-[#1a3018] text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-60"
             >
               {searching ? (
                 <>

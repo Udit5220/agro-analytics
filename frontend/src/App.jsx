@@ -75,9 +75,10 @@ import DiseaseRepository from "./pages/disease-detection/admin/DiseaseRepository
 // import WeatherReservoirDashboard from "./pages/weather-reservoir/WeatherReservoirDashboard";
 import GovSchemesDashboard from "./pages/gov-schemes/GovSchemesDashboard";
 import MySchemes from "./pages/gov-schemes/farmer/MySchemes";
-import ApplyAndTrack from "./pages/gov-schemes/farmer/ApplyAndTrack";
 import BenefitsReceived from "./pages/gov-schemes/farmer/BenefitsReceived";
 import AIAdvisor from "./pages/gov-schemes/farmer/AIAdvisor";
+import FarmSchemeCalendar from "./pages/gov-schemes/farmer/FarmSchemeCalendar";
+import FarmRegionalAnalytics from "./pages/gov-schemes/farmer/FarmRegionalAnalytics";
 import FpoSchemeOverview from "./pages/gov-schemes/fpo/FpoSchemeOverview";
 import FpoFarmerEnrollment from "./pages/gov-schemes/fpo/FpoFarmerEnrollment";
 import FpoDisbursementIssues from "./pages/gov-schemes/fpo/FpoDisbursementIssues";
@@ -597,9 +598,10 @@ function DashboardSwitcher() {
       return <Navigate to="/module/gov-schemes/admin" replace />;
     }
     if (activeRole === "farmer") {
-      if (subPath === "track") return <ApplyAndTrack />;
       if (subPath === "benefits") return <BenefitsReceived />;
       if (subPath === "advisor") return <AIAdvisor />;
+      if (subPath === "calendar") return <FarmSchemeCalendar />;
+      if (subPath === "analytics") return <FarmRegionalAnalytics />;
       return <MySchemes />;
     }
     if (activeRole === "fpo_manager" || activeRole === "fpo") {
@@ -616,6 +618,7 @@ function DashboardSwitcher() {
       if (subPath === "budget") return <GovBudgetAndSpending />;
       if (subPath === "pipeline") return <GovApplicationPipeline />;
       if (subPath === "compliance-policy") return <GovComplianceAndPolicy />;
+      return <GovCommandCenter />;
     }
     if (subPath === "matchi") return <SchemeMatcher />;
     if (subPath === "subsidies") return <SubsidyTracker />;

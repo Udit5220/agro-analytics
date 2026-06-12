@@ -90,7 +90,7 @@ export default function BusinessInterventions() {
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2 bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-black uppercase tracking-wider rounded-xl flex items-center gap-1.5 cursor-pointer shadow-sm"
+          className="px-4 py-2 bg-brand-dark hover:bg-[#132a13] text-white text-xs font-black uppercase tracking-wider rounded-xl flex items-center gap-1.5 cursor-pointer shadow-sm"
         >
           <Plus className="w-4 h-4" /> Create Campaign
         </button>
@@ -211,7 +211,7 @@ export default function BusinessInterventions() {
               <div key={idx} className="bg-slate-50 border border-slate-100 p-3 rounded-xl space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-slate-900">{team.team}</span>
-                  <span className="px-2 py-0.5 rounded text-[8px] font-black uppercase bg-[#31572c]/10 text-[#31572c]">
+                  <span className="px-2 py-0.5 rounded text-[8px] font-black uppercase bg-brand-dark/10 text-[#31572c]">
                     {team.status}
                   </span>
                 </div>
@@ -283,7 +283,7 @@ export default function BusinessInterventions() {
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-sm mt-4"
+                className="w-full py-2.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-sm mt-4"
               >
                 Launch Campaign (Write: agro-india)
               </button>

@@ -313,7 +313,7 @@ export default function GovernmentLayout({
             </h3>
             <button
               onClick={triggerPageAi}
-              className="bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-black px-4 py-2 rounded-xl transition shadow cursor-pointer active:scale-95"
+              className="bg-brand-dark hover:bg-[#132a13] text-white text-xs font-black px-4 py-2 rounded-xl transition shadow cursor-pointer active:scale-95"
             >
               {aiSection.buttonLabel || "Query Advisory Insights"}
             </button>
@@ -340,7 +340,7 @@ export default function GovernmentLayout({
           </div>
           <button
             onClick={triggerGlobalAi}
-            className="bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-black px-4 py-2.5 rounded-xl transition cursor-pointer shadow active:scale-[0.97]"
+            className="bg-brand-dark hover:bg-[#132a13] text-white text-xs font-black px-4 py-2.5 rounded-xl transition cursor-pointer shadow active:scale-[0.97]"
           >
             Generate Summary Briefing
           </button>

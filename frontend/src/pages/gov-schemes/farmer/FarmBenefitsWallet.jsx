@@ -135,7 +135,7 @@ const FarmBenefitsWallet = () => {
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
           <div className="p-2 bg-[#132a13]/10 rounded-xl">
-            <Wallet className="h-5 w-5 text-[#4f772d]" />
+            <Wallet className="h-5 w-5 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#132a13]">Benefits Wallet</h1>
@@ -149,13 +149,13 @@ const FarmBenefitsWallet = () => {
         <StatsCard
           title="Lifetime Benefits"
           value={summaryCards.lifetimeBenefits}
-          icon={<Wallet className="text-[#4f772d]" />}
+          icon={<Wallet className="text-brand-medium" />}
           subtext="Total direct benefits received"
         />
         <StatsCard
           title="Current Year"
           value={summaryCards.currentYear}
-          icon={<IndianRupee className="text-[#4f772d]" />}
+          icon={<IndianRupee className="text-brand-medium" />}
           subtext="Disbursed in present financial year"
         />
         <StatsCard
@@ -168,7 +168,7 @@ const FarmBenefitsWallet = () => {
         <StatsCard
           title="Upcoming (90 days)"
           value={summaryCards.upcoming90Days}
-          icon={<TrendingUp className="text-[#4f772d]" />}
+          icon={<TrendingUp className="text-brand-medium" />}
           subtext="Projected next payouts"
         />
       </div>
@@ -225,7 +225,7 @@ const FarmBenefitsWallet = () => {
         <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-55">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-[#4f772d]" />
+              <Sparkles className="w-4 h-4 text-brand-medium" />
               Expected Future Benefit Schedule
             </h3>
             <p className="text-[10px] text-gray-400">
@@ -311,7 +311,7 @@ const FarmBenefitsWallet = () => {
             </select>
             <button
               onClick={exportToCSV}
-              className="flex items-center gap-1 px-3 py-1.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 bg-[#f4f7f4] hover:bg-[#4f772d]/10 transition"
+              className="flex items-center gap-1 px-3 py-1.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 bg-[#f4f7f4] hover:bg-brand-medium/10 transition"
             >
               <Download className="w-3.5 h-3.5" />
               Export CSV

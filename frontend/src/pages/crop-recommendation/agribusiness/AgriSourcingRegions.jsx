@@ -170,7 +170,7 @@ export default function AgriSourcingRegions() {
                   <span>High Suitability (&gt;90)</span>
                 </div>
                 <div className="flex items-center gap-2 text-[9px] font-bold text-gray-600">
-                  <span className="w-3 h-3 rounded-full bg-[#4f772d]"></span>
+                  <span className="w-3 h-3 rounded-full bg-brand-medium"></span>
                   <span>Moderate Suitability (80-90)</span>
                 </div>
                 <div className="flex items-center gap-2 text-[9px] font-bold text-gray-600">

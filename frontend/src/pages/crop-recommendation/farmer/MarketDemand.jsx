@@ -76,7 +76,7 @@ export default function MarketDemand() {
 
   const getDemandBadgeColor = (level) => {
     if (level === "High Demand") return "bg-[#ecf39e] text-[#132a13]";
-    if (level === "Medium Demand") return "bg-[#4f772d]/20 text-[#31572c]";
+    if (level === "Medium Demand") return "bg-brand-medium/20 text-[#31572c]";
     return "bg-amber-100 text-amber-900";
   };
 
@@ -114,7 +114,7 @@ export default function MarketDemand() {
                 onClick={() => setActiveCrop(crop)}
                 className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   activeCrop === crop
-                    ? "bg-[#31572c] text-white shadow-sm"
+                    ? "bg-brand-dark text-white shadow-sm"
                     : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
                 }`}
               >

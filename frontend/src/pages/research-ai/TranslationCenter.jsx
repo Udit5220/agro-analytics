@@ -49,7 +49,7 @@ export default function TranslationCenter() {
   return (
     <div className="space-y-6 animate-fadeIn antialiased">
       <div className="flex items-center gap-2.5 mb-8">
-        <div className="p-2 bg-[#31572c]/10 rounded-lg">
+        <div className="p-2 bg-brand-dark/10 rounded-lg">
           <Languages className="h-6 w-6 text-[#31572c]" />
         </div>
         <div>
@@ -79,7 +79,7 @@ export default function TranslationCenter() {
               <button
                 onClick={handleTranslate}
                 disabled={translating || !sourceText.trim()}
-                className="bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-2.5 px-5 rounded-xl text-xs transition-all shadow-xs flex items-center gap-1.5 disabled:opacity-60"
+                className="bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-2.5 px-5 rounded-xl text-xs transition-all shadow-xs flex items-center gap-1.5 disabled:opacity-60"
               >
                 {translating ? (
                   <>
@@ -108,7 +108,7 @@ export default function TranslationCenter() {
                 <select 
                   value={targetLang}
                   onChange={(e) => setTargetLang(e.target.value)}
-                  className="text-sm font-bold text-[#31572c] bg-[#31572c]/5 px-3 py-1.5 rounded-lg border border-[#31572c]/20 outline-none cursor-pointer"
+                  className="text-sm font-bold text-[#31572c] bg-brand-dark/5 px-3 py-1.5 rounded-lg border border-[#31572c]/20 outline-none cursor-pointer"
                 >
                   <option value="hi">Hindi (हिंदी)</option>
                   <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>

@@ -38,7 +38,7 @@ export default function AIChatAssistant({ isOpen, onClose }) {
   return (
     <div className="fixed top-0 right-0 h-screen w-96 bg-white shadow-2xl border-l border-slate-200 flex flex-col z-[100] animate-slideInRight font-sans">
       {/* Module Title Bar */}
-      <div className="bg-[#31572c] text-white p-4 flex items-center justify-between shadow-sm">
+      <div className="bg-brand-dark text-white p-4 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-2">
           <Bot className="h-5 w-5 text-green-200" />
           <h2 className="font-bold text-sm">CommodIQ AI Assistant</h2>
@@ -59,7 +59,7 @@ export default function AIChatAssistant({ isOpen, onClose }) {
             className={`flex gap-3 ${c.role === "user" ? "flex-row-reverse" : ""}`}
           >
             <div
-              className={`h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 ${c.role === "user" ? "bg-green-100 text-green-800" : "bg-[#31572c] text-white"}`}
+              className={`h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 ${c.role === "user" ? "bg-green-100 text-green-800" : "bg-brand-dark text-white"}`}
             >
               {c.role === "user" ? (
                 <User className="h-4 w-4" />
@@ -68,7 +68,7 @@ export default function AIChatAssistant({ isOpen, onClose }) {
               )}
             </div>
             <div
-              className={`max-w-[75%] p-3 rounded-2xl text-sm ${c.role === "user" ? "bg-[#31572c] text-white rounded-tr-none" : "bg-white border border-slate-200 text-slate-700 rounded-tl-none shadow-sm"}`}
+              className={`max-w-[75%] p-3 rounded-2xl text-sm ${c.role === "user" ? "bg-brand-dark text-white rounded-tr-none" : "bg-white border border-slate-200 text-slate-700 rounded-tl-none shadow-sm"}`}
             >
               {c.text}
             </div>
@@ -104,7 +104,7 @@ export default function AIChatAssistant({ isOpen, onClose }) {
           />
           <button
             type="submit"
-            className="absolute right-2 h-8 w-8 bg-[#31572c] text-white rounded-lg flex items-center justify-center hover:bg-green-800 transition-colors"
+            className="absolute right-2 h-8 w-8 bg-brand-dark text-white rounded-lg flex items-center justify-center hover:bg-green-800 transition-colors"
           >
             <Send className="h-4 w-4 ml-0.5" />
           </button>

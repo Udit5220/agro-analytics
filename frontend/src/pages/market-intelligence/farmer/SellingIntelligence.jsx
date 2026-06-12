@@ -124,16 +124,16 @@ export default function SellingIntelligence() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Selling Intelligence</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Selling Intelligence</h1>
           <p className="text-xs text-gray-500 mt-1">Make informed selling decisions with market insights</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+        <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
           <RefreshCw className="w-4 h-4" /> Refresh Data
         </button>
       </div>
 
       {/* Selling Opportunity Score */}
-      <div className="bg-gradient-to-r from-[#2e4057] to-[#208837] rounded-2xl p-6 shadow-lg text-white">
+      <div className="bg-gradient-to-r from-brand-darkest to-[#208837] rounded-2xl p-6 shadow-lg text-white">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-sm font-bold">Selling Opportunity Score</h2>
           <span className="text-xs text-white/80">Based on market conditions</span>
@@ -158,10 +158,10 @@ export default function SellingIntelligence() {
 
       {/* Market Condition Indicators */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Market Condition Indicators</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Market Condition Indicators</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {marketIndicators.map((indicator, index) => (
-            <div key={index} className="border border-gray-200 rounded-xl p-4 hover:border-[#28a745] transition">
+            <div key={index} className="border border-gray-200 rounded-xl p-4 hover:border-brand-medium transition">
               <div className="flex items-start justify-between mb-3">
                 <div className={`p-2.5 rounded-xl ${indicator.color}`}>
                   <indicator.icon className="w-5 h-5" />
@@ -171,7 +171,7 @@ export default function SellingIntelligence() {
                 </span>
               </div>
               <p className="text-xs text-gray-500 font-semibold mb-1">{indicator.name}</p>
-              <p className="text-2xl font-black text-[#2e4057]">{indicator.value}</p>
+              <p className="text-2xl font-black text-brand-darkest">{indicator.value}</p>
               <p className="text-xs text-gray-400 mt-1">{indicator.status}</p>
             </div>
           ))}
@@ -181,7 +181,7 @@ export default function SellingIntelligence() {
       {/* Sell Timing Analysis */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Sell Timing Analysis</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Sell Timing Analysis</h2>
           <div className="flex items-center gap-1">
             {timeFilters.map((filter) => (
               <button
@@ -189,7 +189,7 @@ export default function SellingIntelligence() {
                 onClick={() => setSelectedTimeFilter(filter)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                   selectedTimeFilter === filter
-                    ? "bg-[#2e4057] text-white"
+                    ? "bg-brand-darkest text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -211,7 +211,7 @@ export default function SellingIntelligence() {
               }}
             />
             <Legend />
-            <Line type="monotone" dataKey="condition" stroke="#28a745" strokeWidth={2} dot={{ fill: "#28a745" }} name="Current Condition" />
+            <Line type="monotone" dataKey="condition" stroke="var(--brand-medium)" strokeWidth={2} dot={{ fill: "var(--brand-medium)" }} name="Current Condition" />
             <Line type="monotone" dataKey="outlook" stroke="#3b82f6" strokeWidth={2} dot={{ fill: "#3b82f6" }} name="Short-term Outlook" />
           </LineChart>
         </ResponsiveContainer>
@@ -219,7 +219,7 @@ export default function SellingIntelligence() {
 
       {/* Market Risk Meter */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Market Risk Meter</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Market Risk Meter</h2>
         <div className="flex items-center justify-center gap-8">
           <div className="relative w-48 h-48">
             <svg className="w-full h-full transform -rotate-90">
@@ -227,8 +227,8 @@ export default function SellingIntelligence() {
               <circle cx="96" cy="96" r="80" stroke={getRiskColor(riskLevel.category)} strokeWidth="16" fill="none" strokeDasharray="502" strokeDashoffset={502 - (502 * riskLevel.score / 100)} strokeLinecap="round" />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <Shield className="w-8 h-8 text-[#28a745] mb-1" />
-              <span className="text-3xl font-black text-[#2e4057]">{riskLevel.level}</span>
+              <Shield className="w-8 h-8 text-brand-medium mb-1" />
+              <span className="text-3xl font-black text-brand-darkest">{riskLevel.level}</span>
               <span className="text-xs text-gray-500">Risk Level</span>
             </div>
           </div>
@@ -251,7 +251,7 @@ export default function SellingIntelligence() {
 
       {/* Strategy Recommendation Panel */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Strategy Recommendations</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Strategy Recommendations</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {strategyRecommendations.map((rec, index) => (
             <div key={index} className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition">
@@ -259,7 +259,7 @@ export default function SellingIntelligence() {
                 <rec.icon className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-[#2e4057] mb-1">{rec.title}</h3>
+                <h3 className="text-sm font-bold text-brand-darkest mb-1">{rec.title}</h3>
                 <p className="text-xs text-gray-600">{rec.description}</p>
               </div>
             </div>
@@ -268,10 +268,10 @@ export default function SellingIntelligence() {
       </div>
 
       {/* Actionable Insights */}
-      <div className="bg-gradient-to-r from-[#28a745]/10 to-[#208837]/10 rounded-2xl p-6 border border-[#28a745]/20">
+      <div className="bg-gradient-to-r from-brand-medium/10 to-[#208837]/10 rounded-2xl p-6 border border-brand-medium/20">
         <div className="flex items-center gap-3 mb-4">
-          <Zap className="w-6 h-6 text-[#28a745]" />
-          <h2 className="text-sm font-bold text-[#2e4057]">Recommended Action</h2>
+          <Zap className="w-6 h-6 text-brand-medium" />
+          <h2 className="text-sm font-bold text-brand-darkest">Recommended Action</h2>
         </div>
         <div className="space-y-3">
           <div className="flex items-start gap-3">

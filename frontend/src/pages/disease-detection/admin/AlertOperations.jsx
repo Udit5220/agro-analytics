@@ -318,7 +318,7 @@ export default function AlertOperations() {
               return (
                 <div key={idx} className="flex items-center justify-between text-xs border-b border-gray-50 pb-2">
                   <div className="flex items-center gap-2">
-                    <div className="h-7 w-7 rounded-lg bg-[#4f772d]/10 flex items-center justify-center text-[#31572c]">
+                    <div className="h-7 w-7 rounded-lg bg-brand-medium/10 flex items-center justify-center text-[#31572c]">
                       <Icon size={13} />
                     </div>
                     <div>
@@ -352,7 +352,7 @@ export default function AlertOperations() {
                   key={layer}
                   onClick={() => setMapLayer(layer)}
                   className={`px-2 py-1 transition ${
-                    mapLayer === layer ? "bg-[#31572c] text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
+                    mapLayer === layer ? "bg-brand-dark text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
                   }`}
                 >
                   {layer}
@@ -446,7 +446,7 @@ export default function AlertOperations() {
               {filteredFailures.map((row, idx) => {
                 const isCritical = row.retries > 3;
                 return (
-                  <tr key={idx} className={`text-xs font-semibold hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60 ${
+                  <tr key={idx} className={`text-xs font-semibold hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60 ${
                     isCritical ? "bg-red-50 text-red-950" : "text-gray-700"
                   }`}>
                     <td className="p-3 pl-6 font-bold font-mono text-gray-900">{row.id}</td>

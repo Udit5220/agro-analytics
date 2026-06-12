@@ -38,7 +38,7 @@ const FpoSimulator = () => {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <PlayCircle className="w-5 h-5 text-[#4f772d]" />
+          <PlayCircle className="w-5 h-5 text-brand-medium" />
           Strategic Opportunity Simulator
         </h1>
         <p className="text-xs text-gray-500 mt-1">Evaluate and compare post-harvest infrastructure projects side-by-side to optimize ROI and subsidy allocations.</p>
@@ -60,7 +60,7 @@ const FpoSimulator = () => {
                 }}
                 className={`py-3 rounded-xl border-2 font-bold text-xs transition-all ${
                   projectType === type
-                    ? "border-[#4f772d] bg-[#4f772d]/5 text-[#4f772d]"
+                    ? "border-brand-medium bg-brand-medium/5 text-brand-medium"
                     : "border-gray-250 hover:border-gray-300 text-gray-655"
                 }`}
               >
@@ -84,7 +84,7 @@ const FpoSimulator = () => {
             />
           </div>
 
-          <div className="bg-[#f4f7f4]/45 border border-[#4f772d]/10 rounded-2xl p-5 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          <div className="bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-2xl p-5 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div className="bg-white p-3 rounded-xl border border-gray-100">
               <span className="block text-[8px] text-gray-400 uppercase font-bold">Subsidy Rate</span>
               <span className="text-lg font-black text-[#132a13]">{subsidyRate * 100}%</span>
@@ -95,7 +95,7 @@ const FpoSimulator = () => {
             </div>
             <div className="bg-white p-3 rounded-xl border border-gray-100">
               <span className="block text-[8px] text-gray-400 uppercase font-bold">Estimated ROI</span>
-              <span className="text-lg font-black text-[#4f772d]">{simulatedRoi}%</span>
+              <span className="text-lg font-black text-brand-medium">{simulatedRoi}%</span>
             </div>
             <div className="bg-white p-3 rounded-xl border border-gray-100">
               <span className="block text-[8px] text-gray-400 uppercase font-bold">Payback Period</span>
@@ -108,7 +108,7 @@ const FpoSimulator = () => {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-1 flex items-center gap-1">
-              <Sparkles className="w-4 h-4 text-[#4f772d]" />
+              <Sparkles className="w-4 h-4 text-brand-medium" />
               AI Recommendation
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">Optimal investment choice evaluated from current crop production logs</p>
@@ -124,7 +124,7 @@ const FpoSimulator = () => {
           <button
             type="button"
             onClick={() => setShowConfirmModal(true)}
-            className="w-full mt-4 text-xs font-bold text-center py-2.5 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl transition"
+            className="w-full mt-4 text-xs font-bold text-center py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl transition"
           >
             Lock Strategic Plan
           </button>
@@ -143,7 +143,7 @@ const FpoSimulator = () => {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <CheckCircle2 className="w-5 h-5 text-[#4f772d]" />
+              <CheckCircle2 className="w-5 h-5 text-brand-medium" />
               Confirm Strategic Investment
             </h2>
             <p className="text-xs text-gray-500 mb-4">Are you sure you want to lock this simulated project design as the active target plan?</p>
@@ -154,7 +154,7 @@ const FpoSimulator = () => {
               </div>
             ) : (
               <form onSubmit={handleConfirmLock} className="space-y-4">
-                <div className="space-y-2 bg-[#f4f7f4]/45 border border-[#4f772d]/10 rounded-xl p-3.5 text-xs text-gray-650 font-semibold">
+                <div className="space-y-2 bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-xl p-3.5 text-xs text-gray-650 font-semibold">
                   <div className="flex justify-between">
                     <span>Project Type:</span>
                     <span className="font-bold text-[#132a13]">{projectType}</span>
@@ -179,7 +179,7 @@ const FpoSimulator = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                   >
                     Confirm & Save Plan
                   </button>

@@ -324,7 +324,7 @@ export default function CropRecMarketLinkage() {
 
           <button
             onClick={() => handleApplyContract("ITC Agri-Business")}
-            className="w-full mt-4 bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-black uppercase py-2.5 rounded-xl transition flex items-center justify-center gap-1.5"
+            className="w-full mt-4 bg-brand-dark hover:bg-[#132a13] text-white text-xs font-black uppercase py-2.5 rounded-xl transition flex items-center justify-center gap-1.5"
           >
             <FileText size={14} /> Send Contract Proposal
           </button>

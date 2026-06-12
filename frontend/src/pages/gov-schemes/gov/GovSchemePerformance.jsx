@@ -40,7 +40,7 @@ export default function GovSchemePerformance() {
       <div className="flex items-center gap-2">
         <span className="font-black text-[#132a13]">{v}%</span>
         <div className="w-12 bg-gray-100 h-1.5 rounded-full overflow-hidden">
-          <div className="bg-[#4f772d] h-full" style={{ width: `${v}%` }} />
+          <div className="bg-brand-medium h-full" style={{ width: `${v}%` }} />
         </div>
       </div>
     )},
@@ -71,7 +71,7 @@ export default function GovSchemePerformance() {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <Activity className="w-5 h-5 text-[#4f772d]" />
+          <Activity className="w-5 h-5 text-brand-medium" />
           Scheme Performance Intelligence Center
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -89,7 +89,7 @@ export default function GovSchemePerformance() {
             <button 
               onClick={() => setSelectedRank("all")}
               className={`w-full flex items-center justify-between p-3 rounded-xl border text-xs font-bold transition ${
-                selectedRank === "all" ? "bg-[#132a13]/10 border-[#4f772d]/30" : "bg-gray-50 border-gray-100 hover:bg-gray-100"
+                selectedRank === "all" ? "bg-[#132a13]/10 border-brand-medium/30" : "bg-gray-50 border-gray-100 hover:bg-gray-100"
               }`}
             >
               <span>All Active Programs</span>
@@ -138,27 +138,27 @@ export default function GovSchemePerformance() {
             <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
               <span className="text-gray-400 block mb-1">STAGE 1</span>
               <span className="text-gray-800 block">Submitted</span>
-              <span className="text-[#4f772d] text-xs font-black mt-1 block">100%</span>
+              <span className="text-brand-medium text-xs font-black mt-1 block">100%</span>
             </div>
             <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
               <span className="text-gray-400 block mb-1">STAGE 2</span>
               <span className="text-gray-800 block">Verification</span>
-              <span className="text-[#4f772d] text-xs font-black mt-1 block">88%</span>
+              <span className="text-brand-medium text-xs font-black mt-1 block">88%</span>
             </div>
             <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
               <span className="text-gray-400 block mb-1">STAGE 3</span>
               <span className="text-gray-800 block">Approval</span>
-              <span className="text-[#4f772d] text-xs font-black mt-1 block">79%</span>
+              <span className="text-brand-medium text-xs font-black mt-1 block">79%</span>
             </div>
             <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
               <span className="text-gray-400 block mb-1">STAGE 4</span>
               <span className="text-gray-800 block">Disbursed</span>
-              <span className="text-[#4f772d] text-xs font-black mt-1 block">74%</span>
+              <span className="text-brand-medium text-xs font-black mt-1 block">74%</span>
             </div>
             <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
               <span className="text-gray-400 block mb-1">STAGE 5</span>
               <span className="text-gray-800 block">Outcome</span>
-              <span className="text-[#4f772d] text-xs font-black mt-1 block">68%</span>
+              <span className="text-brand-medium text-xs font-black mt-1 block">68%</span>
             </div>
           </div>
           <div className="mt-4 p-3 bg-amber-50/50 border border-amber-100/50 rounded-xl flex items-center gap-2 text-xs">
@@ -174,7 +174,7 @@ export default function GovSchemePerformance() {
         {/* Sliders */}
         <div className="space-y-4">
           <h3 className="font-bold text-[#132a13] text-sm flex items-center gap-1.5">
-            <Sliders className="w-4 h-4 text-[#4f772d]" /> Budget Reallocation Simulator
+            <Sliders className="w-4 h-4 text-brand-medium" /> Budget Reallocation Simulator
           </h3>
           <p className="text-[10px] text-gray-400 leading-normal">
             Adjust budget pools to simulate scheme adoption growth and outcome metrics on local agriculture.
@@ -184,7 +184,7 @@ export default function GovSchemePerformance() {
             <div>
               <div className="flex justify-between text-xs font-bold mb-1">
                 <span>PM Kisan Pool</span>
-                <span className="text-[#4f772d]">₹{allocationPMKisan} Cr</span>
+                <span className="text-brand-medium">₹{allocationPMKisan} Cr</span>
               </div>
               <input 
                 type="range" min="50" max="200" 
@@ -197,7 +197,7 @@ export default function GovSchemePerformance() {
             <div>
               <div className="flex justify-between text-xs font-bold mb-1">
                 <span>PMFBY Pool</span>
-                <span className="text-[#4f772d]">₹{allocationPMFBY} Cr</span>
+                <span className="text-brand-medium">₹{allocationPMFBY} Cr</span>
               </div>
               <input 
                 type="range" min="30" max="150" 
@@ -210,7 +210,7 @@ export default function GovSchemePerformance() {
             <div>
               <div className="flex justify-between text-xs font-bold mb-1">
                 <span>KCC Credit Pool</span>
-                <span className="text-[#4f772d]">₹{allocationKCC} Cr</span>
+                <span className="text-brand-medium">₹{allocationKCC} Cr</span>
               </div>
               <input 
                 type="range" min="20" max="120" 
@@ -223,7 +223,7 @@ export default function GovSchemePerformance() {
         </div>
 
         {/* Projected Outcomes */}
-        <div className="lg:col-span-2 bg-[#f4f7f4]/45 border border-[#4f772d]/10 rounded-2xl p-5 flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-2xl p-5 flex flex-col justify-between">
           <div className="flex justify-between items-center border-b border-gray-200/50 pb-3">
             <h4 className="text-xs font-bold text-[#132a13]">Simulated Intelligence Output</h4>
             <span className="text-[10px] font-mono text-gray-500 uppercase">Live calculations</span>
@@ -247,7 +247,7 @@ export default function GovSchemePerformance() {
 
           <div className="bg-white border border-gray-150 p-3 rounded-xl text-xs space-y-1.5 shadow-sm">
             <p className="font-bold text-[#132a13] flex items-center gap-1">
-              <Sparkles className="w-4 h-4 text-[#4f772d]" /> AI Actionable Insights
+              <Sparkles className="w-4 h-4 text-brand-medium" /> AI Actionable Insights
             </p>
             <p className="text-gray-500 text-[11px] leading-relaxed">
               Based on your reallocation of <span className="font-bold text-gray-700">₹{totalSimulatedAllocation} Cr</span>, the target efficiency changes. Promoting PM-Kisan yields faster cash distribution, whereas shifting funds to PMFBY lowers regional drought exposure index.

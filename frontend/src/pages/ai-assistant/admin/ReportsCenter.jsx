@@ -213,7 +213,7 @@ This automated advisory report was successfully compiled for the operational seg
               </div>
               <button
                 onClick={() => handleGenerate(card.title)}
-                className="text-[11px] font-bold text-[#31572c] hover:text-[#4f772d] flex items-center gap-1 self-start transition-colors group mt-2 cursor-pointer"
+                className="text-[11px] font-bold text-[#31572c] hover:text-brand-medium flex items-center gap-1 self-start transition-colors group mt-2 cursor-pointer"
               >
                 <span>Generate</span>
                 <svg
@@ -285,7 +285,7 @@ This automated advisory report was successfully compiled for the operational seg
                 {reports.map((report) => (
                   <tr
                     key={report.id}
-                    className="hover:bg-[#4f772d]/5 transition-colors duration-150"
+                    className="hover:bg-brand-medium/5 transition-colors duration-150"
                   >
                     <td className="p-3.5 flex items-center gap-2.5 min-w-[260px]">
                       <div className="text-gray-400 flex-shrink-0">
@@ -398,7 +398,7 @@ This automated advisory report was successfully compiled for the operational seg
                   />
                 </svg>
               </button>
-              <span className="bg-[#31572c] text-white text-[11px] font-bold w-5 h-5 rounded flex items-center justify-center shadow-sm">
+              <span className="bg-brand-dark text-white text-[11px] font-bold w-5 h-5 rounded flex items-center justify-center shadow-sm">
                 1
               </span>
               <button className="p-1 rounded text-gray-350 hover:bg-gray-100 hover:text-gray-600 transition-colors">
@@ -435,7 +435,7 @@ This automated advisory report was successfully compiled for the operational seg
             {/* Modal Header */}
             <div className="p-5 border-b border-gray-100 bg-[#eef3eb]/45 flex justify-between items-start">
               <div>
-                <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-[#31572c]/10 text-[#31572c] uppercase tracking-wider">
+                <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-brand-dark/10 text-[#31572c] uppercase tracking-wider">
                   {activeViewReport.type}
                 </span>
                 <h3 className="text-base font-black text-gray-900 tracking-tight mt-1">
@@ -489,7 +489,7 @@ This automated advisory report was successfully compiled for the operational seg
                   handleDownload(activeViewReport);
                   setActiveViewReport(null);
                 }}
-                className="bg-[#31572c] hover:bg-[#1e381b] text-white px-4 py-2 rounded-lg text-xs font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
+                className="bg-brand-dark hover:bg-[#1e381b] text-white px-4 py-2 rounded-lg text-xs font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -503,7 +503,7 @@ This automated advisory report was successfully compiled for the operational seg
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#31572c] text-[#ecf39e] border border-[#4f772d]/30 px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 animate-fadeIn font-semibold text-xs transition-all duration-300">
+        <div className="fixed bottom-6 right-6 z-50 bg-brand-dark text-[#ecf39e] border border-brand-medium/30 px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 animate-fadeIn font-semibold text-xs transition-all duration-300">
           <svg className="w-4 h-4 text-[#ecf39e] shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>

@@ -63,7 +63,7 @@ export default function MarketIntelligenceDashboard() {
       subValue: "₹4,280/qtl",
       change: "+3.2%",
       icon: TrendingUp,
-      color: "bg-[#28a745]/10 text-[#28a745]",
+      color: "bg-brand-medium/10 text-brand-medium",
     },
     {
       title: "Highest Demand",
@@ -96,10 +96,10 @@ export default function MarketIntelligenceDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Market Intelligence Dashboard</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Market Intelligence Dashboard</h1>
           <p className="text-xs text-gray-500 mt-1">Real-time market insights, price analysis, and demand intelligence</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+        <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
           <RefreshCw className="w-4 h-4" /> Refresh Data
         </button>
       </div>
@@ -107,33 +107,33 @@ export default function MarketIntelligenceDashboard() {
       {/* Market Opportunity Score */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Market Opportunity Score</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Market Opportunity Score</h2>
           <span className="text-xs text-gray-500">Based on current market conditions</span>
         </div>
         <div className="flex items-center gap-8">
           <div className="relative w-40 h-40">
             <svg className="w-full h-full transform -rotate-90">
               <circle cx="80" cy="80" r="70" stroke="#e5e7eb" strokeWidth="12" fill="none" />
-              <circle cx="80" cy="80" r="70" stroke="#28a745" strokeWidth="12" fill="none" strokeDasharray="440" strokeDashoffset="70" strokeLinecap="round" />
+              <circle cx="80" cy="80" r="70" stroke="var(--brand-medium)" strokeWidth="12" fill="none" strokeDasharray="440" strokeDashoffset="70" strokeLinecap="round" />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-black text-[#2e4057]">84</span>
+              <span className="text-4xl font-black text-brand-darkest">84</span>
               <span className="text-xs text-gray-500">/100</span>
             </div>
           </div>
           <div className="flex-1 space-y-3">
             <div className="flex items-center gap-3">
-              <TrendingUp className="w-5 h-5 text-[#28a745]" />
+              <TrendingUp className="w-5 h-5 text-brand-medium" />
               <div>
                 <p className="text-xs text-gray-500">Trend Direction</p>
-                <p className="text-sm font-bold text-[#2e4057]">Upward</p>
+                <p className="text-sm font-bold text-brand-darkest">Upward</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Activity className="w-5 h-5 text-[#28a745]" />
+              <Activity className="w-5 h-5 text-brand-medium" />
               <div>
                 <p className="text-xs text-gray-500">Opportunity Level</p>
-                <p className="text-sm font-bold text-[#28a745]">Strong Selling Conditions</p>
+                <p className="text-sm font-bold text-brand-medium">Strong Selling Conditions</p>
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function MarketIntelligenceDashboard() {
               </span>
             </div>
             <p className="text-xs text-gray-500 font-semibold mb-1">{card.title}</p>
-            <p className="text-lg font-black text-[#2e4057]">{card.value}</p>
+            <p className="text-lg font-black text-brand-darkest">{card.value}</p>
             <p className="text-xs text-gray-400 mt-1">{card.subValue}</p>
           </div>
         ))}
@@ -162,10 +162,10 @@ export default function MarketIntelligenceDashboard() {
       {/* Commodity Overview Table */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Commodity Overview</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Commodity Overview</h2>
           <div className="flex items-center gap-2">
-            <input type="text" placeholder="Search commodities..." className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#28a745]" />
-            <select className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#28a745]">
+            <input type="text" placeholder="Search commodities..." className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-brand-medium" />
+            <select className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-brand-medium">
               <option>All Commodities</option>
               <option>Cereals</option>
               <option>Oilseeds</option>
@@ -189,7 +189,7 @@ export default function MarketIntelligenceDashboard() {
             <tbody>
               {commodityData.map((item, index) => (
                 <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-2 text-sm font-bold text-[#2e4057]">{item.commodity}</td>
+                  <td className="py-3 px-2 text-sm font-bold text-brand-darkest">{item.commodity}</td>
                   <td className="py-3 px-2 text-sm font-semibold text-gray-700">₹{item.currentPrice}/qtl</td>
                   <td className="py-3 px-2">
                     <span className={`text-xs font-bold flex items-center gap-1 ${item.dailyChange > 0 ? "text-emerald-600" : "text-red-600"}`}>
@@ -206,7 +206,7 @@ export default function MarketIntelligenceDashboard() {
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-2">
                       <div className="w-16 bg-gray-200 h-2 rounded-full overflow-hidden">
-                        <div className="bg-[#28a745] h-full" style={{ width: `${item.demandScore}%` }}></div>
+                        <div className="bg-brand-medium h-full" style={{ width: `${item.demandScore}%` }}></div>
                       </div>
                       <span className="text-xs font-bold text-gray-700">{item.demandScore}</span>
                     </div>
@@ -231,7 +231,7 @@ export default function MarketIntelligenceDashboard() {
       {/* Price Movement Chart */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Price Movement</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Price Movement</h2>
           <div className="flex items-center gap-1">
             {timeFilters.map((filter) => (
               <button
@@ -239,7 +239,7 @@ export default function MarketIntelligenceDashboard() {
                 onClick={() => setSelectedTimeFilter(filter)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                   selectedTimeFilter === filter
-                    ? "bg-[#2e4057] text-white"
+                    ? "bg-brand-darkest text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -261,7 +261,7 @@ export default function MarketIntelligenceDashboard() {
               }}
             />
             <Legend />
-            <Line type="monotone" dataKey="wheat" stroke="#28a745" strokeWidth={2} dot={false} name="Wheat" />
+            <Line type="monotone" dataKey="wheat" stroke="var(--brand-medium)" strokeWidth={2} dot={false} name="Wheat" />
             <Line type="monotone" dataKey="rice" stroke="#3b82f6" strokeWidth={2} dot={false} name="Rice" />
             <Line type="monotone" dataKey="cotton" stroke="#f59e0b" strokeWidth={2} dot={false} name="Cotton" />
             <Line type="monotone" dataKey="soybean" stroke="#8b5cf6" strokeWidth={2} dot={false} name="Soybean" />
@@ -274,7 +274,7 @@ export default function MarketIntelligenceDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Daily Market Feed */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-[#2e4057] mb-4">Daily Market Feed</h2>
+          <h2 className="text-sm font-bold text-brand-darkest mb-4">Daily Market Feed</h2>
           <div className="space-y-3">
             {marketFeed.map((item, index) => (
               <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
@@ -292,10 +292,10 @@ export default function MarketIntelligenceDashboard() {
 
         {/* Regional Market Heatmap Placeholder */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-[#2e4057] mb-4">Regional Market Heatmap</h2>
-          <div className="h-64 bg-gradient-to-br from-[#2e4057]/5 to-[#28a745]/10 rounded-xl flex items-center justify-center">
+          <h2 className="text-sm font-bold text-brand-darkest mb-4">Regional Market Heatmap</h2>
+          <div className="h-64 bg-gradient-to-br from-brand-darkest/5 to-brand-medium/10 rounded-xl flex items-center justify-center">
             <div className="text-center">
-              <MapPin className="w-12 h-12 text-[#28a745] mx-auto mb-2" />
+              <MapPin className="w-12 h-12 text-brand-medium mx-auto mb-2" />
               <p className="text-xs font-bold text-gray-500">Interactive Map</p>
               <p className="text-[10px] text-gray-400">MapTiler integration coming soon</p>
             </div>

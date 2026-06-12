@@ -33,12 +33,12 @@ const FpoCommandCenter = () => {
   );
 
   const iconMap = {
-    "kpi-opportunities": <Compass className="text-[#4f772d]" />,
+    "kpi-opportunities": <Compass className="text-brand-medium" />,
     "kpi-potential": <Plus className="text-[#31572c]" />,
     "kpi-pipeline": <FolderKanban className="text-[#132a13]" />,
     "kpi-secured": <CheckCircle2 className="text-[#90a955]" />,
     "kpi-readiness": <FolderKanban className="text-amber-500" />,
-    "kpi-coverage": <Users className="text-[#4f772d]" />
+    "kpi-coverage": <Users className="text-brand-medium" />
   };
 
   const totalFund = distribution.reduce((sum, d) => sum + d.amount, 0);
@@ -59,7 +59,7 @@ const FpoCommandCenter = () => {
       {/* Header Section */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <LayoutDashboard className="w-5 h-5 text-[#4f772d]" />
+          <LayoutDashboard className="w-5 h-5 text-brand-medium" />
           Opportunity Command Center
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -119,7 +119,7 @@ const FpoCommandCenter = () => {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-1 flex items-center gap-2">
-              <Sparkles className="w-4.5 h-4.5 text-[#4f772d] animate-pulse" />
+              <Sparkles className="w-4.5 h-4.5 text-brand-medium animate-pulse" />
               AI Executive Brief
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">Urgent highlights and recommendations compiled by AgroIndia Opportunity Engine</p>
@@ -138,8 +138,8 @@ const FpoCommandCenter = () => {
                   <p className="text-amber-700 mt-0.5">Q4 GST Return Filing is overdue. Upload filing receipts to restore **84%** compliance rating.</p>
                 </div>
               </div>
-              <div className="p-3 bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl flex items-start gap-2.5">
-                <CheckCircle2 className="w-4.5 h-4.5 text-[#4f772d] shrink-0 mt-0.5" />
+              <div className="p-3 bg-[#f4f7f4] border border-brand-medium/10 rounded-xl flex items-start gap-2.5">
+                <CheckCircle2 className="w-4.5 h-4.5 text-brand-medium shrink-0 mt-0.5" />
                 <div className="text-[11px] leading-relaxed">
                   <p className="font-bold text-[#132a13]">FPO Member Coverage Gap</p>
                   <p className="text-gray-600 mt-0.5">240 members in Kharindwa village are eligible but not yet registered for PMFBY Rabi Crop insurance.</p>
@@ -150,7 +150,7 @@ const FpoCommandCenter = () => {
           <button 
             type="button" 
             onClick={() => setShowCampaignModal(true)}
-            className="w-full mt-4 text-xs font-bold text-center py-2 bg-[#132a13] text-white hover:bg-[#31572c] rounded-xl transition"
+            className="w-full mt-4 text-xs font-bold text-center py-2 bg-[#132a13] text-white hover:bg-brand-dark rounded-xl transition"
           >
             Launch Out-reach Campaign
           </button>
@@ -240,7 +240,7 @@ const FpoCommandCenter = () => {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <Sparkles className="w-5 h-5 text-[#4f772d]" />
+              <Sparkles className="w-5 h-5 text-brand-medium" />
               Launch Outreach Campaign
             </h2>
             <p className="text-xs text-gray-500 mb-4">
@@ -295,7 +295,7 @@ const FpoCommandCenter = () => {
                     rows="4"
                     value={campaignMessage}
                     onChange={(e) => setCampaignMessage(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-250 rounded-xl text-xs focus:outline-none focus:border-[#4f772d] resize-none leading-relaxed"
+                    className="w-full px-3 py-2 border border-gray-250 rounded-xl text-xs focus:outline-none focus:border-brand-medium resize-none leading-relaxed"
                   />
                 </div>
 
@@ -309,7 +309,7 @@ const FpoCommandCenter = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                   >
                     Launch Campaign
                   </button>

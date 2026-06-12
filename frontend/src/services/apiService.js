@@ -181,6 +181,12 @@ export const govSchemesApi = {
   getSchemeById:       (id)          => request(`/gov-schemes/${id}`),
   getDashboard:        ()            => request('/gov-schemes/dashboard'),
   chatWithSchemeAI:    (data)        => request('/gov-schemes/chat',  { method: 'POST',   body: JSON.stringify(data) }),
+  
+  // FPO Dashboard Additions
+  getFpoStats:         (params = {}) => request(`/gov-schemes/fpo/stats?${qs(params)}`),
+  getFpoFarmers:       ()            => request('/gov-schemes/fpo/farmers'),
+  updateFpoEnrollment: (id, schemes) => request(`/gov-schemes/fpo/farmers/${id}/enrollment`, { method: 'PATCH', body: JSON.stringify({ schemes }) }),
+  syncFpoData:         ()            => request('/gov-schemes/fpo/sync', { method: 'POST' }),
 };
 
 // ─── Campaign APIs (MongoDB) ───────────────────────────────────────────────

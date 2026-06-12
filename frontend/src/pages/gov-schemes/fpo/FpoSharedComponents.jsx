@@ -4,10 +4,10 @@ import { CheckCircle2, XCircle, Send, X, AlertTriangle, ChevronRight, ArrowUpRig
 // 1. PageHeader (Without breadcrumbs)
 export const PageHeader = ({ title, subtitle, actions }) => {
   return (
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-gray-200 animate-fadeIn">
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 pb-6 border-b border-gray-250/60 animate-fadeIn">
       <div>
-        <h1 className="text-2xl font-black tracking-tight text-[#2e4057]">{title}</h1>
-        {subtitle && <p className="text-xs font-bold text-gray-500 mt-1">{subtitle}</p>}
+        <h1 className="text-2xl font-black tracking-tight text-brand-darkest">{title}</h1>
+        {subtitle && <p className="text-xs font-bold text-gray-400 mt-1">{subtitle}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-3">{actions}</div>}
     </div>
@@ -16,47 +16,62 @@ export const PageHeader = ({ title, subtitle, actions }) => {
 
 // 2. StatsCard (Consistent across all 5 pages)
 export const StatsCard = ({ title, value, sub, trend, isPositive, alert, icon: Icon }) => {
+  const getIdentity = () => {
+    const t = title.toLowerCase();
+    if (t.includes("scheme")) {
+      return "bg-purple-50 text-purple-600 border border-purple-100";
+    }
+    if (t.includes("eligible") || t.includes("total farmers") || t.includes("total holdings")) {
+      return "bg-blue-50 text-blue-600 border border-blue-100";
+    }
+    if (t.includes("enrolled") || t.includes("pm-kisan")) {
+      return "bg-emerald-50 text-emerald-600 border border-emerald-100";
+    }
+    return "bg-orange-50 text-orange-600 border border-orange-100";
+  };
+
+  const iconClasses = getIdentity();
+
   return (
-    <div className="bg-white/95 backdrop-blur-md p-5 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden group focus:outline-none focus:ring-0 outline-none select-none">
+    <div className="bg-white p-6 rounded-xl border border-gray-150 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between space-y-4 group">
       
       <div className="flex justify-between items-start">
-        <div className="space-y-1">
+        <div className="space-y-1.5">
+          {/* Label above */}
           <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest block">{title}</span>
-          <span className="text-2xl font-black text-gray-900 block tracking-tight">{value}</span>
+          
+          {/* Metric value and trend side-by-side */}
+          <div className="flex items-baseline gap-2">
+            <span className="text-3xl font-black text-gray-950 tracking-tight leading-none">{value}</span>
+            {trend && (
+              <span
+                className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold border shrink-0 ${
+                  isPositive
+                    ? "bg-emerald-50 text-emerald-700 border-emerald-250"
+                    : "bg-rose-50 text-rose-700 border-rose-250"
+                }`}
+              >
+                {isPositive ? "↗ " : "↘ "}
+                {trend}
+              </span>
+            )}
+          </div>
         </div>
         
-        <div className="flex items-center gap-2">
-          {trend && (
-            <span
-              className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border flex items-center gap-0.5 ${
-                isPositive
-                  ? "bg-green-50 text-green-700 border-green-200"
-                  : "bg-red-50 text-red-700 border-red-200"
-              }`}
-            >
-              {isPositive ? (
-                <ArrowUpRight className="w-3 h-3 text-green-600" />
-              ) : (
-                <ArrowDownRight className="w-3 h-3 text-red-600" />
-              )}
-              {trend}
-            </span>
-          )}
-          
-          {Icon && (
-            <div className="w-8 h-8 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Icon className="w-4 h-4 text-gray-800" />
-            </div>
-          )}
-        </div>
+        {Icon && (
+          <div className={`w-10 h-10 rounded-full ${iconClasses} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shrink-0`}>
+            <Icon className="w-5 h-5" />
+          </div>
+        )}
       </div>
 
       <div className="space-y-2">
-        <p className="text-[11px] font-bold text-gray-400 leading-normal">{sub}</p>
+        {/* One-line description below */}
+        <p className="text-xs font-semibold text-gray-500 line-clamp-1">{sub}</p>
         
         {alert && (
-          <div className="flex items-center gap-1.5 bg-red-50 text-red-700 border border-red-100 p-2.5 rounded-xl text-[10px] font-black leading-tight animate-pulse">
-            <AlertTriangle className="w-3.5 h-3.5 text-red-600 shrink-0" />
+          <div className="flex items-center gap-1.5 bg-rose-50 text-rose-700 border border-rose-100 p-2.5 rounded-xl text-[10px] font-black leading-tight animate-pulse">
+            <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
             <span>{alert}</span>
           </div>
         )}
@@ -71,9 +86,9 @@ export const EnrollmentFunnelBar = ({ eligible, enrolled, received }) => {
   const receivePct = enrolled > 0 ? Math.round((received / enrolled) * 100) : 0;
 
   const getColorClass = (pct) => {
-    if (pct > 75) return { bg: "bg-gradient-to-r from-emerald-450 to-emerald-600", text: "text-emerald-700" };
-    if (pct >= 50) return { bg: "bg-gradient-to-r from-amber-450 to-amber-600", text: "text-amber-700" };
-    return { bg: "bg-gradient-to-r from-rose-450 to-rose-600", text: "text-rose-700" };
+    if (pct > 75) return { bg: "bg-emerald-500", text: "text-emerald-700" };
+    if (pct >= 50) return { bg: "bg-amber-500", text: "text-amber-700" };
+    return { bg: "bg-rose-500", text: "text-rose-700" };
   };
 
   const c1 = getColorClass(enrollPct);
@@ -108,38 +123,38 @@ export const EnrollmentFunnelBar = ({ eligible, enrolled, received }) => {
 
 // 4. SchemeStatusBadge
 export const SchemeStatusBadge = ({ status }) => {
-  let styles = "bg-gray-100 text-gray-800 border-gray-200";
+  let styles = "bg-gray-200 text-gray-800 border-gray-300";
 
   switch (status) {
     case "Active":
     case "Approved":
     case "On Track":
-      styles = "bg-green-50 text-green-700 border-green-200";
+      styles = "bg-emerald-100 text-emerald-900 border-emerald-300";
       break;
     case "Enrollment Open":
     case "Push Needed":
     case "Under Review":
-      styles = "bg-amber-50 text-amber-700 border-amber-200";
+      styles = "bg-amber-100 text-amber-900 border-amber-300";
       break;
     case "Deadline Soon":
     case "Critical":
     case "Failed":
     case "Blocked":
     case "Overdue":
-      styles = "bg-red-50 text-red-700 border-red-200 animate-pulse";
+      styles = "bg-rose-100 text-rose-900 border-rose-300 animate-pulse";
       break;
     case "Drafting":
     case "In Progress":
     case "Submitted":
-      styles = "bg-blue-50 text-blue-700 border-blue-200";
+      styles = "bg-blue-100 text-blue-900 border-blue-300";
       break;
     case "Not Started":
-      styles = "bg-gray-50 text-gray-600 border-gray-200";
+      styles = "bg-gray-200 text-gray-800 border-gray-300";
       break;
   }
 
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-black border uppercase tracking-wider ${styles}`}>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[9px] font-black border uppercase tracking-wider shrink-0 ${styles}`}>
       {status}
     </span>
   );
@@ -170,54 +185,54 @@ export const FarmerSchemeCell = ({ status }) => {
 
 // 6. SchemeCard (Premium, unified card styling for Scheme Overview following Greenleaf design)
 export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
-  const scaledEligible = Math.round(scheme.eligible * mult);
-  const scaledEnrolled = Math.round(scheme.enrolled * mult);
-  const scaledReceived = Math.round(scheme.received * mult);
-  const remainingToEnroll = scaledEligible - scaledEnrolled;
+  const scaledEligible = Math.round((scheme.eligible || 0) * (mult || 1));
+  const scaledEnrolled = Math.round((scheme.enrolled || 0) * (mult || 1));
+  const scaledReceived = Math.round((scheme.received || 0) * (mult || 1));
+  const remainingToEnroll = Math.max(0, scaledEligible - scaledEnrolled);
 
   const getThemeColors = () => {
     switch (scheme.type) {
       case "Direct Benefit":
         return {
-          barBg: "bg-[#28a745]", // Greenleaf Green
-          badge: "bg-green-50 text-green-700 border-green-100",
-          iconBg: "bg-green-50/70 text-[#28a745]",
+          barBg: "bg-emerald-500",
+          badge: "bg-emerald-50 text-emerald-800 border-emerald-100",
+          iconBg: "bg-emerald-50 text-emerald-700",
         };
       case "Insurance":
         return {
-          barBg: "bg-[#2e4057]", // Charcoal Navy
-          badge: "bg-slate-50 text-slate-800 border-slate-200",
-          iconBg: "bg-slate-50/70 text-[#2e4057]",
+          barBg: "bg-blue-500",
+          badge: "bg-blue-50 text-blue-800 border-blue-100",
+          iconBg: "bg-blue-50 text-blue-700",
         };
       case "Credit":
         return {
-          barBg: "bg-[#ffc857]", // Amber Gold
+          barBg: "bg-amber-500",
           badge: "bg-amber-50 text-amber-800 border-amber-100",
-          iconBg: "bg-amber-50/70 text-[#ffc857]",
+          iconBg: "bg-amber-50 text-amber-700",
         };
       case "Pension":
         return {
-          barBg: "bg-[#2ec4b6]", // Teal Green
-          badge: "bg-teal-50 text-teal-800 border-teal-150",
-          iconBg: "bg-teal-50/70 text-[#2ec4b6]",
+          barBg: "bg-purple-500",
+          badge: "bg-purple-50 text-purple-800 border-purple-100",
+          iconBg: "bg-purple-50 text-purple-700",
         };
       case "Infrastructure":
         return {
           barBg: "bg-orange-500",
           badge: "bg-orange-50 text-orange-850 border-orange-100",
-          iconBg: "bg-orange-50/70 text-orange-650",
+          iconBg: "bg-orange-50 text-orange-700",
         };
       case "Subsidy":
         return {
-          barBg: "bg-pink-500",
-          badge: "bg-pink-50 text-pink-850 border-pink-100",
-          iconBg: "bg-pink-50/70 text-pink-650",
+          barBg: "bg-rose-500",
+          badge: "bg-rose-50 text-rose-850 border-rose-100",
+          iconBg: "bg-rose-50 text-rose-700",
         };
       case "Market Linkage":
         return {
-          barBg: "bg-cyan-500",
-          badge: "bg-cyan-50 text-cyan-850 border-cyan-100",
-          iconBg: "bg-cyan-50/70 text-cyan-650",
+          barBg: "bg-indigo-500",
+          badge: "bg-indigo-50 text-indigo-850 border-indigo-100",
+          iconBg: "bg-indigo-50 text-indigo-700",
         };
       default:
         return {
@@ -246,40 +261,37 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
 
   return (
     <div
-      className={`bg-white rounded-2xl p-5 border border-gray-200/60 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)] hover:shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between ${
+      className={`bg-white rounded-xl p-6 border border-gray-150 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer ${
         isUrgent ? "ring-2 ring-amber-500/20 border-amber-300" : ""
       }`}
     >
       <div className="space-y-4">
-        {/* Card Header following Greenleaf container style */}
-        <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-          <div className="flex items-center gap-2">
-            {/* Greenleaf custom vertical accent bar */}
-            <span className={`w-1.5 h-5 rounded-full ${colors.barBg} shrink-0`} />
-            <h3 className="text-sm font-black text-[#2e4057] uppercase tracking-wide">
-              {scheme.name}
-            </h3>
+        {/* Card Header with top-left colored icon badge */}
+        <div className="flex items-start justify-between pb-4 border-b border-gray-100 gap-3">
+          <div className="flex items-center gap-3">
+            <div className={`w-10 h-10 rounded-full ${colors.iconBg} flex items-center justify-center shrink-0 border border-current/10`}>
+              {getIcon()}
+            </div>
+            <div>
+              <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black border uppercase tracking-wider ${colors.badge} mb-1`}>
+                {scheme.type}
+              </span>
+              <h3 className="text-sm font-black text-brand-darkest leading-snug tracking-tight">
+                {scheme.name}
+              </h3>
+            </div>
           </div>
           <SchemeStatusBadge status={scheme.status} />
         </div>
 
-        {/* Info detail top section */}
-        <div className="flex items-center gap-2.5">
-          <div className={`p-2 rounded-xl ${colors.iconBg} flex items-center justify-center shrink-0 border border-current/10`}>
-            {getIcon()}
-          </div>
-          <div className="flex-1 min-w-0">
-            <span className={`inline-block px-2 py-0.5 rounded-full text-[9px] font-black border uppercase tracking-wider ${colors.badge}`}>
-              {scheme.type}
-            </span>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest truncate mt-0.5" title={scheme.fullName}>
-              {scheme.fullName}
-            </p>
-          </div>
+        {/* Official Name section */}
+        <div className="space-y-1">
+          <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block">Official Program Name</span>
+          <p className="text-xs font-bold text-gray-600 leading-normal" title={scheme.fullName}>{scheme.fullName}</p>
         </div>
 
         {/* Description Box */}
-        <p className="text-xs text-gray-700 font-bold leading-relaxed bg-gray-50 border border-gray-150 p-3 rounded-xl shadow-3xs">
+        <p className="text-xs text-gray-700 font-bold leading-relaxed bg-gray-50 border border-gray-150 p-3.5 rounded-xl">
           {scheme.description}
         </p>
 
@@ -296,8 +308,8 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
           </div>
         ) : (
           scheme.extraInfo && (
-            <div className="text-xs text-[#2e4057] font-bold bg-green-50/30 px-3 py-2.5 rounded-xl border border-green-100/50 flex items-center gap-2 shadow-3xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#28a745] shrink-0" />
+            <div className="text-xs text-brand-darkest font-bold bg-green-50/30 px-3 py-2.5 rounded-xl border border-green-100/50 flex items-center gap-2 shadow-3xs">
+              <Sparkles className="w-3.5 h-3.5 text-brand-medium shrink-0" />
               <span>{scheme.extraInfo}</span>
             </div>
           )
@@ -321,10 +333,19 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
             <span>{scheme.alert}</span>
           </div>
         )}
+
+        {/* Funnel chart */}
+        {!scheme.isFpoLevel && (
+          <EnrollmentFunnelBar
+            eligible={scaledEligible}
+            enrolled={scaledEnrolled}
+            received={scaledReceived}
+          />
+        )}
       </div>
 
       {/* Card Action Buttons */}
-      <div className="flex gap-3 mt-5 pt-3 border-t border-gray-100">
+      <div className="flex gap-3 mt-6 pt-4 border-t border-gray-100">
         {scheme.isFpoLevel ? (
           <button
             onClick={() => {
@@ -334,7 +355,7 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
                 alert(`Exploring Details for FPO Scheme: ${scheme.name}`);
               }
             }}
-            className="w-full py-2 bg-slate-50 hover:bg-slate-100 text-[#2e4057] rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm border border-gray-200 hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full py-2.5 bg-slate-50 hover:bg-slate-100 text-brand-darkest rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm border border-gray-250 hover:scale-[1.02] active:scale-[0.98]"
           >
             <span>{scheme.buttonText || "View Detail"}</span>
             <Eye className="w-4 h-4" />
@@ -343,15 +364,15 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
           <>
             <button
               onClick={() => navigate("/module/gov-schemes/enrollment")}
-              className="flex-1 py-2 border border-gray-250 hover:bg-gray-50 text-gray-600 rounded-xl text-xs font-bold transition hover:scale-[1.02] active:scale-[0.98]"
+              className="flex-1 py-2.5 border-2 border-gray-200 hover:border-brand-medium text-gray-600 hover:text-brand-medium rounded-xl text-xs font-bold transition hover:scale-[1.02] active:scale-[0.98]"
             >
               See Farmer List
             </button>
             <button
               onClick={() => onStartDrive(scheme.name, remainingToEnroll)}
-              className="flex-1 py-2 bg-[#28a745] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition shadow-sm flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-[0.98]"
+              className="flex-1 py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-black transition shadow-sm flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Play className="w-3 h-3 fill-white text-white" />
+              <Play className="w-3.5 h-3.5 fill-current text-white" />
               {scheme.id === "enam" ? "Register Farmers" : "Start Drive"}
             </button>
           </>
@@ -388,7 +409,7 @@ export const WhatsAppReminderModal = ({ scheme, targetFarmers = [], village, isO
           <X className="w-5 h-5" />
         </button>
 
-        <h3 className="text-lg font-bold text-[#2e4057] mb-2 flex items-center gap-2">
+        <h3 className="text-lg font-bold text-brand-darkest mb-2 flex items-center gap-2">
           <Send className="w-5 h-5 text-green-600" />
           Send WhatsApp Reminder
         </h3>
@@ -526,7 +547,7 @@ export const IssueResolutionModal = ({ farmer, isOpen, onClose }) => {
           <X className="w-5 h-5" />
         </button>
 
-        <h3 className="text-lg font-bold text-[#2e4057] mb-2 flex items-center gap-2">
+        <h3 className="text-lg font-bold text-brand-darkest mb-2 flex items-center gap-2">
           <AlertTriangle className="w-5 h-5 text-red-600" />
           Resolve Blocked Benefit
         </h3>
@@ -578,7 +599,7 @@ export const IssueResolutionModal = ({ farmer, isOpen, onClose }) => {
               <button
                 type="button"
                 onClick={handleResolve}
-                className="flex-1 py-2 bg-[#2e4057] hover:bg-[#3a5170] text-white rounded-xl text-xs font-bold transition shadow-sm"
+                className="flex-1 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition shadow-sm"
               >
                 Mark Resolved
               </button>
@@ -653,7 +674,7 @@ export const FarmerEnrollmentModal = ({ farmer, isOpen, onClose, onEnrollSuccess
           <X className="w-5 h-5" />
         </button>
 
-        <h3 className="text-lg font-black text-[#2e4057] mb-2 flex items-center gap-2">
+        <h3 className="text-lg font-black text-brand-darkest mb-2 flex items-center gap-2">
           <CheckCircle2 className="w-5 h-5 text-green-600" />
           Enroll Farmer in Schemes
         </h3>
@@ -755,7 +776,7 @@ export const FarmerEnrollmentModal = ({ farmer, isOpen, onClose, onEnrollSuccess
                 disabled={loading || !readyToSubmit}
                 className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition shadow-sm ${
                   readyToSubmit
-                    ? "bg-[#2e4057] hover:bg-[#3a5170] text-white"
+                    ? "bg-brand-darkest hover:bg-brand-dark text-white"
                     : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}
               >

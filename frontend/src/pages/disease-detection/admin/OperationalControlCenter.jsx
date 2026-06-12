@@ -232,7 +232,7 @@ export default function OperationalControlCenter() {
               </thead>
               <tbody>
                 {pipelineSources.map((row, idx) => (
-                  <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 font-semibold text-gray-700">
+                  <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 font-semibold text-gray-700">
                     <td className="p-2.5 pl-4 font-black text-gray-905">{row.source}</td>
                     <td className="p-2.5 text-gray-400 font-mono">{row.lastRun}</td>
                     <td className="p-2.5 text-right font-mono">{row.count}</td>

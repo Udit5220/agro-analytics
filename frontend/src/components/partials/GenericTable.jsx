@@ -76,7 +76,7 @@ const GenericTable = ({
                   setSearchQuery(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full text-sm bg-white border border-gray-200 rounded-lg px-3 py-2 pl-9 focus:outline-none focus:border-[#28a745] focus:ring-1 focus:ring-[#28a745]/30"
+                className="w-full text-sm bg-white border border-gray-200 rounded-lg px-3 py-2 pl-9 focus:outline-none focus:border-brand-medium focus:ring-1 focus:ring-[#28a745]/30"
               />
               <svg
                 className="w-4 h-4 absolute left-2.5 top-2.5 text-gray-400"
@@ -96,7 +96,7 @@ const GenericTable = ({
           {showSort && sortColumn && (
             <div className="text-[10px] text-gray-400">
               Sorting by:{" "}
-              <span className="font-semibold text-[#208837]">
+              <span className="font-semibold text-brand-dark">
                 {columns.find((c) => c.accessor === sortColumn)?.header}
               </span>{" "}
               ({sortDirection === "asc" ? "Ascending" : "Descending"})
@@ -115,7 +115,7 @@ const GenericTable = ({
                   key={idx}
                   className={`text-left py-3 px-4 ${
                     col.sortable !== false
-                      ? "cursor-pointer hover:text-[#208837]"
+                      ? "cursor-pointer hover:text-brand-dark"
                       : ""
                   } ${col.className || ""}`}
                   onClick={() =>
@@ -127,7 +127,7 @@ const GenericTable = ({
                       {col.header}
                     </span>
                     {col.sortable !== false && sortColumn === col.accessor && (
-                      <span className="text-[10px] text-[#208837]">
+                      <span className="text-[10px] text-brand-dark">
                         {sortDirection === "asc" ? "↑" : "↓"}
                       </span>
                     )}
@@ -182,7 +182,7 @@ const GenericTable = ({
                               e.stopPropagation();
                               action.onClick(row);
                             }}
-                            className={`text-xs font-medium ${action.className || "text-[#208837] hover:underline"}`}
+                            className={`text-xs font-medium ${action.className || "text-brand-dark hover:underline"}`}
                           >
                             {action.label}
                           </button>

@@ -36,7 +36,7 @@
 //       {/* Header */}
 //       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
 //         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-//           <Users className="w-5 h-5 text-[#4f772d]" />
+//           <Users className="w-5 h-5 text-brand-medium" />
 //           Member Benefit Coverage Center
 //         </h1>
 //         <p className="text-xs text-gray-500 mt-1">Monitor government schemes penetration and sub-category enrollments across FPO member segments.</p>
@@ -45,7 +45,7 @@
 //       {/* Stats Cards */}
 //       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 //         <StatsCard title="Total FPO Members" value={memberCoverage.total} subtext="Active registered farmers" icon={<Users className="text-[#132a13]" />} />
-//         <StatsCard title="Covered Members" value={memberCoverage.covered} subtext="Active benefits received" trend={`${memberCoverage.coveragePercent}%`} trendType="success" icon={<CheckCircle2 className="text-[#4f772d]" />} />
+//         <StatsCard title="Covered Members" value={memberCoverage.covered} subtext="Active benefits received" trend={`${memberCoverage.coveragePercent}%`} trendType="success" icon={<CheckCircle2 className="text-brand-medium" />} />
 //         <StatsCard title="Uncovered Members" value={memberCoverage.uncovered} subtext="Pending scheme registration" icon={<AlertCircle className="text-red-500" />} />
 //         <StatsCard title="Target Reach" value={`${memberCoverage.potentialPercent}%`} subtext="Potential with AIF & PMFBY campaigns" icon={<TrendingUp className="text-[#31572c]" />} />
 //       </div>
@@ -75,7 +75,7 @@
 //                     <div className="flex items-center justify-center gap-1.5">
 //                       <span className="font-black text-[#132a13]">{s.percent}%</span>
 //                       <div className="w-12 bg-gray-100 h-1.5 rounded-full overflow-hidden">
-//                         <div className="bg-[#4f772d] h-full" style={{ width: `${s.percent}%` }} />
+//                         <div className="bg-brand-medium h-full" style={{ width: `${s.percent}%` }} />
 //                       </div>
 //                     </div>
 //                   </td>
@@ -89,7 +89,7 @@
 //         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
 //           <div>
 //             <h3 className="font-bold text-[#132a13] text-sm mb-1 flex items-center gap-1">
-//               <Map className="w-4 h-4 text-[#4f772d]" />
+//               <Map className="w-4 h-4 text-brand-medium" />
 //               Village Coverage Index
 //             </h3>
 //             <p className="text-[10px] text-gray-400 mb-4">Location-wise member density and scheme coverage percentages</p>
@@ -115,7 +115,7 @@
 //           <button
 //             type="button"
 //             onClick={() => setShowExportModal(true)}
-//             className="w-full text-xs font-bold text-center py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl transition"
+//             className="w-full text-xs font-bold text-center py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl transition"
 //           >
 //             Export Geographic Audit Reports
 //           </button>
@@ -134,7 +134,7 @@
 //               <X className="w-5 h-5" />
 //             </button>
 //             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-//               <Download className="w-5 h-5 text-[#4f772d]" />
+//               <Download className="w-5 h-5 text-brand-medium" />
 //               Export Geographical Audit
 //             </h2>
 //             <p className="text-xs text-gray-500 mb-4">Export member registration stats and coverage grids per demographic segment.</p>
@@ -155,7 +155,7 @@
 //                         onClick={() => setExportFormat(f)}
 //                         className={`py-2 rounded-xl border text-xs font-bold transition ${
 //                           exportFormat === f
-//                             ? "border-[#4f772d] bg-[#4f772d]/5 text-[#4f772d]"
+//                             ? "border-brand-medium bg-brand-medium/5 text-brand-medium"
 //                             : "border-gray-200 text-gray-600"
 //                         }`}
 //                       >
@@ -187,7 +187,7 @@
 //                   </button>
 //                   <button
 //                     type="submit"
-//                     className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+//                     className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
 //                   >
 //                     Export File
 //                   </button>
@@ -203,7 +203,7 @@
 
 // export default FpoMemberCoverage;
 // src/pages/gov-schemes/fpo/FpoMemberCoverage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Users,
   CheckCircle2,
@@ -225,31 +225,131 @@ import {
 } from "lucide-react";
 import StatsCard from "../../../components/partials/StatsCard";
 import GenericTable from "../../../components/partials/GenericTable";
-import govtSchemeData from "../../../seed-json/govt_scheme.json";
 import { FpoUtilizationHeader } from "./FpoHelper";
+import { govSchemesApi } from "../../../services/apiService";
+
+const mapBackendMemberDetails = (farmersList) => {
+  return farmersList.map(f => {
+    let enrolledSchemes = 0;
+    Object.keys(f.schemes || {}).forEach(k => {
+      if (f.schemes[k] === 'enrolled') enrolledSchemes++;
+    });
+
+    return {
+      id: f.farmerId,
+      name: f.name,
+      village: f.village,
+      category: f.category,
+      mobile: f.mobileVerified ? f.phone : null,
+      aadhaarSeeded: f.aadhaarSeeded,
+      enrolledSchemes,
+      pendingBenefits: f.pendingBenefits || '₹0'
+    };
+  });
+};
+
+const FALLBACK_MEMBERS = [
+  { farmerId: "F-101", name: "Ramesh Kumar", village: "Kharindwa", category: "OBC", phone: "9876543210", mobileVerified: true, aadhaarSeeded: true, schemes: { pmKisan: "enrolled", pmfby: "enrolled", kcc: "enrolled" }, pendingBenefits: "₹2,000" },
+  { farmerId: "F-102", name: "Sunita Devi", village: "Kharindwa", category: "SC", phone: "9876543211", mobileVerified: false, aadhaarSeeded: false, schemes: { pmKisan: "enrolled" }, pendingBenefits: "₹0" },
+  { farmerId: "F-103", name: "Mahesh Singh", village: "Bhadana", category: "General", phone: "9876543212", mobileVerified: true, aadhaarSeeded: true, schemes: { pmKisan: "enrolled", pmfby: "enrolled", kcc: "enrolled", pmKmy: "enrolled", eNam: "enrolled" }, pendingBenefits: "₹6,000" },
+  { farmerId: "F-104", name: "Priya Yadav", village: "Kharindwa", category: "OBC", phone: "9876543213", mobileVerified: false, aadhaarSeeded: false, schemes: {}, pendingBenefits: "₹0" },
+  { farmerId: "F-105", name: "Harpal Singh", village: "Murthal", category: "General", phone: "9876543214", mobileVerified: true, aadhaarSeeded: true, schemes: { pmKisan: "enrolled", pmfby: "enrolled", kcc: "enrolled", eNam: "enrolled" }, pendingBenefits: "₹2,000" }
+];
+
+const fallbackStats = {
+  success: true,
+  memberCoverage: {
+    total: 700,
+    covered: 480,
+    uncovered: 220,
+    coveragePercent: 68.5,
+    potentialPercent: 92.0,
+    schemes: [
+      { name: "PM Kisan Samman Nidhi", eligible: 620, applied: 540, approved: 490, pending: 30, rejected: 20, percent: 79.0 },
+      { name: "Pradhan Mantri Fasal Bima Yojana", eligible: 680, applied: 450, approved: 410, pending: 20, rejected: 20, percent: 60.3 },
+      { name: "Kisan Credit Card (KCC)", eligible: 580, applied: 380, approved: 340, pending: 15, rejected: 25, percent: 58.6 },
+      { name: "Solar Pump Subsidies", eligible: 240, applied: 80, approved: 60, pending: 10, rejected: 10, percent: 25.0 }
+    ],
+    villages: [
+      { name: "Kharindwa", covered: 180, total: 240, intensity: "high" },
+      { name: "Bhadana", covered: 120, total: 180, intensity: "medium" },
+      { name: "Murthal Outskirts", covered: 90, total: 150, intensity: "medium" },
+      { name: "Sonipat Northern Plot", covered: 60, total: 80, intensity: "low" },
+      { name: "Ganaur Boundary", covered: 30, total: 50, intensity: "low" }
+    ]
+  },
+  compliance: {
+    memberDemographics: {
+      gender: { male: 420, female: 280, total: 700 },
+      categories: { SC: 180, ST: 40, OBC: 280, General: 200 },
+      landSize: { marginal: 320, small: 210, medium: 140, large: 30 },
+      ageGroups: { "18-30": 110, "31-45": 280, "46-60": 210, "60+": 100 }
+    },
+    criticalIssues: {
+      aadhaarNotSeeded: 45,
+      mobileNotVerified: 80,
+      noSchemesEnrolled: 65,
+      benefitsOverdue: 12
+    },
+    schemePerformance: []
+  }
+};
 
 const FpoMemberCoverage = () => {
-  // Extract data from JSON - CORRECTED PATH
-  const fpoData = govtSchemeData.fpoOpportunityData;
-  const memberCoverage = fpoData.memberCoverage;
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState(null);
+  const [memberDetails, setMemberDetails] = useState([]);
 
-  // These are nested inside fpoData.compliance
-  const memberDemographics = fpoData?.compliance?.memberDemographics || {
-    gender: { male: 420, female: 260, total: 700 },
-    categories: { SC: 280, ST: 45, OBC: 210, General: 165 },
-    landSize: { marginal: 180, small: 320, medium: 150, large: 50 },
-    ageGroups: { "18-30": 95, "31-45": 280, "46-60": 250, "60+": 75 },
+  useEffect(() => {
+    let active = true;
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const [statsRes, farmersRes] = await Promise.all([
+          govSchemesApi.getFpoStats(),
+          govSchemesApi.getFpoFarmers()
+        ]);
+        if (active) {
+          if (statsRes && statsRes.success && farmersRes && farmersRes.success) {
+            setStats(statsRes);
+            setMemberDetails(mapBackendMemberDetails(farmersRes.farmers || []));
+          } else {
+            triggerFallback();
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to load FPO coverage data via API, triggering local fallback:", err);
+        if (active) {
+          triggerFallback();
+        }
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+
+    const triggerFallback = () => {
+      setStats(fallbackStats);
+      setMemberDetails(mapBackendMemberDetails(FALLBACK_MEMBERS));
+    };
+
+    loadData();
+    return () => { active = false; };
+  }, []);
+
+  const memberCoverage = stats?.memberCoverage;
+  const memberDemographics = stats?.compliance?.memberDemographics || {
+    gender: { male: 0, female: 0, total: 0 },
+    categories: { SC: 0, ST: 0, OBC: 0, General: 0 },
+    landSize: { marginal: 0, small: 0, medium: 0, large: 0 },
+    ageGroups: { "18-30": 0, "31-45": 0, "46-60": 0, "60+": 0 },
   };
-
-  const memberDetails = fpoData?.compliance?.memberDetails || [];
-  const criticalIssues = fpoData?.compliance?.criticalIssues || {
+  const criticalIssues = stats?.compliance?.criticalIssues || {
     aadhaarNotSeeded: 0,
     mobileNotVerified: 0,
     noSchemesEnrolled: 0,
     benefitsOverdue: 0,
   };
-  const schemePerformance =
-    fpoData?.compliance?.schemePerformance || memberCoverage?.schemes || [];
+  const schemePerformance = stats?.compliance?.schemePerformance || [];
 
   const [showExportModal, setShowExportModal] = useState(false);
   const [showBulkReminderModal, setShowBulkReminderModal] = useState(false);
@@ -413,7 +513,18 @@ const FpoMemberCoverage = () => {
     },
   ];
 
-  // If no memberDetails, show loading or empty state
+  // If loading, show spinner
+  if (loading) {
+    return (
+      <div className="space-y-6 text-center py-24">
+        <FpoUtilizationHeader subtitle="FPO Member Benefit Coverage" />
+        <div className="w-10 h-10 border-4 border-brand-medium border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-xs font-bold text-gray-500">Loading member benefits metrics...</p>
+      </div>
+    );
+  }
+
+  // If no memberDetails, show empty state
   if (!memberDetails || memberDetails.length === 0) {
     return (
       <div className="space-y-6">
@@ -421,7 +532,7 @@ const FpoMemberCoverage = () => {
         <div className="bg-white p-8 rounded-2xl border border-gray-150 shadow-sm text-center">
           <AlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-3" />
           <p className="text-gray-500">
-            No member data available. Please check your JSON configuration.
+            No member data available. Please check your database.
           </p>
         </div>
       </div>
@@ -435,7 +546,7 @@ const FpoMemberCoverage = () => {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <LayoutDashboard className="w-5 h-5 text-[#4f772d]" />
+          <LayoutDashboard className="w-5 h-5 text-brand-medium" />
           Member Benefit Coverage Center
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -458,7 +569,7 @@ const FpoMemberCoverage = () => {
           subtext="Active benefits received"
           trend={`${memberCoverage?.coveragePercent || 68.5}%`}
           trendType="success"
-          icon={<CheckCircle2 className="text-[#4f772d]" />}
+          icon={<CheckCircle2 className="text-brand-medium" />}
         />
         <StatsCard
           title="Uncovered Members"
@@ -543,7 +654,7 @@ const FpoMemberCoverage = () => {
                       </div>
                       <div className="w-full bg-gray-100 rounded-full h-1">
                         <div
-                          className="bg-[#4f772d] h-1 rounded-full"
+                          className="bg-brand-medium h-1 rounded-full"
                           style={{
                             width: `${(count / (memberCoverage?.total || 700)) * 100}%`,
                           }}
@@ -631,7 +742,7 @@ const FpoMemberCoverage = () => {
           </div>
           <button
             onClick={() => setShowBulkReminderModal(true)}
-            className="w-full text-xs font-bold text-center py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl transition flex items-center justify-center gap-2"
+            className="w-full text-xs font-bold text-center py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl transition flex items-center justify-center gap-2"
           >
             <Send size={14} />
             Send Bulk Reminders to Uncovered
@@ -665,7 +776,7 @@ const FpoMemberCoverage = () => {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-1.5">
                   <div
-                    className="bg-[#4f772d] h-1.5 rounded-full"
+                    className="bg-brand-medium h-1.5 rounded-full"
                     style={{ width: `${scheme.percent}%` }}
                   ></div>
                 </div>
@@ -682,7 +793,7 @@ const FpoMemberCoverage = () => {
         {/* Village Coverage Index */}
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
           <h3 className="font-bold text-[#132a13] text-sm mb-1 flex items-center gap-1">
-            <Map className="w-4 h-4 text-[#4f772d]" />
+            <Map className="w-4 h-4 text-brand-medium" />
             Village Coverage Index
           </h3>
           <p className="text-[10px] text-gray-400 mb-3">
@@ -716,7 +827,7 @@ const FpoMemberCoverage = () => {
           </div>
           <button
             onClick={() => setShowExportModal(true)}
-            className="w-full text-xs font-bold text-center py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl transition"
+            className="w-full text-xs font-bold text-center py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl transition"
           >
             Export Geographic Audit
           </button>
@@ -753,7 +864,7 @@ const FpoMemberCoverage = () => {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <Download className="w-5 h-5 text-[#4f772d]" />
+              <Download className="w-5 h-5 text-brand-medium" />
               Export Geographical Audit
             </h2>
             <p className="text-xs text-gray-500 mb-4">
@@ -777,7 +888,7 @@ const FpoMemberCoverage = () => {
                         key={f}
                         type="button"
                         onClick={() => setExportFormat(f)}
-                        className={`py-2 rounded-xl border text-xs font-bold transition ${exportFormat === f ? "border-[#4f772d] bg-[#4f772d]/5 text-[#4f772d]" : "border-gray-200 text-gray-600"}`}
+                        className={`py-2 rounded-xl border text-xs font-bold transition ${exportFormat === f ? "border-brand-medium bg-brand-medium/5 text-brand-medium" : "border-gray-200 text-gray-600"}`}
                       >
                         {f}
                       </button>
@@ -816,7 +927,7 @@ const FpoMemberCoverage = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                   >
                     Export File
                   </button>
@@ -838,7 +949,7 @@ const FpoMemberCoverage = () => {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <Send className="w-5 h-5 text-[#4f772d]" />
+              <Send className="w-5 h-5 text-brand-medium" />
               Send Bulk Reminders
             </h2>
             <p className="text-xs text-gray-500 mb-4">
@@ -860,7 +971,7 @@ const FpoMemberCoverage = () => {
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
-                      className="py-2 rounded-xl border border-[#4f772d] bg-[#4f772d]/5 text-[#4f772d] text-xs font-bold"
+                      className="py-2 rounded-xl border border-brand-medium bg-brand-medium/5 text-brand-medium text-xs font-bold"
                     >
                       WhatsApp
                     </button>
@@ -904,7 +1015,7 @@ const FpoMemberCoverage = () => {
                   <textarea
                     rows={3}
                     defaultValue="Dear Farmer, You are eligible for multiple government schemes. Please visit the FPO office to complete your registration and unlock benefits up to ₹50,000."
-                    className="w-full text-xs border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-[#4f772d]"
+                    className="w-full text-xs border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-brand-medium"
                   />
                 </div>
                 <div className="flex gap-3 pt-2">
@@ -917,7 +1028,7 @@ const FpoMemberCoverage = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                   >
                     Send Reminders
                   </button>
@@ -1024,7 +1135,7 @@ const FpoMemberCoverage = () => {
               </div>
 
               <div className="flex gap-2 pt-2">
-                <button className="flex-1 py-2 bg-[#4f772d] text-white rounded-lg text-xs font-bold hover:bg-[#31572c] transition">
+                <button className="flex-1 py-2 bg-brand-medium text-white rounded-lg text-xs font-bold hover:bg-brand-dark transition">
                   Send Reminder
                 </button>
                 <button className="flex-1 py-2 border border-gray-200 text-gray-600 rounded-lg text-xs font-bold hover:bg-gray-50 transition">

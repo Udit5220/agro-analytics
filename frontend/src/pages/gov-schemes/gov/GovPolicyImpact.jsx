@@ -280,7 +280,7 @@ const GovPolicyImpact = () => {
   const getIcon = (iconName) => {
     const icons = {
       Users: <Users className="text-[#132a13]" />,
-      TrendingUp: <TrendingUp className="text-[#4f772d]" />,
+      TrendingUp: <TrendingUp className="text-brand-medium" />,
       FileText: <FileText className="text-[#31572c]" />,
       default: <BarChart3 className="text-[#132a13]" />,
     };
@@ -325,7 +325,7 @@ const GovPolicyImpact = () => {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <BarChart3 className="w-5 h-5 text-[#4f772d]" />
+          <BarChart3 className="w-5 h-5 text-brand-medium" />
           Policy Impact Analytics
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -570,7 +570,7 @@ const GovPolicyImpact = () => {
       <div className="flex gap-3">
         <button
           onClick={() => setShowDownloadModal(true)}
-          className="flex-1 py-2.5 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-sm font-bold transition flex items-center justify-center gap-2"
+          className="flex-1 py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-sm font-bold transition flex items-center justify-center gap-2"
         >
           <Download size={16} />
           Download Policy Impact Report
@@ -592,7 +592,7 @@ const GovPolicyImpact = () => {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <Download className="w-5 h-5 text-[#4f772d]" />
+              <Download className="w-5 h-5 text-brand-medium" />
               Download Policy Impact Report
             </h2>
             <p className="text-xs text-gray-500 mb-4">
@@ -602,7 +602,7 @@ const GovPolicyImpact = () => {
 
             {downloadProgress ? (
               <div className="py-8 text-center">
-                <Loader2 className="w-8 h-8 text-[#4f772d] animate-spin mx-auto mb-3" />
+                <Loader2 className="w-8 h-8 text-brand-medium animate-spin mx-auto mb-3" />
                 <p className="text-xs font-bold text-[#132a13]">
                   Generating report...
                 </p>
@@ -613,7 +613,7 @@ const GovPolicyImpact = () => {
                   <label className="text-[10px] font-black uppercase text-gray-400 block mb-1">
                     Report Period
                   </label>
-                  <select className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#4f772d]">
+                  <select className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-medium">
                     <option>FY 2025-26 (Current)</option>
                     <option>FY 2024-25</option>
                     <option>FY 2023-24</option>
@@ -662,7 +662,7 @@ const GovPolicyImpact = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-sm font-medium transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-sm font-medium transition"
                   >
                     Download PDF
                   </button>

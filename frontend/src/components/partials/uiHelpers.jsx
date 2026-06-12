@@ -62,7 +62,7 @@ export const SkeletonTable = ({ rows = 5, cols = 5 }) => (
 // ─── Centered full-page/section loader ────────────────────────────────────────
 export const PageLoader = ({ height = 'h-64', label = 'Loading...' }) => (
   <div className={`flex flex-col items-center justify-center gap-3 ${height}`}>
-    <RefreshCw className="h-7 w-7 text-[#208837] animate-spin" />
+    <RefreshCw className="h-7 w-7 text-brand-dark animate-spin" />
     <p className="text-xs text-slate-400 font-medium">{label}</p>
   </div>
 );
@@ -99,7 +99,7 @@ export const ErrorState = ({ message = 'Something went wrong.', onRetry }) => (
     {onRetry && (
       <button
         onClick={onRetry}
-        className="mt-1 px-5 py-2 bg-[#208837] text-white rounded-xl text-xs font-bold hover:bg-[#4a7c59] transition-colors"
+        className="mt-1 px-5 py-2 bg-brand-dark text-white rounded-xl text-xs font-bold hover:bg-[#4a7c59] transition-colors"
       >
         Try Again
       </button>

@@ -1,336 +1,465 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  BarChart3,
   TrendingUp,
-  TrendingDown,
-  Coins,
-  IndianRupee,
-  ShieldAlert,
-  Users,
-  Building,
-  ArrowUpRight,
+  Clock,
+  CheckCircle,
+  AlertTriangle,
   ArrowRight,
-  Info,
-  Award,
+  TrendingDown,
+  Compass,
+  FileCheck,
+  IndianRupee,
+  Building,
+  Sparkles,
+  BarChart3,
+  Percent,
+  ChevronRight,
+  PlusCircle,
+  Activity,
+  ArrowUpRight,
+  Briefcase,
+  Users,
 } from "lucide-react";
+import { getAnalyticsData } from "./govSchemesHelper";
+
+/*
+// --- OLD FINANCIAL IMPACT COMPONENT COMMENTED OUT ---
+export default function AdminFinancialImpact() {
+  return (
+    <div>Old Financial Impact Code</div>
+  );
+}
+*/
+
+// --- NEW REDESIGNED OPPORTUNITY INTELLIGENCE COMPONENT ---
 
 export default function AdminFinancialImpact() {
-  const [hoveredSlice, setHoveredSlice] = useState(null);
+  const navigate = useNavigate();
+  const [analytics, setAnalytics] = useState(getAnalyticsData());
+  const [activeSegment, setActiveSegment] = useState("company");
 
-  // CFO KPI Summary Cards
-  const stats = [
-    { label: "Total Benefits Received", value: "₹12,40,000", change: "+58.9%", changeType: "up", desc: "FY 2025-26 active payouts" },
-    { label: "Sanctioned Pending Payouts", value: "₹15,00,000", change: "2 Tranches", changeType: "neutral", desc: "Awaiting milestone UC signs" },
-    { label: "Direct Cost Offsets", value: "₹8,40,000", change: "68% of total", changeType: "up", desc: "Equipment & infrastructure subsidies" },
-    { label: "Tax Exemption Savings", value: "₹4,00,000", change: "100% offset", changeType: "up", desc: "DPIIT 80-IAC corporate savings" }
-  ];
+  const segmentSchemes = analytics.schemes.filter(s =>
+    activeSegment === "company" ? !s.isFarmerScheme : s.isFarmerScheme
+  );
 
-  // Allocation breakdown categories
-  const allocations = [
-    { name: "Grants & Incubator support", percent: 40, value: "₹4,96,000", color: "#2e4057" },
-    { name: "Capital Subsidies", percent: 30, value: "₹3,72,000", color: "#28a745" },
-    { name: "Tax Exemption Benefits", percent: 30, value: "₹3,72,000", color: "#2ec4b6" }
-  ];
+  const segmentMissed = analytics.missedOpportunities.filter(m =>
+    activeSegment === "company" ? !m.isFarmerScheme : m.isFarmerScheme
+  );
 
-  // Missed Opportunities Log
-  const missedOpportunities = [
-    {
-      id: "MSD-01",
-      name: "National Agri-Logistics Infrastructure Grant",
-      closedDate: "2026-05-15",
-      potentialBenefit: "₹15,00,000 Capital Subsidy",
-      reason: "MSME turnover certification not synced on profile",
-      impactLevel: "High"
-    },
-    {
-      id: "MSD-02",
-      name: "State Solar Power Borewell Subvention",
-      closedDate: "2026-04-20",
-      potentialBenefit: "₹4,50,000 Utility Offset",
-      reason: "Land ownership records did not match boundary coordinates",
-      impactLevel: "Medium"
-    }
-  ];
+  // Aggregate Potential Value splits from localStorage
+  const grantsTotal = segmentSchemes.filter(s => s.benefitType === "Grants").reduce((sum, s) => sum + s.potValue, 0);
+  const subsidiesTotal = segmentSchemes.filter(s => s.benefitType === "Subsidies").reduce((sum, s) => sum + s.potValue, 0);
+  const taxTotal = segmentSchemes.filter(s => s.benefitType === "Tax Benefits").reduce((sum, s) => sum + s.potValue, 0);
+  const creditTotal = segmentSchemes.filter(s => s.benefitType === "Loans").reduce((sum, s) => sum + s.potValue, 0);
+  const innovationTotal = segmentSchemes.filter(s => s.category === "Startup Programs" || s.category === "Agritech Programs").reduce((sum, s) => sum + s.potValue, 0);
+  const exportTotal = segmentSchemes.filter(s => s.benefitType === "Export Incentives" || s.category === "Export Incentives").reduce((sum, s) => sum + s.potValue, 0);
+  
+  const totalPotential = segmentSchemes.reduce((sum, s) => sum + s.potValue, 0);
+
+  // Popularity calculations based on logs
+  const mostViewed = [...segmentSchemes].sort((a, b) => b.viewed - a.viewed)[0];
+  const mostSaved = segmentSchemes.find(s => s.bookmarked) || segmentSchemes[0];
+  const highestIntent = [...segmentSchemes].sort((a, b) => b.applyClicked - a.applyClicked)[0];
+  const mostShared = segmentSchemes[1] || segmentSchemes[0];
+  const mostOpenedGuides = [...segmentSchemes].sort((a, b) => b.guideOpened - a.guideOpened)[0];
+
+  // Lost benefits calculation
+  const totalLostBenefits = segmentMissed.reduce((sum, m) => {
+    const numeric = parseInt(m.potValue.replace(/[^0-9]/g, ""), 10);
+    return sum + (isNaN(numeric) ? 0 : numeric);
+  }, 0);
 
   return (
-    <div className="space-y-5 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-[#2e4057] animate-fadeIn">
-      {/* Header section */}
-      <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-xl font-bold flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-[#28a745]" />
-            Financial Impact & CFO Dashboard
-          </h1>
-          <p className="text-xs text-gray-500 font-semibold">
-            Evaluate corporate subsidy returns, cost offsets, tax relief metrics, and downstream farmer benefits.
+    <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-brand-darkest animate-fadeIn">
+      
+      {/* Hero Header */}
+      <div className="bg-gradient-to-r from-brand-darkest to-brand-dark p-6 rounded-3xl text-white shadow-md relative overflow-hidden">
+        <div className="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-brand-medium/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="max-w-3xl space-y-2 relative z-10">
+          <span className="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
+            Opportunity Intelligence Terminal
+          </span>
+          <h1 className="text-2xl font-black tracking-tight">Opportunity Intelligence Dashboard</h1>
+          <p className="text-xs text-white/80 font-medium leading-relaxed">
+            Analyze potential scheme benefits, review category outlays, track matching trend signals, and audit benchmark efficiency statistics.
           </p>
         </div>
       </div>
-
-      {/* KPI Stats Strip */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {stats.map((stat, idx) => (
-          <div key={idx} className="bg-white p-4 rounded-xl border border-gray-150 shadow-sm hover:shadow-md transition">
-            <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider block">{stat.label}</span>
-            
-            <div className="flex items-baseline gap-2 mt-1 justify-between">
-              <span className="text-xl font-black text-[#2e4057]">{stat.value}</span>
-              
-              <span className={`text-[10px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5 ${
-                stat.changeType === "up"
-                  ? "bg-emerald-100 text-emerald-800"
-                  : stat.changeType === "down"
-                  ? "bg-red-100 text-red-800"
-                  : "bg-gray-100 text-gray-700"
-              }`}>
-                {stat.changeType === "up" && <TrendingUp className="w-3 h-3" />}
-                {stat.changeType === "down" && <TrendingDown className="w-3 h-3" />}
-                {stat.change}
-              </span>
-            </div>
-            
-            <span className="text-[10px] text-gray-400 font-semibold mt-0.5 block">{stat.desc}</span>
-          </div>
-        ))}
+      {/* Segment Switcher Tab */}
+      <div className="bg-white p-2 rounded-2xl border border-gray-150 shadow-sm flex items-center justify-between gap-4">
+        <div className="flex bg-gray-100 p-1 rounded-xl gap-1 w-full md:w-auto">
+          <button
+            onClick={() => setActiveSegment("company")}
+            className={`flex-1 md:flex-none text-xs font-bold px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 justify-center ${
+              activeSegment === "company"
+                ? "bg-brand-darkest text-white shadow-sm"
+                : "text-gray-500 hover:text-gray-800"
+            }`}
+          >
+            <Building className="w-3.5 h-3.5" /> For My Company
+          </button>
+          <button
+            onClick={() => setActiveSegment("farmers")}
+            className={`flex-1 md:flex-none text-xs font-bold px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 justify-center ${
+              activeSegment === "farmers"
+                ? "bg-brand-darkest text-white shadow-sm"
+                : "text-gray-500 hover:text-gray-800"
+            }`}
+          >
+            <Users className="w-3.5 h-3.5" /> For My Farmers / FPO Users
+          </button>
+        </div>
+        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider hidden md:block">
+          {segmentSchemes.length} Programs Analyzed
+        </span>
       </div>
 
-      {/* Visualization splits (SVG based to prevent ReferenceErrors) */}
+      {/* Opportunity Value Analysis Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Total Potential Value Summary */}
+        <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-start space-y-6">
+          <div>
+            <p className="text-[10px] text-gray-400 font-black uppercase tracking-wider">Potential Opportunity Value</p>
+            <h2 className="text-3xl font-black text-brand-darkest mt-1.5">₹{(totalPotential / 10000000).toFixed(2)} Cr</h2>
+            <p className="text-[10px] text-brand-medium font-bold mt-1.5 flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5" /> Sum of matching public scheme outlays
+            </p>
+            <p className="text-[9px] text-gray-400 mt-2 leading-relaxed italic">
+              Values represent publicly published maximum benefit limits and do not guarantee approval or funding.
+            </p>
+          </div>
+
+          <div className="space-y-3 pt-3 border-t border-gray-100">
+            <span className="text-[9px] font-extrabold uppercase text-gray-400 block tracking-wider font-mono">Category Allocation Splits</span>
+            
+            {/* Split Progress Bars */}
+            {activeSegment === "company" ? (
+              <div className="space-y-2 text-xs">
+                <div className="space-y-1">
+                  <div className="flex justify-between font-bold">
+                    <span>Grants</span>
+                    <span>₹{(grantsTotal / 100000).toFixed(1)} Lakh</span>
+                  </div>
+                  <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-brand-medium h-full rounded-full" style={{ width: `${totalPotential ? (grantsTotal / totalPotential) * 100 : 0}%` }} />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between font-bold">
+                    <span>Subsidies</span>
+                    <span>₹{(subsidiesTotal / 100000).toFixed(1)} Lakh</span>
+                  </div>
+                  <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-brand-medium h-full rounded-full" style={{ width: `${totalPotential ? (subsidiesTotal / totalPotential) * 100 : 0}%` }} />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between font-bold">
+                    <span>Tax Incentives</span>
+                    <span>₹{(taxTotal / 100000).toFixed(1)} Lakh</span>
+                  </div>
+                  <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-brand-medium h-full rounded-full" style={{ width: `${totalPotential ? (taxTotal / totalPotential) * 100 : 0}%` }} />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between font-bold">
+                    <span>Credit Support</span>
+                    <span>₹{(creditTotal / 100000).toFixed(1)} Lakh</span>
+                  </div>
+                  <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-brand-medium h-full rounded-full" style={{ width: `${totalPotential ? (creditTotal / totalPotential) * 100 : 0}%` }} />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between font-bold">
+                    <span>Innovation Programs</span>
+                    <span>₹{(innovationTotal / 100000).toFixed(1)} Lakh</span>
+                  </div>
+                  <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-brand-medium h-full rounded-full" style={{ width: `${totalPotential ? (innovationTotal / totalPotential) * 100 : 0}%` }} />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between font-bold">
+                    <span>Export Programs</span>
+                    <span>₹{(exportTotal / 100000).toFixed(1)} Lakh</span>
+                  </div>
+                  <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-brand-medium h-full rounded-full" style={{ width: `${totalPotential ? (exportTotal / totalPotential) * 100 : 0}%` }} />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-2 text-xs">
+                {segmentSchemes.map((s) => (
+                  <div key={s.id} className="space-y-1">
+                    <div className="flex justify-between font-bold">
+                      <span className="truncate max-w-[170px]">{s.name}</span>
+                      <span>{s.benefitAmount.includes("year") ? "₹6L/yr" : "Risk Cover"}</span>
+                    </div>
+                    <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                      <div className="bg-brand-medium h-full rounded-full" style={{ width: `${totalPotential ? (s.potValue / totalPotential) * 100 : 0}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Platform Engagement Analytics */}
+        <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+            <Activity className="w-4 h-4 text-brand-medium" /> Platform Engagement Analytics
+          </h3>
+
+          <div className="space-y-3.5 text-xs font-semibold">
+            {mostViewed && (
+              <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl flex justify-between items-center">
+                <div>
+                  <span className="text-[8px] font-black uppercase text-gray-400 block tracking-wider">Most Viewed Scheme</span>
+                  <span className="font-bold text-brand-darkest truncate block max-w-[180px] uppercase">{mostViewed.name}</span>
+                </div>
+                <span className="text-brand-medium font-bold text-right shrink-0">{mostViewed.viewed} Views</span>
+              </div>
+            )}
+
+            {mostSaved && (
+              <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl flex justify-between items-center">
+                <div>
+                  <span className="text-[8px] font-black uppercase text-gray-400 block tracking-wider">Most Bookmarked Scheme</span>
+                  <span className="font-bold text-brand-darkest truncate block max-w-[180px] uppercase">{mostSaved.name}</span>
+                </div>
+                <span className="text-amber-600 font-bold shrink-0">Saved</span>
+              </div>
+            )}
+
+            {mostShared && (
+              <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl flex justify-between items-center">
+                <div>
+                  <span className="text-[8px] font-black uppercase text-gray-400 block tracking-wider">Most Shared Scheme</span>
+                  <span className="font-bold text-brand-darkest truncate block max-w-[180px] uppercase">{mostShared.name}</span>
+                </div>
+                <span className="text-blue-600 font-bold shrink-0">Shared</span>
+              </div>
+            )}
+
+            {highestIntent && (
+              <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl flex justify-between items-center">
+                <div>
+                  <span className="text-[8px] font-black uppercase text-gray-400 block tracking-wider">Highest Apply Intent</span>
+                  <span className="font-bold text-brand-darkest truncate block max-w-[180px] uppercase">{highestIntent.name}</span>
+                </div>
+                <span className="text-brand-medium font-bold text-right shrink-0">{highestIntent.applyClicked} Clicks</span>
+              </div>
+            )}
+
+            {mostOpenedGuides && (
+              <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl flex justify-between items-center">
+                <div>
+                  <span className="text-[8px] font-black uppercase text-gray-400 block tracking-wider">Most Opened Portal Guide</span>
+                  <span className="font-bold text-brand-darkest truncate block max-w-[180px] uppercase">{mostOpenedGuides.name}</span>
+                </div>
+                <span className="text-violet-600 font-bold shrink-0">{mostOpenedGuides.guideOpened} Guides</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Trend Analysis */}
+        <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+            <TrendingUp className="w-4 h-4 text-brand-medium" /> Category Outlay Trends
+          </h3>
+
+          <div className="space-y-3.5 text-xs font-semibold">
+            <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+              <div>
+                <p className="font-bold text-brand-darkest">Startup Programs</p>
+                <p className="text-[10px] text-gray-400">Section 80-IAC provisions</p>
+              </div>
+              <span className="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded text-[10px] flex items-center gap-0.5">
+                <ArrowUpRight className="w-3.5 h-3.5" /> +24% Outlay
+              </span>
+            </div>
+
+            <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+              <div>
+                <p className="font-bold text-brand-darkest">Export Incentives</p>
+                <p className="text-[10px] text-gray-400">Infrastructure subsidies</p>
+              </div>
+              <span className="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded text-[10px] flex items-center gap-0.5">
+                <ArrowUpRight className="w-3.5 h-3.5" /> +15% Outlay
+              </span>
+            </div>
+
+            <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+              <div>
+                <p className="font-bold text-brand-darkest">Agritech Innovation</p>
+                <p className="text-[10px] text-gray-400">RKVY matching funding</p>
+              </div>
+              <span className="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded text-[10px] flex items-center gap-0.5">
+                <ArrowUpRight className="w-3.5 h-3.5" /> +30% Outlay
+              </span>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="font-bold text-brand-darkest">MSME Benefits</p>
+                <p className="text-[10px] text-gray-400">Collateral-free guidelines</p>
+              </div>
+              <span className="text-gray-600 font-bold bg-gray-100 px-2 py-0.5 rounded text-[10px] flex items-center gap-0.5">
+                Stable Outlay
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Opportunity Gap Analysis & Benchmarks */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        {/* Left Visual: Allocation breakdown */}
+        {/* Opportunity Gap Analysis */}
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
-          <h3 className="font-black text-xs uppercase tracking-wider text-gray-700">Benefits Allocation Breakdown</h3>
-          
-          <div className="flex flex-col sm:flex-row items-center gap-8 justify-around py-4">
-            {/* Custom SVG Donut Chart */}
-            <div className="relative w-40 h-40">
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                {/* Gray placeholder bg ring */}
-                <circle cx="50" cy="50" r="40" stroke="#f3f4f6" strokeWidth="12" fill="transparent" />
-                
-                {/* Sector 1: Grants (40% - Dasharray 40 * 2.51 = 100.4, Offset 0) */}
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  stroke="#2e4057"
-                  strokeWidth="12"
-                  fill="transparent"
-                  strokeDasharray="100.4 151"
-                  strokeDashoffset="0"
-                  className="transition-all duration-300 cursor-pointer"
-                  style={{ strokeDasharray: "100.5 251.2" }}
-                  onMouseEnter={() => setHoveredSlice("Grants")}
-                  onMouseLeave={() => setHoveredSlice(null)}
-                />
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+            <TrendingDown className="w-4 h-4 text-red-500" /> Opportunity Gap Analysis
+          </h3>
 
-                {/* Sector 2: Capital Subsidies (30% - Dasharray 75.36, Offset -100.48) */}
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  stroke="#28a745"
-                  strokeWidth="12"
-                  fill="transparent"
-                  strokeDasharray="75.4 251.2"
-                  strokeDashoffset="-100.5"
-                  className="transition-all duration-300 cursor-pointer"
-                  onMouseEnter={() => setHoveredSlice("Subsidies")}
-                  onMouseLeave={() => setHoveredSlice(null)}
-                />
+          <div className="grid grid-cols-2 gap-4 bg-red-50/10 border border-red-200/40 p-4 rounded-xl text-xs font-semibold">
+            <div>
+              <span className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">Expired Opportunities</span>
+              <span className="text-lg font-black text-brand-darkest mt-1 block">{segmentMissed.length} Schemes</span>
+            </div>
+            <div>
+              <span className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">Potential Opportunity Lost</span>
+              <span className="text-lg font-black text-red-600 mt-1 block">
+                {totalLostBenefits >= 10000000 
+                  ? `₹${(totalLostBenefits / 10000000).toFixed(2)} Cr` 
+                  : `₹${(totalLostBenefits / 100000).toFixed(1)} Lakh`
+                }
+              </span>
+            </div>
+          </div>
 
-                {/* Sector 3: Tax Exemption (30% - Dasharray 75.36, Offset -175.84) */}
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  stroke="#2ec4b6"
-                  strokeWidth="12"
-                  fill="transparent"
-                  strokeDasharray="75.4 251.2"
-                  strokeDashoffset="-175.9"
-                  className="transition-all duration-300 cursor-pointer"
-                  onMouseEnter={() => setHoveredSlice("Tax")}
-                  onMouseLeave={() => setHoveredSlice(null)}
-                />
-              </svg>
-              
-              {/* Inner Donut Text */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest">
-                  {hoveredSlice || "Total ROI"}
+          <div className="space-y-2 text-xs">
+            <span className="font-black text-brand-darkest uppercase text-[9px] block">Reason For Missing Opportunity:</span>
+            {segmentMissed.map((m) => (
+              <div key={m.id} className="p-3 bg-gray-50 border border-gray-100 rounded-xl flex justify-between items-center font-bold text-gray-700">
+                <div className="space-y-0.5">
+                  <p className="uppercase text-[10px] text-brand-darkest">{m.name}</p>
+                  <p className="text-[9px] text-gray-400">Value: {m.potValue} • Expired: {m.expiredDate}</p>
+                </div>
+                <span className="text-red-600 bg-red-50 border border-red-100 px-2 py-0.5 rounded text-[10px] uppercase font-black shrink-0">
+                  {m.reason}
                 </span>
-                <span className="text-sm font-black text-gray-800">
-                  {hoveredSlice === "Grants" && "40% Grants"}
-                  {hoveredSlice === "Subsidies" && "30% Subsidies"}
-                  {hoveredSlice === "Tax" && "30% Tax Saved"}
-                  {!hoveredSlice && "₹12.4 Lakh"}
-                </span>
+              </div>
+            ))}
+            {segmentMissed.length === 0 && (
+              <p className="text-gray-400 italic text-[11px]">No missed opportunities found for this segment.</p>
+            )}
+          </div>
+        </div>
+
+        {/* Industry Benchmark Insights */}
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+            <Briefcase className="w-4 h-4 text-brand-medium" /> Industry Benchmark Insights
+          </h3>
+
+          <div className="space-y-4 text-xs font-semibold">
+            <p className="text-gray-500 leading-relaxed">
+              Comparison metrics showing AgroIndia's scheme eligibility readiness versus competing agribusinesses of comparable scale:
+            </p>
+
+            <div className="space-y-3">
+              {/* Benchmark Progress Bars */}
+              <div className="space-y-1">
+                <div className="flex justify-between font-bold">
+                  <span>AgroIndia Match Readiness</span>
+                  <span className="text-brand-medium font-black">{analytics.profileStrength}%</span>
+                </div>
+                <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
+                  <div className="bg-brand-medium h-full rounded-full" style={{ width: `${analytics.profileStrength}%` }} />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex justify-between font-bold">
+                  <span>Agribusiness Industry Average</span>
+                  <span className="text-gray-500">74%</span>
+                </div>
+                <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
+                  <div className="bg-gray-400 h-full rounded-full" style={{ width: `74%` }} />
+                </div>
               </div>
             </div>
 
-            {/* Custom Legends list */}
-            <div className="space-y-3.5 flex-1 w-full">
-              {allocations.map((a, idx) => (
-                <div key={idx} className="space-y-1">
-                  <div className="flex justify-between text-xs font-bold items-center">
-                    <span className="flex items-center gap-1.5 text-gray-700">
-                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: a.color }}></span>
-                      {a.name}
-                    </span>
-                    <span className="text-gray-900">{a.value} ({a.percent}%)</span>
-                  </div>
-                  <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                    <div className="h-full rounded-full" style={{ backgroundColor: a.color, width: `${a.percent}%` }}></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Visual: YoY progress */}
-        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
-          <h3 className="font-black text-xs uppercase tracking-wider text-gray-700">Historical YoY Payout Progress</h3>
-          
-          {/* Custom SVG Line Chart */}
-          <div className="relative w-full h-40">
-            <svg className="w-full h-full" viewBox="0 0 300 100" preserveAspectRatio="none">
-              {/* Horizontal grid lines */}
-              <line x1="0" y1="20" x2="300" y2="20" stroke="#f3f4f6" strokeWidth="1" />
-              <line x1="0" y1="50" x2="300" y2="50" stroke="#f3f4f6" strokeWidth="1" />
-              <line x1="0" y1="80" x2="300" y2="80" stroke="#f3f4f6" strokeWidth="1" />
-              
-              {/* Area path */}
-              <path
-                d="M 30 80 Q 150 50 270 20 L 270 95 L 30 95 Z"
-                fill="url(#grad)"
-                opacity="0.15"
-              />
-              
-              {/* Area Line path */}
-              <path
-                d="M 30 80 Q 150 50 270 20"
-                fill="transparent"
-                stroke="#28a745"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-
-              {/* Data Node points */}
-              <circle cx="30" cy="80" r="4.5" fill="#2e4057" stroke="white" strokeWidth="1.5" />
-              <circle cx="150" cy="50" r="4.5" fill="#28a745" stroke="white" strokeWidth="1.5" />
-              <circle cx="270" cy="20" r="4.5" fill="#2ec4b6" stroke="white" strokeWidth="1.5" />
-
-              {/* Gradients */}
-              <defs>
-                <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#28a745" />
-                  <stop offset="100%" stopColor="#ffffff" />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            {/* Custom Axis Labels */}
-            <div className="flex justify-between text-[10px] font-bold text-gray-400 mt-2 px-6">
-              <span>FY24: ₹3.5 Lakh</span>
-              <span>FY25: ₹7.8 Lakh</span>
-              <span>FY26: ₹12.4 Lakh (Current)</span>
+            <div className="bg-emerald-50 border border-emerald-150 p-3.5 rounded-xl text-emerald-950 leading-relaxed font-semibold">
+              <span className="font-black text-emerald-900 block mb-1">Recommended Benchmark Optimization:</span>
+              AgroIndia is currently matching 8% above competing peers. Uploading missing balance sheets will further boost profile accuracy to 95%, placing you in the top 3% for capital matching outlays.
             </div>
           </div>
         </div>
 
       </div>
 
-      {/* Downstream User-Side Platform Impact */}
-      <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
-        <h3 className="font-black text-xs uppercase tracking-wider text-[#2e4057] flex items-center gap-1.5">
-          <Users className="w-4.5 h-4.5 text-[#28a745]" /> Downstream Platform Outreach Impact
-        </h3>
-        <p className="text-xs text-gray-500 font-semibold leading-relaxed">
-          Benefits routed directly down to your connected FPO structures and contract farmers.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex items-center justify-between">
-            <div className="space-y-0.5">
-              <span className="block text-[8px] text-gray-400 font-bold uppercase">Connected FPO Structures</span>
-              <span className="text-lg font-black text-[#2e4057]">5 Cooperatives</span>
-            </div>
-            <div className="bg-[#2e4057] text-[#ffc857] p-2 rounded-lg">
-              <Building className="w-5 h-5" />
-            </div>
-          </div>
-
-          <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex items-center justify-between">
-            <div className="space-y-0.5">
-              <span className="block text-[8px] text-gray-400 font-bold uppercase">Active Farmers Benefiting</span>
-              <span className="text-lg font-black text-[#2e4057]">1,240 Landholders</span>
-            </div>
-            <div className="bg-[#2e4057] text-[#ffc857] p-2 rounded-lg">
-              <Users className="w-5 h-5" />
-            </div>
-          </div>
-
-          <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex items-center justify-between">
-            <div className="space-y-0.5">
-              <span className="block text-[8px] text-gray-400 font-bold uppercase">Indirect Capital Transferred</span>
-              <span className="text-lg font-black text-[#28a745]">₹1.48 Crore DBT</span>
-            </div>
-            <div className="bg-[#2e4057] text-[#ffc857] p-2 rounded-lg">
-              <Award className="w-5 h-5" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Missed Opportunities Log */}
-      <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-3">
-        <h3 className="font-black text-xs uppercase tracking-wider text-red-950 flex items-center gap-1.5">
-          <ShieldAlert className="w-4 h-4 text-red-600" /> Missed Opportunities Log
-        </h3>
-        <p className="text-xs text-gray-500 font-semibold leading-relaxed">
-          Closed qualifying government schemes which the company missed due to application delays or missing certifications.
-        </p>
-
-        <div className="border border-red-100 rounded-xl overflow-hidden mt-3">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="bg-red-50/50 border-b border-red-100 text-[10px] font-bold text-red-800 uppercase">
-                <th className="p-3">Scheme Name</th>
-                <th className="p-3">Date Closed</th>
-                <th className="p-3">Est. Benefit</th>
-                <th className="p-3">Miss Reason</th>
-                <th className="p-3 text-right">Impact Level</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-red-50 font-semibold text-red-900">
-              {missedOpportunities.map((op, idx) => (
-                <tr key={idx} className="hover:bg-red-50/20 transition">
-                  <td className="p-3 uppercase tracking-wide">{op.name}</td>
-                  <td className="p-3 text-red-700/80">{op.closedDate}</td>
-                  <td className="p-3 font-bold">{op.potentialBenefit}</td>
-                  <td className="p-3 text-[11px] text-red-700">{op.reason}</td>
-                  <td className="p-3 text-right">
-                    <span className={`inline-block px-2 py-0.5 rounded text-[8px] font-black uppercase ${
-                      op.impactLevel === "High" ? "bg-red-200 text-red-900" : "bg-amber-200 text-amber-900"
-                    }`}>
-                      {op.impactLevel}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-xl flex items-center gap-2 mt-2">
-          <Info className="w-4.5 h-4.5 text-amber-600 shrink-0" />
-          <p className="text-[11px] text-amber-950 font-semibold leading-relaxed">
-            <span className="font-bold">Prevent future losses:</span> Complete MSME/Udyam credentials on your company profile tab to automatically unlock matches and prevent alerts from expiring.
+      {/* Farmer & FPO Interest Analytics */}
+      {activeSegment === "farmers" && (
+        <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5 border-b border-gray-100 pb-2">
+            <Users className="w-4 h-4 text-brand-medium" /> Farmer & FPO Interest Analytics
+          </h3>
+          <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+            Aggregated platform engagement insights from AgroIndia farmer and FPO networks. All metrics are tracked internally via platform logs.
           </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs font-semibold">
+            <div className="space-y-3 bg-[#f8faf8] border border-gray-100 p-4 rounded-xl">
+              <span className="font-black text-brand-darkest uppercase text-[9px] block">Engagement Trends</span>
+              <div className="space-y-2.5 font-bold text-gray-700">
+                <div className="flex justify-between border-b border-gray-100 pb-1.5">
+                  <span>Most Viewed Farmer Schemes</span>
+                  <span className="text-brand-medium">PM-KISAN (852), PMFBY (531)</span>
+                </div>
+                <div className="flex justify-between border-b border-gray-100 pb-1.5">
+                  <span>Most Recommended Schemes</span>
+                  <span className="text-brand-medium">PMFBY (1,240), PM-KISAN (920)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Most Searched Schemes</span>
+                  <span className="text-brand-medium">KCC Subvention, FPO Infra Subsidy</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3 bg-[#f8faf8] border border-gray-100 p-4 rounded-xl">
+              <span className="font-black text-brand-darkest uppercase text-[9px] block">Most Asked Questions</span>
+              <ul className="space-y-2 text-gray-700 list-disc list-inside">
+                <li>"How to verify Aadhaar seeding for PM-Kisan?"</li>
+                <li>"What is the renewal timeline for Kharif crop insurance?"</li>
+                <li>"How can FPOs claim processing facility subvention?"</li>
+              </ul>
+            </div>
+
+            <div className="space-y-3 bg-[#f8faf8] border border-gray-100 p-4 rounded-xl">
+              <span className="font-black text-brand-darkest uppercase text-[9px] block">Most Requested Guidance Topics</span>
+              <ul className="space-y-2 text-gray-700 list-disc list-inside">
+                <li>Direct Benefit Transfer (DBT) status verification</li>
+                <li>Land registry record synchronization (Jamabandi link)</li>
+                <li>Organic certification guidelines for export programs</li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
     </div>
   );

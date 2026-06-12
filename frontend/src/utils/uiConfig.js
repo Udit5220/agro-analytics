@@ -16,36 +16,46 @@ export const uiConfig = {
   theme: {
     // Core semantic tokens (bg / border / text triplets)
     tokens: {
-      primary: { bg: "#2E8B57", border: "#2E8B57", text: "#2E8B57" }, // Sea Green — CTAs, active states
-      secondary: { bg: "#98E0B8", border: "#98E0B8", text: "#98E0B8" }, // Mint Green — warnings, highlights
-      positive: { bg: "#2E8B57", border: "#66CDAA", text: "#1F2A24" }, // Sea/Mint Green contrast
+      primary: { bg: "#2d5a3d", border: "#2d5a3d", text: "#2d5a3d" }, // Dark green
+      secondary: { bg: "#C5F547", border: "#C5F547", text: "#C5F547" }, // Lime accent
+      positive: { bg: "#2d5a3d", border: "#C5F547", text: "#0F2E1F" },
       negative: { bg: "#cc5555", border: "#ff6b6b", text: "#ff6b6b" }, // Coral Red
       neutral: { bg: "#d3d3d3", border: "#d3d3d3", text: "#d3d3d3" },
-      contrast: { bg: "#1F2A24", border: "#1F2A24", text: "#1F2A24" }, // Dark gray-green
-      green: { bg: "#2E8B57", border: "#2E8B57", text: "#2E8B57" },
+      contrast: { bg: "#0F2E1F", border: "#0F2E1F", text: "#0F2E1F" }, // Darkest green
+      green: { bg: "#1A3A2A", border: "#1A3A2A", text: "#1A3A2A" },
     },
 
     // Named brand palette (used in Tailwind config as brand-*)
     colors: {
-      brandDarkest: "#31572c", // Top Header background
-      brandDark: "#31572c", // Sidebar background
-      brandMedium: "#2d8a2d", // Primary buttons, active states
-      brandLight: "#6bc46b", // Icons, hover states
-      brandAccent: "#e8f5e8", // Active nav item background
-      brandLightest: "#f7f5f0", // Main content background
+      brandDarkest: "#0F2E1F", // Top Header background
+      brandDark: "#1A3A2A", // Sidebar background
+      brandMedium: "#2d5a3d", // Primary buttons, active states
+      brandLight: "#C5F547", // Icons, hover states
+      brandAccent: "#E8F5C0", // Active nav item background
+      brandLightest: "#f4f7f0", // Main content background
     },
 
     // Shell / Layout colors
     shell: {
-      sidebarBg: "#31572c", // Deep rich green
-      navbarBg: "#31572c", // Deepest green
-      mainBorder: "transparent", // Border Removed
-      inputBorder: "#e5e2dc", // border-subtle
-      activeRouteBg: "#e8f5e8", // Active nav item background
+      sidebarBg: "#0F2E1F",
+      navbarBg: "#0F2E1F",
+      activeRouteBg: "#E8F5C0",
+      mainBorder: "transparent",
+      inputBorder: "#e5e2dc",
       activeRouteBorder: "transparent",
-      sidebarHover: "rgba(255, 255, 255, 0.05)", // sidebar hover background
-      sidebarText: "#a3b8a3", // Muted sage text
-      navbarIconHover: "#6bc46b",
+      sidebarHover: "rgba(255, 255, 255, 0.05)",
+      sidebarText: "#a3b8a3",
+      navbarIconHover: "#C5F547",
+    },
+
+    // Action button color presets
+    buttons: {
+      primary: { bg: "#C5F547", hover: "#B0E030", text: "#0F2E1F" }, // Lime CTA, dark text
+      secondary: { bg: "#2d5a3d", hover: "#1A3A2A", text: "#FFFFFF" }, // Forest button
+      apply: { bg: "#2563EB", hover: "#1D4ED8", text: "#FFFFFF" }, // Blue apply/filter
+      download: { bg: "#16a34a", hover: "#15803d", text: "#FFFFFF" }, // Download green
+      danger: { bg: "#DC2626", hover: "#B91C1C", text: "#FFFFFF" }, // Red destructive
+      disabled: { bg: "#9CA3AF", text: "#D1D5DB" }, // gray-400
     },
 
     // Glass-card pattern (Greenleaf signature)
@@ -56,19 +66,9 @@ export const uiConfig = {
       radius: "rounded-xl",
     },
 
-    // Action button color presets
-    buttons: {
-      primary: { bg: "#28a745", hover: "#208837", text: "#FFFFFF" }, // Brand Green CTA
-      secondary: { bg: "#2e7d32", hover: "#1b5e20", text: "#FFFFFF" }, // Forest button
-      apply: { bg: "#2563EB", hover: "#1D4ED8", text: "#FFFFFF" }, // Blue apply/filter
-      download: { bg: "#16a34a", hover: "#15803d", text: "#FFFFFF" }, // Download green
-      danger: { bg: "#DC2626", hover: "#B91C1C", text: "#FFFFFF" }, // Red destructive
-      disabled: { bg: "#9CA3AF", text: "#D1D5DB" }, // gray-400
-    },
-
     // Status indicator colors (dashboard cards)
     status: {
-      uptrend: "#28a745", // bg-theme-positive
+      uptrend: "#C5F547", // bg-theme-positive
       downtrend: "#cc5555", // bg-theme-negative
       neutral: "#4a4a4a",
     },
@@ -141,7 +141,7 @@ export const uiConfig = {
   // 3. LAYOUT STANDARDIZATIONS
   // ──────────────────────────────────────────────────────
   layout: {
-    container: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    container: "max-w-[1536px] mx-auto px-6 sm:px-8 lg:px-12",
     sectionPadding: "py-20 lg:py-28",
     sectionPaddingCompact: "py-12 lg:py-16",
     flexCenter: "flex items-center justify-center",
@@ -173,13 +173,13 @@ export const uiConfig = {
       "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase",
 
     buttonPrimary:
-      "px-6 py-3 rounded-xl bg-[#28a745] text-white font-medium hover:bg-[#208837] transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 active:scale-[0.98]",
+      "px-6 py-3 rounded-xl bg-[#C5F547] text-[#0F2E1F] font-bold hover:bg-[#B0E030] transition-all duration-300 hover:shadow-lg active:scale-[0.98]",
     buttonContrast:
-      "px-6 py-3 rounded-xl bg-[#2e7d32] text-white font-medium hover:bg-[#1b5e20] transition-all duration-300 hover:shadow-lg active:scale-[0.98]",
+      "px-6 py-3 rounded-xl bg-[#0F2E1F] text-white font-medium hover:bg-[#1A3A2A] transition-all duration-300 hover:shadow-lg active:scale-[0.98]",
     buttonAccent:
-      "px-6 py-3 rounded-xl bg-[#ecf39e] text-[#1b5e20] font-semibold hover:bg-[#f2f7c2] transition-all duration-300 hover:shadow-lg hover:shadow-green-400/20 active:scale-[0.98]",
+      "px-6 py-3 rounded-xl bg-[#E8F5C0] text-[#0F2E1F] font-semibold hover:bg-[#D8E5B0] transition-all duration-300 hover:shadow-lg active:scale-[0.98]",
     buttonOutline:
-      "px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-700 font-medium hover:border-[#28a745] hover:text-[#28a745] transition-all duration-300 active:scale-[0.98]",
+      "px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-700 font-medium hover:border-[#C5F547] hover:text-[#0F2E1F] transition-all duration-300 active:scale-[0.98]",
   },
 
   // ──────────────────────────────────────────────────────

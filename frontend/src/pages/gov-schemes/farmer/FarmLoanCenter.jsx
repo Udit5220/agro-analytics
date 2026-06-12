@@ -133,12 +133,12 @@ const FarmLoanCenter = () => {
   };
 
   const getLoanIcon = (program) => {
-    if (program.includes("KCC")) return <CreditCard className="w-4 h-4 text-[#4f772d]" />;
-    if (program.includes("Tractor")) return <Tractor className="w-4 h-4 text-[#4f772d]" />;
-    if (program.includes("Solar")) return <Sun className="w-4 h-4 text-[#4f772d]" />;
-    if (program.includes("Livestock")) return <PawPrint className="w-4 h-4 text-[#4f772d]" />;
-    if (program.includes("Warehouse")) return <Warehouse className="w-4 h-4 text-[#4f772d]" />;
-    return <Building2 className="w-4 h-4 text-[#4f772d]" />;
+    if (program.includes("KCC")) return <CreditCard className="w-4 h-4 text-brand-medium" />;
+    if (program.includes("Tractor")) return <Tractor className="w-4 h-4 text-brand-medium" />;
+    if (program.includes("Solar")) return <Sun className="w-4 h-4 text-brand-medium" />;
+    if (program.includes("Livestock")) return <PawPrint className="w-4 h-4 text-brand-medium" />;
+    if (program.includes("Warehouse")) return <Warehouse className="w-4 h-4 text-brand-medium" />;
+    return <Building2 className="w-4 h-4 text-brand-medium" />;
   };
 
   const handlePaySubmit = (e) => {
@@ -181,7 +181,7 @@ const FarmLoanCenter = () => {
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
           <div className="p-2 bg-[#132a13]/10 rounded-xl">
-            <CreditCard className="h-5 w-5 text-[#4f772d]" />
+            <CreditCard className="h-5 w-5 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#132a13]">Kisan Credit Card & Loan Center</h1>
@@ -195,7 +195,7 @@ const FarmLoanCenter = () => {
         <StatsCard
           title="Eligible Limit"
           value={creditDashboard.eligibleLimit}
-          icon={<CreditCard className="text-[#4f772d]" />}
+          icon={<CreditCard className="text-brand-medium" />}
           subtext="Approved credit ceiling"
         />
         <StatsCard
@@ -213,7 +213,7 @@ const FarmLoanCenter = () => {
         <StatsCard
           title="Subventions Saved"
           value={creditDashboard.interestSubsidySaved}
-          icon={<TrendingUp className="text-[#4f772d]" />}
+          icon={<TrendingUp className="text-brand-medium" />}
           subtext="3% prompt interest relief"
         />
       </div>
@@ -337,7 +337,7 @@ const FarmLoanCenter = () => {
                       className={`text-xs font-bold px-3 py-1.5 rounded-xl transition ${
                         program.status === "Active" || program.status === "Under Review"
                           ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-150"
-                          : "bg-[#4f772d] text-white hover:bg-[#31572c]"
+                          : "bg-brand-medium text-white hover:bg-brand-dark"
                       }`}
                       disabled={program.status === "Active" || program.status === "Under Review"}
                       onClick={() => {
@@ -378,14 +378,14 @@ const FarmLoanCenter = () => {
           </div>
           <button
             onClick={downloadScheduleCSV}
-            className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border border-gray-200 hover:bg-[#4f772d]/10 transition bg-white"
+            className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border border-gray-200 hover:bg-brand-medium/10 transition bg-white"
           >
             <Download className="w-3.5 h-3.5" />
             Export Schedule
           </button>
         </div>
         <div className="p-6">
-          <div className="mb-5 p-4 bg-[#f4f7f4]/55 border border-[#4f772d]/15 rounded-xl">
+          <div className="mb-5 p-4 bg-[#f4f7f4]/55 border border-brand-medium/15 rounded-xl">
             <div className="flex flex-wrap justify-between items-center gap-3">
               <div>
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
@@ -433,7 +433,7 @@ const FarmLoanCenter = () => {
                   {payment.status === "upcoming" && (
                     <button
                       onClick={() => setPayingInstallment(payment)}
-                      className="text-xs font-bold px-3.5 py-1.5 rounded-xl border border-[#4f772d]/25 text-[#4f772d] hover:bg-[#4f772d]/5 transition"
+                      className="text-xs font-bold px-3.5 py-1.5 rounded-xl border border-brand-medium/25 text-brand-medium hover:bg-brand-medium/5 transition"
                     >
                       Pay Now
                     </button>
@@ -450,7 +450,7 @@ const FarmLoanCenter = () => {
               </p>
               <button
                 onClick={() => setShowStatement(!showStatement)}
-                className="text-xs font-bold flex items-center gap-1 text-[#4f772d] hover:text-[#31572c]"
+                className="text-xs font-bold flex items-center gap-1 text-brand-medium hover:text-[#31572c]"
               >
                 {showStatement ? "Hide Ledger Statement" : "View Statement History"}
                 <Eye className="w-3.5 h-3.5" />
@@ -535,7 +535,7 @@ const FarmLoanCenter = () => {
                   Simulate digital payment for your upcoming monthly installment.
                 </p>
 
-                <div className="bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl p-3.5 mb-4 text-xs space-y-1">
+                <div className="bg-[#f4f7f4] border border-brand-medium/10 rounded-xl p-3.5 mb-4 text-xs space-y-1">
                   <p className="text-gray-655 font-semibold">Installment Month: <span className="font-bold text-gray-800">{payingInstallment.month}</span></p>
                   <p className="text-gray-655 font-semibold">Amount Due: <span className="font-bold text-[#132a13]">₹{payingInstallment.amount.toLocaleString()}</span></p>
                 </div>
@@ -552,7 +552,7 @@ const FarmLoanCenter = () => {
                       value={upiReference}
                       onChange={(e) => setUpiReference(e.target.value.replace(/[^0-9]/g, ""))}
                       maxLength={12}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#4f772d]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-brand-medium"
                     />
                   </div>
 
@@ -566,7 +566,7 @@ const FarmLoanCenter = () => {
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 px-4 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-semibold transition"
+                      className="flex-1 px-4 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-semibold transition"
                     >
                       Confirm Payment
                     </button>
@@ -654,7 +654,7 @@ const FarmLoanCenter = () => {
                       placeholder="e.g. 150000"
                       value={requestedAmount}
                       onChange={(e) => setRequestedAmount(e.target.value.replace(/[^0-9]/g, ""))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#4f772d]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-brand-medium"
                     />
                   </div>
 
@@ -665,7 +665,7 @@ const FarmLoanCenter = () => {
                     <select
                       value={loanPurpose}
                       onChange={(e) => setLoanPurpose(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs bg-white focus:outline-none focus:border-[#4f772d]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs bg-white focus:outline-none focus:border-brand-medium"
                     >
                       <option value="Crop Production">Crop Production (Sowing/Inputs)</option>
                       <option value="Farm Equipment">Farm Machinery/Equipment</option>
@@ -690,7 +690,7 @@ const FarmLoanCenter = () => {
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 px-4 py-2.5 text-xs font-bold bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl transition"
+                      className="flex-1 px-4 py-2.5 text-xs font-bold bg-brand-medium hover:bg-brand-dark text-white rounded-xl transition"
                     >
                       Submit Application
                     </button>

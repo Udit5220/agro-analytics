@@ -45,7 +45,7 @@ export default function TransportProfitAnalyzer() {
   ];
 
   const costBreakdown = [
-    { name: "Fuel", value: 1500, color: "#28a745" },
+    { name: "Fuel", value: 1500, color: "var(--brand-medium)" },
     { name: "Labor", value: 800, color: "#3b82f6" },
     { name: "Toll", value: 400, color: "#f59e0b" },
     { name: "Miscellaneous", value: 300, color: "#8b5cf6" },
@@ -69,24 +69,24 @@ export default function TransportProfitAnalyzer() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Transport Profit Analyzer</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Transport Profit Analyzer</h1>
           <p className="text-xs text-gray-500 mt-1">Compare net profit after transportation costs</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+        <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
           <RefreshCw className="w-4 h-4" /> Refresh Data
         </button>
       </div>
 
       {/* User Input Panel */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Input Parameters</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Input Parameters</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="space-y-1.5">
             <label className="text-[10px] font-bold text-gray-500 uppercase">Commodity</label>
             <select
               value={formData.commodity}
               onChange={(e) => handleInputChange("commodity", e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
+              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
             >
               <option>Wheat</option>
               <option>Rice</option>
@@ -102,7 +102,7 @@ export default function TransportProfitAnalyzer() {
               type="number"
               value={formData.quantity}
               onChange={(e) => handleInputChange("quantity", e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
+              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
             />
           </div>
 
@@ -111,7 +111,7 @@ export default function TransportProfitAnalyzer() {
             <select
               value={formData.vehicleType}
               onChange={(e) => handleInputChange("vehicleType", e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
+              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
             >
               <option>Truck</option>
               <option>Mini Truck</option>
@@ -125,7 +125,7 @@ export default function TransportProfitAnalyzer() {
               type="number"
               value={formData.fuelCost}
               onChange={(e) => handleInputChange("fuelCost", e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
+              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
             />
           </div>
 
@@ -135,7 +135,7 @@ export default function TransportProfitAnalyzer() {
               type="number"
               value={formData.loadingCharges}
               onChange={(e) => handleInputChange("loadingCharges", e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
+              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
             />
           </div>
 
@@ -145,7 +145,7 @@ export default function TransportProfitAnalyzer() {
               type="number"
               value={formData.otherCosts}
               onChange={(e) => handleInputChange("otherCosts", e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
+              className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
             />
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function TransportProfitAnalyzer() {
 
       {/* Profit Comparison Table */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Profit Comparison by Market</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Profit Comparison by Market</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -169,7 +169,7 @@ export default function TransportProfitAnalyzer() {
             <tbody>
               {profitData.map((item, index) => (
                 <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-2 text-sm font-bold text-[#2e4057]">{item.market}</td>
+                  <td className="py-3 px-2 text-sm font-bold text-brand-darkest">{item.market}</td>
                   <td className="py-3 px-2 text-sm font-semibold text-gray-700">₹{item.price}</td>
                   <td className="py-3 px-2 text-sm font-semibold text-gray-700">₹{item.transportCost}</td>
                   <td className="py-3 px-2 text-sm font-semibold text-gray-700">₹{item.otherCosts}</td>
@@ -191,7 +191,7 @@ export default function TransportProfitAnalyzer() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Transportation Cost Breakdown */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-[#2e4057] mb-4">Transportation Cost Breakdown</h2>
+          <h2 className="text-sm font-bold text-brand-darkest mb-4">Transportation Cost Breakdown</h2>
           <ResponsiveContainer width="100%" height={250}>
             <RechartsPieChart>
               <Pie
@@ -228,10 +228,10 @@ export default function TransportProfitAnalyzer() {
 
         {/* Route Analysis Map Placeholder */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-[#2e4057] mb-4">Route Analysis</h2>
-          <div className="h-64 bg-gradient-to-br from-[#2e4057]/5 to-[#28a745]/10 rounded-xl flex items-center justify-center">
+          <h2 className="text-sm font-bold text-brand-darkest mb-4">Route Analysis</h2>
+          <div className="h-64 bg-gradient-to-br from-brand-darkest/5 to-brand-medium/10 rounded-xl flex items-center justify-center">
             <div className="text-center">
-              <Route className="w-12 h-12 text-[#28a745] mx-auto mb-2" />
+              <Route className="w-12 h-12 text-brand-medium mx-auto mb-2" />
               <p className="text-xs font-bold text-gray-500">Interactive Route Map</p>
               <p className="text-[10px] text-gray-400">MapTiler integration coming soon</p>
             </div>
@@ -239,22 +239,22 @@ export default function TransportProfitAnalyzer() {
           <div className="mt-4 space-y-2">
             <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
               <span className="text-xs text-gray-500">Distance</span>
-              <span className="text-xs font-bold text-[#2e4057]">45 km</span>
+              <span className="text-xs font-bold text-brand-darkest">45 km</span>
             </div>
             <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
               <span className="text-xs text-gray-500">Travel Time</span>
-              <span className="text-xs font-bold text-[#2e4057]">1.5 hours</span>
+              <span className="text-xs font-bold text-brand-darkest">1.5 hours</span>
             </div>
             <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
               <span className="text-xs text-gray-500">Estimated Cost</span>
-              <span className="text-xs font-bold text-[#2e4057]">₹1,100</span>
+              <span className="text-xs font-bold text-brand-darkest">₹1,100</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Best Profit Market Recommendation */}
-      <div className="bg-gradient-to-r from-[#2e4057] to-[#208837] rounded-2xl p-6 shadow-lg text-white">
+      <div className="bg-gradient-to-r from-brand-darkest to-[#208837] rounded-2xl p-6 shadow-lg text-white">
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2.5 bg-white/20 rounded-xl">
             <TrendingUp className="w-6 h-6" />

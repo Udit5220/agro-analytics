@@ -188,7 +188,7 @@ export default function CommandCenter() {
             <div key={card.id} className="bg-white border border-gray-200/60 rounded-2xl shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{card.label}</span>
-                <div className="p-1.5 bg-[#4f772d]/10 rounded-lg text-[#31572c]">
+                <div className="p-1.5 bg-brand-medium/10 rounded-lg text-[#31572c]">
                   <Icon size={14} />
                 </div>
               </div>
@@ -307,7 +307,7 @@ export default function CommandCenter() {
             </thead>
             <tbody>
               {TOP_THREATS.map((threat, idx) => (
-                <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60">
+                <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60">
                   <td className="p-3.5 pl-6 font-bold text-gray-950">{threat.disease}</td>
                   <td className="p-3.5">{threat.state}</td>
                   <td className="p-3.5">{threat.district}</td>
@@ -397,20 +397,20 @@ export default function CommandCenter() {
       {/* Row 5 — AI Government Recommendations (4 cards in a row) */}
       <div className="bg-white border border-gray-200/60 rounded-2xl shadow-sm p-5">
         <div className="flex items-center gap-2 mb-4 border-b border-gray-100 pb-3">
-          <span className="p-1 bg-[#4f772d]/10 text-[#31572c] rounded-lg"><Brain size={16} /></span>
+          <span className="p-1 bg-brand-medium/10 text-[#31572c] rounded-lg"><Brain size={16} /></span>
           <h2 className="text-xs font-black text-gray-800 uppercase tracking-widest">AI Government Policy & Intervention Engine</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {AI_RECOMMENDATIONS.map((rec, idx) => {
             const Icon = rec.icon;
             return (
-              <div key={idx} className="border-l-4 border-[#31572c] bg-gray-50/50 hover:bg-[#4f772d]/5 p-4 rounded-r-xl border border-y-gray-200 border-r-gray-200 flex flex-col justify-between transition-all group">
+              <div key={idx} className="border-l-4 border-[#31572c] bg-gray-50/50 hover:bg-brand-medium/5 p-4 rounded-r-xl border border-y-gray-200 border-r-gray-200 flex flex-col justify-between transition-all group">
                 <div>
                   <div className="text-[#31572c] mb-2"><Icon size={18} /></div>
                   <p className="text-xs font-black text-gray-900 group-hover:text-[#31572c] transition-colors">{rec.title}</p>
                   <p className="text-[11px] text-gray-600 font-medium leading-snug mt-1.5">{rec.rationale}</p>
                 </div>
-                <button className="mt-4 w-full bg-white hover:bg-[#31572c] hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg shadow-2xs transition active:scale-95">
+                <button className="mt-4 w-full bg-white hover:bg-brand-dark hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg shadow-2xs transition active:scale-95">
                   {rec.action}
                 </button>
               </div>

@@ -209,7 +209,7 @@ export default function OutbreakResponseManagement() {
             <div key={card.id} className="bg-white border border-gray-200/60 rounded-2xl shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{card.label}</span>
-                <div className="p-1.5 bg-[#4f772d]/10 rounded-lg text-[#31572c]">
+                <div className="p-1.5 bg-brand-medium/10 rounded-lg text-[#31572c]">
                   <Icon size={14} />
                 </div>
               </div>
@@ -241,7 +241,7 @@ export default function OutbreakResponseManagement() {
             </thead>
             <tbody>
               {RESPONSE_TABLE.map((row) => (
-                <tr key={row.id} className="text-xs font-semibold text-gray-700 hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60">
+                <tr key={row.id} className="text-xs font-semibold text-gray-700 hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60">
                   <td className="p-3.5 pl-6 font-bold text-gray-950">{row.disease}</td>
                   <td className="p-3.5">{row.region}</td>
                   <td className="p-3.5">{getSeverityBadge(row.severity)}</td>
@@ -266,7 +266,7 @@ export default function OutbreakResponseManagement() {
                 <span className="text-[10px] font-black text-[#31572c] mb-2">{step.count} Case(s)</span>
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 font-black text-xs transition-all ${
                   step.status === "active"
-                    ? "bg-[#31572c] border-[#ecf39e] text-white shadow-md"
+                    ? "bg-brand-dark border-[#ecf39e] text-white shadow-md"
                     : step.status === "completed"
                       ? "bg-[#90a955] border-[#90a955] text-white"
                       : "bg-white border-gray-200 text-gray-400"

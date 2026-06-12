@@ -282,7 +282,7 @@ export default function NewsIntelDashboard() {
             <div className="pt-4 border-t border-slate-100">
               <button 
                 onClick={() => setSelectedArticle(null)}
-                className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-1.5"
+                className="w-full bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-1.5"
               >
                 Done
               </button>

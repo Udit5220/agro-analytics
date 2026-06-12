@@ -206,7 +206,7 @@ export default function StateGrants() {
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
       <div className="flex items-center gap-2.5 mb-6">
-        <div className="p-2.5 bg-[#31572c]/10 rounded-xl">
+        <div className="p-2.5 bg-brand-dark/10 rounded-xl">
           <Landmark className="h-6 w-6 text-[#31572c]" />
         </div>
         <div>
@@ -216,7 +216,7 @@ export default function StateGrants() {
       </div>
 
       {/* Top Profile Region Alert Banner */}
-      <div className="bg-[#31572c]/5 border border-[#31572c]/15 rounded-2xl p-4 flex items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#274422]">
+      <div className="bg-brand-dark/5 border border-[#31572c]/15 rounded-2xl p-4 flex items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#274422]">
         <div className="flex items-center gap-2.5">
           <MapPin className="h-5 w-5 text-[#31572c] shrink-0" />
           <div>
@@ -224,7 +224,7 @@ export default function StateGrants() {
             <p className="text-[11px] text-[#31572c]/75 mt-0.5">Showing grants available for your profile regions. To explore other states, update your profile location.</p>
           </div>
         </div>
-        <span className="shrink-0 bg-[#31572c] text-white px-2 py-0.5 text-[10px] font-bold rounded-md uppercase tracking-wider">MP & HR Match</span>
+        <span className="shrink-0 bg-brand-dark text-white px-2 py-0.5 text-[10px] font-bold rounded-md uppercase tracking-wider">MP & HR Match</span>
       </div>
 
       {/* Grants Cards List */}
@@ -265,7 +265,7 @@ export default function StateGrants() {
                   </div>
                   <button 
                     onClick={() => handleOpenModal(grant)}
-                    className="w-full sm:w-auto bg-[#31572c] text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-xs hover:bg-[#1a3018] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5"
+                    className="w-full sm:w-auto bg-brand-dark text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-xs hover:bg-[#1a3018] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5"
                   >
                     Check Eligibility <ArrowRight className="h-4 w-4" />
                   </button>
@@ -309,7 +309,7 @@ export default function StateGrants() {
                       onClick={() => setColdStorageAnswers(prev => ({ ...prev, farmerType: 'individual' }))}
                       className={`p-3 rounded-xl border-2 text-left transition-all ${
                         coldStorageAnswers.farmerType === 'individual'
-                          ? 'border-[#31572c] bg-[#31572c]/5 text-[#31572c] font-bold'
+                          ? 'border-[#31572c] bg-brand-dark/5 text-[#31572c] font-bold'
                           : 'border-gray-200 hover:border-gray-300 text-gray-600'
                       }`}
                     >
@@ -321,7 +321,7 @@ export default function StateGrants() {
                       onClick={() => setColdStorageAnswers(prev => ({ ...prev, farmerType: 'fpo' }))}
                       className={`p-3 rounded-xl border-2 text-left transition-all ${
                         coldStorageAnswers.farmerType === 'fpo'
-                          ? 'border-[#31572c] bg-[#31572c]/5 text-[#31572c] font-bold'
+                          ? 'border-[#31572c] bg-brand-dark/5 text-[#31572c] font-bold'
                           : 'border-gray-200 hover:border-gray-300 text-gray-600'
                       }`}
                     >
@@ -358,7 +358,7 @@ export default function StateGrants() {
                   <button
                     type="submit"
                     disabled={calculating}
-                    className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed"
+                    className="w-full bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed"
                   >
                     {calculating ? (
                       <>
@@ -385,7 +385,7 @@ export default function StateGrants() {
                       onClick={() => setAgroProcessingAnswers(prev => ({ ...prev, nearFarmGate: true }))}
                       className={`p-3 rounded-xl border-2 text-center transition-all ${
                         agroProcessingAnswers.nearFarmGate === true
-                          ? 'border-[#31572c] bg-[#31572c]/5 text-[#31572c] font-bold'
+                          ? 'border-[#31572c] bg-brand-dark/5 text-[#31572c] font-bold'
                           : 'border-gray-200 hover:border-gray-300 text-gray-600'
                       }`}
                     >
@@ -444,7 +444,7 @@ export default function StateGrants() {
                   <button
                     type="submit"
                     disabled={calculating}
-                    className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed"
+                    className="w-full bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed"
                   >
                     {calculating ? (
                       <>
@@ -484,7 +484,7 @@ export default function StateGrants() {
                         handleCloseModal();
                         window.location.href = '/module/gov-schemes/applications';
                       }}
-                      className="mt-3.5 inline-flex items-center gap-1 bg-[#31572c] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-sm hover:bg-[#1a3018]"
+                      className="mt-3.5 inline-flex items-center gap-1 bg-brand-dark text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-sm hover:bg-[#1a3018]"
                     >
                       Proceed to Document Upload <ArrowRight className="h-3 w-3" />
                     </button>

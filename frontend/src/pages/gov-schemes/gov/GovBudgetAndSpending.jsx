@@ -99,10 +99,10 @@ export default function GovBudgetAndSpending() {
       sortable: true,
       cell: (v) => (
         <div className="flex items-center gap-2">
-          <span className="font-black text-[#2e4057]">{v}%</span>
+          <span className="font-black text-brand-darkest">{v}%</span>
           <div className="w-12 bg-gray-100 h-1.5 rounded-full overflow-hidden">
             <div
-              className={`h-full ${v >= 80 ? "bg-[#28a745]" : v >= 60 ? "bg-amber-500" : "bg-red-500"}`}
+              className={`h-full ${v >= 80 ? "bg-brand-medium" : v >= 60 ? "bg-amber-500" : "bg-red-500"}`}
               style={{ width: `${v}%` }}
             />
           </div>
@@ -164,11 +164,11 @@ export default function GovBudgetAndSpending() {
       : "Optimal Utilization";
 
   return (
-    <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 animate-fadeIn text-[#2e4057]">
+    <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 animate-fadeIn text-brand-darkest">
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-        <h1 className="text-xl font-bold text-[#2e4057] flex items-center gap-2">
-          <CircleDollarSign className="w-5 h-5 text-[#28a745]" />
+        <h1 className="text-xl font-bold text-brand-darkest flex items-center gap-2">
+          <CircleDollarSign className="w-5 h-5 text-brand-medium" />
           Budget Utilization & Financial Intelligence
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -183,7 +183,7 @@ export default function GovBudgetAndSpending() {
           title="Allocated Budget"
           value={budgetSummary.allocated}
           subtext="Total state sanction pool"
-          icon={<CircleDollarSign className="text-[#28a745]" />}
+          icon={<CircleDollarSign className="text-brand-medium" />}
         />
         <StatsCard
           title="Released Pool"
@@ -213,7 +213,7 @@ export default function GovBudgetAndSpending() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Category breakdown bar chart */}
         <div className="lg:col-span-2 bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-          <h3 className="font-bold text-[#2e4057] text-sm mb-3">
+          <h3 className="font-bold text-brand-darkest text-sm mb-3">
             Utilization by Program Category (₹ Cr)
           </h3>
           <div className="h-64">
@@ -240,7 +240,7 @@ export default function GovBudgetAndSpending() {
                 <Bar
                   dataKey="utilized"
                   name="Utilized Pool"
-                  fill="#2e4057"
+                  fill="var(--brand-darkest)"
                   radius={[4, 4, 0, 0]}
                 />
               </BarChart>
@@ -251,8 +251,8 @@ export default function GovBudgetAndSpending() {
         {/* Financial Risk Alerts */}
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-1.5">
-              <AlertCircle className="w-4 h-4 text-[#28a745]" /> Financial Risk
+            <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-1.5">
+              <AlertCircle className="w-4 h-4 text-brand-medium" /> Financial Risk
               alerts
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
@@ -296,8 +296,8 @@ export default function GovBudgetAndSpending() {
         {/* Expenditure forecasting calculator */}
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-1.5">
-              <Calculator className="w-4 h-4 text-[#28a745]" /> Fiscal Runway
+            <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-1.5">
+              <Calculator className="w-4 h-4 text-brand-medium" /> Fiscal Runway
               Forecaster
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
@@ -309,7 +309,7 @@ export default function GovBudgetAndSpending() {
               <div>
                 <div className="flex justify-between font-bold mb-1">
                   <span>Forecast Months</span>
-                  <span className="text-[#28a745]">
+                  <span className="text-brand-medium">
                     {forecastMonths} Months
                   </span>
                 </div>
@@ -333,7 +333,7 @@ export default function GovBudgetAndSpending() {
                 </div>
                 <div className="flex justify-between text-gray-500">
                   <span>Projected Expenditure:</span>
-                  <span className="font-bold text-[#2e4057]">
+                  <span className="font-bold text-brand-darkest">
                     ₹{projectedSpend} Cr
                   </span>
                 </div>
@@ -372,7 +372,7 @@ export default function GovBudgetAndSpending() {
         {/* District utilization table */}
         <div className="lg:col-span-2 bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
           <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
-            <h3 className="font-bold text-[#2e4057] text-sm">
+            <h3 className="font-bold text-brand-darkest text-sm">
               Geographical Utilization Table
             </h3>
             <div className="flex items-center gap-2 border border-gray-200 bg-gray-50/50 px-3 py-1.5 rounded-xl w-64">

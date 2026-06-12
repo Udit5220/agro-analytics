@@ -75,7 +75,7 @@ const FarmSchemeDetails = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="p-3 bg-[#132a13]/10 rounded-xl">
-            <Sprout className="h-6 w-6 text-[#4f772d]" />
+            <Sprout className="h-6 w-6 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#132a13]">Scheme Details Center</h1>
@@ -90,7 +90,7 @@ const FarmSchemeDetails = () => {
           <select
             value={selectedScheme}
             onChange={(e) => setSelectedScheme(parseInt(e.target.value))}
-            className="w-full pl-3 pr-8 py-2.5 border border-gray-250 rounded-xl text-xs font-bold text-gray-700 bg-white shadow-sm focus:outline-none focus:border-[#4f772d] focus:ring-1 focus:ring-[#4f772d] transition-all cursor-pointer appearance-none"
+            className="w-full pl-3 pr-8 py-2.5 border border-gray-250 rounded-xl text-xs font-bold text-gray-700 bg-white shadow-sm focus:outline-none focus:border-brand-medium focus:ring-1 focus:ring-[#4f772d] transition-all cursor-pointer appearance-none"
           >
             {schemes.map((scheme) => (
               <option key={scheme.id} value={scheme.id}>
@@ -115,7 +115,7 @@ const FarmSchemeDetails = () => {
         
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div className="space-y-3">
-            <span className="text-[10px] font-bold bg-[#132a13]/60 text-[#ecf39e] border border-[#4f772d]/30 px-3 py-1 rounded-full uppercase tracking-wider">
+            <span className="text-[10px] font-bold bg-[#132a13]/60 text-[#ecf39e] border border-brand-medium/30 px-3 py-1 rounded-full uppercase tracking-wider">
               {details.ministry}
             </span>
             <h2 className="text-2xl font-black tracking-tight leading-tight">{currentScheme.name}</h2>
@@ -145,7 +145,7 @@ const FarmSchemeDetails = () => {
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
               Maximum Benefit
             </span>
-            <IndianRupee className="w-5 h-5 text-[#4f772d]" />
+            <IndianRupee className="w-5 h-5 text-brand-medium" />
           </div>
           <p className="text-xl font-black text-gray-800 leading-none mt-2">
             {details.benefits.maximumBenefit}
@@ -156,7 +156,7 @@ const FarmSchemeDetails = () => {
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
               Per Installment
             </span>
-            <CalendarDays className="w-5 h-5 text-[#4f772d]" />
+            <CalendarDays className="w-5 h-5 text-brand-medium" />
           </div>
           <p className="text-xl font-black text-gray-800 leading-none mt-2">
             {details.benefits.perInstallment}
@@ -167,7 +167,7 @@ const FarmSchemeDetails = () => {
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
               Subsidy Type
             </span>
-            <Building2 className="w-5 h-5 text-[#4f772d]" />
+            <Building2 className="w-5 h-5 text-brand-medium" />
           </div>
           <p className="text-xl font-black text-gray-800 leading-none mt-2">
             {details.benefits.subsidyType}
@@ -178,7 +178,7 @@ const FarmSchemeDetails = () => {
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
               Coverage
             </span>
-            <User className="w-5 h-5 text-[#4f772d]" />
+            <User className="w-5 h-5 text-brand-medium" />
           </div>
           <p className="text-xl font-black text-gray-800 leading-none mt-2">
             {details.benefits.coverage}
@@ -329,7 +329,7 @@ const FarmSchemeDetails = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-150 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100">
           <h3 className="font-bold text-[#132a13] text-sm flex items-center gap-2">
-            <HelpCircle className="w-5 h-5 text-[#4f772d]" />
+            <HelpCircle className="w-5 h-5 text-brand-medium" />
             Frequently Asked Questions
           </h3>
         </div>

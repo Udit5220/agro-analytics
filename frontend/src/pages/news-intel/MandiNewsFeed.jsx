@@ -129,7 +129,7 @@ export default function MandiNewsFeed() {
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-[#31572c]/10 rounded-lg">
+          <div className="p-2 bg-brand-dark/10 rounded-lg">
             <Newspaper className="h-6 w-6 text-[#31572c]" />
           </div>
           <div>
@@ -156,7 +156,7 @@ export default function MandiNewsFeed() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#31572c] hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
+            className="bg-brand-dark hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
           >
             {loading ? (
               <>
@@ -187,7 +187,7 @@ export default function MandiNewsFeed() {
             onClick={() => setActiveFilter(f)}
             className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
               activeFilter === f 
-                ? 'bg-[#31572c] text-white shadow-md' 
+                ? 'bg-brand-dark text-white shadow-md' 
                 : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
             }`}
           >

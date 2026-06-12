@@ -227,7 +227,7 @@ export default function MarketImpactRatings() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white py-3 px-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs disabled:opacity-60"
+              className="w-full bg-brand-dark hover:bg-[#1a3018] text-white py-3 px-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs disabled:opacity-60"
             >
               {loading ? (
                 <>

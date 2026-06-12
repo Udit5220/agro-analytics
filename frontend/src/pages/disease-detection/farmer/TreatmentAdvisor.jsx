@@ -250,7 +250,7 @@ export default function TreatmentAdvisor() {
             onClick={() => setTreatmentType("organic")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
               treatmentType === "organic"
-                ? "bg-[#4f772d] text-white shadow-sm font-extrabold"
+                ? "bg-brand-medium text-white shadow-sm font-extrabold"
                 : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
             }`}
           >
@@ -261,7 +261,7 @@ export default function TreatmentAdvisor() {
             onClick={() => setTreatmentType("chemical")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
               treatmentType === "chemical"
-                ? "bg-[#31572c] text-white shadow-sm font-extrabold"
+                ? "bg-brand-dark text-white shadow-sm font-extrabold"
                 : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
             }`}
           >
@@ -398,7 +398,7 @@ export default function TreatmentAdvisor() {
                   <button
                     type="button"
                     onClick={() => handleMarkApplied(treatment.name)}
-                    className="px-4 py-2 bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
+                    className="px-4 py-2 bg-brand-dark hover:bg-[#132a13] text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
                   >
                     <span>Mark Treatment Applied</span>
                   </button>
@@ -488,7 +488,7 @@ export default function TreatmentAdvisor() {
                   key={dayNumber}
                   className={`aspect-square rounded-xl flex flex-col items-center justify-center p-2 border transition-all duration-200 group relative ${
                     isSprayDay
-                      ? "bg-[#31572c] border-[#132a13] text-white shadow-sm font-black hover:bg-[#132a13]"
+                      ? "bg-brand-dark border-[#132a13] text-white shadow-sm font-black hover:bg-[#132a13]"
                       : "bg-[#f4f7f4]/40 border-gray-100 text-gray-400 font-bold hover:bg-white hover:border-gray-200"
                   }`}
                 >
@@ -503,7 +503,7 @@ export default function TreatmentAdvisor() {
 
           <div className="pt-4 border-t border-gray-100 flex flex-wrap gap-4 items-center text-[10px] font-bold text-gray-500 uppercase tracking-wider">
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded bg-[#31572c] border border-[#132a13]"></span>
+              <span className="w-3 h-3 rounded bg-brand-dark border border-[#132a13]"></span>
               <span>Spray Day Operation</span>
             </div>
             <div className="flex items-center gap-2">
@@ -570,7 +570,7 @@ export default function TreatmentAdvisor() {
               </div>
               <button
                 type="submit"
-                className="w-full py-2.5 bg-[#31572c] hover:bg-[#132a13] text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-sm active:scale-95"
+                className="w-full py-2.5 bg-brand-dark hover:bg-[#132a13] text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-sm active:scale-95"
               >
                 Add Spray Reminder
               </button>

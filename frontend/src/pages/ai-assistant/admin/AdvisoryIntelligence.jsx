@@ -134,7 +134,7 @@ export default function AdvisoryIntelligence() {
             Overall acceptance of <strong className="text-[#ecf39e]">Weather-influenced seed recommendations</strong> spiked following localized rain alerts in Punjab, preventing seed degradation loss estimated at ₹4,200/hectare.
           </p>
         </div>
-        <div className="bg-[#4f772d]/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+        <div className="bg-brand-medium/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
           <span>FPO Sync: Active</span>
         </div>
@@ -232,7 +232,7 @@ export default function AdvisoryIntelligence() {
             </thead>
             <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
               {filteredAdvisories.map((row) => (
-                <tr key={row.id} className="hover:bg-[#4f772d]/5 transition-colors duration-150">
+                <tr key={row.id} className="hover:bg-brand-medium/5 transition-colors duration-150">
                   <td className="p-3.5 font-mono text-gray-500">{row.id}</td>
                   <td className="p-3.5 font-black text-gray-900 tracking-tight">{row.topic}</td>
                   <td className="p-3.5">

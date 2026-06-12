@@ -167,7 +167,7 @@ export default function FoodSecurityImpactMonitor() {
             <div key={card.id} className="bg-white border border-gray-200/60 rounded-2xl shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{card.label}</span>
-                <div className="p-1.5 bg-[#4f772d]/10 rounded-lg text-[#31572c]">
+                <div className="p-1.5 bg-brand-medium/10 rounded-lg text-[#31572c]">
                   <Icon size={14} />
                 </div>
               </div>
@@ -225,7 +225,7 @@ export default function FoodSecurityImpactMonitor() {
             </ResponsiveContainer>
           </div>
           <div className="flex justify-between text-[9px] font-bold text-gray-600 border-t pt-2 mt-2">
-            <div className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#4f772d]" />Safe</div>
+            <div className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-brand-medium" />Safe</div>
             <div className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#90a955]" />Saved</div>
             <div className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#e74c3c]" />At Risk</div>
           </div>
@@ -250,7 +250,7 @@ export default function FoodSecurityImpactMonitor() {
             </thead>
             <tbody>
               {CROP_IMPACT_RANKINGS.map((row, idx) => (
-                <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60">
+                <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60">
                   <td className="p-3.5 pl-6 font-bold text-gray-950">{row.crop}</td>
                   <td className="p-3.5 font-mono text-gray-900 font-bold">{row.area}</td>
                   <td className="p-3.5 font-mono text-gray-900 font-bold">{row.loss}</td>
@@ -279,7 +279,7 @@ export default function FoodSecurityImpactMonitor() {
                   <span className="font-bold text-gray-950 font-mono">Index: {st.score}</span>
                 </div>
                 <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-[#31572c] h-full rounded-full" style={{ width: st.barWidth }} />
+                  <div className="bg-brand-dark h-full rounded-full" style={{ width: st.barWidth }} />
                 </div>
               </div>
             ))}
@@ -327,7 +327,7 @@ export default function FoodSecurityImpactMonitor() {
                 <p className="text-[10px] text-gray-400 font-bold mb-1 uppercase tracking-wider">Affected Zones</p>
                 <p className="text-xs text-gray-800 font-bold mb-3">{card.states}</p>
               </div>
-              <button className="w-full bg-white hover:bg-[#31572c] hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg shadow-2xs transition active:scale-95">
+              <button className="w-full bg-white hover:bg-brand-dark hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg shadow-2xs transition active:scale-95">
                 {card.action}
               </button>
             </div>

@@ -105,10 +105,10 @@ export default function DemandIntelligence() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Demand Intelligence</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Demand Intelligence</h1>
           <p className="text-xs text-gray-500 mt-1">Market demand analysis and insights</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+        <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
           <RefreshCw className="w-4 h-4" /> Refresh Data
         </button>
       </div>
@@ -116,26 +116,26 @@ export default function DemandIntelligence() {
       {/* Demand Score Section */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Overall Demand Score</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Overall Demand Score</h2>
           <span className="text-xs text-gray-500">Based on market analysis</span>
         </div>
         <div className="flex items-center gap-8">
           <div className="relative w-40 h-40">
             <svg className="w-full h-full transform -rotate-90">
               <circle cx="80" cy="80" r="70" stroke="#e5e7eb" strokeWidth="12" fill="none" />
-              <circle cx="80" cy="80" r="70" stroke="#28a745" strokeWidth="12" fill="none" strokeDasharray="440" strokeDashoffset="40" strokeLinecap="round" />
+              <circle cx="80" cy="80" r="70" stroke="var(--brand-medium)" strokeWidth="12" fill="none" strokeDasharray="440" strokeDashoffset="40" strokeLinecap="round" />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-black text-[#2e4057]">91</span>
+              <span className="text-4xl font-black text-brand-darkest">91</span>
               <span className="text-xs text-gray-500">/100</span>
             </div>
           </div>
           <div className="flex-1 space-y-3">
             <div className="flex items-center gap-3">
-              <Activity className="w-5 h-5 text-[#28a745]" />
+              <Activity className="w-5 h-5 text-brand-medium" />
               <div>
                 <p className="text-xs text-gray-500">Demand Level</p>
-                <p className="text-sm font-bold text-[#28a745]">Very High Demand</p>
+                <p className="text-sm font-bold text-brand-medium">Very High Demand</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -152,7 +152,7 @@ export default function DemandIntelligence() {
       {/* Demand Trend Chart */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Demand Trend Analysis</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Demand Trend Analysis</h2>
           <div className="flex items-center gap-1">
             {timeFilters.map((filter) => (
               <button
@@ -160,7 +160,7 @@ export default function DemandIntelligence() {
                 onClick={() => setSelectedTimeFilter(filter)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                   selectedTimeFilter === filter
-                    ? "bg-[#2e4057] text-white"
+                    ? "bg-brand-darkest text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -182,7 +182,7 @@ export default function DemandIntelligence() {
               }}
             />
             <Legend />
-            <Area type="monotone" dataKey="demand" stroke="#28a745" fill="#28a745" fillOpacity={0.3} name="Demand Score" />
+            <Area type="monotone" dataKey="demand" stroke="var(--brand-medium)" fill="var(--brand-medium)" fillOpacity={0.3} name="Demand Score" />
             <Line type="monotone" dataKey="growth" stroke="#3b82f6" strokeWidth={2} dot={false} name="Growth %" />
           </AreaChart>
         </ResponsiveContainer>
@@ -190,10 +190,10 @@ export default function DemandIntelligence() {
 
       {/* Demand Sources */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Demand Sources</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Demand Sources</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {demandSources.map((source, index) => (
-            <div key={index} className="border border-gray-200 rounded-xl p-4 hover:border-[#28a745] transition">
+            <div key={index} className="border border-gray-200 rounded-xl p-4 hover:border-brand-medium transition">
               <div className="flex items-start justify-between mb-3">
                 <div className={`p-2.5 rounded-xl ${source.color}`}>
                   <source.icon className="w-5 h-5" />
@@ -203,7 +203,7 @@ export default function DemandIntelligence() {
                 </span>
               </div>
               <p className="text-xs text-gray-500 font-semibold mb-1">{source.name}</p>
-              <p className="text-2xl font-black text-[#2e4057]">{source.percentage}%</p>
+              <p className="text-2xl font-black text-brand-darkest">{source.percentage}%</p>
               <p className="text-xs text-gray-400 mt-1">{source.volume}</p>
             </div>
           ))}
@@ -212,10 +212,10 @@ export default function DemandIntelligence() {
 
       {/* Demand Heatmap Placeholder */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Regional Demand Heatmap</h2>
-        <div className="h-64 bg-gradient-to-br from-[#2e4057]/5 to-[#28a745]/10 rounded-xl flex items-center justify-center">
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Regional Demand Heatmap</h2>
+        <div className="h-64 bg-gradient-to-br from-brand-darkest/5 to-brand-medium/10 rounded-xl flex items-center justify-center">
           <div className="text-center">
-            <MapPin className="w-12 h-12 text-[#28a745] mx-auto mb-2" />
+            <MapPin className="w-12 h-12 text-brand-medium mx-auto mb-2" />
             <p className="text-xs font-bold text-gray-500">Interactive Map</p>
             <p className="text-[10px] text-gray-400">MapTiler integration coming soon</p>
           </div>
@@ -238,7 +238,7 @@ export default function DemandIntelligence() {
 
       {/* Top Demanded Commodities */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Top Demanded Commodities</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Top Demanded Commodities</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -252,11 +252,11 @@ export default function DemandIntelligence() {
             <tbody>
               {topDemandedCommodities.map((item, index) => (
                 <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-2 text-sm font-bold text-[#2e4057]">{item.commodity}</td>
+                  <td className="py-3 px-2 text-sm font-bold text-brand-darkest">{item.commodity}</td>
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-2">
                       <div className="w-16 bg-gray-200 h-2 rounded-full overflow-hidden">
-                        <div className="bg-[#28a745] h-full" style={{ width: `${item.demandScore}%` }}></div>
+                        <div className="bg-brand-medium h-full" style={{ width: `${item.demandScore}%` }}></div>
                       </div>
                       <span className="text-xs font-bold text-gray-700">{item.demandScore}</span>
                     </div>

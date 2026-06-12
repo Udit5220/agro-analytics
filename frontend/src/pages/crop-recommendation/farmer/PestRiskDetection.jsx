@@ -89,7 +89,7 @@ export default function PestRiskDetection() {
   const getProbabilityBarColor = (prob) => {
     if (prob >= 70) return "bg-red-600";
     if (prob >= 40) return "bg-amber-500";
-    return "bg-[#31572c]";
+    return "bg-brand-dark";
   };
 
   // Check if any active risk has an outbreak alert nearby
@@ -290,7 +290,7 @@ export default function PestRiskDetection() {
                     {mutedAlerts[risk.id] ? (
                       <BellOff className="w-3.5 h-3.5" />
                     ) : (
-                      <Bell className="w-3.5 h-3.5 text-[#4f772d]" />
+                      <Bell className="w-3.5 h-3.5 text-brand-medium" />
                     )}
                     <span>Alert</span>
                   </button>

@@ -67,11 +67,11 @@ const FarmDocumentVault = () => {
     const icons = {
       IdCard: <IdCard className="w-8 h-8 text-[#132a13]" />,
       CreditCard: <CreditCard className="w-8 h-8 text-[#31572c]" />,
-      FileText: <FileText className="w-8 h-8 text-[#4f772d]" />,
+      FileText: <FileText className="w-8 h-8 text-brand-medium" />,
       Wallet: <Wallet className="w-8 h-8 text-[#90a955]" />,
       Shield: <Shield className="w-8 h-8 text-[#132a13]" />,
       Tractor: <Tractor className="w-8 h-8 text-[#31572c]" />,
-      default: <FileText className="w-8 h-8 text-[#4f772d]" />,
+      default: <FileText className="w-8 h-8 text-brand-medium" />,
     };
     return icons[iconName] || icons.default;
   };
@@ -123,7 +123,7 @@ const FarmDocumentVault = () => {
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
           <div className="p-2 bg-[#132a13]/10 rounded-xl">
-            <FolderOpen className="h-5 w-5 text-[#4f772d]" />
+            <FolderOpen className="h-5 w-5 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#132a13]">Document Vault</h1>
@@ -171,7 +171,7 @@ const FarmDocumentVault = () => {
         {documents.map((doc) => (
           <div
             key={doc.id}
-            className="bg-white rounded-2xl shadow-sm border border-gray-150 overflow-hidden hover:shadow-md hover:border-[#4f772d]/15 transition-all duration-200 flex flex-col justify-between"
+            className="bg-white rounded-2xl shadow-sm border border-gray-150 overflow-hidden hover:shadow-md hover:border-brand-medium/15 transition-all duration-200 flex flex-col justify-between"
           >
             <div className="p-4 flex flex-col justify-between h-full">
               <div>
@@ -215,7 +215,7 @@ const FarmDocumentVault = () => {
               <div className="flex gap-1.5 mt-2 border-t border-gray-50 pt-3">
                 <button
                   onClick={() => setViewingDoc(doc)}
-                  className="flex-1 flex items-center justify-center gap-1 text-xs font-bold px-2 py-1.5 rounded-xl border border-gray-200 hover:bg-[#4f772d]/10 hover:border-[#4f772d]/20 transition-all text-gray-650"
+                  className="flex-1 flex items-center justify-center gap-1 text-xs font-bold px-2 py-1.5 rounded-xl border border-gray-200 hover:bg-brand-medium/10 hover:border-brand-medium/20 transition-all text-gray-650"
                 >
                   <Eye className="w-3.5 h-3.5" />
                   View
@@ -223,7 +223,7 @@ const FarmDocumentVault = () => {
                 {doc.statusType === "missing" ? (
                   <button
                     onClick={() => setUploadingDoc(doc)}
-                    className="flex-1 flex items-center justify-center gap-1 text-xs font-bold px-2 py-1.5 rounded-xl text-white transition bg-[#4f772d] hover:bg-[#31572c] hover:shadow-sm"
+                    className="flex-1 flex items-center justify-center gap-1 text-xs font-bold px-2 py-1.5 rounded-xl text-white transition bg-brand-medium hover:bg-brand-dark hover:shadow-sm"
                   >
                     <Upload className="w-3.5 h-3.5" />
                     Upload
@@ -231,7 +231,7 @@ const FarmDocumentVault = () => {
                 ) : (
                   <button
                     onClick={() => setUploadingDoc(doc)}
-                    className="flex-1 flex items-center justify-center gap-1 text-xs font-bold px-2 py-1.5 rounded-xl border border-gray-200 hover:bg-[#4f772d]/10 hover:border-[#4f772d]/20 transition text-gray-600"
+                    className="flex-1 flex items-center justify-center gap-1 text-xs font-bold px-2 py-1.5 rounded-xl border border-gray-200 hover:bg-brand-medium/10 hover:border-brand-medium/20 transition text-gray-600"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     Replace
@@ -290,7 +290,7 @@ const FarmDocumentVault = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-150 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100 bg-[#f4f7f4]/20">
           <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-[#4f772d]" />
+            <Calendar className="w-5 h-5 text-brand-medium" />
             <h3 className="font-bold text-[#132a13] text-sm">
               Document Expiry Timeline Monitor
             </h3>
@@ -361,12 +361,12 @@ const FarmDocumentVault = () => {
 
             <div className="space-y-4">
               <div className="border border-gray-150 rounded-2xl p-5 bg-gray-50 text-center">
-                <FileText className="w-12 h-12 text-[#4f772d] mx-auto mb-2" />
+                <FileText className="w-12 h-12 text-brand-medium mx-auto mb-2" />
                 <p className="text-xs font-bold text-gray-805 leading-snug">{viewingDoc.name}</p>
                 <p className="text-[10px] text-gray-400 font-mono mt-1">Status: {viewingDoc.status}</p>
               </div>
 
-              <div className="text-xs text-gray-650 space-y-1.5 bg-[#f4f7f4] rounded-xl p-3 border border-[#4f772d]/10">
+              <div className="text-xs text-gray-650 space-y-1.5 bg-[#f4f7f4] rounded-xl p-3 border border-brand-medium/10">
                 <p>Upload Date: <span className="font-bold text-gray-850">{viewingDoc.uploadDate || "N/A"}</span></p>
                 <p>Expiry: <span className="font-bold text-gray-850">{viewingDoc.expiryDate || "Lifetime Verified"}</span></p>
                 <p>Digital Signature: <span className="font-bold text-emerald-600 font-mono">ENCRYPTED-OK</span></p>
@@ -374,7 +374,7 @@ const FarmDocumentVault = () => {
 
               <button
                 onClick={() => setViewingDoc(null)}
-                className="w-full py-2.5 bg-[#132a13] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                className="w-full py-2.5 bg-[#132a13] hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
               >
                 Close Preview
               </button>
@@ -404,8 +404,8 @@ const FarmDocumentVault = () => {
             </p>
 
             <form onSubmit={handleMockUploadSubmit} className="space-y-4">
-              <div className="border-2 border-dashed border-gray-200 hover:border-[#4f772d] rounded-2xl p-6 text-center cursor-pointer transition-all">
-                <Upload className="w-8 h-8 text-[#4f772d] mx-auto mb-2" />
+              <div className="border-2 border-dashed border-gray-200 hover:border-brand-medium rounded-2xl p-6 text-center cursor-pointer transition-all">
+                <Upload className="w-8 h-8 text-brand-medium mx-auto mb-2" />
                 <p className="text-xs font-bold text-gray-700">Choose PDF, JPG or PNG file</p>
                 <p className="text-[9px] text-gray-400 mt-1">Strict PDF limit: 2MB</p>
               </div>
@@ -419,7 +419,7 @@ const FarmDocumentVault = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2.5 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                  className="flex-1 px-4 py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                 >
                   Upload File
                 </button>
@@ -459,7 +459,7 @@ const FarmDocumentVault = () => {
             </div>
             <button
               onClick={() => setRenewingDocName(null)}
-              className="w-full mt-5 py-2.5 bg-[#132a13] text-white rounded-xl text-xs font-bold hover:bg-[#31572c] transition"
+              className="w-full mt-5 py-2.5 bg-[#132a13] text-white rounded-xl text-xs font-bold hover:bg-brand-dark transition"
             >
               Understood
             </button>

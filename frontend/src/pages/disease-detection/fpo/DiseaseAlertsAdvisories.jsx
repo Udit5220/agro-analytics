@@ -341,7 +341,7 @@ export default function DiseaseAlertsAdvisories() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-md"
+                  className="px-4 py-2 bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-md"
                 >
                   <Send className="w-4 h-4" /> Dispatch Alert
                 </button>

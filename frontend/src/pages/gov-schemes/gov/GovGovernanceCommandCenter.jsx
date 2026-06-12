@@ -23,11 +23,11 @@ export default function GovGovernanceCommandCenter() {
 
   // Mock data for heat map districts
   const districts = [
-    { id: "hry-01", name: "Sonipat", coverage: "84%", budget: "₹72.8 Cr", fpos: "12 Active", infra: "45 Units", colorMap: { coverage: "bg-[#132a13]", budget: "bg-[#31572c]", fpos: "bg-[#4f772d]", infra: "bg-[#90a955]" }, text: "Excellent PMFBY and KCC scheme adoption. Top ROI in warehouse setups." },
-    { id: "hry-02", name: "Rohtak", coverage: "71%", budget: "₹48.2 Cr", fpos: "8 Active", infra: "28 Units", colorMap: { coverage: "bg-[#31572c]", budget: "bg-[#4f772d]", fpos: "bg-[#90a955]", infra: "bg-[#4f772d]" }, text: "Moderate scheme penetration. High requirement for cold chain links." },
-    { id: "hry-03", name: "Jhajjar", coverage: "58%", budget: "₹31.5 Cr", fpos: "5 Active", infra: "12 Units", colorMap: { coverage: "bg-[#4f772d]", budget: "bg-[#90a955]", fpos: "bg-amber-600/70", infra: "bg-[#90a955]" }, text: "Declining micro-irrigation applications. Subsidies underutilized." },
+    { id: "hry-01", name: "Sonipat", coverage: "84%", budget: "₹72.8 Cr", fpos: "12 Active", infra: "45 Units", colorMap: { coverage: "bg-[#132a13]", budget: "bg-brand-dark", fpos: "bg-brand-medium", infra: "bg-[#90a955]" }, text: "Excellent PMFBY and KCC scheme adoption. Top ROI in warehouse setups." },
+    { id: "hry-02", name: "Rohtak", coverage: "71%", budget: "₹48.2 Cr", fpos: "8 Active", infra: "28 Units", colorMap: { coverage: "bg-brand-dark", budget: "bg-brand-medium", fpos: "bg-[#90a955]", infra: "bg-brand-medium" }, text: "Moderate scheme penetration. High requirement for cold chain links." },
+    { id: "hry-03", name: "Jhajjar", coverage: "58%", budget: "₹31.5 Cr", fpos: "5 Active", infra: "12 Units", colorMap: { coverage: "bg-brand-medium", budget: "bg-[#90a955]", fpos: "bg-amber-600/70", infra: "bg-[#90a955]" }, text: "Declining micro-irrigation applications. Subsidies underutilized." },
     { id: "hry-04", name: "Panipat", coverage: "42%", budget: "₹18.9 Cr", fpos: "3 Active", infra: "8 Units", colorMap: { coverage: "bg-[#90a955]", budget: "bg-amber-600/70", fpos: "bg-red-600/70", infra: "bg-amber-600/70" }, text: "Critical need for crop insurance campaign. High percentage of marginal farmers." },
-    { id: "hry-05", name: "Karnal", coverage: "89%", budget: "₹94.5 Cr", fpos: "15 Active", infra: "62 Units", colorMap: { coverage: "bg-[#132a13]", budget: "bg-[#132a13]", fpos: "bg-[#31572c]", infra: "bg-[#132a13]" }, text: "Highest budget utilization. Excellent solar energy grid integration." }
+    { id: "hry-05", name: "Karnal", coverage: "89%", budget: "₹94.5 Cr", fpos: "15 Active", infra: "62 Units", colorMap: { coverage: "bg-[#132a13]", budget: "bg-[#132a13]", fpos: "bg-brand-dark", infra: "bg-[#132a13]" }, text: "Highest budget utilization. Excellent solar energy grid integration." }
   ];
 
   const layerOptions = [
@@ -60,7 +60,7 @@ export default function GovGovernanceCommandCenter() {
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-            <LayoutDashboard className="w-5 h-5 text-[#4f772d]" />
+            <LayoutDashboard className="w-5 h-5 text-brand-medium" />
             Agricultural Governance Command Center
           </h1>
           <p className="text-xs text-gray-500 mt-1">
@@ -69,7 +69,7 @@ export default function GovGovernanceCommandCenter() {
         </div>
         <div className="flex gap-2">
           <span className="text-xs font-bold bg-[#132a13]/10 text-[#132a13] px-3.5 py-1.5 rounded-xl border border-[#132a13]/15 flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-[#4f772d]" /> Haryana State Control Panel
+            <MapPin className="w-3.5 h-3.5 text-brand-medium" /> Haryana State Control Panel
           </span>
         </div>
       </div>
@@ -81,42 +81,42 @@ export default function GovGovernanceCommandCenter() {
           value="4.2 Lakh" 
           trend="84% Eligible" 
           subtext="Registered: 3.5L"
-          icon={<Users className="text-[#4f772d]" />}
+          icon={<Users className="text-brand-medium" />}
         />
         <StatsCard 
           title="Total FPOs" 
           value="45 Active" 
           trend="+5 this Q" 
           subtext="Funded: 28 FPOs"
-          icon={<Building2 className="text-[#4f772d]" />}
+          icon={<Building2 className="text-brand-medium" />}
         />
         <StatsCard 
           title="Government Budget" 
           value="₹245.5 Cr" 
           trend="91% Utilized" 
           subtext="Released: ₹220 Cr"
-          icon={<CircleDollarSign className="text-[#4f772d]" />}
+          icon={<CircleDollarSign className="text-brand-medium" />}
         />
         <StatsCard 
           title="Active Schemes" 
           value="18 Running" 
           trend="12 High-Perf" 
           subtext="Under-perf: 2"
-          icon={<Activity className="text-[#4f772d]" />}
+          icon={<Activity className="text-brand-medium" />}
         />
         <StatsCard 
           title="Application Pipeline" 
           value="12,450" 
           trend="4.5 Days Avg" 
           subtext="Approved: 9,210"
-          icon={<FolderKanban className="text-[#4f772d]" />}
+          icon={<FolderKanban className="text-brand-medium" />}
         />
         <StatsCard 
           title="Infrastructure Created" 
           value="155 Assets" 
           trend="+18% YoY" 
           subtext="Storage, Processing, Solar"
-          icon={<Warehouse className="text-[#4f772d]" />}
+          icon={<Warehouse className="text-brand-medium" />}
         />
       </div>
 
@@ -128,7 +128,7 @@ export default function GovGovernanceCommandCenter() {
           <div>
             <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
               <h3 className="font-bold text-[#132a13] text-sm flex items-center gap-1.5">
-                <Map className="w-4 h-4 text-[#4f772d]" /> State Geospatial Intelligence Layer
+                <Map className="w-4 h-4 text-brand-medium" /> State Geospatial Intelligence Layer
               </h3>
               <div className="flex bg-gray-50 border border-gray-200 rounded-xl p-1 gap-1">
                 {layerOptions.map((opt) => (
@@ -199,7 +199,7 @@ export default function GovGovernanceCommandCenter() {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-[#4f772d]" /> AI Governance Brief
+              <Sparkles className="w-4 h-4 text-brand-medium" /> AI Governance Brief
             </h3>
             <p className="text-[10px] text-gray-400 mb-4 leading-normal">
               Machine learning analytics generated from real-time district feeds and budget utilization telemetry.

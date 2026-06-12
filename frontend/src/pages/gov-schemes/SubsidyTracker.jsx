@@ -270,7 +270,7 @@ export default function SubsidyTracker() {
                 <button
                   type="submit"
                   disabled={loadingAi || !aiQuery.trim()}
-                  className="bg-[#31572c] hover:bg-[#1a3018] text-white p-2.5 rounded-xl shadow-xs transition flex items-center justify-center shrink-0 disabled:opacity-50"
+                  className="bg-brand-dark hover:bg-[#1a3018] text-white p-2.5 rounded-xl shadow-xs transition flex items-center justify-center shrink-0 disabled:opacity-50"
                 >
                   {loadingAi ? <Loader2 className="w-4.5 h-4.5 animate-spin" /> : <Send className="w-4 h-4" />}
                 </button>

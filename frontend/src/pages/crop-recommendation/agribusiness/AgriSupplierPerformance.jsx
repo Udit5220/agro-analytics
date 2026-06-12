@@ -209,7 +209,7 @@ export default function AgriSupplierPerformance() {
                   cell: (v) => (
                     <div className="flex items-center gap-2">
                       <div className="w-12 bg-gray-150 h-1.5 rounded-full overflow-hidden">
-                        <div className="bg-[#31572c] h-full" style={{ width: `${v}%` }}></div>
+                        <div className="bg-brand-dark h-full" style={{ width: `${v}%` }}></div>
                       </div>
                       <span className="font-bold text-gray-800">{v}%</span>
                     </div>
@@ -261,7 +261,7 @@ export default function AgriSupplierPerformance() {
               </div>
             </div>
             
-            <div className="bg-[#31572c] text-white border rounded-xl p-3 text-[10px] text-center font-bold flex items-center justify-center gap-1.5 cursor-pointer hover:bg-[#224222] transition-colors">
+            <div className="bg-brand-dark text-white border rounded-xl p-3 text-[10px] text-center font-bold flex items-center justify-center gap-1.5 cursor-pointer hover:bg-[#224222] transition-colors">
               <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" />
               <span>Request Quality Audit & Re-inspection</span>
             </div>

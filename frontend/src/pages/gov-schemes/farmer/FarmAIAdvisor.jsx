@@ -439,14 +439,14 @@ Adhere to the following rules:
             className="flex items-center gap-2 text-lg font-bold"
             style={{ color: "#132a13" }}
           >
-            <IndianRupee className="w-4 h-4 text-[#4f772d]" />
+            <IndianRupee className="w-4 h-4 text-brand-medium" />
             <span>{response.benefit}</span>
           </div>
         )}
 
         <button
           type="button"
-          className="mt-2 text-white text-xs font-bold px-4 py-2 rounded-xl transition bg-[#4f772d] hover:bg-[#31572c]"
+          className="mt-2 text-white text-xs font-bold px-4 py-2 rounded-xl transition bg-brand-medium hover:bg-brand-dark"
         >
           Apply Now
         </button>
@@ -464,7 +464,7 @@ Adhere to the following rules:
         <div className="bg-white border-b border-gray-250 px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[#132a13]/10 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-[#4f772d]" />
+              <Bot className="w-5 h-5 text-brand-medium" />
             </div>
             <div>
               <h1 className="text-lg font-bold text-[#132a13]">
@@ -601,7 +601,7 @@ Adhere to the following rules:
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Ask about any scheme, eligibility, document, or payment..."
-              className="flex-1 px-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:border-[#4f772d]"
+              className="flex-1 px-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:border-brand-medium"
             />
             <button
               type="button"
@@ -625,7 +625,7 @@ Adhere to the following rules:
         <div className="w-80 bg-white border-l border-gray-200 overflow-y-auto flex-shrink-0 animate-slideLeft">
           <div className="p-5">
             <h3 className="font-semibold text-gray-905 mb-4 flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#4f772d]" />
+              <FileText className="w-4 h-4 text-brand-medium" />
               Farmer Context
             </h3>
 
@@ -633,7 +633,7 @@ Adhere to the following rules:
             <div className="bg-gray-50 rounded-xl p-4 mb-4">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-full bg-[#132a13]/10 flex items-center justify-center">
-                  <User className="w-5 h-5 text-[#4f772d]" />
+                  <User className="w-5 h-5 text-brand-medium" />
                 </div>
                 <div>
                   <p className="font-semibold text-gray-950">
@@ -674,7 +674,7 @@ Adhere to the following rules:
 
             {/* Current Scheme Stats */}
             <h3 className="font-semibold text-gray-905 mb-3 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-[#4f772d]" />
+              <TrendingUp className="w-4 h-4 text-brand-medium" />
               Current Stats
             </h3>
 
@@ -715,24 +715,24 @@ Adhere to the following rules:
 
             {/* Quick Links */}
             <h3 className="font-semibold text-gray-905 mb-3 mt-5 flex items-center gap-2">
-              <Shield className="w-4 h-4 text-[#4f772d]" />
+              <Shield className="w-4 h-4 text-brand-medium" />
               Quick Actions
             </h3>
 
             <div className="space-y-2">
-              <button type="button" className="w-full text-left px-3 py-2 rounded-lg border border-gray-200 hover:border-[#4f772d] hover:text-[#4f772d] transition text-sm flex items-center justify-between font-semibold">
+              <button type="button" className="w-full text-left px-3 py-2 rounded-lg border border-gray-200 hover:border-brand-medium hover:text-brand-medium transition text-sm flex items-center justify-between font-semibold">
                 <span>Check PM Kisan Status</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
-              <button type="button" className="w-full text-left px-3 py-2 rounded-lg border border-gray-200 hover:border-[#4f772d] hover:text-[#4f772d] transition text-sm flex items-center justify-between font-semibold">
+              <button type="button" className="w-full text-left px-3 py-2 rounded-lg border border-gray-200 hover:border-brand-medium hover:text-brand-medium transition text-sm flex items-center justify-between font-semibold">
                 <span>Apply for PM Kusum</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
-              <button type="button" className="w-full text-left px-3 py-2 rounded-lg border border-gray-200 hover:border-[#4f772d] hover:text-[#4f772d] transition text-sm flex items-center justify-between font-semibold">
+              <button type="button" className="w-full text-left px-3 py-2 rounded-lg border border-gray-200 hover:border-brand-medium hover:text-brand-medium transition text-sm flex items-center justify-between font-semibold">
                 <span>Renew Caste Certificate</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
-              <button type="button" className="w-full text-left px-3 py-2 rounded-lg border border-gray-200 hover:border-[#4f772d] hover:text-[#4f772d] transition text-sm flex items-center justify-between font-semibold">
+              <button type="button" className="w-full text-left px-3 py-2 rounded-lg border border-gray-200 hover:border-brand-medium hover:text-brand-medium transition text-sm flex items-center justify-between font-semibold">
                 <span>View All Schemes</span>
                 <ChevronRight className="w-4 h-4" />
               </button>

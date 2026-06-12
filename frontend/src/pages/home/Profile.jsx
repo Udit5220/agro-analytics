@@ -472,7 +472,7 @@
 
 //           <div className="flex items-center gap-3">
 //             {syncing && (
-//               <span className="text-[10px] font-bold text-[#31572c] bg-[#31572c]/10 px-3 py-1.5 rounded-xl flex items-center gap-1.5 animate-pulse border border-[#90a955]/30">
+//               <span className="text-[10px] font-bold text-[#31572c] bg-brand-dark/10 px-3 py-1.5 rounded-xl flex items-center gap-1.5 animate-pulse border border-[#90a955]/30">
 //                 <RefreshCw className="w-3.5 h-3.5 animate-spin" />
 //                 <span>Syncing Cloud...</span>
 //               </span>
@@ -571,7 +571,7 @@
 //                 </button>
 //                 <button
 //                   type="submit"
-//                   className="px-4 py-2 bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-bold uppercase rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+//                   className="px-4 py-2 bg-brand-dark hover:bg-[#132a13] text-white text-xs font-bold uppercase rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
 //                 >
 //                   <Save className="w-3.5 h-3.5" /> Save Changes
 //                 </button>
@@ -765,7 +765,7 @@
 //                         </button>
 //                         <button
 //                           type="submit"
-//                           className="flex-1 py-1.5 bg-[#31572c] text-white text-[10px] font-bold uppercase rounded-lg"
+//                           className="flex-1 py-1.5 bg-brand-dark text-white text-[10px] font-bold uppercase rounded-lg"
 //                         >
 //                           Save
 //                         </button>
@@ -797,7 +797,7 @@
 //                                 >
 //                                   <span className="flex items-center gap-1">
 //                                     🌾 {cr.name}
-//                                     <span className="text-[8px] bg-[#31572c]/10 text-[#31572c] px-1 rounded font-extrabold ml-1">
+//                                     <span className="text-[8px] bg-brand-dark/10 text-[#31572c] px-1 rounded font-extrabold ml-1">
 //                                       {cr.sownArea || 0} Ac
 //                                     </span>
 //                                   </span>
@@ -1106,7 +1106,7 @@
 //                       <button
 //                         type="button"
 //                         onClick={handleAddTempCrop}
-//                         className="h-[38px] px-4 bg-[#31572c] hover:bg-[#132a13] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-1.5 cursor-pointer w-full sm:w-auto shrink-0"
+//                         className="h-[38px] px-4 bg-brand-dark hover:bg-[#132a13] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-1.5 cursor-pointer w-full sm:w-auto shrink-0"
 //                       >
 //                         <Plus className="w-3.5 h-3.5" /> <span>Add</span>
 //                       </button>
@@ -1123,7 +1123,7 @@
 //                     </button>
 //                     <button
 //                       type="submit"
-//                       className="px-5 py-3 bg-[#31572c] hover:bg-[#132a13] text-[#f4f7f4] font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+//                       className="px-5 py-3 bg-brand-dark hover:bg-[#132a13] text-[#f4f7f4] font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer"
 //                     >
 //                       <Sprout className="w-4 h-4 text-[#ecf39e]" />
 //                       <span>Save Asset to Registry Ledger</span>
@@ -1616,7 +1616,7 @@ export default function Profile() {
 
           <div className="flex items-center gap-3">
             {syncing && (
-              <span className="text-[10px] font-bold text-[#31572c] bg-[#31572c]/10 px-3 py-1.5 rounded-xl flex items-center gap-1.5 animate-pulse border border-[#90a955]/30">
+              <span className="text-[10px] font-bold text-[#31572c] bg-brand-dark/10 px-3 py-1.5 rounded-xl flex items-center gap-1.5 animate-pulse border border-[#90a955]/30">
                 <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                 <span>Syncing Cloud...</span>
               </span>
@@ -1715,7 +1715,7 @@ export default function Profile() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-bold uppercase rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-brand-dark hover:bg-[#132a13] text-white text-xs font-bold uppercase rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Save className="w-3.5 h-3.5" /> Save Changes
                 </button>
@@ -1910,7 +1910,7 @@ export default function Profile() {
                         </button>
                         <button
                           type="submit"
-                          className="flex-1 py-1.5 bg-[#31572c] text-white text-[10px] font-bold uppercase rounded-lg"
+                          className="flex-1 py-1.5 bg-brand-dark text-white text-[10px] font-bold uppercase rounded-lg"
                         >
                           Save
                         </button>
@@ -1942,7 +1942,7 @@ export default function Profile() {
                                 >
                                   <span className="flex items-center gap-1">
                                     🌾 {cr.name}
-                                    <span className="text-[8px] bg-[#31572c]/10 text-[#31572c] px-1 rounded font-extrabold ml-1">
+                                    <span className="text-[8px] bg-brand-dark/10 text-[#31572c] px-1 rounded font-extrabold ml-1">
                                       {cr.sownArea || 0} Ac
                                     </span>
                                   </span>
@@ -2254,7 +2254,7 @@ export default function Profile() {
                         <button
                           type="button"
                           onClick={handleAddTempCrop}
-                          className="h-[38px] w-full bg-[#31572c] hover:bg-[#132a13] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+                          className="h-[38px] w-full bg-brand-dark hover:bg-[#132a13] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
                         >
                           <Plus className="w-3.5 h-3.5" /> <span>Add</span>
                         </button>
@@ -2272,7 +2272,7 @@ export default function Profile() {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-3 bg-[#31572c] hover:bg-[#132a13] text-[#f4f7f4] font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+                      className="px-5 py-3 bg-brand-dark hover:bg-[#132a13] text-[#f4f7f4] font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Sprout className="w-4 h-4 text-[#ecf39e]" />
                       <span>Save Asset to Registry Ledger</span>

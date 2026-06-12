@@ -148,7 +148,7 @@
 //           <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
 //             <span>Mandi Price Tracker</span>
 //             <span className="text-gray-300 font-light text-xl">|</span>
-//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-[#31572c]/8 px-2.5 py-0.5 rounded-md">
+//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-brand-dark/8 px-2.5 py-0.5 rounded-md">
 //               मंडी भाव ट्रैकर
 //             </span>
 //           </h1>
@@ -214,7 +214,7 @@
 //             <h3 className="text-xs font-black text-gray-900 tracking-wide uppercase text-left">
 //               Price Trend — {selectedCrop.split(" ")[0]} (₹/quintal)
 //             </h3>
-//             <span className="text-[10px] font-bold text-[#31572c] bg-[#31572c]/8 px-2 py-0.5 rounded">
+//             <span className="text-[10px] font-bold text-[#31572c] bg-brand-dark/8 px-2 py-0.5 rounded">
 //               Live Mandi Indices
 //             </span>
 //           </div>
@@ -357,7 +357,7 @@
 //                   type="button"
 //                   onClick={() => setAlertsEnabled(!alertsEnabled)}
 //                   className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-//                     alertsEnabled ? "bg-[#31572c]" : "bg-gray-200"
+//                     alertsEnabled ? "bg-brand-dark" : "bg-gray-200"
 //                   }`}
 //                 >
 //                   <span
@@ -373,7 +373,7 @@
 //                 disabled={!alertsEnabled}
 //                 className={`w-full h-[36px] text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5 border border-transparent ${
 //                   alertsEnabled
-//                     ? "bg-[#31572c] hover:bg-[#132a13] text-[#ecf39e] active:scale-[0.98] cursor-pointer"
+//                     ? "bg-brand-dark hover:bg-[#132a13] text-[#ecf39e] active:scale-[0.98] cursor-pointer"
 //                     : "bg-gray-150 text-gray-400 cursor-not-allowed"
 //                 }`}
 //               >
@@ -937,7 +937,7 @@ export default function MandiPriceTracker() {
           <h1 className="text-base md:text-lg font-bold text-gray-900 flex items-center gap-2">
             <span>Mandi Price Tracker</span>
             <span className="text-gray-300 font-light">|</span>
-            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-[#31572c]/8 px-2 py-0.5 rounded-md">
+            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-brand-dark/8 px-2 py-0.5 rounded-md">
               मंडी भाव ट्रैकर
             </span>
           </h1>
@@ -1054,7 +1054,7 @@ export default function MandiPriceTracker() {
             <h3 className="text-[11px] font-bold text-gray-700">
               Price Trend — {cropCategory} (₹/quintal)
             </h3>
-            <span className="text-[8px] font-bold text-[#31572c] bg-[#31572c]/8 px-2 py-0.5 rounded">
+            <span className="text-[8px] font-bold text-[#31572c] bg-brand-dark/8 px-2 py-0.5 rounded">
               30-Day Trend
             </span>
           </div>
@@ -1171,7 +1171,7 @@ export default function MandiPriceTracker() {
               <button
                 onClick={() => setAlertsEnabled(!alertsEnabled)}
                 className={`relative inline-flex h-4 w-8 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
-                  alertsEnabled ? "bg-[#31572c]" : "bg-gray-200"
+                  alertsEnabled ? "bg-brand-dark" : "bg-gray-200"
                 }`}
               >
                 <span
@@ -1186,7 +1186,7 @@ export default function MandiPriceTracker() {
               disabled={!alertsEnabled}
               className={`w-full py-1.5 text-[9px] font-bold uppercase rounded-lg transition-all flex items-center justify-center gap-1 ${
                 alertsEnabled
-                  ? "bg-[#31572c] hover:bg-[#132a13] text-white cursor-pointer"
+                  ? "bg-brand-dark hover:bg-[#132a13] text-white cursor-pointer"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
               }`}
             >

@@ -86,7 +86,7 @@ const FpoPipeline = () => {
       {/* Main Page Heading */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <FolderKanban className="w-5 h-5 text-[#4f772d]" />
+          <FolderKanban className="w-5 h-5 text-brand-medium" />
           Funding Pipeline
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -105,7 +105,7 @@ const FpoPipeline = () => {
           trend="+12% this quarter"
           trendType="success"
           subtext="Active Applications"
-          icon={<FolderKanban className="text-[#4f772d]" />}
+          icon={<FolderKanban className="text-brand-medium" />}
         />
         <StatsCard
           title="AVG DAYS IN STAGE"
@@ -204,7 +204,7 @@ const FpoPipeline = () => {
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 bg-[#132a13] hover:bg-[#31572c] text-white px-5 py-2 rounded-xl text-sm font-bold transition whitespace-nowrap"
+          className="flex items-center gap-2 bg-[#132a13] hover:bg-brand-dark text-white px-5 py-2 rounded-xl text-sm font-bold transition whitespace-nowrap"
         >
           <Plus className="w-4 h-4" /> New Entry
         </button>
@@ -245,13 +245,13 @@ const FpoPipeline = () => {
                     <div
                       key={card.id}
                       onClick={() => setSelectedCard(card)}
-                      className="bg-white p-4 rounded-xl border border-gray-200 hover:border-[#4f772d] cursor-pointer transition-all hover:shadow group"
+                      className="bg-white p-4 rounded-xl border border-gray-200 hover:border-brand-medium cursor-pointer transition-all hover:shadow group"
                     >
                       <div className="flex justify-between items-start">
                         <h4 className="text-sm font-bold text-[#132a13] pr-2 leading-tight">
                           {card.name}
                         </h4>
-                        <span className="text-[#4f772d] font-bold text-sm whitespace-nowrap">
+                        <span className="text-brand-medium font-bold text-sm whitespace-nowrap">
                           {card.amount}
                         </span>
                       </div>
@@ -274,7 +274,7 @@ const FpoPipeline = () => {
                       {card.progress !== undefined && (
                         <div className="mt-3 h-1.5 bg-gray-100 rounded overflow-hidden">
                           <div
-                            className="h-1.5 bg-[#4f772d] rounded transition-all"
+                            className="h-1.5 bg-brand-medium rounded transition-all"
                             style={{ width: `${card.progress}%` }}
                           />
                         </div>
@@ -338,7 +338,7 @@ const FpoPipeline = () => {
                   <button
                     key={st}
                     onClick={() => moveToStage(selectedCard.id, st)}
-                    className="px-5 py-2 text-xs border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-[#4f772d] transition"
+                    className="px-5 py-2 text-xs border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-brand-medium transition"
                   >
                     {st}
                   </button>
@@ -450,7 +450,7 @@ const FpoPipeline = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-sm font-bold"
+                  className="flex-1 py-3 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-sm font-bold"
                 >
                   Add to Pipeline
                 </button>

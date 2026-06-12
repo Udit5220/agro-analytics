@@ -104,10 +104,10 @@ export default function GovApplicationPipeline() {
       sortable: true,
       cell: (v) => (
         <div className="flex items-center gap-2">
-          <span className="font-black text-[#2e4057]">{v}%</span>
+          <span className="font-black text-brand-darkest">{v}%</span>
           <div className="w-12 bg-gray-100 h-1.5 rounded-full overflow-hidden">
             <div
-              className={`h-full ${v >= 90 ? "bg-[#28a745]" : v >= 70 ? "bg-amber-500" : "bg-red-500"}`}
+              className={`h-full ${v >= 90 ? "bg-brand-medium" : v >= 70 ? "bg-amber-500" : "bg-red-500"}`}
               style={{ width: `${v}%` }}
             />
           </div>
@@ -164,11 +164,11 @@ export default function GovApplicationPipeline() {
   );
 
   return (
-    <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 animate-fadeIn text-[#2e4057]">
+    <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 animate-fadeIn text-brand-darkest">
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-        <h1 className="text-xl font-bold text-[#2e4057] flex items-center gap-2">
-          <Clock className="w-5 h-5 text-[#28a745]" />
+        <h1 className="text-xl font-bold text-brand-darkest flex items-center gap-2">
+          <Clock className="w-5 h-5 text-brand-medium" />
           Application & Service Delivery Monitoring
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -184,7 +184,7 @@ export default function GovApplicationPipeline() {
           title="Total Applications"
           value="14,500"
           subtext="Current Kharif season"
-          icon={<Clock className="text-[#28a745]" />}
+          icon={<Clock className="text-brand-medium" />}
         />
         <StatsCard
           title="Avg Approval Cycle"
@@ -211,7 +211,7 @@ export default function GovApplicationPipeline() {
 
       {/* Application Funnel Flow */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-        <h3 className="font-bold text-[#2e4057] text-sm mb-4">
+        <h3 className="font-bold text-brand-darkest text-sm mb-4">
           Verification Funnel & Verification Yield
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -224,8 +224,8 @@ export default function GovApplicationPipeline() {
                 <span>STAGE {idx + 1}</span>
                 <span>{step.pct}% Yield</span>
               </div>
-              <h4 className="font-bold text-[#2e4057] text-xs">{step.stage}</h4>
-              <p className="text-lg font-black text-[#28a745]">{step.count}</p>
+              <h4 className="font-bold text-brand-darkest text-xs">{step.stage}</h4>
+              <p className="text-lg font-black text-brand-medium">{step.count}</p>
             </div>
           ))}
         </div>
@@ -236,8 +236,8 @@ export default function GovApplicationPipeline() {
         {/* Load Reallocation */}
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-1.5">
-              <UserCheck className="w-4 h-4 text-[#28a745]" /> Caseload
+            <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-1.5">
+              <UserCheck className="w-4 h-4 text-brand-medium" /> Caseload
               Reallocator (SLA Bypass)
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
@@ -246,7 +246,7 @@ export default function GovApplicationPipeline() {
             </p>
 
             {reallocateSuccess ? (
-              <div className="text-center py-6 space-y-3 bg-[#f4f7f4]/45 border border-[#28a745]/10 rounded-2xl animate-fadeIn">
+              <div className="text-center py-6 space-y-3 bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-2xl animate-fadeIn">
                 <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto border border-emerald-100">
                   <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                 </div>
@@ -260,7 +260,7 @@ export default function GovApplicationPipeline() {
                 </p>
                 <button
                   onClick={() => setReallocateSuccess(false)}
-                  className="text-[10px] font-bold text-[#28a745] hover:underline"
+                  className="text-[10px] font-bold text-brand-medium hover:underline"
                 >
                   Transfer more workload
                 </button>
@@ -278,7 +278,7 @@ export default function GovApplicationPipeline() {
                     <select
                       value={reallocateFrom}
                       onChange={(e) => setReallocateFrom(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#28a745] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                     >
                       {Object.keys(backlogs).map((k) => (
                         <option key={k} value={k}>
@@ -294,7 +294,7 @@ export default function GovApplicationPipeline() {
                     <select
                       value={reallocateTo}
                       onChange={(e) => setReallocateTo(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#28a745] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                     >
                       {Object.keys(backlogs).map((k) => (
                         <option key={k} value={k}>
@@ -316,7 +316,7 @@ export default function GovApplicationPipeline() {
                       setBacklogTransferCount(Number(e.target.value))
                     }
                     max={backlogs[reallocateFrom]}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#28a745]"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium"
                     required
                   />
                 </div>
@@ -328,7 +328,7 @@ export default function GovApplicationPipeline() {
                   }
                   className={`w-full text-xs font-bold text-center py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 ${
                     reallocateFrom !== reallocateTo
-                      ? "bg-[#2e4057] hover:bg-[#208837] text-white"
+                      ? "bg-brand-darkest hover:bg-brand-dark text-white"
                       : "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
                   }`}
                 >
@@ -351,8 +351,8 @@ export default function GovApplicationPipeline() {
         {/* SLA violation warnings */}
         <div className="lg:col-span-2 bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-1.5">
-              <ShieldAlert className="w-4 h-4 text-[#28a745]" /> SLA Breach &
+            <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-1.5">
+              <ShieldAlert className="w-4 h-4 text-brand-medium" /> SLA Breach &
               Backlog Warnings
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
@@ -410,7 +410,7 @@ export default function GovApplicationPipeline() {
       {/* SLA table */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
-          <h3 className="font-bold text-[#2e4057] text-sm">
+          <h3 className="font-bold text-brand-darkest text-sm">
             District SLA Performance Scorecard
           </h3>
           <div className="flex items-center gap-2 border border-gray-200 bg-gray-50/50 px-3 py-1.5 rounded-xl w-64">

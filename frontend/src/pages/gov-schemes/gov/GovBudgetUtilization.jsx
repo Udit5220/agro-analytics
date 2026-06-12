@@ -49,7 +49,7 @@ export default function GovBudgetUtilization() {
       <div className="flex items-center gap-2">
         <span className="font-black text-[#132a13]">{v}%</span>
         <div className="w-12 bg-gray-100 h-1.5 rounded-full overflow-hidden">
-          <div className={`h-full ${v >= 80 ? "bg-[#4f772d]" : v >= 60 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${v}%` }} />
+          <div className={`h-full ${v >= 80 ? "bg-brand-medium" : v >= 60 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${v}%` }} />
         </div>
       </div>
     )},
@@ -84,7 +84,7 @@ export default function GovBudgetUtilization() {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <CircleDollarSign className="w-5 h-5 text-[#4f772d]" />
+          <CircleDollarSign className="w-5 h-5 text-brand-medium" />
           Budget Utilization & Financial Intelligence
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -94,7 +94,7 @@ export default function GovBudgetUtilization() {
 
       {/* Financial summary metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatsCard title="Allocated Budget" value={budgetSummary.allocated} subtext="Total state sanction pool" icon={<CircleDollarSign className="text-[#4f772d]" />} />
+        <StatsCard title="Allocated Budget" value={budgetSummary.allocated} subtext="Total state sanction pool" icon={<CircleDollarSign className="text-brand-medium" />} />
         <StatsCard title="Released Pool" value={budgetSummary.released} subtext="Expedited to district offices" />
         <StatsCard title="Utilized Pool" value={budgetSummary.utilized} trend={budgetSummary.rate} trendType="success" subtext="Direct benefit transfers & asset builds" />
         <StatsCard title="Unspent Balance" value={budgetSummary.remaining} subtext="Remaining fiscal balance" />
@@ -126,7 +126,7 @@ export default function GovBudgetUtilization() {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <AlertCircle className="w-4 h-4 text-[#4f772d]" /> Financial Risk alerts
+              <AlertCircle className="w-4 h-4 text-brand-medium" /> Financial Risk alerts
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               Telemetry monitoring indicating delayed capital disbursement, slow audits, or low utilization rates.
@@ -160,7 +160,7 @@ export default function GovBudgetUtilization() {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <Calculator className="w-4 h-4 text-[#4f772d]" /> Fiscal Runway Forecaster
+              <Calculator className="w-4 h-4 text-brand-medium" /> Fiscal Runway Forecaster
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               Select future forecast duration to estimate cumulative expenditures and budget shortfalls.
@@ -170,7 +170,7 @@ export default function GovBudgetUtilization() {
               <div>
                 <div className="flex justify-between font-bold mb-1">
                   <span>Forecast Months</span>
-                  <span className="text-[#4f772d]">{forecastMonths} Months</span>
+                  <span className="text-brand-medium">{forecastMonths} Months</span>
                 </div>
                 <input 
                   type="range" min="3" max="12" step="3"

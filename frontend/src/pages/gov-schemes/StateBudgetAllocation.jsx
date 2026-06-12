@@ -143,7 +143,7 @@ export default function StateBudgetAllocation() {
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* Header section matching template layout */}
       <div className="flex items-center gap-2.5 mb-8">
-        <div className="p-2.5 bg-[#31572c]/10 rounded-xl">
+        <div className="p-2.5 bg-brand-dark/10 rounded-xl">
           <PieChartIcon className="h-6 w-6 text-[#31572c]" />
         </div>
         <div>
@@ -358,7 +358,7 @@ export default function StateBudgetAllocation() {
           <button
             type="submit"
             disabled={loadingAi || !aiQuery.trim()}
-            className="bg-[#31572c] hover:bg-[#1a3018] text-white font-bold p-3.5 rounded-xl shadow-xs transition flex items-center justify-center shrink-0 disabled:opacity-50"
+            className="bg-brand-dark hover:bg-[#1a3018] text-white font-bold p-3.5 rounded-xl shadow-xs transition flex items-center justify-center shrink-0 disabled:opacity-50"
           >
             {loadingAi ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
           </button>

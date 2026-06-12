@@ -195,7 +195,7 @@ export default function TreatmentCampaignCenter() {
             <span>{value}%</span>
           </div>
           <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-            <div className="h-full rounded-full bg-[#31572c] transition-all" style={{ width: `${value}%` }} />
+            <div className="h-full rounded-full bg-brand-dark transition-all" style={{ width: `${value}%` }} />
           </div>
         </div>
       )
@@ -221,7 +221,7 @@ export default function TreatmentCampaignCenter() {
             <button
               type="button"
               onClick={() => handleStatusChange(row.id, "Active")}
-              className="px-2 py-1 bg-[#31572c] hover:bg-[#132a13] text-white rounded text-[9px] font-black uppercase tracking-wider cursor-pointer"
+              className="px-2 py-1 bg-brand-dark hover:bg-[#132a13] text-white rounded text-[9px] font-black uppercase tracking-wider cursor-pointer"
             >
               {row.status === "Pending" ? "Start" : "Resume"}
             </button>
@@ -270,7 +270,7 @@ export default function TreatmentCampaignCenter() {
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="px-4 py-2.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md cursor-pointer"
+          className="px-4 py-2.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Create Campaign
         </button>
@@ -382,7 +382,7 @@ export default function TreatmentCampaignCenter() {
                         type="button"
                         onClick={() => handleVillageSelect(v)}
                         className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase transition ${
-                          isSelected ? "bg-[#31572c] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                          isSelected ? "bg-brand-dark text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                         }`}
                       >
                         {v}
@@ -427,7 +427,7 @@ export default function TreatmentCampaignCenter() {
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer"
+                className="w-full py-2.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer"
               >
                 Submit & Deploy Campaign
               </button>

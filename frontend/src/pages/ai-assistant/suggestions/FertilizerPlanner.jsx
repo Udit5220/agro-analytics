@@ -87,7 +87,7 @@
 //           <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
 //             <span>Fertilizer Planner</span>
 //             <span className="text-gray-300 font-light text-xl">|</span>
-//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-[#31572c]/8 px-2.5 py-0.5 rounded-md">
+//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-brand-dark/8 px-2.5 py-0.5 rounded-md">
 //               खाद नियोजक
 //             </span>
 //           </h1>
@@ -157,7 +157,7 @@
 //             </span>
 //           </div>
 //         </div>
-//         <span className="bg-[#31572c]/8 text-[#31572c] font-black text-[9px] tracking-wider uppercase px-2 py-1 rounded-md shrink-0 self-start sm:self-auto shadow-sm">
+//         <span className="bg-brand-dark/8 text-[#31572c] font-black text-[9px] tracking-wider uppercase px-2 py-1 rounded-md shrink-0 self-start sm:self-auto shadow-sm">
 //           Telemetry Sync: Active
 //         </span>
 //       </div>
@@ -243,7 +243,7 @@
 //                   {/* Current bar */}
 //                   <div
 //                     className={`absolute left-0 top-0 h-full rounded-full transition-all duration-500 ${
-//                       isExcessN ? "bg-red-500 animate-pulse" : "bg-[#31572c]"
+//                       isExcessN ? "bg-red-500 animate-pulse" : "bg-brand-dark"
 //                     }`}
 //                     style={{ width: `${(currentN / Math.max(200, currentN, targetNPK.nitrogen)) * 100}%` }}
 //                   />
@@ -261,7 +261,7 @@
 //                 {/* Target bar */}
 //                 <div className="absolute left-0 top-0 h-full bg-[#10b981]/50 rounded-full" style={{ width: `${(targetNPK.phosphorus / Math.max(100, currentP, targetNPK.phosphorus)) * 100}%` }} />
 //                 {/* Current bar */}
-//                 <div className="absolute left-0 top-0 h-full bg-[#31572c] rounded-full" style={{ width: `${(currentP / Math.max(100, currentP, targetNPK.phosphorus)) * 100}%` }} />
+//                 <div className="absolute left-0 top-0 h-full bg-brand-dark rounded-full" style={{ width: `${(currentP / Math.max(100, currentP, targetNPK.phosphorus)) * 100}%` }} />
 //               </div>
 //             </div>
 
@@ -275,7 +275,7 @@
 //                 {/* Target bar */}
 //                 <div className="absolute left-0 top-0 h-full bg-[#10b981]/50 rounded-full" style={{ width: `${(targetNPK.potassium / Math.max(100, currentK, targetNPK.potassium)) * 100}%` }} />
 //                 {/* Current bar */}
-//                 <div className="absolute left-0 top-0 h-full bg-[#31572c] rounded-full" style={{ width: `${(currentK / Math.max(100, currentK, targetNPK.potassium)) * 100}%` }} />
+//                 <div className="absolute left-0 top-0 h-full bg-brand-dark rounded-full" style={{ width: `${(currentK / Math.max(100, currentK, targetNPK.potassium)) * 100}%` }} />
 //               </div>
 //             </div>
 
@@ -289,7 +289,7 @@
 //                 <span>Target Baseline (kg/ha)</span>
 //               </div>
 //               <div className="flex items-center text-[11px] font-bold text-gray-600">
-//                 <span className="w-3.5 h-3.5 rounded bg-[#31572c] inline-block mr-2 shadow-sm" />
+//                 <span className="w-3.5 h-3.5 rounded bg-brand-dark inline-block mr-2 shadow-sm" />
 //                 <span>Current Baseline (kg/ha)</span>
 //               </div>
 //               {isExcessN && (
@@ -582,7 +582,7 @@ export default function FertilizerPlanner() {
           <h1 className="text-base md:text-lg font-bold text-gray-900 flex items-center gap-2">
             <span>Fertilizer Planner</span>
             <span className="text-gray-300 font-light">|</span>
-            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-[#31572c]/8 px-2 py-0.5 rounded-md">
+            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-brand-dark/8 px-2 py-0.5 rounded-md">
               खाद नियोजक
             </span>
           </h1>
@@ -672,7 +672,7 @@ export default function FertilizerPlanner() {
             </span>
           </div>
         </div>
-        <span className="bg-[#31572c]/8 text-[#31572c] text-[9px] font-bold px-2 py-0.5 rounded">
+        <span className="bg-brand-dark/8 text-[#31572c] text-[9px] font-bold px-2 py-0.5 rounded">
           Telemetry Active
         </span>
       </div>

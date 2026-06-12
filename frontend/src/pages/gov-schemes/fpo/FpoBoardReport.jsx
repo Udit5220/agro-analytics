@@ -526,13 +526,13 @@ export default function FpoBoardReport() {
           <>
             <button
               onClick={handleExportCSV}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-250 hover:bg-gray-50 text-gray-700 font-bold rounded-xl text-xs transition"
+              className="flex items-center gap-2 px-4 py-2 border border-brand-medium/30 hover:bg-brand-accent/10 text-brand-darkest font-bold rounded-xl text-xs transition"
             >
               Export CSV
             </button>
             <button
               onClick={generatePDF}
-              className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 bg-brand-medium hover:bg-brand-dark text-white font-bold rounded-xl text-xs transition shadow-sm"
             >
               <FileDown className="w-4 h-4" />
               Generate PDF
@@ -545,8 +545,8 @@ export default function FpoBoardReport() {
       <div className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden p-5 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-3">
           <div className="flex items-center gap-2">
-            <Brain className="w-5 h-5 text-purple-600" />
-            <h3 className="text-sm font-black text-[#2e4057] uppercase tracking-wider">Gemini Boardroom AI Insights</h3>
+            <Brain className="w-5 h-5 text-brand-medium" />
+            <h3 className="text-sm font-black text-brand-darkest uppercase tracking-wider">Gemini Boardroom AI Insights</h3>
           </div>
         </div>
 
@@ -556,7 +556,7 @@ export default function FpoBoardReport() {
           </p>
 
           {aiResponse && (
-            <div className="bg-purple-50/50 border border-purple-150 rounded-xl p-4 text-xs text-gray-800 leading-relaxed font-semibold whitespace-pre-line animate-fadeIn">
+            <div className="bg-brand-accent/10 border border-brand-accent/30 text-brand-darkest rounded-xl p-4 text-xs leading-relaxed font-semibold whitespace-pre-line animate-fadeIn">
               {aiResponse}
             </div>
           )}
@@ -565,7 +565,7 @@ export default function FpoBoardReport() {
             <button
               onClick={handleGenerateAiInsights}
               disabled={loadingAi}
-              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-1.5 hover:shadow-md"
+              className="px-4 py-2 bg-gradient-to-r from-brand-darkest to-brand-medium text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-1.5 hover:shadow-md"
             >
               {loadingAi ? (
                 <>
@@ -602,7 +602,7 @@ export default function FpoBoardReport() {
       {/* Scheme Performance Table */}
       <div className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden animate-fadeIn">
         <div className="p-4 border-b border-gray-150 bg-gray-50">
-          <h3 className="text-xs font-black text-[#2e4057] uppercase tracking-wider">
+          <h3 className="text-xs font-black text-brand-darkest uppercase tracking-wider">
             Scheme-wise Results This Quarter
           </h3>
         </div>
@@ -622,7 +622,7 @@ export default function FpoBoardReport() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Enrollment growth chart */}
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-          <h3 className="text-sm font-black text-[#2e4057] mb-4">
+          <h3 className="text-sm font-black text-brand-darkest mb-4">
             Quarterly Enrollment Growth — 2024
           </h3>
           <div className="h-64">
@@ -648,7 +648,7 @@ export default function FpoBoardReport() {
 
         {/* Village coverage chart (Enlarged and optimized to fix label squishing) */}
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
-          <h3 className="text-sm font-black text-[#2e4057] mb-2">
+          <h3 className="text-sm font-black text-brand-darkest mb-2">
             Village-wise Scheme Coverage
           </h3>
           
@@ -706,7 +706,7 @@ export default function FpoBoardReport() {
 
       {/* Board Recommendations Section */}
       <div className="space-y-4">
-        <h3 className="text-sm font-black text-[#2e4057] uppercase tracking-wider">
+        <h3 className="text-sm font-black text-brand-darkest uppercase tracking-wider">
           Recommended Actions for Board Approval
         </h3>
 
@@ -763,7 +763,7 @@ export default function FpoBoardReport() {
                       <strong className="text-gray-900 font-bold">
                         Board Action Needed:
                       </strong>{" "}
-                      <span className="text-[#2e4057] font-black">
+                      <span className="text-brand-darkest font-black">
                         {rec.boardNeeds}
                       </span>
                     </p>
@@ -782,7 +782,7 @@ export default function FpoBoardReport() {
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm ${
                       rec.added
                         ? "bg-green-600 text-white hover:bg-green-700"
-                        : "bg-[#2e4057] hover:bg-[#3a5170] text-white"
+                        : "bg-brand-darkest hover:bg-brand-dark text-white"
                     }`}
                   >
                     {rec.added ? (

@@ -64,7 +64,7 @@ const GovPolicyCommand = () => {
       trend: "-2% from last quarter",
       trendType: "success",
       subtext: "Key performance indicators",
-      icon: <Target className="text-[#4f772d]" />
+      icon: <Target className="text-brand-medium" />
     }
   ];
 
@@ -115,7 +115,7 @@ const GovPolicyCommand = () => {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <BrainCircuit className="w-6 h-6 text-[#4f772d]" />
+          <BrainCircuit className="w-6 h-6 text-brand-medium" />
           Policy Intelligence & Simulation Command
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -165,7 +165,7 @@ const GovPolicyCommand = () => {
                 <select 
                   value={targetDemographic}
                   onChange={(e) => setTargetDemographic(e.target.value)}
-                  className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-[#4f772d]"
+                  className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-medium"
                 >
                   <option value="all">Universal (All Farmers)</option>
                   <option value="small_marginal">Small & Marginal Farmers</option>
@@ -178,7 +178,7 @@ const GovPolicyCommand = () => {
                 onClick={handleSimulate}
                 disabled={isSimulating}
                 className={`w-full py-2.5 rounded-xl text-sm font-bold text-white flex justify-center items-center gap-2 transition ${
-                  isSimulating ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#132a13] hover:bg-[#31572c]'
+                  isSimulating ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#132a13] hover:bg-brand-dark'
                 }`}
               >
                 {isSimulating ? (
@@ -198,7 +198,7 @@ const GovPolicyCommand = () => {
 
           {/* Simulation Results */}
           {simulationResults && (
-            <div className="bg-[#f8faf8] p-5 rounded-2xl border border-[#4f772d]/20 shadow-sm animate-scaleUp">
+            <div className="bg-[#f8faf8] p-5 rounded-2xl border border-brand-medium/20 shadow-sm animate-scaleUp">
               <h3 className="font-bold text-[#132a13] text-sm mb-4 flex items-center gap-2">
                 <BarChart4 size={16} />
                 Projected Outcomes
@@ -226,7 +226,7 @@ const GovPolicyCommand = () => {
                   <span className="text-xs text-gray-600">Timeline to Impact</span>
                   <span className="font-bold text-[#132a13]">{simulationResults.timelineToImpact}</span>
                 </div>
-                <button className="w-full mt-2 py-2 border border-[#4f772d] text-[#4f772d] rounded-xl text-xs font-bold hover:bg-[#4f772d] hover:text-white transition flex justify-center items-center gap-2">
+                <button className="w-full mt-2 py-2 border border-brand-medium text-brand-medium rounded-xl text-xs font-bold hover:bg-brand-medium hover:text-white transition flex justify-center items-center gap-2">
                   <Save size={14} />
                   Save as Policy Draft
                 </button>
@@ -267,7 +267,7 @@ const GovPolicyCommand = () => {
                   <p className="text-xs text-gray-600 leading-relaxed">
                     {insight.desc}
                   </p>
-                  <button className="mt-3 text-[10px] font-bold text-[#132a13] hover:text-[#4f772d] flex items-center gap-1">
+                  <button className="mt-3 text-[10px] font-bold text-[#132a13] hover:text-brand-medium flex items-center gap-1">
                     Review Detailed Proposal <ArrowRight size={12} />
                   </button>
                 </div>

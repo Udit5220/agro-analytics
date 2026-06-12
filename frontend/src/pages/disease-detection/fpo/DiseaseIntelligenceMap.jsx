@@ -200,7 +200,7 @@ export default function DiseaseIntelligenceMap() {
                 type="button"
                 onClick={() => setForecastHorizon(d)}
                 className={`py-1.5 rounded-xl text-[10px] font-black uppercase transition cursor-pointer ${
-                  forecastHorizon === d ? "bg-[#31572c] text-white" : "bg-slate-105 text-slate-600 hover:bg-slate-200"
+                  forecastHorizon === d ? "bg-brand-dark text-white" : "bg-slate-105 text-slate-600 hover:bg-slate-200"
                 }`}
               >
                 {d}-Day

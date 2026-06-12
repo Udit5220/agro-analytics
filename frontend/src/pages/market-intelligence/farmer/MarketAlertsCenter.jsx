@@ -115,16 +115,16 @@ export default function MarketAlertsCenter() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Market Alerts Center</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Market Alerts Center</h1>
           <p className="text-xs text-gray-500 mt-1">Centralized notification system for market updates</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+          <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
             <RefreshCw className="w-4 h-4" /> Refresh
           </button>
           <button 
             onClick={() => setShowSettings(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#28a745] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition"
+            className="flex items-center gap-2 px-4 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
           >
             <Settings className="w-4 h-4" /> Configure Alerts
           </button>
@@ -139,7 +139,7 @@ export default function MarketAlertsCenter() {
               <div className={`p-2.5 rounded-xl ${item.color}`}>
                 <item.icon className="w-5 h-5" />
               </div>
-              <span className="text-2xl font-black text-[#2e4057]">{item.count}</span>
+              <span className="text-2xl font-black text-brand-darkest">{item.count}</span>
             </div>
             <p className="text-xs text-gray-500 font-semibold">{item.type}</p>
           </div>
@@ -149,7 +149,7 @@ export default function MarketAlertsCenter() {
       {/* Alert Feed */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Alert Feed</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Alert Feed</h2>
           <div className="flex items-center gap-2">
             <Filter className="w-4 h-4 text-gray-400" />
             <div className="flex items-center gap-1">
@@ -159,7 +159,7 @@ export default function MarketAlertsCenter() {
                   onClick={() => setSelectedFilter(filter)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                     selectedFilter === filter
-                      ? "bg-[#2e4057] text-white"
+                      ? "bg-brand-darkest text-white"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
@@ -177,7 +177,7 @@ export default function MarketAlertsCenter() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xs font-bold text-[#2e4057]">{alert.commodity}</p>
+                  <p className="text-xs font-bold text-brand-darkest">{alert.commodity}</p>
                   <span className="text-[10px] text-gray-400 flex items-center gap-1">
                     <Clock className="w-3 h-3" /> {alert.time}
                   </span>
@@ -194,7 +194,7 @@ export default function MarketAlertsCenter() {
 
       {/* Notification Channels */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Notification Channels</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Notification Channels</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {notificationChannels.map((channel, index) => (
             <div key={index} className={`border rounded-xl p-4 ${channel.enabled ? "border-gray-200" : "border-gray-100 opacity-60"}`}>
@@ -203,13 +203,13 @@ export default function MarketAlertsCenter() {
                   <channel.icon className="w-5 h-5" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs font-bold text-[#2e4057]">{channel.name}</p>
+                  <p className="text-xs font-bold text-brand-darkest">{channel.name}</p>
                   <p className="text-[10px] text-gray-400">{channel.enabled ? "Enabled" : "Disabled"}</p>
                 </div>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">Status</span>
-                <div className={`w-10 h-5 rounded-full relative ${channel.enabled ? "bg-[#28a745]" : "bg-gray-300"}`}>
+                <div className={`w-10 h-5 rounded-full relative ${channel.enabled ? "bg-brand-medium" : "bg-gray-300"}`}>
                   <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${channel.enabled ? "left-5" : "left-0.5"}`}></div>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function MarketAlertsCenter() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl p-6 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-sm font-bold text-[#2e4057]">Alert Configuration</h2>
+              <h2 className="text-sm font-bold text-brand-darkest">Alert Configuration</h2>
               <button 
                 onClick={() => setShowSettings(false)}
                 className="p-1 hover:bg-gray-100 rounded-lg"
@@ -235,21 +235,21 @@ export default function MarketAlertsCenter() {
               {alertConfigurations.map((config, index) => (
                 <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                   <div className="flex-1">
-                    <p className="text-xs font-bold text-[#2e4057] mb-1">{config.category}</p>
+                    <p className="text-xs font-bold text-brand-darkest mb-1">{config.category}</p>
                     <p className="text-[10px] text-gray-500">{config.description}</p>
                   </div>
-                  <div className={`w-10 h-5 rounded-full relative cursor-pointer ${config.enabled ? "bg-[#28a745]" : "bg-gray-300"}`}>
+                  <div className={`w-10 h-5 rounded-full relative cursor-pointer ${config.enabled ? "bg-brand-medium" : "bg-gray-300"}`}>
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${config.enabled ? "left-5" : "left-0.5"}`}></div>
                   </div>
                 </div>
               ))}
               
               <div className="pt-4 border-t border-gray-200">
-                <h3 className="text-xs font-bold text-[#2e4057] mb-3">Price Threshold Settings</h3>
+                <h3 className="text-xs font-bold text-brand-darkest mb-3">Price Threshold Settings</h3>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-gray-500 w-24">Commodity</span>
-                    <select className="flex-1 bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold">
+                    <select className="flex-1 bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold">
                       <option>Wheat</option>
                       <option>Rice</option>
                       <option>Soybean</option>
@@ -257,11 +257,11 @@ export default function MarketAlertsCenter() {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-gray-500 w-24">Min Price (₹)</span>
-                    <input type="number" className="flex-1 bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold" placeholder="2000" />
+                    <input type="number" className="flex-1 bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold" placeholder="2000" />
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-gray-500 w-24">Max Price (₹)</span>
-                    <input type="number" className="flex-1 bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold" placeholder="2500" />
+                    <input type="number" className="flex-1 bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold" placeholder="2500" />
                   </div>
                 </div>
               </div>
@@ -275,7 +275,7 @@ export default function MarketAlertsCenter() {
                 </button>
                 <button 
                   onClick={() => setShowSettings(false)}
-                  className="flex-1 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition"
+                  className="flex-1 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                 >
                   Save Settings
                 </button>

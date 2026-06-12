@@ -153,7 +153,7 @@ export default function PestDiseaseMonitor() {
             
             <button 
               onClick={() => alert("Emergency alert pushed to 15,000+ local growers.")}
-              className="bg-[#31572c] hover:bg-[#132a13] text-white border rounded-xl py-2 text-[10px] font-bold text-center active:scale-95 transition"
+              className="bg-brand-dark hover:bg-[#132a13] text-white border rounded-xl py-2 text-[10px] font-bold text-center active:scale-95 transition"
             >
               Push Emergency App Alert
             </button>

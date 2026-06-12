@@ -132,7 +132,7 @@ export default function DiseaseIntelligence() {
             High humidity conditions in <strong className="text-[#ecf39e]">Agra</strong> have triggered a critical warning for **Late Blight**. Farmers are advised to apply preventive copper fungicide sprays immediately.
           </p>
         </div>
-        <div className="bg-[#4f772d]/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+        <div className="bg-brand-medium/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
           <span>Outbreak Sensors: Active</span>
         </div>
@@ -226,7 +226,7 @@ export default function DiseaseIntelligence() {
             </thead>
             <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
               {filteredAlerts.map((row) => (
-                <tr key={row.id} className="hover:bg-[#4f772d]/5 transition-colors duration-150">
+                <tr key={row.id} className="hover:bg-brand-medium/5 transition-colors duration-150">
                   <td className="p-3.5 font-mono text-gray-500">{row.id}</td>
                   <td className="p-3.5 font-black text-gray-900 tracking-tight">{row.name}</td>
                   <td className="p-3.5">

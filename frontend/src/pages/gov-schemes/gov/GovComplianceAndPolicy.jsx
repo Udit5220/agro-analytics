@@ -78,7 +78,7 @@ const GovComplianceAndPolicy = () => {
       trend: "+4 pts YoY",
       trendType: "success",
       subtext: "AI composite score",
-      icon: <BrainCircuit className="text-[#2e4057]" />,
+      icon: <BrainCircuit className="text-brand-darkest" />,
     },
     {
       title: "RECOMMENDED ADJUSTMENTS",
@@ -94,7 +94,7 @@ const GovComplianceAndPolicy = () => {
       trend: "+0.2x from FY25",
       trendType: "success",
       subtext: "Economic return on grants",
-      icon: <TrendingUp className="text-[#208837]" />,
+      icon: <TrendingUp className="text-brand-dark" />,
     },
     {
       title: "AT-RISK METRICS",
@@ -102,7 +102,7 @@ const GovComplianceAndPolicy = () => {
       trend: "-2% from last quarter",
       trendType: "success",
       subtext: "Key performance indicators",
-      icon: <Target className="text-[#28a745]" />,
+      icon: <Target className="text-brand-medium" />,
     },
   ];
 
@@ -314,7 +314,7 @@ const GovComplianceAndPolicy = () => {
       trend: "+15% YoY",
       trendType: "success",
       subtext: "Across 22 districts",
-      icon: <ShieldCheck className="text-[#2e4057]" />,
+      icon: <ShieldCheck className="text-brand-darkest" />,
     },
     {
       title: "COMPLIANCE RATE",
@@ -322,7 +322,7 @@ const GovComplianceAndPolicy = () => {
       trend: "+2.3% from Q2",
       trendType: "success",
       subtext: "Scheme implementation",
-      icon: <FileCheck className="text-[#208837]" />,
+      icon: <FileCheck className="text-brand-dark" />,
     },
     {
       title: "CRITICAL FINDINGS",
@@ -338,7 +338,7 @@ const GovComplianceAndPolicy = () => {
       trend: "8 within SLA",
       trendType: "neutral",
       subtext: "Open audit observations",
-      icon: <Clock className="text-[#28a745]" />,
+      icon: <Clock className="text-brand-medium" />,
     },
   ];
 
@@ -357,14 +357,14 @@ const GovComplianceAndPolicy = () => {
     { name: "Infrastructure", value: 15 },
     { name: "Data Accuracy", value: 5 },
   ];
-  const COLORS = ["#2e4057", "#208837", "#28a745", "#2ec4b6"];
+  const COLORS = ["var(--brand-darkest)", "var(--brand-dark)", "var(--brand-medium)", "#2ec4b6"];
 
   const auditLogColumns = [
     {
       header: "AUDIT ID",
       accessor: "auditId",
       sortable: true,
-      cell: (val) => <span className="font-bold text-[#2e4057]">{val}</span>,
+      cell: (val) => <span className="font-bold text-brand-darkest">{val}</span>,
     },
     {
       header: "DISTRICT / BLOCK",
@@ -480,8 +480,8 @@ const GovComplianceAndPolicy = () => {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex justify-between items-center">
         <div>
-          <h1 className="text-xl font-bold text-[#2e4057] flex items-center gap-2">
-            <ShieldCheck className="w-6 h-6 text-[#28a745]" />
+          <h1 className="text-xl font-bold text-brand-darkest flex items-center gap-2">
+            <ShieldCheck className="w-6 h-6 text-brand-medium" />
             Compliance & Audit Monitoring
           </h1>
           <p className="text-xs text-gray-500 mt-1">
@@ -494,7 +494,7 @@ const GovComplianceAndPolicy = () => {
             <Filter size={16} />
             Filter Audits
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] text-white rounded-xl text-sm font-bold hover:bg-[#208837] transition">
+          <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest text-white rounded-xl text-sm font-bold hover:bg-brand-dark transition">
             <Download size={16} />
             Export Report
           </button>
@@ -514,7 +514,7 @@ const GovComplianceAndPolicy = () => {
           onClick={() => setActiveTab("compliance")}
           className={`px-5 py-2 rounded-lg text-sm font-bold transition ${
             activeTab === "compliance"
-              ? "bg-[#2e4057] text-white"
+              ? "bg-brand-darkest text-white"
               : "text-gray-500 hover:text-gray-800"
           }`}
         >
@@ -524,7 +524,7 @@ const GovComplianceAndPolicy = () => {
           onClick={() => setActiveTab("policy")}
           className={`px-5 py-2 rounded-lg text-sm font-bold transition ${
             activeTab === "policy"
-              ? "bg-[#2e4057] text-white"
+              ? "bg-brand-darkest text-white"
               : "text-gray-500 hover:text-gray-800"
           }`}
         >
@@ -538,7 +538,7 @@ const GovComplianceAndPolicy = () => {
             {/* Charts Section */}
             {/* Audit Completion Trends */}
             <div className="lg:col-span-2 bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-              <h3 className="font-bold text-[#2e4057] text-sm mb-4 flex items-center gap-2">
+              <h3 className="font-bold text-brand-darkest text-sm mb-4 flex items-center gap-2">
                 <Calendar size={16} />
                 Audit Execution Trends (H1 2025)
               </h3>
@@ -584,7 +584,7 @@ const GovComplianceAndPolicy = () => {
                     <Bar
                       dataKey="completed"
                       name="Completed Audits"
-                      fill="#28a745"
+                      fill="var(--brand-medium)"
                       radius={[4, 4, 0, 0]}
                     />
                     <Line
@@ -602,7 +602,7 @@ const GovComplianceAndPolicy = () => {
 
             {/* Compliance Categories */}
             <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-              <h3 className="font-bold text-[#2e4057] text-sm mb-4 flex items-center gap-2">
+              <h3 className="font-bold text-brand-darkest text-sm mb-4 flex items-center gap-2">
                 <AlertTriangle size={16} />
                 Findings by Category
               </h3>
@@ -659,7 +659,7 @@ const GovComplianceAndPolicy = () => {
           <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
             {/* Audit Log Table */}
             <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-              <h3 className="font-bold text-[#2e4057] text-sm mb-4 flex items-center gap-2">
+              <h3 className="font-bold text-brand-darkest text-sm mb-4 flex items-center gap-2">
                 <FileCheck size={16} />
                 Recent & Upcoming Audits
               </h3>
@@ -683,7 +683,7 @@ const GovComplianceAndPolicy = () => {
             {/* Simulation Engine */}
             <div className="lg:col-span-1 space-y-6">
               <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-                <h3 className="font-bold text-[#2e4057] text-sm mb-4 flex items-center gap-2">
+                <h3 className="font-bold text-brand-darkest text-sm mb-4 flex items-center gap-2">
                   <Sliders size={16} />
                   Policy Parameter Sandbox
                 </h3>
@@ -705,7 +705,7 @@ const GovComplianceAndPolicy = () => {
                         }
                         className="flex-1 accent-[#28a745]"
                       />
-                      <span className="font-bold text-[#2e4057] w-12">
+                      <span className="font-bold text-brand-darkest w-12">
                         ₹{budgetAllocation}
                       </span>
                     </div>
@@ -718,7 +718,7 @@ const GovComplianceAndPolicy = () => {
                     <select
                       value={targetDemographic}
                       onChange={(e) => setTargetDemographic(e.target.value)}
-                      className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-[#28a745]"
+                      className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-medium"
                     >
                       <option value="all">Universal (All Farmers)</option>
                       <option value="small_marginal">
@@ -735,7 +735,7 @@ const GovComplianceAndPolicy = () => {
                     className={`w-full py-2.5 rounded-xl text-sm font-bold text-white flex justify-center items-center gap-2 transition ${
                       isSimulating
                         ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-[#2e4057] hover:bg-[#208837]"
+                        : "bg-brand-darkest hover:bg-brand-dark"
                     }`}
                   >
                     {isSimulating ? (
@@ -755,8 +755,8 @@ const GovComplianceAndPolicy = () => {
 
               {/* Simulation Results */}
               {simulationResults && (
-                <div className="bg-[#f8faf8] p-5 rounded-2xl border border-[#28a745]/20 shadow-sm animate-scaleUp">
-                  <h3 className="font-bold text-[#2e4057] text-sm mb-4 flex items-center gap-2">
+                <div className="bg-[#f8faf8] p-5 rounded-2xl border border-brand-medium/20 shadow-sm animate-scaleUp">
+                  <h3 className="font-bold text-brand-darkest text-sm mb-4 flex items-center gap-2">
                     <BarChart4 size={16} />
                     Projected Outcomes
                   </h3>
@@ -765,7 +765,7 @@ const GovComplianceAndPolicy = () => {
                       <span className="text-xs text-gray-600">
                         Projected Reach
                       </span>
-                      <span className="font-bold text-[#2e4057]">
+                      <span className="font-bold text-brand-darkest">
                         {simulationResults.projectedReach.toLocaleString()}{" "}
                         Farmers
                       </span>
@@ -798,11 +798,11 @@ const GovComplianceAndPolicy = () => {
                       <span className="text-xs text-gray-600">
                         Timeline to Impact
                       </span>
-                      <span className="font-bold text-[#2e4057]">
+                      <span className="font-bold text-brand-darkest">
                         {simulationResults.timelineToImpact}
                       </span>
                     </div>
-                    <button className="w-full mt-2 py-2 border border-[#28a745] text-[#28a745] rounded-xl text-xs font-bold hover:bg-[#28a745] hover:text-white transition flex justify-center items-center gap-2">
+                    <button className="w-full mt-2 py-2 border border-brand-medium text-brand-medium rounded-xl text-xs font-bold hover:bg-brand-medium hover:text-white transition flex justify-center items-center gap-2">
                       <Save size={14} />
                       Save as Policy Draft
                     </button>
@@ -814,7 +814,7 @@ const GovComplianceAndPolicy = () => {
             {/* AI Recommendations & Charts */}
             <div className="lg:col-span-2 space-y-6">
               <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-                <h3 className="font-bold text-[#2e4057] text-sm mb-4 flex items-center gap-2">
+                <h3 className="font-bold text-brand-darkest text-sm mb-4 flex items-center gap-2">
                   <Lightbulb size={16} className="text-amber-500" />
                   AI Strategic Recommendations
                 </h3>
@@ -861,7 +861,7 @@ const GovComplianceAndPolicy = () => {
                       <p className="text-xs text-gray-600 leading-relaxed">
                         {insight.desc}
                       </p>
-                      <button className="mt-3 text-[10px] font-bold text-[#2e4057] hover:text-[#28a745] flex items-center gap-1">
+                      <button className="mt-3 text-[10px] font-bold text-brand-darkest hover:text-brand-medium flex items-center gap-1">
                         Review Detailed Proposal <ArrowRight size={12} />
                       </button>
                     </div>
@@ -870,7 +870,7 @@ const GovComplianceAndPolicy = () => {
               </div>
 
               <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-                <h3 className="font-bold text-[#2e4057] text-sm mb-4 flex items-center gap-2">
+                <h3 className="font-bold text-brand-darkest text-sm mb-4 flex items-center gap-2">
                   <TrendingUp size={16} />
                   Historical Impact vs Simulated Projection (₹ Crores)
                 </h3>
@@ -917,7 +917,7 @@ const GovComplianceAndPolicy = () => {
                         type="monotone"
                         dataKey="impact"
                         name="Economic Impact Generated"
-                        stroke="#28a745"
+                        stroke="var(--brand-medium)"
                         strokeWidth={3}
                         dot={{ r: 4 }}
                       />
@@ -940,7 +940,7 @@ const GovComplianceAndPolicy = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Impact Trends */}
             <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-              <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-2">
+              <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-2">
                 <TrendingUp size={16} />
                 Policy Impact Trends (Q1 2025 - Q2 2026)
               </h3>
@@ -966,7 +966,7 @@ const GovComplianceAndPolicy = () => {
                       yAxisId="left"
                       type="monotone"
                       dataKey="farmersReached"
-                      stroke="#2e4057"
+                      stroke="var(--brand-darkest)"
                       strokeWidth={2}
                       name="Farmers Reached"
                       dot={{ r: 3 }}
@@ -975,7 +975,7 @@ const GovComplianceAndPolicy = () => {
                       yAxisId="right"
                       type="monotone"
                       dataKey="subsidiesDisbursed"
-                      stroke="#28a745"
+                      stroke="var(--brand-medium)"
                       strokeWidth={2}
                       name="Subsidies (₹ Cr)"
                       dot={{ r: 3 }}
@@ -987,7 +987,7 @@ const GovComplianceAndPolicy = () => {
 
             {/* Scheme-wise Impact Distribution */}
             <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-              <h3 className="font-bold text-[#2e4057] text-sm mb-4 flex items-center gap-2">
+              <h3 className="font-bold text-brand-darkest text-sm mb-4 flex items-center gap-2">
                 <PieChartIcon size={16} />
                 Scheme-wise Beneficiary Distribution
               </h3>
@@ -1038,7 +1038,7 @@ const GovComplianceAndPolicy = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Impact Scorecards */}
             <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-              <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-2">
+              <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-2">
                 <Award size={16} />
                 Key Impact Scorecards
               </h3>
@@ -1078,7 +1078,7 @@ const GovComplianceAndPolicy = () => {
 
             {/* Regional Impact Table */}
             <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-              <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-2">
+              <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-2">
                 <Map size={16} />
                 Regional Impact Analysis
               </h3>
@@ -1096,7 +1096,7 @@ const GovComplianceAndPolicy = () => {
 
           {/* District Ranking */}
           <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-            <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-2">
+            <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-2">
               <Target size={16} />
               District Performance Ranking
             </h3>
@@ -1137,13 +1137,13 @@ const GovComplianceAndPolicy = () => {
                     </div>
                     <div className="w-full bg-gray-100 rounded-full h-1.5 mt-1">
                       <div
-                        className="bg-[#2e4057] h-1.5 rounded-full"
+                        className="bg-brand-darkest h-1.5 rounded-full"
                         style={{ width: `${district.score}%` }}
                       ></div>
                     </div>
                   </div>
                   <div className="w-12 text-right">
-                    <span className="text-sm font-bold text-[#2e4057]">
+                    <span className="text-sm font-bold text-brand-darkest">
                       {district.score}
                     </span>
                     <span className="text-[8px] text-gray-400">/100</span>
@@ -1157,7 +1157,7 @@ const GovComplianceAndPolicy = () => {
           <div className="flex gap-3">
             <button
               onClick={() => setShowDownloadModal(true)}
-              className="flex-1 py-2.5 bg-[#28a745] hover:bg-[#208837] text-white rounded-xl text-sm font-bold transition flex items-center justify-center gap-2"
+              className="flex-1 py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-sm font-bold transition flex items-center justify-center gap-2"
             >
               <Download size={16} />
               Download Policy Impact Report
@@ -1175,8 +1175,8 @@ const GovComplianceAndPolicy = () => {
                   >
                     <X className="w-5 h-5" />
                   </button>
-                  <h2 className="text-base font-black text-[#2e4057] flex items-center gap-2 mb-2">
-                    <Download className="w-5 h-5 text-[#28a745]" />
+                  <h2 className="text-base font-black text-brand-darkest flex items-center gap-2 mb-2">
+                    <Download className="w-5 h-5 text-brand-medium" />
                     Download Policy Impact Report
                   </h2>
                   <p className="text-xs text-gray-500 mb-4">
@@ -1186,8 +1186,8 @@ const GovComplianceAndPolicy = () => {
 
                   {downloadProgress ? (
                     <div className="py-8 text-center">
-                      <Loader2 className="w-8 h-8 text-[#28a745] animate-spin mx-auto mb-3" />
-                      <p className="text-xs font-bold text-[#2e4057]">
+                      <Loader2 className="w-8 h-8 text-brand-medium animate-spin mx-auto mb-3" />
+                      <p className="text-xs font-bold text-brand-darkest">
                         Generating report...
                       </p>
                     </div>
@@ -1197,7 +1197,7 @@ const GovComplianceAndPolicy = () => {
                         <label className="text-[10px] font-black uppercase text-gray-400 block mb-1">
                           Report Period
                         </label>
-                        <select className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#28a745]">
+                        <select className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-medium">
                           <option>FY 2025-26 (Current)</option>
                           <option>FY 2024-25</option>
                           <option>FY 2023-24</option>
@@ -1250,7 +1250,7 @@ const GovComplianceAndPolicy = () => {
                         </button>
                         <button
                           type="submit"
-                          className="flex-1 py-2 bg-[#28a745] hover:bg-[#208837] text-white rounded-xl text-sm font-medium transition"
+                          className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-sm font-medium transition"
                         >
                           Download PDF
                         </button>

@@ -212,7 +212,7 @@ const FpoReadiness = () => {
       {/* Main Heading */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <LayoutDashboard className="w-5 h-5 text-[#4f772d]" />
+          <LayoutDashboard className="w-5 h-5 text-brand-medium" />
           FPO Compliance & Readiness Command Center
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -590,7 +590,7 @@ const FpoReadiness = () => {
                     <div className="flex gap-2">
                       <button
                         onClick={() => triggerUploadFlow(req)}
-                        className="flex items-center gap-1 text-xs font-bold px-3 py-2 border border-[#4f772d] text-[#4f772d] rounded-lg hover:bg-[#4f772d]/5 transition"
+                        className="flex items-center gap-1 text-xs font-bold px-3 py-2 border border-brand-medium text-brand-medium rounded-lg hover:bg-brand-medium/5 transition"
                       >
                         <Upload size={14} />
                         Upload
@@ -784,7 +784,7 @@ const FpoReadiness = () => {
             </button>
 
             <h2 className="text-lg font-bold text-[#132a13] flex items-center gap-2 mb-2">
-              <Upload className="w-5 h-5 text-[#4f772d]" />
+              <Upload className="w-5 h-5 text-brand-medium" />
               Upload {selectedReq.name}
             </h2>
 
@@ -800,7 +800,7 @@ const FpoReadiness = () => {
 
             {uploadProgress ? (
               <div className="py-12 text-center">
-                <Loader2 className="w-8 h-8 text-[#4f772d] animate-spin mx-auto mb-3" />
+                <Loader2 className="w-8 h-8 text-brand-medium animate-spin mx-auto mb-3" />
                 <p className="text-sm font-medium text-gray-700">
                   Verifying document...
                 </p>
@@ -819,7 +819,7 @@ const FpoReadiness = () => {
                   onDrop={handleDrop}
                   className={`border-2 border-dashed rounded-xl p-6 text-center transition cursor-pointer ${
                     dragActive
-                      ? "border-[#4f772d] bg-[#4f772d]/5"
+                      ? "border-brand-medium bg-brand-medium/5"
                       : "border-gray-250 hover:border-gray-300"
                   }`}
                   onClick={() => document.getElementById("fileInput").click()}
@@ -855,7 +855,7 @@ const FpoReadiness = () => {
                     disabled={!uploadFile}
                     className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition ${
                       uploadFile
-                        ? "bg-[#4f772d] hover:bg-[#31572c] text-white"
+                        ? "bg-brand-medium hover:bg-brand-dark text-white"
                         : "bg-gray-200 text-gray-400 cursor-not-allowed"
                     }`}
                   >

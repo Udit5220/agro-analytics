@@ -158,7 +158,7 @@ export default function CompanyProcurementInventory() {
               <React.Fragment key={i}>
                 <div className="flex flex-col items-center text-center p-4 bg-white border border-slate-200/80 rounded-2xl w-full lg:w-48 shadow-sm hover:shadow transition-all duration-350 relative overflow-hidden group hover:border-emerald-500/30">
                   {/* Premium top accent bar */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-[#31572c]/80 group-hover:bg-emerald-600 transition-colors duration-300" />
+                  <div className="absolute top-0 left-0 w-full h-1 bg-brand-dark/80 group-hover:bg-emerald-600 transition-colors duration-300" />
                   
                   <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center text-lg mb-2 shadow-sm group-hover:scale-110 transition duration-300">
                     {node.icon}

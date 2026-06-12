@@ -113,7 +113,7 @@ export default function AgriProcurementInventory() {
                   <p className="text-[9px] text-gray-500 font-semibold mt-1.5 leading-relaxed">{step.desc}</p>
                 </div>
                 <div className="w-full bg-gray-200 h-1 rounded-full overflow-hidden mt-2">
-                  <div className="bg-[#31572c] h-full" style={{ width: `${step.pct}%` }}></div>
+                  <div className="bg-brand-dark h-full" style={{ width: `${step.pct}%` }}></div>
                 </div>
               </div>
             ))}

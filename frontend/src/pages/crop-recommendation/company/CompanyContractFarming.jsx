@@ -201,7 +201,7 @@ export default function CompanyContractFarming() {
                 </div>
                 <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
                   <div 
-                    className="bg-[#31572c] h-full rounded-full transition-all duration-500" 
+                    className="bg-brand-dark h-full rounded-full transition-all duration-500" 
                     style={{ width: `${r.score}%` }} 
                     />
                 </div>

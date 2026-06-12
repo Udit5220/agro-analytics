@@ -311,7 +311,7 @@ export default function AgriContractIntelligence() {
               </div>
             </div>
             
-            <div className="bg-[#31572c] text-white border rounded-xl p-3 text-[10px] text-center font-bold flex items-center justify-center gap-1.5 cursor-pointer hover:bg-[#224222] transition-colors">
+            <div className="bg-brand-dark text-white border rounded-xl p-3 text-[10px] text-center font-bold flex items-center justify-center gap-1.5 cursor-pointer hover:bg-[#224222] transition-colors">
               <Phone className="w-3.5 h-3.5 shrink-0" />
               <span>Contact FPO Coordinator: +91 98450-XXXXX</span>
             </div>

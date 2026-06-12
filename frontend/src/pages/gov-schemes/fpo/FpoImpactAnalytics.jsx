@@ -221,7 +221,7 @@ const FpoImpactAnalytics = () => {
       case "DollarSign":
         return <DollarSign className="text-[#132a13]" />;
       case "TrendingUp":
-        return <TrendingUp className="text-[#4f772d]" />;
+        return <TrendingUp className="text-brand-medium" />;
       case "Warehouse":
         return <Warehouse className="text-[#31572c]" />;
       case "Users":
@@ -255,7 +255,7 @@ const FpoImpactAnalytics = () => {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <LayoutDashboard className="w-5 h-5 text-[#4f772d]" />
+          <LayoutDashboard className="w-5 h-5 text-brand-medium" />
           Impact Analytics Command Center
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -379,7 +379,7 @@ const FpoImpactAnalytics = () => {
               </div>
               <div className="w-full bg-gray-100 rounded-full h-2">
                 <div
-                  className="bg-[#4f772d] h-2 rounded-full"
+                  className="bg-brand-medium h-2 rounded-full"
                   style={{
                     width: `${(comparativeBenchmark.districtAvg / 40) * 100}%`,
                   }}
@@ -721,7 +721,7 @@ const FpoImpactAnalytics = () => {
             </ResponsiveContainer>
           </div>
           <div className="mt-2 p-2 bg-gray-50 rounded-lg text-[10px] text-gray-600 flex items-center justify-center gap-1.5">
-            <Target size={12} className="text-[#4f772d] shrink-0" />
+            <Target size={12} className="text-brand-medium shrink-0" />
             <span>
               Q3 2026 Target:{" "}
               {formatCurrency(predictiveImpact[2]?.targetIncome || 0)} | On
@@ -735,7 +735,7 @@ const FpoImpactAnalytics = () => {
       <div className="flex gap-3">
         <button
           onClick={() => setShowDownloadModal(true)}
-          className="flex-1 py-2.5 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-sm font-bold transition flex items-center justify-center gap-2"
+          className="flex-1 py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-sm font-bold transition flex items-center justify-center gap-2"
         >
           <Download size={16} />
           Download Impact Report
@@ -760,7 +760,7 @@ const FpoImpactAnalytics = () => {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <Download className="w-5 h-5 text-[#4f772d]" />
+              <Download className="w-5 h-5 text-brand-medium" />
               Download Impact Report
             </h2>
             <p className="text-xs text-gray-500 mb-4">
@@ -770,7 +770,7 @@ const FpoImpactAnalytics = () => {
 
             {downloadProgress ? (
               <div className="py-8 text-center">
-                <Loader2 className="w-8 h-8 text-[#4f772d] animate-spin mx-auto mb-3" />
+                <Loader2 className="w-8 h-8 text-brand-medium animate-spin mx-auto mb-3" />
                 <p className="text-xs font-bold text-[#132a13]">
                   Generating report...
                 </p>
@@ -784,7 +784,7 @@ const FpoImpactAnalytics = () => {
                   <select
                     value={fiscalYear}
                     onChange={(e) => setFiscalYear(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#4f772d]"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-medium"
                   >
                     <option value="FY2025-26">FY 2025-26 (Current)</option>
                     <option value="FY2024-25">FY 2024-25</option>
@@ -848,7 +848,7 @@ const FpoImpactAnalytics = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-sm font-medium transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-sm font-medium transition"
                   >
                     Download PDF
                   </button>

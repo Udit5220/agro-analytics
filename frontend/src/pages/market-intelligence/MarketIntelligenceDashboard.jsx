@@ -17,7 +17,7 @@ export default function MarketIntelligenceDashboard() {
       label: "Crops Tracked",
       value: "102",
       sub: "National scale",
-      color: "text-[#31572c] bg-[#31572c]/10",
+      color: "text-[#31572c] bg-brand-dark/10",
     },
     {
       label: "Top Mandi Gain",

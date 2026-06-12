@@ -1,469 +1,578 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  Building2,
-  FileCheck,
-  TrendingUp,
-  Award,
-  Link2,
+  User,
+  Search,
+  Filter,
   CheckCircle,
-  Save,
-  Info,
+  Clock,
+  AlertTriangle,
+  XCircle,
   ChevronRight,
-  Upload,
-  AlertCircle,
-  Database,
+  X,
+  FileText,
+  Calendar,
+  DollarSign,
+  Download,
+  Send,
   RefreshCw,
+  MoreVertical,
+  ArrowRight,
+  TrendingUp,
+  Bookmark,
+  Sparkles,
+  ShieldAlert,
+  Save,
+  Cpu,
+  Database,
+  Briefcase,
+  ShieldCheck,
+  Check,
 } from "lucide-react";
+import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
+
+/*
+// --- OLD COMPANY PROFILE COMPONENT COMMENTED OUT ---
+export default function AdminCompanyProfile() {
+  return (
+    <div>Old Company Profile Code</div>
+  );
+}
+*/
+
+// --- NEW REDESIGNED COMPANY PROFILE & MATCHING ENGINE COMPONENT ---
 
 export default function AdminCompanyProfile() {
-  // Tabs: "identity" (Business Identity), "financials" (Financials), "operations" (Operations), "compliance" (Compliance)
-  const [activeTab, setActiveTab] = useState("identity");
-  const [saveSuccess, setSaveSuccess] = useState(false);
+  const navigate = useNavigate();
+  const [analytics, setAnalytics] = useState(getAnalyticsData());
+  const [toastMessage, setToastMessage] = useState("");
 
-  // Form State
-  const [formData, setFormData] = useState({
-    cin: "U72200HR2024PTC109841",
-    gst: "06AAICA8840G1ZX",
-    udyam: "UDYAM-HR-0034921",
-    dpiit: "DPIIT-78923",
-    turnoverY1: "3.5", // Cr
-    turnoverY2: "5.8", // Cr
-    turnoverY3: "8.4", // Cr
-    networth: "4.2", // Cr
-    employees: "145",
-    fpos: "5",
-    states: "Haryana, Punjab, Rajasthan",
-    crops: "Wheat, Paddy, Mustard",
-    iso: "ISO 9001:2015, ISO 27001",
-    dpdpCheck: true,
-  });
+  // Local state for profile inputs
+  const [gstin, setGstin] = useState(analytics.companyProfile.gstin || "");
+  const [cin, setCin] = useState(analytics.companyProfile.cin || "");
+  const [udyam, setUdyam] = useState(analytics.companyProfile.udyam || "");
+  const [dpiit, setDpiit] = useState(analytics.companyProfile.dpiit || "");
+  const [pan, setPan] = useState(analytics.companyProfile.pan || "");
 
-  // File upload state
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
-  const fileInputRef = React.useRef(null);
+  const [turnover, setTurnover] = useState(analytics.companyProfile.turnover || "");
+  const [employees, setEmployees] = useState(analytics.companyProfile.employees || "");
+  const [netWorth, setNetWorth] = useState(analytics.companyProfile.netWorth || "");
+  const [yearsInOperation, setYearsInOperation] = useState(analytics.companyProfile.yearsInOperation || "");
 
-  // Calculate dynamic profile completion based on filled fields
-  const calculateCompletion = () => {
-    let score = 0;
-    if (formData.cin) score += 10;
-    if (formData.gst) score += 10;
-    if (formData.udyam) score += 15;
-    if (formData.dpiit) score += 15;
-    if (formData.turnoverY3) score += 15;
-    if (formData.employees) score += 10;
-    if (formData.fpos) score += 15;
-    if (formData.dpdpCheck) score += 10;
-    return score;
+  const [statesServed, setStatesServed] = useState((analytics.companyProfile.statesServed || []).join(", "));
+  const [farmerNetwork, setFarmerNetwork] = useState(analytics.companyProfile.farmerNetwork || "");
+  const [fpoPartnerships, setFpoPartnerships] = useState(analytics.companyProfile.fpoPartnerships || "");
+  const [cropFocus, setCropFocus] = useState((analytics.companyProfile.cropFocus || []).join(", "));
+  const [techStack, setTechStack] = useState(analytics.companyProfile.techStack || "");
+
+  const [businessCategory, setBusinessCategory] = useState(analytics.companyProfile.businessCategory || "");
+  const [growthStage, setGrowthStage] = useState(analytics.companyProfile.growthStage || "");
+  const [fundingStage, setFundingStage] = useState(analytics.companyProfile.fundingStage || "");
+
+  // Optional integrations toggles
+  const [tallyLinked, setTallyLinked] = useState(false);
+  const [zohoLinked, setZohoLinked] = useState(false);
+  const [erpLinked, setErpLinked] = useState(false);
+
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(""), 3000);
   };
 
-  const profileScore = calculateCompletion();
-
-  const handleFieldChange = (key, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [key]: value
-    }));
-  };
-
-  const handleSave = (e) => {
+  // Save changes
+  const handleSaveProfile = (e) => {
     e.preventDefault();
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 2000);
-  };
+    const updated = { ...analytics };
+    
+    // Update profile
+    updated.companyProfile = {
+      ...updated.companyProfile,
+      gstin,
+      cin,
+      udyam,
+      dpiit,
+      pan,
+      turnover,
+      employees,
+      netWorth,
+      yearsInOperation,
+      statesServed: statesServed.split(",").map(s => s.trim()).filter(Boolean),
+      farmerNetwork,
+      fpoPartnerships,
+      cropFocus: cropFocus.split(",").map(c => c.trim()).filter(Boolean),
+      techStack,
+      businessCategory,
+      growthStage,
+      fundingStage,
+    };
 
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Validate file size (5MB max)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('File size exceeds 5MB limit');
-        return;
-      }
-      // Validate file type
-      const validTypes = ['application/pdf', 'image/png'];
-      if (!validTypes.includes(file.type)) {
-        alert('Only PDF and PNG files are allowed');
-        return;
-      }
-      setSelectedFile(file);
-      setUploadSuccess(false);
+    // Calculate score based on linked indicators
+    let fieldsFilled = 0;
+    const fields = [gstin, cin, udyam, dpiit, pan, turnover, employees, netWorth, yearsInOperation, farmerNetwork, fpoPartnerships, techStack, businessCategory];
+    fields.forEach(f => {
+      if (f && f.length > 0) fieldsFilled += 1;
+    });
 
-      // Simulate upload process
-      setIsUploading(true);
-      setTimeout(() => {
-        setIsUploading(false);
-        setUploadSuccess(true);
-        setTimeout(() => setUploadSuccess(false), 3000);
-      }, 2000);
+    // Score weight
+    const rawScore = Math.round((fieldsFilled / fields.length) * 85) + (tallyLinked ? 5 : 0) + (zohoLinked ? 5 : 0) + (erpLinked ? 5 : 0);
+    updated.profileStrength = Math.min(rawScore, 100);
+
+    // Sync scheme blockers if Udyam is added
+    if (udyam) {
+      updated.schemes.forEach(s => {
+        s.missingRequirements = s.missingRequirements.filter(req => req !== "Udyam Registration Missing");
+      });
     }
+
+    saveAnalyticsData(updated);
+    setAnalytics(updated);
+    showToast("Corporate matching profile saved & matched score recalculated!");
   };
 
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
+  useEffect(() => {
+    // If integrations change, update overall matching score
+    const updated = { ...analytics };
+    let basePct = analytics.profileStrength;
+    // Cap score at 100
+    saveAnalyticsData(updated);
+  }, [tallyLinked, zohoLinked, erpLinked]);
 
   return (
-    <div className="space-y-5 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-[#2e4057] animate-fadeIn">
-      {/* Header section */}
-      <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-xl font-bold flex items-center gap-2">
-            <Building2 className="w-5 h-5 text-[#28a745]" />
-            Company Profile Settings
-          </h1>
-          <p className="text-xs text-gray-500 font-semibold">
-            Manage corporate credentials, MSME records, financial auditing logs, and platform sync settings.
+    <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-brand-darkest animate-fadeIn relative font-semibold">
+      
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-5 right-5 bg-brand-darkest text-white px-4 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-2 text-xs border border-white/10 animate-bounce">
+          <Sparkles className="w-4 h-4 text-emerald-400" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Hero Header */}
+      <div className="bg-gradient-to-r from-brand-darkest to-brand-dark p-6 rounded-3xl text-white shadow-md relative overflow-hidden">
+        <div className="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-brand-medium/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="max-w-3xl space-y-2 relative z-10">
+          <span className="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
+            Recommendation Core
+          </span>
+          <h1 className="text-2xl font-black tracking-tight">Company Profile & Matching Engine</h1>
+          <p className="text-xs text-white/80 font-medium leading-relaxed">
+            Configure business registry credentials, financial indicators, and crop parameters to power the automated matching algorithm.
           </p>
         </div>
+      </div>
 
-        {/* Dynamic Completion Widget */}
-        <div className="flex items-center gap-4 bg-gray-50 p-3 rounded-xl border border-gray-100 min-w-[280px]">
-          <div className="flex-1 space-y-1">
-            <div className="flex justify-between text-[10px] font-bold">
-              <span>Matching Accuracy Strength</span>
-              <span className="text-[#28a745]">{profileScore}% Complete</span>
-            </div>
-            <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-              <div className="bg-[#28a745] h-full transition-all duration-300" style={{ width: `${profileScore}%` }}></div>
-            </div>
+      {/* Profile completion strip */}
+      <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <span className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">Real-time matching accuracy</span>
+          <span className="text-lg font-black text-brand-darkest mt-1 block">Profile Completion Score</span>
+        </div>
+
+        <div className="flex items-center gap-3 w-full sm:w-1/2">
+          <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
+            <div 
+              className="bg-brand-medium h-full rounded-full transition-all"
+              style={{ width: `${analytics.profileStrength}%` }}
+            />
           </div>
-          <span className="text-xs font-black text-gray-500 bg-white border border-gray-150 px-2 py-1 rounded-lg">
-            {profileScore >= 90 ? "Excellent" : "Needs Sync"}
-          </span>
+          <span className="text-lg font-black text-brand-darkest shrink-0">{analytics.profileStrength}%</span>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200 bg-white p-2 rounded-xl border border-gray-150">
-        <button
-          onClick={() => setActiveTab("identity")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "identity" ? "bg-[#2e4057] text-white shadow-sm" : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Business Identity
-        </button>
-        <button
-          onClick={() => setActiveTab("financials")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "financials" ? "bg-[#2e4057] text-white shadow-sm" : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Financial Records
-        </button>
-        <button
-          onClick={() => setActiveTab("operations")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "operations" ? "bg-[#2e4057] text-white shadow-sm" : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Operational Metrics
-        </button>
-        <button
-          onClick={() => setActiveTab("compliance")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "compliance" ? "bg-[#2e4057] text-white shadow-sm" : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Compliance Certification
-        </button>
-      </div>
-
-      {/* Grid Layout: Form vs Sync Integrations */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      <form onSubmit={handleSaveProfile} className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         
-        {/* Left 2 Cols: Tab forms */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-150 shadow-sm p-6 space-y-4">
-          <form onSubmit={handleSave} className="space-y-5">
+        {/* Left 2 Columns: Profile Forms */}
+        <div className="lg:col-span-2 space-y-6">
+          
+          {/* Business Identity */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2">
+              Business Identity
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium">
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">GSTIN</label>
+                <input 
+                  type="text" 
+                  value={gstin} 
+                  onChange={(e) => setGstin(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">CIN</label>
+                <input 
+                  type="text" 
+                  value={cin} 
+                  onChange={(e) => setCin(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Udyam Registration</label>
+                <input 
+                  type="text" 
+                  value={udyam} 
+                  onChange={(e) => setUdyam(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                  placeholder="Sync MSME Loans Udyam code"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">DPIIT Startup India Recognition Code</label>
+                <input 
+                  type="text" 
+                  value={dpiit} 
+                  onChange={(e) => setDpiit(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">PAN</label>
+                <input 
+                  type="text" 
+                  value={pan} 
+                  onChange={(e) => setPan(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Financial Profile */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2">
+              Financial Profile
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium">
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Annual Turnover</label>
+                <input 
+                  type="text" 
+                  value={turnover} 
+                  onChange={(e) => setTurnover(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Employee Count</label>
+                <input 
+                  type="text" 
+                  value={employees} 
+                  onChange={(e) => setEmployees(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Net Worth</label>
+                <input 
+                  type="text" 
+                  value={netWorth} 
+                  onChange={(e) => setNetWorth(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Years in Operation</label>
+                <input 
+                  type="text" 
+                  value={yearsInOperation} 
+                  onChange={(e) => setYearsInOperation(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Operational Profile */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2">
+              Operational Profile
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium">
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">States Served (Comma separated)</label>
+                <input 
+                  type="text" 
+                  value={statesServed} 
+                  onChange={(e) => setStatesServed(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Farmer Network Count</label>
+                <input 
+                  type="text" 
+                  value={farmerNetwork} 
+                  onChange={(e) => setFarmerNetwork(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">FPO Partnerships Count</label>
+                <input 
+                  type="text" 
+                  value={fpoPartnerships} 
+                  onChange={(e) => setFpoPartnerships(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Crop Focus Areas (Comma separated)</label>
+                <input 
+                  type="text" 
+                  value={cropFocus} 
+                  onChange={(e) => setCropFocus(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1 sm:col-span-2">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Technology Stack Description</label>
+                <input 
+                  type="text" 
+                  value={techStack} 
+                  onChange={(e) => setTechStack(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Matching Settings & Integrations */}
+        <div className="space-y-6">
+          
+          {/* Profile Health Dashboard */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2 flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-brand-medium" /> Profile Health Dashboard
+            </h3>
             
-            {/* Tab 1: Business Identity */}
-            {activeTab === "identity" && (
-              <div className="space-y-4">
-                <h3 className="font-bold text-xs uppercase tracking-wider text-gray-700">Official Registration Credentials</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Corporate Identity Number (CIN)</label>
-                    <input
-                      type="text"
-                      value={formData.cin}
-                      onChange={(e) => handleFieldChange("cin", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div className="p-3 bg-[#f8faf8] rounded-xl border border-gray-100">
+                <span className="text-[8px] text-gray-400 font-black uppercase block tracking-wider">Verification Status</span>
+                <span className="font-black text-emerald-600 block mt-1 uppercase">Active & Attested</span>
+              </div>
+              <div className="p-3 bg-[#f8faf8] rounded-xl border border-gray-100">
+                <span className="text-[8px] text-gray-400 font-black uppercase block tracking-wider">Data Freshness</span>
+                <span className="font-black text-brand-medium block mt-1 uppercase">Fresh (Synced Today)</span>
+              </div>
+            </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">GST Registration (GSTIN)</label>
-                    <input
-                      type="text"
-                      value={formData.gst}
-                      onChange={(e) => handleFieldChange("gst", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">MSME Udyam Registration ID</label>
-                    <input
-                      type="text"
-                      value={formData.udyam}
-                      placeholder="e.g. UDYAM-XX-00-0000000"
-                      onChange={(e) => handleFieldChange("udyam", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">DPIIT Startup Recognition Code</label>
-                    <input
-                      type="text"
-                      value={formData.dpiit}
-                      placeholder="e.g. DPIIT-12345"
-                      onChange={(e) => handleFieldChange("dpiit", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
+            <div className="space-y-2.5 text-xs text-gray-700">
+              <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider block">Recommended Updates</span>
+              
+              {!udyam && (
+                <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-950 leading-relaxed font-semibold">
+                  <p className="font-black uppercase text-[8px] text-amber-850 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Udyam Code Missing</p>
+                  Link your Udyam MSME code to resolve blockers for the SIDBI Venture Fund.
                 </div>
+              )}
+              
+              {!turnover && (
+                <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-950 leading-relaxed font-semibold">
+                  <p className="font-black uppercase text-[8px] text-amber-850 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Financial Records Outdated</p>
+                  Upload audited CA financial statements to unlock cold chain export subsidies.
+                </div>
+              )}
 
-                <div className={`border border-dashed p-4 rounded-xl text-center space-y-2 cursor-pointer transition ${isUploading ? 'border-[#28a745] bg-[#28a745]/10' : uploadSuccess ? 'border-emerald-500 bg-emerald-50/50' : 'border-gray-200 bg-gray-50/50 hover:border-[#28a745] hover:bg-gray-100/50'}`} onClick={!isUploading ? handleUploadClick : undefined}>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleFileSelect}
-                    accept=".pdf,.png"
-                    className="hidden"
-                    disabled={isUploading}
-                  />
-                  {isUploading ? (
-                    <>
-                      <RefreshCw className="w-6 h-6 mx-auto text-[#28a745] animate-spin" />
-                      <span className="block text-xs font-bold text-[#28a745]">Uploading file...</span>
-                      <span className="block text-[10px] text-gray-400 font-semibold">Please wait while we process your file</span>
-                    </>
-                  ) : uploadSuccess ? (
-                    <>
-                      <CheckCircle className="w-6 h-6 mx-auto text-emerald-600" />
-                      <span className="block text-xs font-bold text-emerald-700">File uploaded successfully!</span>
-                      <span className="block text-[10px] text-emerald-600 font-semibold">{selectedFile?.name}</span>
-                    </>
+              {udyam && (
+                <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-950 leading-relaxed font-semibold">
+                  <p className="font-black uppercase text-[8px] text-emerald-900 flex items-center gap-1"><Check className="w-3 h-3" /> Profile Health Excellent</p>
+                  All key registry items are synced. Keep state preferences updated to filter subventions.
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Matching Configuration */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2">
+              Matching Configuration
+            </h3>
+
+            <div className="space-y-3 text-xs font-medium">
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Business Category</label>
+                <input 
+                  type="text" 
+                  value={businessCategory} 
+                  onChange={(e) => setBusinessCategory(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Growth Stage</label>
+                <input 
+                  type="text" 
+                  value={growthStage} 
+                  onChange={(e) => setGrowthStage(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Funding Stage</label>
+                <input 
+                  type="text" 
+                  value={fundingStage} 
+                  onChange={(e) => setFundingStage(e.target.value)} 
+                  className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+                />
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              className="w-full bg-brand-darkest hover:bg-brand-dark text-white py-3 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <Save className="w-4 h-4" /> Save Profile Config
+            </button>
+          </div>
+
+          {/* Optional Integration Hub */}
+          <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+            <div>
+              <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+                <Cpu className="w-4 h-4 text-brand-medium" /> Optional Integration Hub
+              </h3>
+              <p className="text-[10px] text-gray-400 font-bold uppercase mt-1">Connect systems to sync metrics</p>
+            </div>
+
+            <div className="space-y-3.5 text-xs font-semibold">
+              <div className="flex justify-between items-center p-3 rounded-xl bg-gray-50 border border-gray-100">
+                <div>
+                  <p className="font-bold text-brand-darkest">Tally Integration</p>
+                  <p className="text-[9px] text-gray-400">Sync turnover and audited reports</p>
+                </div>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setTallyLinked(!tallyLinked);
+                    showToast(tallyLinked ? "Tally API disconnected" : "Tally API sync established!");
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition ${
+                    tallyLinked ? "bg-emerald-100 text-emerald-800" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
+                  }`}
+                >
+                  {tallyLinked ? "Connected" : "Link API"}
+                </button>
+              </div>
+
+              <div className="flex justify-between items-center p-3 rounded-xl bg-gray-50 border border-gray-100">
+                <div>
+                  <p className="font-bold text-brand-darkest">Zoho Integration</p>
+                  <p className="text-[9px] text-gray-400">Sync corporate profile indicators</p>
+                </div>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setZohoLinked(!zohoLinked);
+                    showToast(zohoLinked ? "Zoho disconnected" : "Zoho database sync established!");
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition ${
+                    zohoLinked ? "bg-emerald-100 text-emerald-800" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
+                  }`}
+                >
+                  {zohoLinked ? "Connected" : "Link API"}
+                </button>
+              </div>
+
+              <div className="flex justify-between items-center p-3 rounded-xl bg-gray-50 border border-gray-100">
+                <div>
+                  <p className="font-bold text-brand-darkest">Internal CRM / ERP Link</p>
+                  <p className="text-[9px] text-gray-400">Sync operational states and FPO targets</p>
+                </div>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setErpLinked(!erpLinked);
+                    showToast(erpLinked ? "ERP disconnected" : "ERP data mapping established!");
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition ${
+                    erpLinked ? "bg-emerald-100 text-emerald-800" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
+                  }`}
+                >
+                  {erpLinked ? "Connected" : "Link API"}
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </form>
+
+      {/* Match Explanation Panel */}
+      <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+        <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2 flex items-center gap-1.5">
+          <Database className="w-4 h-4 text-brand-medium" /> Match Explanation Panel
+        </h3>
+        <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+          Detailed matching logic diagnostic index showing why your profile credentials align with or block recommended schemes. Sourced from AgroIndia's internal matching engine. 
+          <span className="text-[10px] text-gray-400 italic block mt-1.5">
+            * Note: All matching checks represent automated rules evaluated against the self-reported profile data you configured above. AgroIndia does not query government databases or API registers for verification.
+          </span>
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          {analytics.schemes.filter(s => !s.isFarmerScheme).map(s => {
+            const isSidbi = s.id === "adm-04";
+            const isUdyamLinked = !!udyam;
+            return (
+              <div key={s.id} className="p-4 rounded-xl border border-gray-100 bg-gray-50/50 space-y-3">
+                <div className="flex justify-between items-center border-b border-gray-100 pb-1.5">
+                  <span className="font-black text-brand-darkest uppercase tracking-wide truncate max-w-[200px]">{s.name}</span>
+                  <span className="font-black text-brand-medium">{s.matchScore}% Match</span>
+                </div>
+                <div className="space-y-1.5 text-[11px] font-semibold text-gray-600">
+                  <div className="flex items-center gap-1.5 text-emerald-700">
+                    <Check className="w-3.5 h-3.5" /> <span>DPIIT Registered</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-emerald-700">
+                    <Check className="w-3.5 h-3.5" /> <span>Agritech/Agribusiness Category Match</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-emerald-700">
+                    <Check className="w-3.5 h-3.5" /> <span>Eligible Turnover ({turnover || "₹18.5 Cr"} matches requirements)</span>
+                  </div>
+                  {isSidbi ? (
+                    isUdyamLinked ? (
+                      <div className="flex items-center gap-1.5 text-emerald-700">
+                        <Check className="w-3.5 h-3.5" /> <span>Udyam Registered ({udyam})</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1.5 text-amber-600">
+                        <AlertTriangle className="w-3.5 h-3.5" /> <span>Missing Certification (Udyam MSME Registration Code Required)</span>
+                      </div>
+                    )
                   ) : (
-                    <>
-                      <Upload className="w-6 h-6 mx-auto text-gray-400" />
-                      <span className="block text-xs font-bold text-gray-700">
-                        {selectedFile ? selectedFile.name : "Upload Certificate PDF Scans"}
-                      </span>
-                      <span className="block text-[10px] text-gray-400 font-semibold">
-                        {selectedFile ? `Selected: ${(selectedFile.size / 1024 / 1024).toFixed(2)} MB` : "Maximum file size: 5MB. File types: PDF, PNG"}
-                      </span>
-                    </>
+                    <div className="flex items-center gap-1.5 text-emerald-700">
+                      <Check className="w-3.5 h-3.5" /> <span>Registry Compliance Met</span>
+                    </div>
                   )}
                 </div>
               </div>
-            )}
-
-            {/* Tab 2: Financial Records */}
-            {activeTab === "financials" && (
-              <div className="space-y-4">
-                <h3 className="font-bold text-xs uppercase tracking-wider text-gray-700">3-Year Audited Turnovers & Capitalization</h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Turnover FY 2023-24 (in Crore)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={formData.turnoverY1}
-                      onChange={(e) => handleFieldChange("turnoverY1", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Turnover FY 2024-25 (in Crore)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={formData.turnoverY2}
-                      onChange={(e) => handleFieldChange("turnoverY2", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Turnover FY 2025-26 (in Crore)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={formData.turnoverY3}
-                      onChange={(e) => handleFieldChange("turnoverY3", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Corporate Net Worth (in Crore)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={formData.networth}
-                      onChange={(e) => handleFieldChange("networth", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Active Full-time Employees</label>
-                    <input
-                      type="number"
-                      value={formData.employees}
-                      onChange={(e) => handleFieldChange("employees", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Tab 3: Operational Metrics */}
-            {activeTab === "operations" && (
-              <div className="space-y-4">
-                <h3 className="font-bold text-xs uppercase tracking-wider text-gray-700">FPO Cooperatives & Coverage Metrics</h3>
-
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase">Total Linked FPOs</label>
-                      <input
-                        type="number"
-                        value={formData.fpos}
-                        onChange={(e) => handleFieldChange("fpos", e.target.value)}
-                        className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase">Operational Target States</label>
-                      <input
-                        type="text"
-                        value={formData.states}
-                        onChange={(e) => handleFieldChange("states", e.target.value)}
-                        className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Core Crop Canopy Cover</label>
-                    <input
-                      type="text"
-                      value={formData.crops}
-                      onChange={(e) => handleFieldChange("crops", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Tab 4: Compliance Certifications */}
-            {activeTab === "compliance" && (
-              <div className="space-y-4">
-                <h3 className="font-bold text-xs uppercase tracking-wider text-gray-700">Standards & DPDP Act Alignment</h3>
-
-                <div className="space-y-4">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Quality Certifications (e.g. ISO 9001, NPOP)</label>
-                    <input
-                      type="text"
-                      value={formData.iso}
-                      onChange={(e) => handleFieldChange("iso", e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold"
-                    />
-                  </div>
-
-                  {/* Toggle checkbox */}
-                  <div className="bg-gray-50 border border-gray-150 p-4 rounded-xl flex items-center justify-between">
-                    <div className="space-y-1 flex-1">
-                      <span className="block text-xs font-bold text-gray-800">DPDP Act Compliance Audit Check</span>
-                      <span className="block text-[10px] text-gray-400 font-semibold">Verify compliance under Digital Personal Data Protection Act rules.</span>
-                    </div>
-                    <input
-                      type="checkbox"
-                      checked={formData.dpdpCheck}
-                      onChange={(e) => handleFieldChange("dpdpCheck", e.target.checked)}
-                      className="w-4.5 h-4.5 accent-[#2e4057] cursor-pointer"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Save Buttons */}
-            <div className="flex justify-end pt-2">
-              <button
-                type="submit"
-                className="bg-[#2e4057] hover:bg-[#208837] text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
-              >
-                {saveSuccess ? (
-                  <>
-                    <CheckCircle className="w-4 h-4 text-[#ffc857]" /> Saved Settings
-                  </>
-                ) : (
-                  <>
-                    <Save className="w-4 h-4" /> Save & Update Profile
-                  </>
-                )}
-              </button>
-            </div>
-
-          </form>
+            );
+          })}
         </div>
-
-        {/* Right Col: HR/Accounting Sync Systems */}
-        <div className="space-y-5">
-          <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
-            <h3 className="font-black text-xs uppercase tracking-wider text-[#2e4057] flex items-center gap-1.5">
-              <Link2 className="w-4 h-4 text-[#28a745]" /> Automated Systems Sync
-            </h3>
-            <p className="text-xs text-gray-500 font-semibold leading-relaxed">
-              Link with external systems to auto-populate employee rolls, ledger turnovers, and startup status parameters.
-            </p>
-
-            <div className="space-y-3">
-              {/* Accounting software */}
-              <div className="border border-gray-100 rounded-xl p-3 bg-gray-50/50 flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-gray-800">Accounting / Ledgers</span>
-                  <span className="text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">Linked</span>
-                </div>
-                <div className="flex justify-between items-center text-[10px] border-t border-gray-100 pt-2 font-semibold">
-                  <span className="text-gray-400">Tally Prime API</span>
-                  <button className="text-gray-400 hover:text-gray-600 flex items-center gap-0.5">
-                    <RefreshCw className="w-3 h-3" /> Sync Now
-                  </button>
-                </div>
-              </div>
-
-              {/* HR software */}
-              <div className="border border-gray-100 rounded-xl p-3 bg-gray-50/50 flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-gray-800">HR / Payroll Systems</span>
-                  <span className="text-[9px] font-black uppercase text-gray-400 bg-gray-100 px-2 py-0.5 rounded">Not Linked</span>
-                </div>
-                <div className="flex justify-between items-center text-[10px] border-t border-gray-100 pt-2 font-semibold">
-                  <span className="text-gray-400">Darwinbox / Zoho People</span>
-                  <button className="text-[#2e4057] hover:underline font-bold flex items-center gap-0.5">
-                    Connect Link <ChevronRight className="w-3 h-3" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
+
     </div>
   );
 }

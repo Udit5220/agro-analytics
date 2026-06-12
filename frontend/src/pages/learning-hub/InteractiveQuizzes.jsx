@@ -83,7 +83,7 @@ export default function InteractiveQuizzes() {
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
       <div className="flex items-center gap-2.5 mb-6">
-        <div className="p-2 bg-[#31572c]/10 rounded-lg">
+        <div className="p-2 bg-brand-dark/10 rounded-lg">
           <Target className="h-6 w-6 text-[#31572c]" />
         </div>
         <div>
@@ -111,7 +111,7 @@ export default function InteractiveQuizzes() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#31572c] hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
+            className="bg-brand-dark hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
           >
             {loading ? (
               <>
@@ -146,7 +146,7 @@ export default function InteractiveQuizzes() {
             <>
               <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
                 <span className="text-xs font-black uppercase text-gray-400 tracking-widest">Active Challenge Question</span>
-                <span className="bg-[#31572c]/10 text-[#31572c] px-3 py-1 rounded-full text-xs font-bold uppercase">{quizTopic}</span>
+                <span className="bg-brand-dark/10 text-[#31572c] px-3 py-1 rounded-full text-xs font-bold uppercase">{quizTopic}</span>
               </div>
 
               <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-8 leading-relaxed">
@@ -164,7 +164,7 @@ export default function InteractiveQuizzes() {
                     else if (isSelected && !isCorrect) stateClass = "border-red-500 bg-red-50 text-red-900";
                     else stateClass = "border-gray-200 opacity-50 cursor-not-allowed";
                   } else if (isSelected) {
-                    stateClass = "border-[#31572c] bg-[#31572c]/5 ring-2 ring-[#31572c]/20";
+                    stateClass = "border-[#31572c] bg-brand-dark/5 ring-2 ring-[#31572c]/20";
                   }
 
                   return (
@@ -177,7 +177,7 @@ export default function InteractiveQuizzes() {
                         <div className={`h-8 w-8 rounded-lg flex items-center justify-center font-bold text-sm ${
                           submitted && isCorrect ? 'bg-emerald-500 text-white' : 
                           submitted && isSelected && !isCorrect ? 'bg-red-500 text-white' : 
-                          isSelected ? 'bg-[#31572c] text-white' : 'bg-gray-100 text-gray-500'
+                          isSelected ? 'bg-brand-dark text-white' : 'bg-gray-100 text-gray-500'
                         }`}>
                           {opt.id}
                         </div>
@@ -203,7 +203,7 @@ export default function InteractiveQuizzes() {
                   <button 
                     onClick={handleSubmit}
                     disabled={!selectedAns}
-                    className="bg-[#31572c] text-white px-6 py-3 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:bg-[#1a3018] transition-colors text-xs"
+                    className="bg-brand-dark text-white px-6 py-3 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:bg-[#1a3018] transition-colors text-xs"
                   >
                     Submit Answer
                   </button>

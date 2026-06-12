@@ -49,7 +49,7 @@
 //       {/* Header */}
 //       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
 //         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-//           <FileText className="w-5 h-5 text-[#4f772d]" />
+//           <FileText className="w-5 h-5 text-brand-medium" />
 //           Compliance & Document Vault
 //         </h1>
 //         <p className="text-xs text-gray-500 mt-1">Audit mandatory compliance checkpoints (AGM, Audits, GST) and secure required certifications for FPO funding.</p>
@@ -88,7 +88,7 @@
 //                     <button
 //                       type="button"
 //                       onClick={() => triggerUpdateLog(item)}
-//                       className="text-[10px] font-bold text-[#4f772d] hover:underline"
+//                       className="text-[10px] font-bold text-brand-medium hover:underline"
 //                     >
 //                       Update Log
 //                     </button>
@@ -103,7 +103,7 @@
 //         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
 //           <div>
 //             <h3 className="font-bold text-[#132a13] text-sm mb-1 flex items-center gap-1">
-//               <Calendar className="w-4 h-4 text-[#4f772d]" />
+//               <Calendar className="w-4 h-4 text-brand-medium" />
 //               FPO Expiry Tracker
 //             </h3>
 //             <p className="text-[10px] text-gray-400 mb-4">Review dates and expiry parameters of active cooperative certificates</p>
@@ -124,7 +124,7 @@
 //           <button
 //             type="button"
 //             onClick={() => setShowDocsModal(true)}
-//             className="w-full mt-4 text-xs font-bold text-center py-2 bg-[#132a13] text-white rounded-xl hover:bg-[#31572c] transition"
+//             className="w-full mt-4 text-xs font-bold text-center py-2 bg-[#132a13] text-white rounded-xl hover:bg-brand-dark transition"
 //           >
 //             View All Documents
 //           </button>
@@ -143,7 +143,7 @@
 //               <X className="w-5 h-5" />
 //             </button>
 //             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-//               <FileText className="w-5 h-5 text-[#4f772d]" />
+//               <FileText className="w-5 h-5 text-brand-medium" />
 //               Update Compliance Log
 //             </h2>
 //             <p className="text-xs text-gray-500 mb-4 font-semibold">
@@ -183,7 +183,7 @@
 //                   value={taskNotes}
 //                   onChange={(e) => setTaskNotes(e.target.value)}
 //                   placeholder="Type updates or upload references logs..."
-//                   className="w-full px-3 py-2 border border-gray-250 rounded-xl text-xs focus:outline-none focus:border-[#4f772d] resize-none"
+//                   className="w-full px-3 py-2 border border-gray-250 rounded-xl text-xs focus:outline-none focus:border-brand-medium resize-none"
 //                 />
 //               </div>
 
@@ -197,7 +197,7 @@
 //                 </button>
 //                 <button
 //                   type="submit"
-//                   className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+//                   className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
 //                 >
 //                   Save Status
 //                 </button>
@@ -219,7 +219,7 @@
 //               <X className="w-5 h-5" />
 //             </button>
 //             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-//               <FileText className="w-5 h-5 text-[#4f772d]" />
+//               <FileText className="w-5 h-5 text-brand-medium" />
 //               FPO Document Vault Library
 //             </h2>
 //             <p className="text-xs text-gray-500 mb-4">Complete audit trail of registration certificates, cooperative resolutions, and corporate statements.</p>
@@ -245,7 +245,7 @@
 //                         </span>
 //                       </td>
 //                       <td className="p-3 text-right">
-//                         <button type="button" className="text-[10px] font-bold text-[#4f772d] hover:underline">Download</button>
+//                         <button type="button" className="text-[10px] font-bold text-brand-medium hover:underline">Download</button>
 //                       </td>
 //                     </tr>
 //                   ))}
@@ -625,7 +625,7 @@ const FpoCompliance = () => {
     {
       label: "Upload",
       onClick: (row) => triggerUploadDoc(row),
-      className: "text-[#4f772d] hover:text-[#31572c] font-medium text-xs",
+      className: "text-brand-medium hover:text-[#31572c] font-medium text-xs",
     },
     {
       label: "View",
@@ -641,7 +641,7 @@ const FpoCompliance = () => {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <LayoutDashboard className="w-5 h-5 text-[#4f772d]" />
+          <LayoutDashboard className="w-5 h-5 text-brand-medium" />
           Compliance Command Center
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -666,7 +666,7 @@ const FpoCompliance = () => {
           trend={`${missingCount} missing`}
           trendType={missingCount > 0 ? "danger" : "success"}
           subtext="Required certifications"
-          icon={<FileCheck className="text-[#4f772d]" />}
+          icon={<FileCheck className="text-brand-medium" />}
         />
         <StatsCard
           title="PENDING DEADLINES"
@@ -852,7 +852,7 @@ const FpoCompliance = () => {
                       <td className="py-3 text-right">
                         <button
                           onClick={() => triggerUpdateLog(item)}
-                          className="text-[10px] font-bold text-[#4f772d] hover:underline flex items-center gap-1 ml-auto"
+                          className="text-[10px] font-bold text-brand-medium hover:underline flex items-center gap-1 ml-auto"
                         >
                           <Edit size={12} /> Update
                         </button>
@@ -1006,7 +1006,7 @@ const FpoCompliance = () => {
                 <X className="w-5 h-5" />
               </button>
               <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-                <FileText className="w-5 h-5 text-[#4f772d]" />
+                <FileText className="w-5 h-5 text-brand-medium" />
                 Update Compliance Log
               </h2>
               <p className="text-xs text-gray-500 mb-4 font-semibold">
@@ -1053,7 +1053,7 @@ const FpoCompliance = () => {
                     value={taskNotes}
                     onChange={(e) => setTaskNotes(e.target.value)}
                     placeholder="Type updates or upload references logs..."
-                    className="w-full px-3 py-2 border border-gray-250 rounded-xl text-xs focus:outline-none focus:border-[#4f772d] resize-none"
+                    className="w-full px-3 py-2 border border-gray-250 rounded-xl text-xs focus:outline-none focus:border-brand-medium resize-none"
                   />
                 </div>
 
@@ -1067,7 +1067,7 @@ const FpoCompliance = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                   >
                     Save Status
                   </button>
@@ -1089,7 +1089,7 @@ const FpoCompliance = () => {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <Upload className="w-5 h-5 text-[#4f772d]" />
+              <Upload className="w-5 h-5 text-brand-medium" />
               Upload {selectedDoc.name}
             </h2>
             <p className="text-xs text-gray-500 mb-4">
@@ -1106,7 +1106,7 @@ const FpoCompliance = () => {
 
             {uploadProgress ? (
               <div className="py-12 text-center">
-                <Loader2 className="w-8 h-8 text-[#4f772d] animate-spin mx-auto mb-3" />
+                <Loader2 className="w-8 h-8 text-brand-medium animate-spin mx-auto mb-3" />
                 <p className="text-sm font-medium text-gray-700">
                   Uploading and verifying...
                 </p>
@@ -1122,7 +1122,7 @@ const FpoCompliance = () => {
                   onDrop={handleDrop}
                   className={`border-2 border-dashed rounded-xl p-6 text-center transition cursor-pointer ${
                     dragActive
-                      ? "border-[#4f772d] bg-[#4f772d]/5"
+                      ? "border-brand-medium bg-brand-medium/5"
                       : "border-gray-250 hover:border-gray-300"
                   }`}
                   onClick={() => document.getElementById("fileInput").click()}
@@ -1156,7 +1156,7 @@ const FpoCompliance = () => {
                   <button
                     type="submit"
                     disabled={!uploadFile}
-                    className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition ${uploadFile ? "bg-[#4f772d] hover:bg-[#31572c] text-white" : "bg-gray-200 text-gray-400 cursor-not-allowed"}`}
+                    className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition ${uploadFile ? "bg-brand-medium hover:bg-brand-dark text-white" : "bg-gray-200 text-gray-400 cursor-not-allowed"}`}
                   >
                     Upload Document
                   </button>
@@ -1225,7 +1225,7 @@ const FpoCompliance = () => {
                         </span>
                       </div>
                     </div>
-                    <button className="ml-2 text-xs font-bold text-[#4f772d] hover:underline">
+                    <button className="ml-2 text-xs font-bold text-brand-medium hover:underline">
                       Mitigate
                     </button>
                   </div>
@@ -1235,7 +1235,7 @@ const FpoCompliance = () => {
 
             <button
               onClick={() => setShowRiskModal(false)}
-              className="w-full mt-4 py-2 bg-[#132a13] text-white rounded-xl text-sm font-bold hover:bg-[#31572c] transition"
+              className="w-full mt-4 py-2 bg-[#132a13] text-white rounded-xl text-sm font-bold hover:bg-brand-dark transition"
             >
               Close
             </button>

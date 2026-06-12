@@ -502,7 +502,7 @@ export default function ExecutiveDashboard() {
                     onClick={() => setSelectedLayer(layer)}
                     className={`text-[9px] font-black uppercase px-2.5 py-1 rounded-lg border transition ${
                       selectedLayer === layer
-                        ? "bg-[#31572c] border-[#31572c] text-white"
+                        ? "bg-brand-dark border-[#31572c] text-white"
                         : "bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100"
                     }`}
                   >
@@ -780,7 +780,7 @@ export default function ExecutiveDashboard() {
                         ? "bg-red-600"
                         : rec.priority === "HIGH"
                           ? "bg-amber-500"
-                          : "bg-[#4f772d]"
+                          : "bg-brand-medium"
                     }`}
                   >
                     {rec.priority}
@@ -816,7 +816,7 @@ export default function ExecutiveDashboard() {
                 onClick={() => setDateRange(range)}
                 className={`px-3 py-1.5 transition ${
                   dateRange === range
-                    ? "bg-[#31572c] text-white"
+                    ? "bg-brand-dark text-white"
                     : "bg-gray-50 text-gray-500 hover:bg-gray-100"
                 }`}
               >

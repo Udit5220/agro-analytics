@@ -866,7 +866,7 @@ export default function CropRecDashboard() {
                 <span>High Performance</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-[#4f772d]" />
+                <span className="w-3 h-3 rounded-full bg-brand-medium" />
                 <span>Medium Performance</span>
               </div>
               <div className="flex items-center gap-1.5">
@@ -1552,7 +1552,7 @@ export default function CropRecDashboard() {
         )}
         <button
           onClick={() => setActionMenuOpen(!actionMenuOpen)}
-          className="w-14 h-14 bg-[#132a13] hover:bg-[#31572c] text-[#ecf39e] border border-[#ecf39e]/20 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-105 active:scale-95 cursor-pointer z-50"
+          className="w-14 h-14 bg-[#132a13] hover:bg-brand-dark text-[#ecf39e] border border-[#ecf39e]/20 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-105 active:scale-95 cursor-pointer z-50"
           title="FPO Action Center"
         >
           {actionMenuOpen ? (
@@ -1710,7 +1710,7 @@ export default function CropRecDashboard() {
 
                 <div className="bg-white border border-gray-250 p-4 rounded-xl space-y-2 text-xs">
                   <h5 className="font-black text-gray-950 uppercase text-[10px] tracking-wider flex items-center gap-1">
-                    <LineChart className="w-3.5 h-3.5 text-[#4f772d]" />
+                    <LineChart className="w-3.5 h-3.5 text-brand-medium" />
                     Yield Projection Analysis
                   </h5>
                   <p className="text-gray-700 font-semibold leading-normal">

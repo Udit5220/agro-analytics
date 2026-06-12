@@ -94,7 +94,7 @@ export default function LearningHubDashboard() {
       <div className="relative overflow-hidden bg-gradient-to-r from-slate-50 to-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col md:flex-row items-center justify-between min-h-[140px]">
         <div className="relative z-10 w-full md:w-2/3 pr-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-[#31572c]/10 rounded-xl text-[#31572c]">
+            <div className="p-2 bg-brand-dark/10 rounded-xl text-[#31572c]">
               <GraduationCap className="h-6.5 w-6.5" />
             </div>
             <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 flex flex-wrap items-baseline gap-2.5">
@@ -296,7 +296,7 @@ export default function LearningHubDashboard() {
             <div className="pt-4 border-t border-slate-100">
               <button 
                 onClick={() => setSelectedLecture(null)}
-                className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-1.5"
+                className="w-full bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-1.5"
               >
                 Close Stream
               </button>

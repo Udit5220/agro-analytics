@@ -318,7 +318,7 @@ export default function FpoApplications() {
           <Info className="w-5 h-5" />
         </div>
         <div className="space-y-1.5">
-          <h4 className="text-sm font-black text-[#2e4057]">What this page does</h4>
+          <h4 className="text-sm font-black text-brand-darkest">What this page does</h4>
           <p className="text-xs text-gray-600 leading-relaxed font-semibold">
             This dashboard tracks the FPO's institutional grants, machinery subsidies, and infrastructure project clearances. 
             Unlike individual farmer-level schemes, these are large-scale cooperative investments (such as Dry Warehouses, 
@@ -383,7 +383,7 @@ export default function FpoApplications() {
         {/* Left Column: Applications Table */}
         <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="p-4 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
-            <h3 className="text-xs font-black text-[#2e4057] uppercase tracking-wider">Active Corporate Infrastructure Grants</h3>
+            <h3 className="text-xs font-black text-brand-darkest uppercase tracking-wider">Active Corporate Infrastructure Grants</h3>
           </div>
           <div className="p-4">
             <GenericTable
@@ -414,7 +414,7 @@ export default function FpoApplications() {
 
             <div>
               <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">Scheme Benefits</span>
-              <p className="font-black text-[#2e4057] mt-1">{selectedApp.subsidy}</p>
+              <p className="font-black text-brand-darkest mt-1">{selectedApp.subsidy}</p>
             </div>
 
             {/* Document Checklist */}
@@ -468,8 +468,8 @@ export default function FpoApplications() {
       {/* Compliance Document Status Section */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="p-4 border-b border-gray-100 bg-gray-50 flex items-center gap-2">
-          <FolderCheck className="w-5 h-5 text-[#2e4057]" />
-          <h3 className="text-xs font-black text-[#2e4057] uppercase tracking-wider">FPO Corporate Documents — Compliance Health</h3>
+          <FolderCheck className="w-5 h-5 text-brand-darkest" />
+          <h3 className="text-xs font-black text-brand-darkest uppercase tracking-wider">FPO Corporate Documents — Compliance Health</h3>
         </div>
 
         <div className="p-4">
@@ -495,7 +495,7 @@ export default function FpoApplications() {
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-[#2e4057] mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-bold text-brand-darkest mb-4 flex items-center gap-2">
               <Upload className="w-5 h-5 text-green-600" />
               Upload Corporate Document
             </h3>

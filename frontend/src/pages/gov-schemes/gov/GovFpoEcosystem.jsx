@@ -41,7 +41,7 @@ export default function GovFpoEcosystem() {
       <div className="flex items-center gap-1.5 font-bold">
         <span className={v >= 85 ? "text-emerald-700" : v >= 70 ? "text-amber-600" : "text-red-500"}>{v}%</span>
         <div className="w-10 bg-gray-150 h-1.5 rounded-full overflow-hidden">
-          <div className={`h-full ${v >= 85 ? "bg-[#4f772d]" : v >= 70 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${v}%` }} />
+          <div className={`h-full ${v >= 85 ? "bg-brand-medium" : v >= 70 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${v}%` }} />
         </div>
       </div>
     )},
@@ -76,7 +76,7 @@ export default function GovFpoEcosystem() {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <Building2 className="w-5 h-5 text-[#4f772d]" />
+          <Building2 className="w-5 h-5 text-brand-medium" />
           FPO Ecosystem Monitoring Center
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -86,7 +86,7 @@ export default function GovFpoEcosystem() {
 
       {/* KPI dashboard */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatsCard title="Total FPOs" value="45" subtext="Registered Cooperatives" icon={<Building2 className="text-[#4f772d]" />} />
+        <StatsCard title="Total FPOs" value="45" subtext="Registered Cooperatives" icon={<Building2 className="text-brand-medium" />} />
         <StatsCard title="Active FPOs" value="38" trend="84%" trendType="success" subtext="Regular operations & filings" />
         <StatsCard title="Funded FPOs" value="28" subtext="Secured Infrastructure Grants" />
         <StatsCard title="High-Performing" value="12" subtext="Health score above 85%" />
@@ -100,7 +100,7 @@ export default function GovFpoEcosystem() {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <Award className="w-4 h-4 text-[#4f772d]" /> Ecosystem Ranking
+              <Award className="w-4 h-4 text-brand-medium" /> Ecosystem Ranking
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               Filter registered FPOs by performance metrics, improvements, or compliance failure indicators.
@@ -110,7 +110,7 @@ export default function GovFpoEcosystem() {
               <button 
                 onClick={() => setRankingFilter("all")}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-xs font-bold transition ${
-                  rankingFilter === "all" ? "bg-[#132a13]/10 border-[#4f772d]/30" : "bg-gray-50 border-gray-100 hover:bg-gray-100"
+                  rankingFilter === "all" ? "bg-[#132a13]/10 border-brand-medium/30" : "bg-gray-50 border-gray-100 hover:bg-gray-100"
                 }`}
               >
                 <span>All FPOs</span>
@@ -151,14 +151,14 @@ export default function GovFpoEcosystem() {
         <div className="lg:col-span-2 bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <Zap className="w-4 h-4 text-[#4f772d]" /> FPO Support Intervention Engine
+              <Zap className="w-4 h-4 text-brand-medium" /> FPO Support Intervention Engine
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               Select an FPO and dispatch direct operational training, compliance warnings, or expedite pending infrastructure support requests.
             </p>
 
             {dispatchSuccess ? (
-              <div className="p-6 text-center space-y-3 bg-[#f4f7f4]/45 border border-[#4f772d]/10 rounded-2xl animate-fadeIn my-auto">
+              <div className="p-6 text-center space-y-3 bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-2xl animate-fadeIn my-auto">
                 <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto border border-emerald-100">
                   <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                 </div>
@@ -168,7 +168,7 @@ export default function GovFpoEcosystem() {
                 </p>
                 <button 
                   onClick={() => setDispatchSuccess(false)}
-                  className="text-[10px] font-bold text-[#4f772d] hover:underline"
+                  className="text-[10px] font-bold text-brand-medium hover:underline"
                 >
                   Schedule another intervention
                 </button>
@@ -180,7 +180,7 @@ export default function GovFpoEcosystem() {
                     <label className="text-[10px] font-bold text-gray-400 block mb-1">Select Target FPO</label>
                     <select 
                       onChange={(e) => setSelectedFpo(fpos.find(f => f.id === e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                       required
                     >
                       <option value="">-- Choose FPO --</option>
@@ -195,7 +195,7 @@ export default function GovFpoEcosystem() {
                     <select 
                       value={interventionType}
                       onChange={(e) => setInterventionType(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                     >
                       <option>Dispatch Training</option>
                       <option>Issue Compliance Warning</option>
@@ -221,7 +221,7 @@ export default function GovFpoEcosystem() {
                   disabled={dispatchProgress || !selectedFpo}
                   className={`w-full text-xs font-bold text-center py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 ${
                     selectedFpo 
-                      ? "bg-[#132a13] hover:bg-[#31572c] text-white" 
+                      ? "bg-[#132a13] hover:bg-brand-dark text-white" 
                       : "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
                   }`}
                 >

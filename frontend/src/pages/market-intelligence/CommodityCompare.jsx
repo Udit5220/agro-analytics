@@ -158,7 +158,7 @@ export default function CommodityCompare() {
         </div>
         <button
           onClick={fetchCompare}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-[#31572c]/10 hover:bg-[#31572c]/20 text-[#31572c] rounded-xl text-xs font-bold transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-dark/10 hover:bg-brand-dark/20 text-[#31572c] rounded-xl text-xs font-bold transition-colors"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} /> Refresh
         </button>
@@ -239,7 +239,7 @@ export default function CommodityCompare() {
                   <div className="border-t border-slate-100 p-2 flex justify-end">
                     <button
                       onClick={() => setDropOpen(false)}
-                      className="px-3 py-1 bg-[#31572c] text-white text-xs font-bold rounded-lg"
+                      className="px-3 py-1 bg-brand-dark text-white text-xs font-bold rounded-lg"
                     >
                       Done
                     </button>
@@ -261,7 +261,7 @@ export default function CommodityCompare() {
                   onClick={() => setDays(value)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-colors ${
                     days === value
-                      ? 'bg-[#31572c] text-white'
+                      ? 'bg-brand-dark text-white'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                   }`}
                 >

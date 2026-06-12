@@ -163,7 +163,7 @@ export default function DiseaseAlertCenter() {
     <div className="space-y-6 animate-fadeIn text-left font-['Plus_Jakarta_Sans',_sans-serif] text-slate-800 dark:text-slate-200">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 bg-[#31572c] text-white border border-[#ecf39e]/30 px-5 py-3 rounded-xl shadow-lg z-50 text-xs font-black flex items-center gap-2 animate-slideUp">
+        <div className="fixed bottom-5 right-5 bg-brand-dark text-white border border-[#ecf39e]/30 px-5 py-3 rounded-xl shadow-lg z-50 text-xs font-black flex items-center gap-2 animate-slideUp">
           <CheckCircle className="h-4.5 w-4.5 text-[#ecf39e]" />
           <span>{toastMessage}</span>
         </div>
@@ -233,7 +233,7 @@ export default function DiseaseAlertCenter() {
               onClick={() => setActiveFilter("all")}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-black transition-all ${
                 activeFilter === "all"
-                  ? "bg-[#31572c] text-white shadow-sm"
+                  ? "bg-brand-dark text-white shadow-sm"
                   : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
               }`}
             >
@@ -243,7 +243,7 @@ export default function DiseaseAlertCenter() {
               onClick={() => setActiveFilter("pending")}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-black transition-all ${
                 activeFilter === "pending"
-                  ? "bg-[#31572c] text-white shadow-sm"
+                  ? "bg-brand-dark text-white shadow-sm"
                   : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
               }`}
             >
@@ -253,7 +253,7 @@ export default function DiseaseAlertCenter() {
               onClick={() => setActiveFilter("resolved")}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-black transition-all ${
                 activeFilter === "resolved"
-                  ? "bg-[#31572c] text-white shadow-sm"
+                  ? "bg-brand-dark text-white shadow-sm"
                   : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
               }`}
             >
@@ -384,7 +384,7 @@ export default function DiseaseAlertCenter() {
                       </button>
                       <button
                         onClick={() => handleScheduleSpray(alert)}
-                        className="px-3 py-2 bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-xs font-black flex items-center gap-1 transition shadow-sm"
+                        className="px-3 py-2 bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-xs font-black flex items-center gap-1 transition shadow-sm"
                         title="Schedule Preventive Spray Reminders"
                       >
                         <Clock className="h-3.5 w-3.5" />
@@ -471,7 +471,7 @@ export default function DiseaseAlertCenter() {
                   setSelectedAlert(null);
                   navigate("/module/disease-detection/treatment");
                 }}
-                className="py-2.5 bg-[#31572c] text-white hover:bg-[#132a13] rounded-xl text-xs font-black uppercase tracking-wider transition flex items-center justify-center gap-1.5 shadow-sm"
+                className="py-2.5 bg-brand-dark text-white hover:bg-[#132a13] rounded-xl text-xs font-black uppercase tracking-wider transition flex items-center justify-center gap-1.5 shadow-sm"
               >
                 <Shield className="h-4 w-4" />
                 <span>Advisor</span>
@@ -556,7 +556,7 @@ export default function DiseaseAlertCenter() {
                     setSelectedAlert(null);
                     navigate("/module/disease-detection/treatment");
                   }}
-                  className="py-2.5 bg-[#31572c] text-white hover:bg-[#132a13] rounded-xl text-xs font-black uppercase tracking-wider transition flex items-center justify-center gap-1.5 shadow-sm"
+                  className="py-2.5 bg-brand-dark text-white hover:bg-[#132a13] rounded-xl text-xs font-black uppercase tracking-wider transition flex items-center justify-center gap-1.5 shadow-sm"
                 >
                   <Shield className="h-4 w-4" />
                   <span>Advisor</span>

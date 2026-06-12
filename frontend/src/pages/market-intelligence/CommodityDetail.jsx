@@ -133,7 +133,7 @@ export default function CommodityDetail() {
     <div className="flex flex-col items-center gap-3 py-12">
       <AlertCircle className="h-8 w-8 text-red-400" />
       <p className="text-red-600 text-sm font-semibold">{error}</p>
-      <button onClick={fetchAll} className="px-5 py-2 bg-[#31572c] text-white rounded-xl text-sm font-bold">Retry</button>
+      <button onClick={fetchAll} className="px-5 py-2 bg-brand-dark text-white rounded-xl text-sm font-bold">Retry</button>
     </div>
   );
 
@@ -172,7 +172,7 @@ export default function CommodityDetail() {
           </button>
           <button
             onClick={() => navigate(`/module/marketplace/sell?commodity=${encodeURIComponent(commodityName)}&price=${stats?.lastPrice || ''}`)}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-[#31572c] text-white rounded-xl text-xs font-bold hover:bg-[#4a7c59] transition-colors"
+            className="flex items-center gap-1.5 px-4 py-1.5 bg-brand-dark text-white rounded-xl text-xs font-bold hover:bg-[#4a7c59] transition-colors"
           >
             <Store className="h-3.5 w-3.5" /> Sell on Marketplace
           </button>

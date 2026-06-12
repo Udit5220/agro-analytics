@@ -231,7 +231,7 @@ export default function NationalCommandCenter() {
                       <span>Crop Production Volume</span>
                     </div>
                     <div className="flex items-center gap-2 text-[9px] font-bold">
-                      <span className="w-3.5 h-3.5 rounded-full bg-[#31572c] border border-gray-300 opacity-80"></span>
+                      <span className="w-3.5 h-3.5 rounded-full bg-brand-dark border border-gray-300 opacity-80"></span>
                       <span>Circle Area ∝ Annual Output (M MT)</span>
                     </div>
                   </div>

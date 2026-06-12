@@ -132,7 +132,7 @@ export default function FarmerSuccess() {
             Data aggregation indicates that <strong className="text-[#ecf39e]">Wheat farmers in Bhatinda</strong> reduced pumping electricity overheads by <strong>18%</strong> by adhering to the satellite rain prediction schedules.
           </p>
         </div>
-        <div className="bg-[#4f772d]/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+        <div className="bg-brand-medium/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
           <span>ESG Metrics: Verified</span>
         </div>
@@ -225,7 +225,7 @@ export default function FarmerSuccess() {
             </thead>
             <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
               {filteredSuccess.map((row) => (
-                <tr key={row.id} className="hover:bg-[#4f772d]/5 transition-colors duration-150">
+                <tr key={row.id} className="hover:bg-brand-medium/5 transition-colors duration-150">
                   <td className="p-3.5 font-mono text-gray-500">{row.id}</td>
                   <td className="p-3.5 font-black text-gray-900 tracking-tight">{row.farmer}</td>
                   <td className="p-3.5 text-gray-600">{row.village}</td>

@@ -182,7 +182,7 @@ export default function OutbreakMonitoring() {
               key={idx} 
               onClick={() => setPipelineFilter(stage.stage)}
               className={`flex-1 w-full sm:w-auto p-3 rounded-xl border text-center cursor-pointer transition-all hover:translate-y-[-2px] ${
-                pipelineFilter === stage.stage ? "bg-[#31572c] text-white border-[#31572c]" : "bg-slate-50 border-slate-100 text-slate-700"
+                pipelineFilter === stage.stage ? "bg-brand-dark text-white border-[#31572c]" : "bg-slate-50 border-slate-100 text-slate-700"
               }`}
             >
               <span className="text-[14px] font-black block">{stage.count}</span>
@@ -339,7 +339,7 @@ export default function OutbreakMonitoring() {
                                 type="button" 
                                 onClick={() => handleResolve(o.id)}
                                 disabled={o.status === "Resolved"}
-                                className="px-3 py-1.5 bg-[#31572c] hover:bg-[#132a13] disabled:opacity-40 text-white rounded-xl text-[10px] font-black uppercase tracking-wider cursor-pointer"
+                                className="px-3 py-1.5 bg-brand-dark hover:bg-[#132a13] disabled:opacity-40 text-white rounded-xl text-[10px] font-black uppercase tracking-wider cursor-pointer"
                               >
                                 Resolve
                               </button>

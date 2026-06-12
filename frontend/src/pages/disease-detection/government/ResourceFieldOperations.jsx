@@ -223,7 +223,7 @@ export default function ResourceFieldOperations() {
             <div key={card.id} className="bg-white border border-gray-200/60 rounded-2xl shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{card.label}</span>
-                <div className="p-1.5 bg-[#4f772d]/10 rounded-lg text-[#31572c]">
+                <div className="p-1.5 bg-brand-medium/10 rounded-lg text-[#31572c]">
                   <Icon size={14} />
                 </div>
               </div>
@@ -271,7 +271,7 @@ export default function ResourceFieldOperations() {
               </thead>
               <tbody>
                 {STATE_RESOURCES.map((st, idx) => (
-                  <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60">
+                  <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60">
                     <td className="p-3 pl-4 font-bold text-gray-900">{st.state}</td>
                     <td className="p-3 font-mono font-bold">{st.officers}</td>
                     <td className="p-3 font-mono">{st.teams}</td>
@@ -298,7 +298,7 @@ export default function ResourceFieldOperations() {
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={`px-3 py-1 rounded-md text-[10px] uppercase tracking-wider ${
-                      activeTab === tab ? "bg-[#31572c] text-white font-extrabold" : "hover:text-gray-900"
+                      activeTab === tab ? "bg-brand-dark text-white font-extrabold" : "hover:text-gray-900"
                     }`}
                   >
                     {tab}
@@ -384,7 +384,7 @@ export default function ResourceFieldOperations() {
               <span className="text-[#31572c]">87%</span>
             </div>
             <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-              <div className="bg-[#31572c] h-full rounded-full" style={{ width: "87%" }} />
+              <div className="bg-brand-dark h-full rounded-full" style={{ width: "87%" }} />
             </div>
             <div className="flex justify-between text-[10px] text-gray-400 font-bold">
               <span>28 / 32 States Registered</span>
@@ -398,7 +398,7 @@ export default function ResourceFieldOperations() {
               <span className="text-[#31572c]">64%</span>
             </div>
             <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-              <div className="bg-[#31572c] h-full rounded-full" style={{ width: "64%" }} />
+              <div className="bg-brand-dark h-full rounded-full" style={{ width: "64%" }} />
             </div>
             <div className="flex justify-between text-[10px] text-gray-400 font-bold">
               <span>468 / 730 Districts Managed</span>
@@ -412,7 +412,7 @@ export default function ResourceFieldOperations() {
               <span className="text-[#31572c]">71%</span>
             </div>
             <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-              <div className="bg-[#31572c] h-full rounded-full" style={{ width: "71%" }} />
+              <div className="bg-brand-dark h-full rounded-full" style={{ width: "71%" }} />
             </div>
             <div className="flex justify-between text-[10px] text-gray-400 font-bold">
               <span>3,840 / 5,420 Farms Visited</span>

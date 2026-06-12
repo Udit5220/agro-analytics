@@ -1,722 +1,375 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  ShieldCheck,
-  Calendar,
-  FileText,
-  Archive,
-  Bell,
-  Download,
-  Eye,
-  Check,
-  ChevronRight,
-  RefreshCw,
-  Edit2,
-  Save,
-  MessageSquare,
+  ShieldAlert,
+  Search,
+  Filter,
+  CheckCircle,
+  Clock,
   AlertTriangle,
-  Mail,
-  Smartphone,
+  XCircle,
+  ChevronRight,
+  X,
+  FileText,
+  Calendar,
+  DollarSign,
+  Download,
+  Send,
+  RefreshCw,
+  MoreVertical,
+  ArrowRight,
+  TrendingUp,
+  Bookmark,
+  Sparkles,
   Info,
+  Check,
+  ShieldCheck,
+  Building,
+  UserCheck,
+  Users,
 } from "lucide-react";
+import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
 
-// Mock telemetry data that "auto-populates"
-const telemetryData = {
-  rkvy: {
-    title: "RKVY-RAFTAAR Phase 1 Report",
-    farmerCount: "2,450 Verified Landholders",
-    cropArea: "4,560 Hectares",
-    droneLogs: "124 Autonomous Flight Hours",
-    utilizationAmount: "₹10,00,000",
-  },
-  aif: {
-    title: "Agri-Infrastructure Fund Audit Log",
-    farmerCount: "1,890 Active Members",
-    cropArea: "3,120 Hectares",
-    droneLogs: "86 Surveyor Flight Hours",
-    utilizationAmount: "₹20,00,000",
-  },
-  haryana: {
-    title: "Haryana State Export Quality Audit",
-    farmerCount: "5 FPO Cooperatives",
-    cropArea: "1,200 Greenhouse Hectares",
-    droneLogs: "45 Quality Inspections",
-    utilizationAmount: "₹12,50,000",
-  },
-};
+/*
+// --- OLD COMPLIANCE CENTER COMPONENT COMMENTED OUT ---
+export default function AdminComplianceCenter() {
+  const [activeTab, setActiveTab] = useState("report");
+  const [selectedFiling, setSelectedFiling] = useState(null);
+  
+  return (
+    <div>Old Compliance Center Code</div>
+  );
+}
+*/
+
+// --- NEW REDESIGNED ELIGIBILITY & READINESS CENTER COMPONENT ---
 
 export default function AdminComplianceCenter() {
-  // Tabs: "calendar" (Calendar & Deadlines), "generator" (Auto-Report Builder), "vault" (Compliance Vault), "reminders" (Alert Settings)
-  const [activeTab, setActiveTab] = useState("generator");
+  const navigate = useNavigate();
+  const [analytics, setAnalytics] = useState(getAnalyticsData());
+  const [toastMessage, setToastMessage] = useState("");
 
-  // Report Builder State
-  const [selectedReportType, setSelectedReportType] = useState("rkvy");
-  const [reportTitle, setReportTitle] = useState(
-    "Utilization Certificate - Phase 1",
-  );
-  const [isEditingReport, setIsEditingReport] = useState(false);
-  const [reportSignee, setReportSignee] = useState(
-    "Rohan Verma (CFO, AgroIndia)",
-  );
-  const [auditNotes, setAuditNotes] = useState(
-    "Live IoT telemetry indicates 94% moisture sensor uptime. Drone mapping verifies all 4,560 sq km of Haryana cold chains. Linkages verified for 5 Active FPOs.",
-  );
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(""), 3000);
+  };
 
-  // Success indicator for report generation
-  const [generationSuccess, setGenerationSuccess] = useState(false);
+  // Sync MSME Registration locally to show dynamic update behavior
+  const handleFixUdyam = () => {
+    const updated = { ...analytics };
+    // Clear Udyam blocker from schemes
+    updated.schemes.forEach((s) => {
+      s.missingRequirements = [];
+    });
+    // Set udyam value
+    updated.companyProfile.udyam = "UDYAM-HR-12-0004567";
+    updated.profileStrength = 95;
+    saveAnalyticsData(updated);
+    setAnalytics(updated);
+    showToast("Udyam MSME Registration linked! Profile matching score refreshed.");
+  };
 
-  // Editable Telemetry States
-  const [farmerCount, setFarmerCount] = useState(telemetryData.rkvy.farmerCount);
-  const [cropArea, setCropArea] = useState(telemetryData.rkvy.cropArea);
-  const [droneLogs, setDroneLogs] = useState(telemetryData.rkvy.droneLogs);
-  const [utilizationAmount, setUtilizationAmount] = useState(telemetryData.rkvy.utilizationAmount);
-  const [fundingCode, setFundingCode] = useState("RKVY-UC-2026");
-
-  // Archive state
-  const [archiveDocs, setArchiveDocs] = useState([
-    {
-      id: "COMP-2026-09",
-      name: "DPIIT FY25 Tax Exemption Compliance",
-      code: "80-IAC/25",
-      date: "2026-05-18",
-      size: "1.4 MB",
-      status: "Accepted",
-      receipt: "REC-884021",
-    },
-    {
-      id: "COMP-2026-05",
-      name: "AIF Equipment Inspection Utilization",
-      code: "AIF-UC/44",
-      date: "2026-04-30",
-      size: "2.1 MB",
-      status: "Verified",
-      receipt: "REC-104928",
-    },
-    {
-      id: "COMP-2026-01",
-      name: "PM Fasal Bima Subsidized Crop Audit",
-      code: "PMFBY/25",
-      date: "2026-03-15",
-      size: "940 KB",
-      status: "Accepted",
-      receipt: "REC-092841",
-    },
-  ]);
-
-  // Channel settings
-  const [channels, setChannels] = useState({
-    whatsapp: true,
-    sms: true,
-    inapp: true,
-    email: false,
+  // Matrix calculation based on localStorage profile details
+  const companySchemes = analytics.schemes.filter(s => !s.isFarmerScheme);
+  const readinessMatrix = companySchemes.map((s) => {
+    const isUdyamMissing = s.id === "adm-04" && !analytics.companyProfile.udyam;
+    const missing = isUdyamMissing ? ["Udyam Registration Missing"] : [];
+    const metCount = 4 - missing.length;
+    const readinessPct = Math.round((metCount / 4) * 100);
+    return {
+      id: s.id,
+      name: s.name,
+      matchScore: s.matchScore,
+      requirements: isUdyamMissing ? "GST, PAN, DPIIT (MSME Missing)" : "GST, PAN, DPIIT, MSME",
+      status: missing.length === 0 ? "Ready" : "Action Needed",
+      readiness: readinessPct,
+      missing
+    };
   });
 
-  const selectedTelemetry = telemetryData[selectedReportType];
-
-  const handleChannelToggle = (key) => {
-    setChannels((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const handleReportTypeChange = (type) => {
-    setSelectedReportType(type);
-    setFarmerCount(telemetryData[type].farmerCount);
-    setCropArea(telemetryData[type].cropArea);
-    setDroneLogs(telemetryData[type].droneLogs);
-    setUtilizationAmount(telemetryData[type].utilizationAmount);
-    setFundingCode(`${type.toUpperCase()}-UC-2026`);
-  };
-
-  const handleGenerate = () => {
-    setGenerationSuccess(true);
-    // Add new file to archive
-    const newDoc = {
-      id: `COMP-2026-${Math.floor(Math.random() * 90) + 10}`,
-      name: `${reportTitle} - Signed`,
-      code: fundingCode,
-      date: new Date().toISOString().split("T")[0],
-      size: "1.1 MB",
-      status: "Submitted",
-      receipt: `REC-${Math.floor(Math.random() * 900000) + 100000}`,
-    };
-    setArchiveDocs((prev) => [newDoc, ...prev]);
-
-    setTimeout(() => {
-      setGenerationSuccess(false);
-      setActiveTab("vault");
-    }, 1800);
-  };
+  // Overall Readiness Score
+  const totalReadinessSum = readinessMatrix.reduce((sum, r) => sum + r.readiness, 0);
+  const overallReadiness = Math.round(totalReadinessSum / readinessMatrix.length);
 
   return (
-    <div className="space-y-5 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-[#2e4057] animate-fadeIn">
-      {/* Header section */}
-      <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-xl font-bold flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-[#28a745]" />
-            Compliance & Reporting Center
-          </h1>
-          <p className="text-xs text-gray-500 font-semibold">
-            Track statutory filing schedules, compile sensor-driven utilization
-            audit reports, and audit historical logs.
+    <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-brand-darkest animate-fadeIn relative">
+      
+      {/* Toast Alert */}
+      {toastMessage && (
+        <div className="fixed bottom-5 right-5 bg-brand-darkest text-white px-4 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-2 text-xs border border-white/10">
+          <Sparkles className="w-4 h-4 text-emerald-400" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Hero Header */}
+      <div className="bg-gradient-to-r from-brand-darkest to-brand-dark p-6 rounded-3xl text-white shadow-md relative overflow-hidden">
+        <div className="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-brand-medium/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="max-w-3xl space-y-2 relative z-10">
+          <span className="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
+            Eligibility Readiness Diagnostics
+          </span>
+          <h1 className="text-2xl font-black tracking-tight">Eligibility & Readiness Center</h1>
+          <p className="text-xs text-white/80 font-medium leading-relaxed">
+            Audit compliance checklists, identify missing corporate records, and evaluate eligibility match factors before visiting government registration portals.
+          </p>
+        </div>
+      </div>
+
+      {/* Readiness Score & Missing Requirements Dashboard */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        {/* Readiness Score Gauge */}
+        <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm text-center flex flex-col items-center justify-center space-y-3">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest">Overall Readiness</h3>
+          
+          <div className="relative w-36 h-36 flex items-center justify-center">
+            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+              <path
+                className="text-gray-100"
+                strokeWidth="3.5"
+                stroke="currentColor"
+                fill="none"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+              <path
+                className="text-brand-medium"
+                strokeDasharray={`${overallReadiness}, 100`}
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                stroke="currentColor"
+                fill="none"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+            </svg>
+            <div className="absolute text-center">
+              <span className="text-3xl font-black text-brand-darkest">{overallReadiness}%</span>
+              <span className="text-[8px] text-gray-400 font-bold uppercase block tracking-wider">Readiness Index</span>
+            </div>
+          </div>
+          <p className="text-[10px] text-gray-500 font-semibold leading-relaxed">
+            Measures company compliance completeness against match criteria guidelines.
           </p>
         </div>
 
-        {/* Small stats */}
-        <div className="flex gap-2 text-xs font-bold text-gray-700">
-          <div className="bg-white border border-gray-150 px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm">
-            <Calendar className="w-4 h-4 text-[#28a745]" />
-            <span>Next Filing: June 18</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200 bg-white p-2 rounded-xl border border-gray-150">
-        <button
-          onClick={() => setActiveTab("generator")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "generator"
-              ? "bg-[#2e4057] text-white shadow-sm"
-              : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Auto-Report Generator
-        </button>
-        <button
-          onClick={() => setActiveTab("calendar")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "calendar"
-              ? "bg-[#2e4057] text-white shadow-sm"
-              : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Filings Calendar ({3} Active)
-        </button>
-        <button
-          onClick={() => setActiveTab("vault")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "vault"
-              ? "bg-[#2e4057] text-white shadow-sm"
-              : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Compliance Document Vault
-        </button>
-        <button
-          onClick={() => setActiveTab("reminders")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "reminders"
-              ? "bg-[#2e4057] text-white shadow-sm"
-              : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Reminders Channels
-        </button>
-      </div>
-
-      {/* Tab 1: Auto-Report Generator */}
-      {activeTab === "generator" && (
-        <div className="space-y-5 animate-fadeIn">
-          {/* Form parameters */}
-          <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
-            <h3 className="font-black text-xs uppercase tracking-wider text-[#2e4057]">
-              Filing Source Configuration
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-gray-500 uppercase">
-                  Target Government Scheme
-                </label>
-                <select
-                  value={selectedReportType}
-                  onChange={(e) => handleReportTypeChange(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 text-xs p-2.5 rounded-xl text-[#2e4057] font-semibold focus:outline-none"
-                >
-                  <option value="rkvy">RKVY-RAFTAAR Agritech Fund</option>
-                  <option value="aif">
-                    Agri-Infrastructure Fund Subvention
-                  </option>
-                  <option value="haryana">
-                    Haryana State Export Capital Subsidy
-                  </option>
-                </select>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-gray-500 uppercase">
-                  Report Title Header
-                </label>
-                <input
-                  type="text"
-                  value={reportTitle}
-                  onChange={(e) => setReportTitle(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2.5 rounded-xl text-[#2e4057] font-semibold"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-gray-500 uppercase">
-                  Authorized Officer Signee
-                </label>
-                <input
-                  type="text"
-                  value={reportSignee}
-                  onChange={(e) => setReportSignee(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2.5 rounded-xl text-[#2e4057] font-semibold"
-                />
-              </div>
-            </div>
-
-            <div className="p-3 bg-[#f4f7f4] border border-gray-150 rounded-xl space-y-1">
-              <span className="block text-[8px] text-gray-400 font-extrabold uppercase">
-                Platform Sync Diagnostics
-              </span>
-              <span className="text-[10px] font-bold text-[#28a745] flex items-center gap-1">
-                <Check className="w-3.5 h-3.5" /> All sensors online (5 FPOs
-                tracked)
-              </span>
-            </div>
-          </div>
-
-          {/* Document Preview & Execution */}
-          <div className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden flex flex-col justify-between">
-            <div className="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
-              <span className="text-xs font-black uppercase text-gray-700 tracking-wider flex items-center gap-1.5">
-                <FileText className="w-4 h-4 text-[#28a745]" /> Form Template
-                Preview
-              </span>
-
-              <button
-                onClick={() => setIsEditingReport(!isEditingReport)}
-                className="text-[10px] font-bold text-gray-500 hover:text-black flex items-center gap-1 border border-gray-200 bg-white px-2.5 py-1.5 rounded-lg transition"
-              >
-                {isEditingReport ? (
-                  <>
-                    <Save className="w-3 h-3 text-[#28a745]" /> Save Form
-                  </>
-                ) : (
-                  <>
-                    <Edit2 className="w-3 h-3 text-gray-500" /> Edit Fields
-                  </>
-                )}
-              </button>
-            </div>
-
-            {/* Generated/Template Body Mockup */}
-            <div className="p-6 space-y-5 font-serif text-[#2e4057] bg-amber-50/10 min-h-[300px]">
-              <div className="text-center space-y-1 pb-4 border-b border-dashed border-gray-200">
-                <h2 className="text-sm font-black uppercase tracking-widest">
-                  FORM GFR 12-C (Utilization Certificate Rules)
-                </h2>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500">
-                  Government of India compliance framework
-                </h3>
-              </div>
-
-              <div className="text-xs leading-relaxed space-y-3">
-                <p>
-                  Certified that out of{" "}
-                  {isEditingReport ? (
-                    <input
-                      type="text"
-                      value={utilizationAmount}
-                      onChange={(e) => setUtilizationAmount(e.target.value)}
-                      className="font-sans border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-1.5 py-0.5 rounded-md font-semibold text-gray-800 bg-white inline-block w-28 mx-1 font-mono"
-                    />
-                  ) : (
-                    <span className="font-bold border-b border-gray-300 px-1">
-                      {utilizationAmount}
-                    </span>
-                  )}{" "}
-                  grants-in-aid sanctioned during the financial period under
-                  Ministry code references, a sum of{" "}
-                  {isEditingReport ? (
-                    <input
-                      type="text"
-                      value={utilizationAmount}
-                      onChange={(e) => setUtilizationAmount(e.target.value)}
-                      className="font-sans border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-1.5 py-0.5 rounded-md font-semibold text-gray-800 bg-white inline-block w-28 mx-1 font-mono"
-                    />
-                  ) : (
-                    <span className="font-bold border-b border-gray-300 px-1">
-                      {utilizationAmount}
-                    </span>
-                  )}{" "}
-                  has been fully utilized for the targeted crop cultivation
-                  activities.
-                </p>
-
-                {/* Telemetry data fields */}
-                <div className="my-4 p-4 bg-white border border-gray-100 font-mono text-[11px] space-y-1.5 rounded-xl not-italic">
-                  <span className="block text-[8px] font-bold uppercase text-gray-400">
-                    Sync Telemetry Data Fields {isEditingReport ? "(Editable)" : "(Read-Only)"}
-                  </span>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <span className="text-gray-400 block mb-1">Total FPO Farmers:</span>{" "}
-                      {isEditingReport ? (
-                        <input
-                          type="text"
-                          value={farmerCount}
-                          onChange={(e) => setFarmerCount(e.target.value)}
-                          className="w-full font-mono border border-gray-200 focus:outline-none focus:border-[#28a745] text-[11px] px-2 py-1 rounded-md font-semibold text-gray-800 bg-white"
-                        />
-                      ) : (
-                        <span className="font-black text-gray-700">
-                          {farmerCount}
-                        </span>
-                      )}
-                    </div>
-                    <div>
-                      <span className="text-gray-400 block mb-1">Crop Canopy Area:</span>{" "}
-                      {isEditingReport ? (
-                        <input
-                          type="text"
-                          value={cropArea}
-                          onChange={(e) => setCropArea(e.target.value)}
-                          className="w-full font-mono border border-gray-200 focus:outline-none focus:border-[#28a745] text-[11px] px-2 py-1 rounded-md font-semibold text-gray-800 bg-white"
-                        />
-                      ) : (
-                        <span className="font-black text-gray-700">
-                          {cropArea}
-                        </span>
-                      )}
-                    </div>
-                    <div>
-                      <span className="text-gray-400 block mb-1">Drone Uptime Logs:</span>{" "}
-                      {isEditingReport ? (
-                        <input
-                          type="text"
-                          value={droneLogs}
-                          onChange={(e) => setDroneLogs(e.target.value)}
-                          className="w-full font-mono border border-gray-200 focus:outline-none focus:border-[#28a745] text-[11px] px-2 py-1 rounded-md font-semibold text-gray-800 bg-white"
-                        />
-                      ) : (
-                        <span className="font-black text-gray-700">
-                          {droneLogs}
-                        </span>
-                      )}
-                    </div>
-                    <div>
-                      <span className="text-gray-400 block mb-1">Funding Code:</span>{" "}
-                      {isEditingReport ? (
-                        <input
-                          type="text"
-                          value={fundingCode}
-                          onChange={(e) => setFundingCode(e.target.value)}
-                          className="w-full font-mono border border-gray-200 focus:outline-none focus:border-[#28a745] text-[11px] px-2 py-1 rounded-md font-semibold text-[#28a745] bg-white"
-                        />
-                      ) : (
-                        <span className="font-black text-[#28a745]">
-                          {fundingCode}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-1 pt-2">
-                  <span className="block text-[8px] font-bold uppercase text-gray-400 font-sans">
-                    Self-Audit Verification Notes
-                  </span>
-                  {isEditingReport ? (
-                    <textarea
-                      rows="3"
-                      value={auditNotes}
-                      onChange={(e) => setAuditNotes(e.target.value)}
-                      className="w-full font-sans border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs p-2.5 rounded-xl font-semibold text-gray-800"
-                    />
-                  ) : (
-                    <p className="text-[11px] italic font-semibold text-gray-600 bg-gray-50 p-2.5 rounded-lg border border-gray-100 font-sans leading-relaxed">
-                      "{auditNotes}"
-                    </p>
-                  )}
-                </div>
-
-                <div className="flex justify-between items-end pt-8 font-sans">
-                  <div>
-                    <span className="block text-[8px] text-gray-400 font-extrabold uppercase">
-                      Audit Timestamp
-                    </span>
-                    <span className="text-[10px] font-bold text-gray-600">
-                      {new Date().toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <span className="block text-[8px] text-gray-400 font-extrabold uppercase">
-                      Authorized Representative Signature
-                    </span>
-                    <span className="text-xs font-black text-gray-900 border-b border-gray-400 px-2 italic">
-                      {reportSignee}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom generate button */}
-            <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-end">
-              <button
-                onClick={handleGenerate}
-                disabled={generationSuccess}
-                className="bg-[#2e4057] hover:bg-[#208837] text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
-              >
-                {generationSuccess ? (
-                  <>
-                    <RefreshCw className="w-4 h-4 animate-spin" /> Compiling &
-                    Syncing...
-                  </>
-                ) : (
-                  <>
-                    Authorize & Submit Compliance Report{" "}
-                    <ChevronRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab 2: Filings Calendar */}
-      {activeTab === "calendar" && (
-        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 animate-fadeIn">
-          <h3 className="font-black text-xs uppercase tracking-wider text-[#2e4057]">
-            Statutory Audit & Filings Timeline
+        {/* Missing Requirements Dashboard */}
+        <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm md:col-span-2 space-y-4">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+            <ShieldAlert className="w-4 h-4 text-amber-500" /> Missing Requirements Dashboard
           </h3>
 
-          <div className="space-y-3">
-            <div className="flex items-start gap-4 p-4 border border-red-150 bg-red-50/20 rounded-2xl">
-              <div className="bg-red-100 text-red-800 p-2.5 rounded-xl font-black text-xs text-center shrink-0 min-w-[50px]">
-                <span className="block text-sm">18</span>
-                <span className="text-[9px] uppercase font-extrabold">
-                  June
-                </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Udyam Registration Check */}
+            <div className="p-3.5 rounded-xl border border-gray-100 bg-gray-50/50 flex items-center justify-between text-xs font-semibold">
+              <div>
+                <p className="font-bold text-brand-darkest">Udyam Registration</p>
+                <p className="text-[10px] text-gray-400">Required for MSME programs</p>
               </div>
-              <div className="space-y-1 flex-1">
-                <div className="flex justify-between items-baseline">
-                  <span className="text-xs font-bold text-red-950 uppercase tracking-wide">
-                    DPIIT Startup tax exemption filing
-                  </span>
-                  <span className="text-[9px] font-black uppercase text-red-700 bg-red-100 px-2.5 py-0.5 rounded">
-                    8 Days Left
-                  </span>
-                </div>
-                <p className="text-[11px] text-gray-500 font-semibold leading-relaxed">
-                  Submit 3-year turnover audit sheets to maintain startup tax
-                  certificate benefits. Missing deadline will trigger a standard
-                  taxation review.
-                </p>
-                <button
-                  onClick={() => {
-                    setSelectedReportType("rkvy");
-                    setReportTitle("DPIIT FY25 Income Tax Declaration");
-                    setActiveTab("generator");
-                  }}
-                  className="text-[10px] font-bold bg-[#2e4057] text-white hover:bg-[#208837] px-3 py-1.5 rounded-lg transition mt-2"
+              {analytics.companyProfile.udyam ? (
+                <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded text-[9px] font-black uppercase">Synced</span>
+              ) : (
+                <button 
+                  onClick={handleFixUdyam}
+                  className="text-red-700 bg-red-100 hover:bg-red-200 px-2 py-0.5 rounded text-[9px] font-black uppercase transition"
                 >
-                  Generate Report
+                  Link Now
                 </button>
-              </div>
+              )}
             </div>
 
-            <div className="flex items-start gap-4 p-4 border border-gray-150 bg-white rounded-2xl">
-              <div className="bg-gray-100 text-gray-700 p-2.5 rounded-xl font-black text-xs text-center shrink-0 min-w-[50px]">
-                <span className="block text-sm">30</span>
-                <span className="text-[9px] uppercase font-extrabold">
-                  June
-                </span>
+            {/* GST Check */}
+            <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 flex items-center justify-between text-xs font-semibold">
+              <div>
+                <p className="font-bold text-brand-darkest">GST Certificate</p>
+                <p className="text-[10px] text-gray-400">Tax compliance verification</p>
               </div>
-              <div className="space-y-1 flex-1">
-                <div className="flex justify-between items-baseline">
-                  <span className="text-xs font-bold text-[#2e4057] uppercase tracking-wide">
-                    Agri-Infrastructure utilization audits
-                  </span>
-                  <span className="text-[9px] font-black uppercase text-gray-500 bg-gray-100 px-2.5 py-0.5 rounded">
-                    20 Days Left
-                  </span>
-                </div>
-                <p className="text-[11px] text-gray-500 font-semibold leading-relaxed">
-                  Requires CA signed utilization certificate matching
-                  construction ledger to authorize Tranche 2 payouts.
-                </p>
+              <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded text-[9px] font-black uppercase">Active</span>
+            </div>
+
+            {/* DPIIT Check */}
+            <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 flex items-center justify-between text-xs font-semibold">
+              <div>
+                <p className="font-bold text-brand-darkest">DPIIT Startup India Link</p>
+                <p className="text-[10px] text-gray-400">Incubator / Tax benefits pre-req</p>
               </div>
+              <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded text-[9px] font-black uppercase">Linked</span>
+            </div>
+
+            {/* Audited statements Check */}
+            <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 flex items-center justify-between text-xs font-semibold">
+              <div>
+                <p className="font-bold text-brand-darkest">Financial Audit Statements</p>
+                <p className="text-[10px] text-gray-400">FY 2024-25 CA Signed files</p>
+              </div>
+              <button 
+                onClick={() => navigate("/module/gov-schemes/admin/profile")}
+                className="text-amber-700 bg-amber-100 hover:bg-amber-200 px-2 py-0.5 rounded text-[9px] font-black uppercase transition"
+              >
+                Incomplete
+              </button>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* Tab 3: Vault Archive */}
-      {activeTab === "vault" && (
-        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 animate-fadeIn">
-          <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-            <div className="space-y-0.5">
-              <h3 className="font-black text-xs uppercase tracking-wider text-[#2e4057] flex items-center gap-1.5">
-                <Archive className="w-4 h-4 text-[#28a745]" /> Read-Only
-                Compliance Document Vault
-              </h3>
-              <p className="text-[10px] text-gray-400 font-bold uppercase">
-                Archived records of submitted utilization reports
-              </p>
-            </div>
-            <span className="text-xs font-bold text-gray-500">
-              {archiveDocs.length} Documents Archived
-            </span>
-          </div>
+      {/* Scheme Readiness Matrix */}
+      <div className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-gray-100">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-2">
+            <Building className="w-4 h-4 text-brand-medium" /> Scheme Readiness Matrix
+          </h3>
+        </div>
 
-          <div className="border border-gray-150 rounded-xl overflow-hidden">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-100 text-[10px] font-bold text-gray-500 uppercase">
-                  <th className="p-3">Doc Ref</th>
-                  <th className="p-3">Compliance Name</th>
-                  <th className="p-3">Template Reference</th>
-                  <th className="p-3">Date Submitted</th>
-                  <th className="p-3">Government Status</th>
-                  <th className="p-3 text-right">Receipt Number</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 font-semibold">
-                {archiveDocs.map((doc, idx) => (
-                  <tr key={idx} className="hover:bg-gray-50 transition">
-                    <td className="p-3 text-gray-700">{doc.id}</td>
-                    <td className="p-3 text-[#2e4057] uppercase tracking-wide">
-                      {doc.name}
-                    </td>
-                    <td className="p-3 text-gray-500">{doc.code}</td>
-                    <td className="p-3 text-gray-500">{doc.date}</td>
-                    <td className="p-3">
-                      <span
-                        className={`inline-block px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ${
-                          doc.status === "Verified" || doc.status === "Accepted"
-                            ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                            : "bg-blue-100 text-blue-800 border border-blue-200"
-                        }`}
-                      >
-                        {doc.status}
+        <div className="overflow-x-auto text-xs">
+          <table className="w-full text-left">
+            <thead className="bg-gray-50/50 border-b border-gray-150 text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+              <tr>
+                <th className="p-4">Scheme Name</th>
+                <th className="p-4 text-center">Match Score</th>
+                <th className="p-4">Missing Requirements</th>
+                <th className="p-4 text-center">Readiness Level</th>
+                <th className="p-4 text-right">Recommended Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 font-semibold">
+              {readinessMatrix.map((r) => (
+                <tr key={r.id} className="hover:bg-gray-50/30">
+                  <td className="p-4 font-black text-brand-darkest uppercase">{r.name}</td>
+                  <td className="p-4 text-center font-black text-brand-medium">{r.matchScore}%</td>
+                  <td className="p-4 text-gray-500">
+                    {r.missing.length > 0 ? (
+                      <span className="text-red-600 font-bold">{r.missing.join(", ")}</span>
+                    ) : (
+                      <span className="text-emerald-600 font-bold">None</span>
+                    )}
+                  </td>
+                  <td className="p-4 text-center">
+                    <div className="flex flex-col items-center gap-1">
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${
+                        r.status === "Ready" ? "bg-emerald-50 text-emerald-800 border border-emerald-150" : "bg-amber-50 text-amber-800 border border-amber-150"
+                      }`}>
+                        {r.status === "Ready" ? "Estimated Match" : "Readiness Level"}
                       </span>
-                    </td>
-                    <td className="p-3 text-right text-gray-600 font-mono text-[10px] font-bold">
-                      {doc.receipt}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                      <span className="text-[10px] text-gray-400">{r.readiness}% Ready</span>
+                    </div>
+                  </td>
+                  <td className="p-4 text-right">
+                    {r.missing.length > 0 ? (
+                      <button
+                        onClick={handleFixUdyam}
+                        className="text-[10px] font-black bg-brand-darkest hover:bg-brand-dark text-white px-3 py-1.5 rounded-xl transition uppercase tracking-wider"
+                      >
+                        Link Udyam
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => navigate(`/module/gov-schemes/admin/detail/${r.id}`)}
+                        className="text-[10px] font-black border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 px-3 py-1.5 rounded-xl transition uppercase tracking-wider"
+                      >
+                        View Details
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Network Readiness Section */}
+      <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+        <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5 border-b border-gray-100 pb-2">
+          <Users className="w-4 h-4 text-brand-medium" /> Network Readiness & Potential Fit
+        </h3>
+        <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+          Aggregated diagnostic matches for farmers and FPOs in your cooperative network. All counts represent potential fit criteria before government portal verification.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 space-y-1">
+            <span className="text-[9px] font-black uppercase text-gray-400 block tracking-wider">Estimated Farmer Match Count</span>
+            <span className="text-lg font-black text-brand-darkest">{analytics.outreach.farmersReached.toLocaleString()} Farmers</span>
+            <span className="text-[9px] text-brand-medium font-bold block">Likely Eligibility</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 space-y-1">
+            <span className="text-[9px] font-black uppercase text-gray-400 block tracking-wider">Estimated FPO Match Count</span>
+            <span className="text-lg font-black text-brand-darkest">{analytics.companyProfile.fpoPartnerships}</span>
+            <span className="text-[9px] text-brand-medium font-bold block">Potential Fit</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 space-y-1">
+            <span className="text-[9px] font-black uppercase text-gray-400 block tracking-wider">Common Missing Requirement</span>
+            <span className="text-lg font-black text-red-600">Bank Aadhaar Seeding</span>
+            <span className="text-[9px] text-red-500 font-bold block">Sourced from self-reported farmer profiles in AgroIndia</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 space-y-1">
+            <span className="text-[9px] font-black uppercase text-gray-400 block tracking-wider">Most Relevant Schemes</span>
+            <span className="text-xs font-black text-brand-darkest block truncate">PM-KISAN, PMFBY</span>
+            <span className="text-[9px] text-gray-500 font-bold block">Network-wide matches</span>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* Tab 4: Channel configuration settings */}
-      {activeTab === "reminders" && (
-        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 animate-fadeIn">
-          <h3 className="font-black text-xs uppercase tracking-wider text-[#2e4057]">
-            Filing Reminder Channels Configuration
+      {/* Compliance Readiness Checklist & Profile Recommendations */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        {/* Compliance Readiness Checklist */}
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-brand-medium" /> Compliance Readiness Checklist
           </h3>
-          <p className="text-xs text-gray-500 font-semibold leading-relaxed">
-            Configure system channels to broadcast upcoming compliance dates to
-            the CFO and Operations Team.
-          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div
-              className={`p-4 rounded-2xl border transition flex flex-col justify-between h-[130px] ${
-                channels.whatsapp
-                  ? "bg-emerald-50 border-emerald-200"
-                  : "bg-gray-50 border-gray-200"
-              }`}
-            >
-              <div className="flex justify-between items-start">
-                <div className="bg-white p-2 rounded-xl text-emerald-600 border border-emerald-100 shadow-sm">
-                  <MessageSquare className="w-5 h-5" />
-                </div>
-                <button
-                  onClick={() => handleChannelToggle("whatsapp")}
-                  className={`text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition ${
-                    channels.whatsapp
-                      ? "bg-emerald-600 text-white"
-                      : "bg-gray-200 text-gray-500"
-                  }`}
-                >
-                  {channels.whatsapp ? "Active" : "Disabled"}
-                </button>
-              </div>
-              <div>
-                <span className="block text-xs font-bold text-gray-800">
-                  WhatsApp Broadcasts
-                </span>
-                <span className="text-[10px] text-gray-500 font-semibold">
-                  Instant alerts sent to operations number.
-                </span>
-              </div>
+          <div className="space-y-2.5 text-xs">
+            <div className="flex justify-between items-center p-3 border border-gray-100 rounded-xl bg-gray-50/40">
+              <span className="font-bold text-brand-darkest">Business Identity (CIN, GSTIN, PAN)</span>
+              <span className="text-emerald-700 font-bold flex items-center gap-1"><Check className="w-3.5 h-3.5" /> Verified</span>
             </div>
-
-            <div
-              className={`p-4 rounded-2xl border transition flex flex-col justify-between h-[130px] ${
-                channels.sms
-                  ? "bg-emerald-50 border-emerald-200"
-                  : "bg-gray-50 border-gray-200"
-              }`}
-            >
-              <div className="flex justify-between items-start">
-                <div className="bg-white p-2 rounded-xl text-[#2e4057] border border-gray-100 shadow-sm">
-                  <Smartphone className="w-5 h-5" />
-                </div>
-                <button
-                  onClick={() => handleChannelToggle("sms")}
-                  className={`text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition ${
-                    channels.sms
-                      ? "bg-emerald-600 text-white"
-                      : "bg-gray-200 text-gray-500"
-                  }`}
-                >
-                  {channels.sms ? "Active" : "Disabled"}
-                </button>
-              </div>
-              <div>
-                <span className="block text-xs font-bold text-gray-800">
-                  SMS Alerts Gateway
-                </span>
-                <span className="text-[10px] text-gray-500 font-semibold">
-                  Priority text logs.
-                </span>
-              </div>
+            <div className="flex justify-between items-center p-3 border border-gray-100 rounded-xl bg-gray-50/40">
+              <span className="font-bold text-brand-darkest">Financial Records (Turnover levels)</span>
+              <span className="text-amber-600 font-bold flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> Action Required</span>
             </div>
-
-            <div
-              className={`p-4 rounded-2xl border transition flex flex-col justify-between h-[130px] ${
-                channels.inapp
-                  ? "bg-emerald-50 border-emerald-200"
-                  : "bg-gray-50 border-gray-200"
-              }`}
-            >
-              <div className="flex justify-between items-start">
-                <div className="bg-white p-2 rounded-xl text-[#2e4057] border border-gray-100 shadow-sm">
-                  <Bell className="w-5 h-5" />
-                </div>
-                <button
-                  onClick={() => handleChannelToggle("inapp")}
-                  className={`text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition ${
-                    channels.inapp
-                      ? "bg-emerald-600 text-white"
-                      : "bg-gray-200 text-gray-500"
-                  }`}
-                >
-                  {channels.inapp ? "Active" : "Disabled"}
-                </button>
-              </div>
-              <div>
-                <span className="block text-xs font-bold text-gray-800">
-                  In-App Command Feed
-                </span>
-                <span className="text-[10px] text-gray-500 font-semibold">
-                  Banners inside the admin dashboard.
-                </span>
-              </div>
+            <div className="flex justify-between items-center p-3 border border-gray-100 rounded-xl bg-gray-50/40">
+              <span className="font-bold text-brand-darkest">Certifications (ISO Quality guidelines)</span>
+              <span className="text-emerald-700 font-bold flex items-center gap-1"><Check className="w-3.5 h-3.5" /> Verified</span>
+            </div>
+            <div className="flex justify-between items-center p-3 border border-gray-100 rounded-xl bg-gray-50/40">
+              <span className="font-bold text-brand-darkest">Operational Data (Farmer operations coverage)</span>
+              <span className="text-emerald-700 font-bold flex items-center gap-1"><Check className="w-3.5 h-3.5" /> Verified</span>
+            </div>
+            <div className="flex justify-between items-center p-3 border border-gray-100 rounded-xl bg-gray-50/40">
+              <span className="font-bold text-brand-darkest">Legal Documentation (Incorporation files)</span>
+              <span className="text-emerald-700 font-bold flex items-center gap-1"><Check className="w-3.5 h-3.5" /> Verified</span>
             </div>
           </div>
         </div>
-      )}
+
+        {/* Profile Completion Recommendations */}
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+            <Sparkles className="w-4 h-4 text-brand-medium" /> AI Profile Completion Recommendations
+          </h3>
+
+          <div className="space-y-3.5 text-xs font-semibold leading-relaxed">
+            {!analytics.companyProfile.udyam && (
+              <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-xl text-amber-900 space-y-1">
+                <span className="font-black block uppercase text-[9px] text-amber-800">Critical Eligibility Recommendation:</span>
+                Link Udyam MSME ID credentials inside matching setup to unlock <span className="font-bold text-brand-darkest">SIDBI Venture Capital Fund eligibility</span>, adding potential benefits of up to ₹80,00,000.
+              </div>
+            )}
+            <div className="bg-[#f8faf8] border border-gray-100 p-3.5 rounded-xl text-gray-700 space-y-1">
+              <span className="font-black block uppercase text-[9px] text-brand-medium">Documentation Update:</span>
+              Upload audited CA financial turnover statements for FY 2024-25. This fulfills pre-requisite compliance requirements for cold chain export subsidies.
+            </div>
+            <div className="bg-[#f8faf8] border border-gray-100 p-3.5 rounded-xl text-gray-700 space-y-1">
+              <span className="font-black block uppercase text-[9px] text-brand-medium">States Focus Target:</span>
+              Toggle state preferences for Punjab and Haryana under Operational Profile to filter local interest subventions.
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }

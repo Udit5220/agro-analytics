@@ -104,7 +104,7 @@ export default function AgriMarketExpansion() {
                     key={cat}
                     onClick={() => setFilterCategory(cat)}
                     className={`text-[9px] font-black uppercase px-2.5 py-1 rounded-xl transition ${
-                      filterCategory === cat ? "bg-[#31572c] text-white" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                      filterCategory === cat ? "bg-brand-dark text-white" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                     }`}
                   >
                     {cat}

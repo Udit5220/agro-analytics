@@ -44,15 +44,15 @@ export default function GovCommandCenter() {
       fpos: "12 Active",
       infra: "45 Units",
       colorMap: {
-        coverage: "bg-[#2e4057]",
-        budget: "bg-[#208837]",
-        fpos: "bg-[#28a745]",
+        coverage: "bg-brand-darkest",
+        budget: "bg-brand-dark",
+        fpos: "bg-brand-medium",
         infra: "bg-[#2ec4b6]",
       },
       fillMap: {
-        coverage: "#2e4057",
-        budget: "#208837",
-        fpos: "#28a745",
+        coverage: "var(--brand-darkest)",
+        budget: "var(--brand-dark)",
+        fpos: "var(--brand-medium)",
         infra: "#2ec4b6",
       },
       path: "M 230,190 L 340,200 L 310,280 L 210,270 Z",
@@ -69,16 +69,16 @@ export default function GovCommandCenter() {
       fpos: "8 Active",
       infra: "28 Units",
       colorMap: {
-        coverage: "bg-[#208837]",
-        budget: "bg-[#28a745]",
+        coverage: "bg-brand-dark",
+        budget: "bg-brand-medium",
         fpos: "bg-[#2ec4b6]",
-        infra: "bg-[#28a745]",
+        infra: "bg-brand-medium",
       },
       fillMap: {
-        coverage: "#208837",
-        budget: "#28a745",
+        coverage: "var(--brand-dark)",
+        budget: "var(--brand-medium)",
         fpos: "#2ec4b6",
-        infra: "#28a745",
+        infra: "var(--brand-medium)",
       },
       path: "M 120,130 L 250,120 L 230,190 L 210,270 L 110,230 Z",
       centroid: { x: 180, y: 185 },
@@ -94,13 +94,13 @@ export default function GovCommandCenter() {
       fpos: "5 Active",
       infra: "12 Units",
       colorMap: {
-        coverage: "bg-[#28a745]",
+        coverage: "bg-brand-medium",
         budget: "bg-[#2ec4b6]",
         fpos: "bg-amber-600/70",
         infra: "bg-[#2ec4b6]",
       },
       fillMap: {
-        coverage: "#28a745",
+        coverage: "var(--brand-medium)",
         budget: "#2ec4b6",
         fpos: "#d97706",
         infra: "#2ec4b6",
@@ -144,16 +144,16 @@ export default function GovCommandCenter() {
       fpos: "15 Active",
       infra: "62 Units",
       colorMap: {
-        coverage: "bg-[#2e4057]",
-        budget: "bg-[#2e4057]",
-        fpos: "bg-[#208837]",
-        infra: "bg-[#2e4057]",
+        coverage: "bg-brand-darkest",
+        budget: "bg-brand-darkest",
+        fpos: "bg-brand-dark",
+        infra: "bg-brand-darkest",
       },
       fillMap: {
-        coverage: "#2e4057",
-        budget: "#2e4057",
-        fpos: "#208837",
-        infra: "#2e4057",
+        coverage: "var(--brand-darkest)",
+        budget: "var(--brand-darkest)",
+        fpos: "var(--brand-dark)",
+        infra: "var(--brand-darkest)",
       },
       path: "M 260,40 L 380,50 L 360,130 L 250,120 Z",
       centroid: { x: 312, y: 85 },
@@ -172,29 +172,29 @@ export default function GovCommandCenter() {
 
   const legends = {
     coverage: [
-      { label: "Top (80%+)", color: "#2e4057" },
-      { label: "High (70%-80%)", color: "#208837" },
-      { label: "Moderate (50%-70%)", color: "#28a745" },
+      { label: "Top (80%+)", color: "var(--brand-darkest)" },
+      { label: "High (70%-80%)", color: "var(--brand-dark)" },
+      { label: "Moderate (50%-70%)", color: "var(--brand-medium)" },
       { label: "Low (40%-50%)", color: "#2ec4b6" },
     ],
     budget: [
-      { label: "Max (₹70Cr+)", color: "#2e4057" },
-      { label: "High (₹40Cr-70Cr)", color: "#208837" },
-      { label: "Moderate (₹20Cr-40Cr)", color: "#28a745" },
+      { label: "Max (₹70Cr+)", color: "var(--brand-darkest)" },
+      { label: "High (₹40Cr-70Cr)", color: "var(--brand-dark)" },
+      { label: "Moderate (₹20Cr-40Cr)", color: "var(--brand-medium)" },
       { label: "Low (<₹20Cr)", color: "#2ec4b6" },
       { label: "Alert", color: "#d97706" },
     ],
     fpos: [
-      { label: "High (12+)", color: "#2e4057" },
-      { label: "Good (8-12)", color: "#208837" },
-      { label: "Moderate (5-8)", color: "#28a745" },
+      { label: "High (12+)", color: "var(--brand-darkest)" },
+      { label: "Good (8-12)", color: "var(--brand-dark)" },
+      { label: "Moderate (5-8)", color: "var(--brand-medium)" },
       { label: "Low (3-5)", color: "#2ec4b6" },
       { label: "Critical (<3)", color: "#dc2626" },
     ],
     infrastructure: [
-      { label: "Excellent (60+)", color: "#2e4057" },
-      { label: "Good (40-60)", color: "#208837" },
-      { label: "Moderate (20-40)", color: "#28a745" },
+      { label: "Excellent (60+)", color: "var(--brand-darkest)" },
+      { label: "Good (40-60)", color: "var(--brand-dark)" },
+      { label: "Moderate (20-40)", color: "var(--brand-medium)" },
       { label: "Low (10-20)", color: "#2ec4b6" },
       { label: "Alert (<10)", color: "#d97706" },
     ],
@@ -246,12 +246,12 @@ export default function GovCommandCenter() {
 
   return (
     <>
-      <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 animate-fadeIn text-[#2e4057]">
+      <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 animate-fadeIn text-brand-darkest">
         {/* Page Header */}
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-xl font-bold text-[#2e4057] flex items-center gap-2">
-              <LayoutDashboard className="w-5 h-5 text-[#28a745]" />
+            <h1 className="text-xl font-bold text-brand-darkest flex items-center gap-2">
+              <LayoutDashboard className="w-5 h-5 text-brand-medium" />
               Agricultural Governance Command Center
             </h1>
             <p className="text-xs text-gray-500 mt-1">
@@ -260,8 +260,8 @@ export default function GovCommandCenter() {
             </p>
           </div>
           <div className="flex gap-2">
-            <span className="text-xs font-bold bg-[#2e4057]/10 text-[#2e4057] px-3.5 py-1.5 rounded-xl border border-[#2e4057]/15 flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-[#28a745]" /> Haryana State
+            <span className="text-xs font-bold bg-brand-darkest/10 text-brand-darkest px-3.5 py-1.5 rounded-xl border border-brand-darkest/15 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-brand-medium" /> Haryana State
               Control Panel
             </span>
           </div>
@@ -274,42 +274,42 @@ export default function GovCommandCenter() {
             value="4.2 Lakh"
             trend="84% Eligible"
             subtext="Registered: 3.5L"
-            icon={<Users className="text-[#28a745]" />}
+            icon={<Users className="text-brand-medium" />}
           />
           <StatsCard
             title="Total FPOs"
             value="45 Active"
             trend="+5 this Q"
             subtext="Funded: 28 FPOs"
-            icon={<Building2 className="text-[#28a745]" />}
+            icon={<Building2 className="text-brand-medium" />}
           />
           <StatsCard
             title="Government Budget"
             value="₹245.5 Cr"
             trend="91% Utilized"
             subtext="Released: ₹220 Cr"
-            icon={<CircleDollarSign className="text-[#28a745]" />}
+            icon={<CircleDollarSign className="text-brand-medium" />}
           />
           <StatsCard
             title="Active Schemes"
             value="18 Running"
             trend="12 High-Perf"
             subtext="Under-perf: 2"
-            icon={<Activity className="text-[#28a745]" />}
+            icon={<Activity className="text-brand-medium" />}
           />
           <StatsCard
             title="Application Pipeline"
             value="12,450"
             trend="4.5 Days Avg"
             subtext="Approved: 9,210"
-            icon={<FolderKanban className="text-[#28a745]" />}
+            icon={<FolderKanban className="text-brand-medium" />}
           />
           <StatsCard
             title="Infrastructure Created"
             value="155 Assets"
             trend="+18% YoY"
             subtext="Storage, Processing, Solar"
-            icon={<Warehouse className="text-[#28a745]" />}
+            icon={<Warehouse className="text-brand-medium" />}
           />
         </div>
 
@@ -319,8 +319,8 @@ export default function GovCommandCenter() {
           <div className="lg:col-span-2 bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
             <div>
               <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
-                <h3 className="font-bold text-[#2e4057] text-sm flex items-center gap-1.5">
-                  <Map className="w-4 h-4 text-[#28a745]" /> State Geospatial
+                <h3 className="font-bold text-brand-darkest text-sm flex items-center gap-1.5">
+                  <Map className="w-4 h-4 text-brand-medium" /> State Geospatial
                   Intelligence Layer
                 </h3>
                 <div className="flex bg-gray-50 border border-gray-200 rounded-xl p-1 gap-1">
@@ -330,7 +330,7 @@ export default function GovCommandCenter() {
                       onClick={() => setActiveLayer(opt.id)}
                       className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all ${
                         activeLayer === opt.id
-                          ? "bg-[#2e4057] text-white"
+                          ? "bg-brand-darkest text-white"
                           : "text-gray-500 hover:text-gray-800"
                       }`}
                     >
@@ -352,7 +352,7 @@ export default function GovCommandCenter() {
                   {/* Top telemetry status */}
                   <div className="flex justify-between items-center text-[10px] text-gray-500 font-mono mb-2 bg-white/80 border border-gray-100 px-3 py-1.5 rounded-lg z-10 shadow-sm">
                     <span className="flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 bg-[#28a745] rounded-full animate-ping"></span>
+                      <span className="w-1.5 h-1.5 bg-brand-medium rounded-full animate-ping"></span>
                       SYSTEM: ACTIVE FEED
                     </span>
                     <span>
@@ -390,7 +390,7 @@ export default function GovCommandCenter() {
                       </g>
 
                       {/* Grid Labels */}
-                      <g fill="#28a745" fontSize="7" opacity="0.65" fontWeight="semibold" fontFamily="monospace">
+                      <g fill="var(--brand-medium)" fontSize="7" opacity="0.65" fontWeight="semibold" fontFamily="monospace">
                         <text x="150" y="15" textAnchor="middle">76°30'E</text>
                         <text x="250" y="15" textAnchor="middle">76°45'E</text>
                         <text x="350" y="15" textAnchor="middle">77°00'E</text>
@@ -401,7 +401,7 @@ export default function GovCommandCenter() {
                       </g>
 
                       {/* Compass Rose */}
-                      <g transform="translate(45, 65)" className="opacity-35 text-[#208837]">
+                      <g transform="translate(45, 65)" className="opacity-35 text-brand-dark">
                         <circle r="18" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
                         <line x1="0" y1="-22" x2="0" y2="22" stroke="currentColor" strokeWidth="1" />
                         <line x1="-22" y1="0" x2="22" y2="0" stroke="currentColor" strokeWidth="1" />
@@ -417,7 +417,7 @@ export default function GovCommandCenter() {
                       </g>
 
                       {/* Scale Bar */}
-                      <g transform="translate(390, 370)" className="opacity-45 text-[#2e4057]">
+                      <g transform="translate(390, 370)" className="opacity-45 text-brand-darkest">
                         <line x1="0" y1="0" x2="80" y2="0" stroke="currentColor" strokeWidth="1.5" />
                         <line x1="0" y1="-4" x2="0" y2="4" stroke="currentColor" strokeWidth="1.5" />
                         <line x1="40" y1="-4" x2="40" y2="4" stroke="currentColor" strokeWidth="1.5" />
@@ -494,8 +494,8 @@ export default function GovCommandCenter() {
                     <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 bg-white/95 border border-gray-150 p-4 rounded-xl shadow-sm z-10 animate-fadeIn">
                       {/* Telemetry ready message on the left */}
                       <div className="space-y-1">
-                        <h5 className="text-xs font-black text-[#2e4057] uppercase tracking-wider flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 bg-[#28a745] rounded-full animate-ping"></span>
+                        <h5 className="text-xs font-black text-brand-darkest uppercase tracking-wider flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 bg-brand-medium rounded-full animate-ping"></span>
                           GIS Telemetry Status
                         </h5>
                         <p className="text-[11px] text-gray-500 font-semibold leading-relaxed">
@@ -505,7 +505,7 @@ export default function GovCommandCenter() {
 
                       {/* Legend in the middle */}
                       <div className="space-y-1.5">
-                        <h5 className="text-xs font-black text-[#2e4057] uppercase tracking-wider">Legend</h5>
+                        <h5 className="text-xs font-black text-brand-darkest uppercase tracking-wider">Legend</h5>
                         <div className="grid grid-cols-2 gap-1.5">
                           {legends[activeLayer].map((item, index) => (
                             <div key={index} className="flex items-center gap-2">
@@ -518,19 +518,19 @@ export default function GovCommandCenter() {
 
                       {/* Telemetry Diagnostics on the right */}
                       <div className="space-y-1.5 border-t md:border-t-0 md:border-l border-gray-150 pt-2 md:pt-0 md:pl-4">
-                        <h5 className="text-xs font-black text-[#2e4057] uppercase tracking-wider">Telemetry Diagnostics</h5>
+                        <h5 className="text-xs font-black text-brand-darkest uppercase tracking-wider">Telemetry Diagnostics</h5>
                         <div className="grid grid-cols-3 gap-2 text-center font-mono">
                           <div className="bg-gray-50 p-1.5 rounded-lg border border-gray-100 shadow-sm">
                             <span className="text-[8px] text-gray-400 font-bold uppercase block">Districts</span>
-                            <span className="text-xs font-black text-[#2e4057]">5 Active</span>
+                            <span className="text-xs font-black text-brand-darkest">5 Active</span>
                           </div>
                           <div className="bg-gray-50 p-1.5 rounded-lg border border-gray-100 shadow-sm">
                             <span className="text-[8px] text-gray-400 font-bold uppercase block">Area</span>
-                            <span className="text-xs font-black text-[#2e4057]">~4.5K km²</span>
+                            <span className="text-xs font-black text-brand-darkest">~4.5K km²</span>
                           </div>
                           <div className="bg-gray-50 p-1.5 rounded-lg border border-gray-100 shadow-sm">
                             <span className="text-[8px] text-gray-400 font-bold uppercase block">Ping</span>
-                            <span className="text-xs font-black text-[#2e4057]">1.2s RT</span>
+                            <span className="text-xs font-black text-brand-darkest">1.2s RT</span>
                           </div>
                         </div>
                       </div>
@@ -538,7 +538,7 @@ export default function GovCommandCenter() {
                   ) : (
                     <div className="mt-4 bg-white/95 border border-gray-150 p-3 rounded-xl shadow-sm z-10 animate-fadeIn">
                       <div className="flex justify-between items-center flex-wrap gap-2">
-                        <span className="text-[10px] font-black text-[#2e4057]/70 uppercase tracking-wider">Map Legend:</span>
+                        <span className="text-[10px] font-black text-brand-darkest/70 uppercase tracking-wider">Map Legend:</span>
                         <div className="flex flex-wrap gap-3">
                           {legends[activeLayer].map((item, index) => (
                             <div key={index} className="flex items-center gap-1.5">
@@ -559,8 +559,8 @@ export default function GovCommandCenter() {
                       <div>
                         <div className="flex justify-between items-start">
                           <div>
-                            <h4 className="text-sm font-black text-[#2e4057] tracking-wide flex items-center gap-1.5 uppercase">
-                              <MapPin className="w-4 h-4 text-[#28a745]" /> {selectedDistrict.name} Region
+                            <h4 className="text-sm font-black text-brand-darkest tracking-wide flex items-center gap-1.5 uppercase">
+                              <MapPin className="w-4 h-4 text-brand-medium" /> {selectedDistrict.name} Region
                             </h4>
                             <p className="text-[9px] text-gray-400 font-mono mt-0.5">
                               LAT: {selectedDistrict.lat}° N | LON: {selectedDistrict.lng}° E
@@ -585,26 +585,26 @@ export default function GovCommandCenter() {
                         <div className="grid grid-cols-2 gap-2 mt-3.5">
                           <div className="bg-white/80 p-2.5 rounded-xl border border-gray-100 shadow-sm">
                             <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Coverage Rate</span>
-                            <p className="text-xs font-black text-[#2e4057] mt-0.5">{selectedDistrict.coverage}</p>
+                            <p className="text-xs font-black text-brand-darkest mt-0.5">{selectedDistrict.coverage}</p>
                           </div>
                           <div className="bg-white/80 p-2.5 rounded-xl border border-gray-100 shadow-sm">
                             <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Budget Spent</span>
-                            <p className="text-xs font-black text-[#2e4057] mt-0.5">{selectedDistrict.budget}</p>
+                            <p className="text-xs font-black text-brand-darkest mt-0.5">{selectedDistrict.budget}</p>
                           </div>
                           <div className="bg-white/80 p-2.5 rounded-xl border border-gray-100 shadow-sm">
                             <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Active FPOs</span>
-                            <p className="text-xs font-black text-[#2e4057] mt-0.5">{selectedDistrict.fpos}</p>
+                            <p className="text-xs font-black text-brand-darkest mt-0.5">{selectedDistrict.fpos}</p>
                           </div>
                           <div className="bg-white/80 p-2.5 rounded-xl border border-gray-100 shadow-sm">
                             <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Storage & Infra</span>
-                            <p className="text-xs font-black text-[#2e4057] mt-0.5">{selectedDistrict.infra}</p>
+                            <p className="text-xs font-black text-brand-darkest mt-0.5">{selectedDistrict.infra}</p>
                           </div>
                         </div>
 
                         {/* Dynamic narrative */}
-                        <div className="mt-3.5 bg-white/90 border border-[#2e4057]/10 p-3 rounded-xl shadow-sm">
-                          <h5 className="text-[9px] font-bold text-[#2e4057] uppercase tracking-wider mb-1">Regional Intelligence Brief</h5>
-                          <p className="text-[11px] text-[#2e4057]/90 font-semibold leading-relaxed">
+                        <div className="mt-3.5 bg-white/90 border border-brand-darkest/10 p-3 rounded-xl shadow-sm">
+                          <h5 className="text-[9px] font-bold text-brand-darkest uppercase tracking-wider mb-1">Regional Intelligence Brief</h5>
+                          <p className="text-[11px] text-brand-darkest/90 font-semibold leading-relaxed">
                             {selectedDistrict.text}
                           </p>
                         </div>
@@ -612,7 +612,7 @@ export default function GovCommandCenter() {
 
                       <button
                         onClick={() => setSelectedDistrict(null)}
-                        className="w-full text-[10px] font-bold text-gray-500 hover:text-[#2e4057] border border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50 py-2 rounded-xl transition shadow-sm"
+                        className="w-full text-[10px] font-bold text-gray-500 hover:text-brand-darkest border border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50 py-2 rounded-xl transition shadow-sm"
                       >
                         Reset Map Selection
                       </button>
@@ -626,8 +626,8 @@ export default function GovCommandCenter() {
           {/* AI Brief Column */}
           <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
             <div>
-              <h3 className="font-bold text-[#2e4057] text-sm mb-3 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-[#28a745]" /> AI Governance
+              <h3 className="font-bold text-brand-darkest text-sm mb-3 flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-brand-medium" /> AI Governance
                 Brief
               </h3>
               <p className="text-[10px] text-gray-400 mb-4 leading-normal">
@@ -684,7 +684,7 @@ export default function GovCommandCenter() {
                     <Area
                       type="monotone"
                       dataKey="budgetUtil"
-                      stroke="#28a745"
+                      stroke="var(--brand-medium)"
                       fill="#ffc857"
                       fillOpacity={0.4}
                       strokeWidth={2}
@@ -704,7 +704,7 @@ export default function GovCommandCenter() {
             onClick={() => setActiveTab("infrastructure")}
             className={`px-5 py-2 rounded-lg text-sm font-bold transition ${
               activeTab === "infrastructure"
-                ? "bg-[#2e4057] text-white"
+                ? "bg-brand-darkest text-white"
                 : "text-gray-500 hover:text-gray-800"
             }`}
           >
@@ -714,7 +714,7 @@ export default function GovCommandCenter() {
             onClick={() => setActiveTab("ai")}
             className={`px-5 py-2 rounded-lg text-sm font-bold transition ${
               activeTab === "ai"
-                ? "bg-[#2e4057] text-white"
+                ? "bg-brand-darkest text-white"
                 : "text-gray-500 hover:text-gray-800"
             }`}
           >
@@ -728,7 +728,7 @@ export default function GovCommandCenter() {
             <div className="space-y-6">
               {/* Capacity Bars */}
               <div className="space-y-4">
-                <h3 className="font-bold text-[#2e4057] text-sm">
+                <h3 className="font-bold text-brand-darkest text-sm">
                   State Storage Capacity & Utilization
                 </h3>
                 <div>
@@ -738,7 +738,7 @@ export default function GovCommandCenter() {
                   </div>
                   <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
                     <div
-                      className="bg-[#2e4057] h-full"
+                      className="bg-brand-darkest h-full"
                       style={{ width: "92%" }}
                     ></div>
                   </div>
@@ -750,7 +750,7 @@ export default function GovCommandCenter() {
                   </div>
                   <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
                     <div
-                      className="bg-[#208837] h-full"
+                      className="bg-brand-dark h-full"
                       style={{ width: "74%" }}
                     ></div>
                   </div>
@@ -762,7 +762,7 @@ export default function GovCommandCenter() {
                   </div>
                   <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
                     <div
-                      className="bg-[#28a745] h-full"
+                      className="bg-brand-medium h-full"
                       style={{ width: "85%" }}
                     ></div>
                   </div>
@@ -771,7 +771,7 @@ export default function GovCommandCenter() {
 
               {/* Asset Performance Alerts */}
               <div className="space-y-2">
-                <h3 className="font-bold text-[#2e4057] text-sm">
+                <h3 className="font-bold text-brand-darkest text-sm">
                   Asset Performance Alerts
                 </h3>
                 <div className="p-3 bg-red-50/50 border border-red-100 rounded-xl text-xs space-y-1">
@@ -806,8 +806,8 @@ export default function GovCommandCenter() {
           {/* AI BRIEF TAB */}
           {activeTab === "ai" && (
             <div className="space-y-3">
-              <h3 className="font-bold text-[#2e4057] text-sm flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-[#28a745]" />
+              <h3 className="font-bold text-brand-darkest text-sm flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-brand-medium" />
                 AI Governance Brief
               </h3>
               <p className="text-[10px] text-gray-400 leading-normal">

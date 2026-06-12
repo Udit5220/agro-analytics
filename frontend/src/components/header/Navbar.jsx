@@ -13,11 +13,41 @@ import {
   Settings,
   UserCircle,
   Tractor,
+  Users,
+  TrendingUp,
+  Factory,
+  FlaskConical,
+  Building2,
+  Briefcase,
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { uiConfig } from "../../utils/uiConfig";
 import { homeContent } from "../../content/homeContent";
 import { useRole } from "../../context/RoleContext";
+
+const getRoleIcon = (roleId, className = "h-4 w-4") => {
+  switch (roleId) {
+    case "farmer":
+      return <Sprout className={className} />;
+    case "fpo":
+    case "fpo_manager":
+      return <Users className={className} />;
+    case "trader":
+      return <TrendingUp className={className} />;
+    case "procurement":
+      return <Factory className={className} />;
+    case "researcher":
+      return <FlaskConical className={className} />;
+    case "government":
+      return <Building2 className={className} />;
+    case "company":
+      return <Briefcase className={className} />;
+    case "admin":
+      return <Settings className={className} />;
+    default:
+      return <Sprout className={className} />;
+  }
+};
 
 export default function Navbar() {
   const { activeRole, switchRole, allRoles } = useRole();
@@ -114,22 +144,22 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="h-9 w-9 rounded-full bg-brand-darkest/10 flex items-center justify-center text-brand-darkest hover:bg-brand-dark hover:text-brand-darkest transition-all duration-300 text-base cursor-pointer"
+                className="h-9 w-9 rounded-full bg-brand-darkest/10 flex items-center justify-center text-brand-darkest hover:bg-brand-dark hover:text-white transition-all duration-300 cursor-pointer"
                 title={`Active Role: ${allRoles[activeRole.toUpperCase()]?.label || activeRole}`}
               >
-                {allRoles[activeRole.toUpperCase()]?.icon || "🌾"}
+                {getRoleIcon(activeRole, "h-4.5 w-4.5")}
               </button>
 
               {isProfileOpen && (
                 <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-brand-darkest rounded-xl shadow-xl border border-gray-100 dark:border-brand-dark/30 z-50 p-3.5 animate-fadeIn">
                   {/* Top: User Info */}
                   <div className="flex items-center gap-3 pb-3">
-                    <div className="h-10 w-10 rounded-xl bg-brand-dark flex items-center justify-center text-lg shrink-0 shadow-inner">
-                      {allRoles[activeRole.toUpperCase()]?.icon || "🌾"}
+                    <div className="h-10 w-10 rounded-xl bg-brand-dark flex items-center justify-center text-brand-light shrink-0 shadow-inner">
+                      {getRoleIcon(activeRole, "h-5 w-5")}
                     </div>
                     <div className="overflow-hidden">
                       <h4 className="text-xs font-bold text-gray-900 dark:text-white truncate">
-                        {activeRole === "government" ? "Govt Official" : activeRole === "admin" ? "Admin User" : activeRole === "company" ? "Agribusiness User" : activeRole === "fpo" ? "FPO Manager" : "Suresh Kumar"}
+                        {activeRole === "government" ? "Govt Official" : activeRole === "admin" ? "Admin User" : activeRole === "company" ? "Agribusiness User" : (activeRole === "fpo" || activeRole === "fpo_manager") ? "FPO Manager" : "Suresh Kumar"}
                       </h4>
                       <p className="text-[9px] text-gray-500 dark:text-slate-400 font-extrabold uppercase tracking-wider truncate">
                         {allRoles[activeRole.toUpperCase()]?.label || activeRole}
@@ -144,26 +174,33 @@ export default function Navbar() {
                   {/* Switch Role Section */}
                   <div className="border-t border-gray-100 dark:border-brand-dark/20 pt-2 pb-1.5">
                     <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1.5 px-1">Switch Active Role</p>
-                    <div className="relative">
-                      <select
-                        value={activeRole}
-                        onChange={(e) => {
-                          const newRole = e.target.value;
-                          switchRole(newRole);
-                          setIsProfileOpen(false);
-                          // Route seamlessly based on current module if any
-                          if (moduleId) {
-                            navigate(`/module/${moduleId}`);
-                          }
-                        }}
-                        className="w-full bg-gray-50 dark:bg-brand-dark/30 border border-gray-200 dark:border-brand-light/10 text-xs text-gray-800 dark:text-white rounded-lg px-2 py-1.5 font-bold focus:outline-none focus:ring-1 focus:ring-brand-medium cursor-pointer"
-                      >
-                        {Object.values(allRoles).map((role) => (
-                          <option key={role.id} value={role.id} className="text-gray-950 font-bold bg-white">
-                            {role.icon} {role.label}
-                          </option>
-                        ))}
-                      </select>
+                    <div className="space-y-1 max-h-48 overflow-y-auto pr-1">
+                      {Object.values(allRoles).map((role) => {
+                        const isSelected = activeRole === role.id;
+                        return (
+                          <button
+                            key={role.id}
+                            type="button"
+                            onClick={() => {
+                              switchRole(role.id);
+                              setIsProfileOpen(false);
+                              if (moduleId) {
+                                navigate(`/module/${moduleId}`);
+                              }
+                            }}
+                            className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-xs rounded-lg font-bold transition-all cursor-pointer ${
+                              isSelected
+                                ? "bg-brand-accent text-brand-darkest"
+                                : "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-brand-dark/20"
+                            }`}
+                          >
+                            <span className={isSelected ? "text-brand-darkest" : "text-gray-400"}>
+                              {getRoleIcon(role.id, "h-3.5 w-3.5")}
+                            </span>
+                            <span>{role.label}</span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 

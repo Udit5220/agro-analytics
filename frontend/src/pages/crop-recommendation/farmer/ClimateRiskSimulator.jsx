@@ -191,7 +191,7 @@ export default function ClimateRiskSimulator() {
       {farms.length > 0 && (
         <div className="bg-white border border-gray-300 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-[#31572c]/10 rounded-xl text-[#31572c]">
+            <div className="p-2 bg-brand-dark/10 rounded-xl text-[#31572c]">
               <Landmark size={18} />
             </div>
             <div>
@@ -466,7 +466,7 @@ export default function ClimateRiskSimulator() {
         {/* Mitigation Strategies + Insurance */}
         <div className="space-y-5">
           {/* Mitigation Strategies */}
-          <div className="bg-[#4f772d]/[0.06] border border-gray-300 rounded-2xl p-5 space-y-3">
+          <div className="bg-brand-medium/[0.06] border border-gray-300 rounded-2xl p-5 space-y-3">
             <h3 className="text-[11px] font-black text-[#132a13] uppercase tracking-wider flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#31572c]" />
               Mitigation Strategies
@@ -523,7 +523,7 @@ export default function ClimateRiskSimulator() {
               <FileText className="w-4 h-4 text-[#31572c]" />
               Insurance Coverage Advisory
             </h3>
-            <div className="bg-[#31572c]/5 border border-[#31572c]/10 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div className="bg-brand-dark/5 border border-[#31572c]/10 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
               <div>
                 <span className="text-[9px] font-black text-gray-600 uppercase tracking-widest block">Scheme</span>
                 <span className="font-black text-gray-950 block mt-0.5">Pradhan Mantri Fasal Bima Yojana</span>

@@ -661,7 +661,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
     <div className="space-y-6 antialiased text-left font-['Plus_Jakarta_Sans',_sans-serif] bg-slate-50 dark:bg-brand-darkest/90 p-1 sm:p-4 rounded-3xl">
       
       {/* ── HEADER BANNER ── */}
-      <div className="bg-gradient-to-br from-[#132a13] to-[#31572c] rounded-3xl p-6 text-white shadow-xl flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 border border-[#4f772d]/20 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-[#132a13] to-[#31572c] rounded-3xl p-6 text-white shadow-xl flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 border border-brand-medium/20 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
         <div className="relative z-10 space-y-2">
           <div className="flex items-center gap-3">
@@ -953,7 +953,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
 
               <div className="flex justify-center gap-6 text-[10px] font-black uppercase tracking-wider text-slate-500">
                 <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded bg-red-500 block" /> Active Cases</span>
-                <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded bg-[#4f772d] block" /> Resolved Cases</span>
+                <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded bg-brand-medium block" /> Resolved Cases</span>
                 <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-purple-600 block" /> New Warnings</span>
               </div>
             </div>
@@ -1084,7 +1084,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                       <button
                         type="button"
                         onClick={() => triggerBroadcastAlert("Disease Alert", `${v.name} Village`)}
-                        className="p-1 hover:bg-[#31572c]/10 text-[#31572c] hover:text-[#132a13] rounded-md transition cursor-pointer"
+                        className="p-1 hover:bg-brand-dark/10 text-[#31572c] hover:text-[#132a13] rounded-md transition cursor-pointer"
                         title="Broadcast warning alert"
                       >
                         <Bell className="w-3.5 h-3.5" />
@@ -1115,7 +1115,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                     <button
                       type="button"
                       onClick={() => triggerCampaignLaunch("out-1")}
-                      className="px-2.5 py-1 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg text-[9px] font-black uppercase tracking-wider transition cursor-pointer"
+                      className="px-2.5 py-1 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg text-[9px] font-black uppercase tracking-wider transition cursor-pointer"
                     >
                       Initiate Spray
                     </button>
@@ -1202,7 +1202,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                         key={idx} 
                         onClick={() => setSelectedOutbreakId(outbreak.id)}
                         className={`cursor-pointer hover:bg-slate-50/50 transition-all ${
-                          selectedOutbreakId === outbreak.id ? "bg-[#31572c]/5 dark:bg-[#ecf39e]/5" : ""
+                          selectedOutbreakId === outbreak.id ? "bg-brand-dark/5 dark:bg-[#ecf39e]/5" : ""
                         }`}
                       >
                         <td className="py-3 text-slate-900 dark:text-white flex items-center gap-1.5">
@@ -1273,7 +1273,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                               <div 
                                 onClick={() => handleOutbreakLifecycleStageChange(selectedOutbreakId, stage)}
                                 className={`h-8 w-8 rounded-full border flex items-center justify-center font-black text-xs cursor-pointer z-10 transition-all ${
-                                  isCurrent ? "bg-[#31572c] text-[#ecf39e] border-[#31572c] scale-110 shadow-md shadow-[#31572c]/20" :
+                                  isCurrent ? "bg-brand-dark text-[#ecf39e] border-[#31572c] scale-110 shadow-md shadow-[#31572c]/20" :
                                   isPast ? "bg-emerald-100 text-emerald-700 border-emerald-300" : "bg-slate-50 text-slate-400 border-slate-200"
                                 }`}
                               >
@@ -1302,7 +1302,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                           type="button"
                           onClick={() => triggerCampaignLaunch(selectedOutbreakId)}
                           disabled={activeOutbreakObj.status === "Resolved"}
-                          className="px-3.5 py-1.5 bg-[#31572c] hover:bg-[#132a13] disabled:opacity-40 text-white rounded-lg text-[10px] font-black uppercase transition cursor-pointer"
+                          className="px-3.5 py-1.5 bg-brand-dark hover:bg-[#132a13] disabled:opacity-40 text-white rounded-lg text-[10px] font-black uppercase transition cursor-pointer"
                         >
                           Launch Response Campaign
                         </button>
@@ -1478,7 +1478,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                     onClick={() => runSporeDriftSimulation(d)}
                     disabled={isSimulating}
                     className={`py-1.5 rounded-lg text-[10px] font-black transition cursor-pointer ${
-                      simDays === d ? "bg-[#31572c] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      simDays === d ? "bg-brand-dark text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
                     {d} Days
@@ -1585,7 +1585,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                       type="button"
                       onClick={() => setCaseFilterTab(tab)}
                       className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition cursor-pointer ${
-                        caseFilterTab === tab ? "bg-[#31572c] text-white" : "bg-slate-100 text-slate-655 hover:bg-slate-200"
+                        caseFilterTab === tab ? "bg-brand-dark text-white" : "bg-slate-100 text-slate-655 hover:bg-slate-200"
                       }`}
                     >
                       {tab}
@@ -1627,7 +1627,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                             setProgressSlider(item.progress || 0);
                           }}
                           className={`hover:bg-slate-50/50 cursor-pointer ${
-                            selectedCase?.id === item.id ? "bg-[#31572c]/5 dark:bg-[#ecf39e]/5" : ""
+                            selectedCase?.id === item.id ? "bg-brand-dark/5 dark:bg-[#ecf39e]/5" : ""
                           }`}
                         >
                           <td className="py-3 text-slate-900 dark:text-white">{item.farmer}</td>
@@ -1727,7 +1727,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                     <button
                       type="button"
                       onClick={handleAssignOfficer}
-                      className="px-3.5 py-1.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg font-black uppercase text-[10px] cursor-pointer"
+                      className="px-3.5 py-1.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg font-black uppercase text-[10px] cursor-pointer"
                     >
                       Assign
                     </button>
@@ -1823,7 +1823,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                           addSimLog(`Forecast models simulated for a ${days}-day horizon.`, "TrendingUp");
                         }}
                         className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase transition cursor-pointer ${
-                          forecastDays === days ? "bg-[#31572c] text-white" : "text-slate-600 hover:bg-slate-200"
+                          forecastDays === days ? "bg-brand-dark text-white" : "text-slate-600 hover:bg-slate-200"
                         }`}
                       >
                         {days} Days
@@ -2009,7 +2009,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                           <button
                             type="button"
                             onClick={() => triggerCampaignComplete(camp.id)}
-                            className="p-1 hover:bg-[#31572c]/10 text-[#31572c] rounded-md transition cursor-pointer"
+                            className="p-1 hover:bg-brand-dark/10 text-[#31572c] rounded-md transition cursor-pointer"
                             title="Complete campaign"
                           >
                             <CheckCircle className="w-4 h-4" />
@@ -2043,7 +2043,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
                         <span className="text-[#31572c]">{Math.round((camp.completed / camp.farmers) * 100)}%</span>
                       </div>
                       <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                        <div className="bg-[#31572c] h-full rounded-full transition-all duration-500" style={{ width: `${(camp.completed / camp.farmers) * 100}%` }}></div>
+                        <div className="bg-brand-dark h-full rounded-full transition-all duration-500" style={{ width: `${(camp.completed / camp.farmers) * 100}%` }}></div>
                       </div>
                     </div>
                   </div>
@@ -2141,7 +2141,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
 
                 <button
                   type="submit"
-                  className="w-full py-2.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider transition-all mt-4 cursor-pointer"
+                  className="w-full py-2.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider transition-all mt-4 cursor-pointer"
                 >
                   Schedule Campaign
                 </button>
@@ -2252,7 +2252,7 @@ export default function FpoDiseaseSurveillance({ subPath }) {
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider transition-all cursor-pointer"
+                className="w-full py-2.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider transition-all cursor-pointer"
               >
                 Broadcast Advisory Alert
               </button>

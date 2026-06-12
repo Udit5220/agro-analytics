@@ -134,7 +134,7 @@ export default function YieldPredictorModels() {
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* 1. Header */}
       <div className="flex items-center gap-2.5 mb-8">
-        <div className="p-2.5 bg-[#31572c]/10 rounded-xl">
+        <div className="p-2.5 bg-brand-dark/10 rounded-xl">
           <Network className="h-6 w-6 text-[#31572c]" />
         </div>
         <div>

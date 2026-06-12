@@ -101,7 +101,7 @@ export default function WaterRequirementIntelligence() {
       {/* Farm Profile + Controls */}
       <div className="bg-white border border-gray-300 p-4 rounded-2xl flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-[#31572c]/10 rounded-xl text-[#31572c]">
+          <div className="p-2 bg-brand-dark/10 rounded-xl text-[#31572c]">
             <Landmark size={18} />
           </div>
           <div>
@@ -202,7 +202,7 @@ export default function WaterRequirementIntelligence() {
 
         <div className="bg-white border border-gray-300 rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <div className="p-2 bg-[#31572c]/10 text-[#31572c] rounded-xl">
+            <div className="p-2 bg-brand-dark/10 text-[#31572c] rounded-xl">
               <Timer className="w-4 h-4" />
             </div>
             <span className="text-[10px] font-black text-gray-700 uppercase tracking-wider">Irrigations</span>
@@ -285,7 +285,7 @@ export default function WaterRequirementIntelligence() {
                   <tr
                     key={crop.id}
                     onClick={() => setSelectedCropId(crop.id)}
-                    className={`cursor-pointer transition-colors ${isSelected ? "bg-[#31572c]/5" : "hover:bg-gray-50"}`}
+                    className={`cursor-pointer transition-colors ${isSelected ? "bg-brand-dark/5" : "hover:bg-gray-50"}`}
                   >
                     <td className="p-4 bg-gray-50 border-r border-gray-200">
                       <span className="text-xs font-black text-gray-950">{crop.name}</span>
@@ -309,7 +309,7 @@ export default function WaterRequirementIntelligence() {
       </div>
 
       {/* Water Saving Tips */}
-      <div className="bg-[#4f772d]/[0.06] border border-gray-300 rounded-2xl p-5 space-y-3">
+      <div className="bg-brand-medium/[0.06] border border-gray-300 rounded-2xl p-5 space-y-3">
         <h3 className="text-[11px] font-black text-[#132a13] uppercase tracking-wider flex items-center gap-2">
           <Lightbulb className="w-4 h-4 text-[#31572c]" />
           Water Conservation Advisory

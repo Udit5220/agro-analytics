@@ -212,7 +212,7 @@ export default function AgriProcurementIntelligence() {
                   <span>Target Fulfilled (&gt;90%)</span>
                 </div>
                 <div className="flex items-center gap-2 text-[9px] font-bold text-gray-600">
-                  <span className="w-3 h-3 rounded-full bg-[#4f772d]"></span>
+                  <span className="w-3 h-3 rounded-full bg-brand-medium"></span>
                   <span>On Track (70-90%)</span>
                 </div>
                 <div className="flex items-center gap-2 text-[9px] font-bold text-gray-600">
@@ -288,7 +288,7 @@ export default function AgriProcurementIntelligence() {
                   cell: (v) => (
                     <div className="flex items-center gap-2">
                       <div className="w-12 bg-gray-150 h-1.5 rounded-full overflow-hidden">
-                        <div className="bg-[#31572c] h-full" style={{ width: `${v}%` }}></div>
+                        <div className="bg-brand-dark h-full" style={{ width: `${v}%` }}></div>
                       </div>
                       <span className="font-bold">{v}%</span>
                     </div>

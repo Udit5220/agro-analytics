@@ -151,7 +151,7 @@ export default function StrategicInterventionCenter() {
                 <p className="font-semibold text-gray-700">{activeIntervention.cause}</p>
               </div>
 
-              <div className="bg-[#31572c]/5 border border-[#31572c]/10 rounded-xl p-3.5 space-y-1.5">
+              <div className="bg-brand-dark/5 border border-[#31572c]/10 rounded-xl p-3.5 space-y-1.5">
                 <span className="text-[9px] text-[#31572c] font-black uppercase block tracking-wider">Recommended Action Directive</span>
                 <p className="font-bold text-gray-805 leading-relaxed">{activeIntervention.action}</p>
               </div>

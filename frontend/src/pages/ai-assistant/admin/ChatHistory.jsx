@@ -177,7 +177,7 @@ export default function ChatHistory() {
             onClick={() => setFilterTopic(topic.id)}
             className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all border cursor-pointer ${
               filterTopic === topic.id
-                ? "bg-[#31572c] text-white border-[#31572c] shadow-xs"
+                ? "bg-brand-dark text-white border-[#31572c] shadow-xs"
                 : "bg-white border-gray-200 text-gray-500 hover:border-[#31572c] hover:text-[#31572c]"
             }`}
           >

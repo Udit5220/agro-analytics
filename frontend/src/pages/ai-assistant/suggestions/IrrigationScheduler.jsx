@@ -76,7 +76,7 @@
 //           <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
 //             <span>Irrigation Scheduler</span>
 //             <span className="text-gray-300 font-light text-xl">|</span>
-//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-[#31572c]/8 px-2.5 py-0.5 rounded-md">
+//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-brand-dark/8 px-2.5 py-0.5 rounded-md">
 //               सिंचाई शेड्यूल
 //             </span>
 //           </h1>
@@ -242,7 +242,7 @@
 //                     </>
 //                   );
 //                 } else if (isSelected) {
-//                   cellClass = "text-xs font-black text-[#132a13] bg-[#31572c]/10 border border-[#31572c]/30 h-14 flex items-center justify-center rounded-xl cursor-pointer shadow-sm";
+//                   cellClass = "text-xs font-black text-[#132a13] bg-brand-dark/10 border border-[#31572c]/30 h-14 flex items-center justify-center rounded-xl cursor-pointer shadow-sm";
 //                 }
 
 //                 return (
@@ -681,7 +681,7 @@ export default function IrrigationScheduler() {
           <h1 className="text-base md:text-lg font-bold text-gray-900 flex items-center gap-2">
             <span>Irrigation Scheduler</span>
             <span className="text-gray-300 font-light">|</span>
-            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-[#31572c]/8 px-2 py-0.5 rounded-md">
+            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-brand-dark/8 px-2 py-0.5 rounded-md">
               सिंचाई शेड्यूल
             </span>
           </h1>

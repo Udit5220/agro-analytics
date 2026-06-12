@@ -74,8 +74,8 @@
 //       case "Crops Monitored":
 //         return {
 //           icon: <Sprout className="h-4.5 w-4.5" />,
-//           iconBg: "bg-[#31572c]/10 text-[#31572c]",
-//           levelColor: "text-[#31572c] bg-[#31572c]/10",
+//           iconBg: "bg-brand-dark/10 text-[#31572c]",
+//           levelColor: "text-[#31572c] bg-brand-dark/10",
 //           level: "Active",
 //         };
 //       case "Districts Covered":
@@ -248,7 +248,7 @@
 //                       className="hover:bg-[#f4f7f4]/35 transition-colors"
 //                     >
 //                       <td className="p-3.5 pl-1 flex items-center gap-2">
-//                         <span className="w-1.5 h-1.5 rounded-full bg-[#31572c] shrink-0" />
+//                         <span className="w-1.5 h-1.5 rounded-full bg-brand-dark shrink-0" />
 //                         <span className="text-xs font-bold text-gray-900">
 //                           {item.crop}
 //                         </span>
@@ -565,8 +565,8 @@ export default function PestDiseaseDashboard() {
       cropsMonitored: {
         label: "Crops Monitored",
         icon: <Sprout className="h-4 w-4" />,
-        iconBg: "bg-[#31572c]/10 text-[#31572c]",
-        badge: "bg-[#31572c]/10 text-[#31572c]",
+        iconBg: "bg-brand-dark/10 text-[#31572c]",
+        badge: "bg-brand-dark/10 text-[#31572c]",
         badgeLabel: "Active",
       },
       districtsCovered: {
@@ -659,7 +659,7 @@ export default function PestDiseaseDashboard() {
           <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
             Farm context:
           </span>
-          <span className="bg-[#31572c]/8 text-[#31572c] text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+          <span className="bg-brand-dark/8 text-[#31572c] text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5 text-[#31572c]" />
             {selectedFarm.location}
           </span>
@@ -970,7 +970,7 @@ export default function PestDiseaseDashboard() {
               <span className="text-sm font-bold text-gray-800 tracking-wide">
                 Today's Risk Summary
               </span>
-              <span className="text-[10px] font-bold text-[#31572c] bg-[#31572c]/8 px-2.5 py-1 rounded-lg uppercase tracking-wide">
+              <span className="text-[10px] font-bold text-[#31572c] bg-brand-dark/8 px-2.5 py-1 rounded-lg uppercase tracking-wide">
                 {selectedFarm?.crops.length} crop
                 {selectedFarm?.crops.length !== 1 ? "s" : ""} ·{" "}
                 {resolveDistrict(selectedFarm)}
@@ -994,7 +994,7 @@ export default function PestDiseaseDashboard() {
                     >
                       <td className="p-3.5 pl-1">
                         <div className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#31572c] shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-brand-dark shrink-0" />
                           <span className="text-xs font-bold text-gray-900">
                             {item.crop}
                           </span>

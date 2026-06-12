@@ -137,7 +137,7 @@ export default function EarlyWarningCenter() {
             <div key={card.id} className="bg-white border border-gray-200/60 rounded-2xl shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{card.label}</span>
-                <div className="p-1.5 bg-[#4f772d]/10 rounded-lg text-[#31572c]">
+                <div className="p-1.5 bg-brand-medium/10 rounded-lg text-[#31572c]">
                   <Icon size={14} />
                 </div>
               </div>
@@ -169,7 +169,7 @@ export default function EarlyWarningCenter() {
             </thead>
             <tbody>
               {FORECAST_TABLE.map((row, idx) => (
-                <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60">
+                <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60">
                   <td className="p-3.5 pl-6 font-bold text-gray-950">{row.disease}</td>
                   <td className="p-3.5">
                     <div className="flex items-center gap-2">
@@ -202,7 +202,7 @@ export default function EarlyWarningCenter() {
             <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex flex-col justify-between">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-[10px] font-bold text-gray-400 uppercase">Rainfall</span>
-                <span className="p-1 bg-[#4f772d]/10 text-[#31572c] rounded-md"><CloudRain size={14} /></span>
+                <span className="p-1 bg-brand-medium/10 text-[#31572c] rounded-md"><CloudRain size={14} /></span>
               </div>
               <p className="text-xl font-black text-gray-950 tracking-tight">142 mm</p>
               <div className="flex items-center justify-between mt-2">
@@ -214,7 +214,7 @@ export default function EarlyWarningCenter() {
             <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex flex-col justify-between">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-[10px] font-bold text-gray-400 uppercase">Humidity</span>
-                <span className="p-1 bg-[#4f772d]/10 text-[#31572c] rounded-md"><Droplets size={14} /></span>
+                <span className="p-1 bg-brand-medium/10 text-[#31572c] rounded-md"><Droplets size={14} /></span>
               </div>
               <p className="text-xl font-black text-gray-950 tracking-tight">84%</p>
               <div className="flex items-center justify-between mt-2">
@@ -226,7 +226,7 @@ export default function EarlyWarningCenter() {
             <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex flex-col justify-between">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-[10px] font-bold text-gray-400 uppercase">Temperature</span>
-                <span className="p-1 bg-[#4f772d]/10 text-[#31572c] rounded-md"><Thermometer size={14} /></span>
+                <span className="p-1 bg-brand-medium/10 text-[#31572c] rounded-md"><Thermometer size={14} /></span>
               </div>
               <p className="text-xl font-black text-gray-950 tracking-tight">34°C</p>
               <div className="flex items-center justify-between mt-2">
@@ -238,7 +238,7 @@ export default function EarlyWarningCenter() {
             <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex flex-col justify-between">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-[10px] font-bold text-gray-400 uppercase">Wind Vector</span>
-                <span className="p-1 bg-[#4f772d]/10 text-[#31572c] rounded-md"><Wind size={14} /></span>
+                <span className="p-1 bg-brand-medium/10 text-[#31572c] rounded-md"><Wind size={14} /></span>
               </div>
               <p className="text-xl font-black text-gray-950 tracking-tight">18 km/h</p>
               <div className="flex items-center justify-between mt-2">
@@ -250,7 +250,7 @@ export default function EarlyWarningCenter() {
             <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex flex-col justify-between md:col-span-2">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-[10px] font-bold text-gray-400 uppercase">NDVI Stress Signal</span>
-                <span className="p-1 bg-[#4f772d]/10 text-[#31572c] rounded-md"><Satellite size={14} /></span>
+                <span className="p-1 bg-brand-medium/10 text-[#31572c] rounded-md"><Satellite size={14} /></span>
               </div>
               <p className="text-xl font-black text-[#e74c3c] tracking-tight">0.42</p>
               <div className="flex items-center justify-between mt-2">
@@ -271,7 +271,7 @@ export default function EarlyWarningCenter() {
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`flex-1 py-1 rounded-md text-[10px] uppercase tracking-wider ${
-                    activeTab === tab ? "bg-[#31572c] text-white font-extrabold" : "hover:text-gray-900"
+                    activeTab === tab ? "bg-brand-dark text-white font-extrabold" : "hover:text-gray-900"
                   }`}
                 >
                   {tab === "7D" ? "7 Days" : tab === "14D" ? "14 Days" : tab === "30D" ? "30 Days" : "Seasonal"}
@@ -305,7 +305,7 @@ export default function EarlyWarningCenter() {
         <div className="bg-white border border-gray-200/60 rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => setExpandedCard(expandedCard === "whyRisk" ? "" : "whyRisk")}
-            className="w-full flex justify-between items-center p-4 bg-gray-50/50 hover:bg-[#4f772d]/5 transition"
+            className="w-full flex justify-between items-center p-4 bg-gray-50/50 hover:bg-brand-medium/5 transition"
           >
             <div className="flex items-center gap-2 text-xs font-black text-gray-800 uppercase tracking-widest">
               <Zap size={14} className="text-[#31572c]" />
@@ -327,7 +327,7 @@ export default function EarlyWarningCenter() {
         <div className="bg-white border border-gray-200/60 rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => setExpandedCard(expandedCard === "spread" ? "" : "spread")}
-            className="w-full flex justify-between items-center p-4 bg-gray-50/50 hover:bg-[#4f772d]/5 transition"
+            className="w-full flex justify-between items-center p-4 bg-gray-50/50 hover:bg-brand-medium/5 transition"
           >
             <div className="flex items-center gap-2 text-xs font-black text-gray-800 uppercase tracking-widest">
               <Compass size={14} className="text-[#31572c]" />
@@ -348,7 +348,7 @@ export default function EarlyWarningCenter() {
         <div className="bg-white border border-gray-200/60 rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => setExpandedCard(expandedCard === "actions" ? "" : "actions")}
-            className="w-full flex justify-between items-center p-4 bg-gray-50/50 hover:bg-[#4f772d]/5 transition"
+            className="w-full flex justify-between items-center p-4 bg-gray-50/50 hover:bg-brand-medium/5 transition"
           >
             <div className="flex items-center gap-2 text-xs font-black text-gray-800 uppercase tracking-widest">
               <Info size={14} className="text-[#31572c]" />

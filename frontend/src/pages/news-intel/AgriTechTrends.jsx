@@ -124,7 +124,7 @@ export default function AgriTechTrends() {
       {/* Page Header */}
       <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
         <div className="flex items-start space-x-4 z-10">
-          <div className="p-3 bg-[#31572c]/10 text-[#31572c] rounded-xl mt-1 shrink-0">
+          <div className="p-3 bg-brand-dark/10 text-[#31572c] rounded-xl mt-1 shrink-0">
             <Cpu className="w-6 h-6" />
           </div>
           <div>
@@ -153,7 +153,7 @@ export default function AgriTechTrends() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#31572c] hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
+            className="bg-brand-dark hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
           >
             {loading ? (
               <>
@@ -319,7 +319,7 @@ export default function AgriTechTrends() {
             <div className="pt-4 border-t border-slate-100 mt-6">
               <button 
                 onClick={() => setSelectedReport(null)}
-                className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-1.5"
+                className="w-full bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-1.5"
               >
                 Close Report
               </button>

@@ -515,7 +515,7 @@ export default function CropRecProduction() {
                 onClick={() => setForecastPeriod(period)}
                 className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
                   forecastPeriod === period
-                    ? "bg-[#31572c] text-white"
+                    ? "bg-brand-dark text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >

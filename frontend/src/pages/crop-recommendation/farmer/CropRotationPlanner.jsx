@@ -144,7 +144,7 @@ export default function CropRotationPlanner() {
           <div className="space-y-1.5 w-full">
             <div className="flex items-center justify-between text-[10px] font-bold text-gray-800">
               <span>Family</span>
-              <span className="bg-[#31572c]/10 text-[#132a13] font-black px-2 py-0.5 rounded">{crop.family}</span>
+              <span className="bg-brand-dark/10 text-[#132a13] font-black px-2 py-0.5 rounded">{crop.family}</span>
             </div>
             <div className="flex items-center justify-between text-[10px] font-bold text-gray-800">
               <span>N₂ Balance</span>
@@ -194,7 +194,7 @@ export default function CropRotationPlanner() {
       {farms.length > 0 && (
         <div className="bg-white border border-gray-300 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-[#31572c]/10 rounded-xl text-[#31572c]">
+            <div className="p-2 bg-brand-dark/10 rounded-xl text-[#31572c]">
               <Landmark size={18} />
             </div>
             <div>
@@ -330,7 +330,7 @@ export default function CropRotationPlanner() {
             <div className="bg-gray-50 border border-gray-200 rounded-xl p-3.5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-black text-gray-800 uppercase tracking-wider flex items-center gap-1">
-                  <Beaker className="w-3.5 h-3.5 text-[#4f772d]" />
+                  <Beaker className="w-3.5 h-3.5 text-brand-medium" />
                   Net Nitrogen Balance
                 </span>
                 <span className={`text-sm font-black ${totalNitrogen >= 0 ? "text-emerald-700" : "text-red-700"}`}>
@@ -362,7 +362,7 @@ export default function CropRotationPlanner() {
             <div className="bg-gray-50 border border-gray-200 rounded-xl p-3.5">
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[10px] font-black text-gray-800 uppercase tracking-wider flex items-center gap-1">
-                  <Bug className="w-3.5 h-3.5 text-[#4f772d]" />
+                  <Bug className="w-3.5 h-3.5 text-brand-medium" />
                   Pest Cycle Break
                 </span>
                 <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${crop1.family !== crop2.family && crop2.family !== crop3.family ? "bg-emerald-50 text-emerald-800 border border-emerald-200" : "bg-amber-50 text-amber-800 border border-amber-200"}`}>
@@ -380,7 +380,7 @@ export default function CropRotationPlanner() {
             <div className="bg-gray-50 border border-gray-200 rounded-xl p-3.5">
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[10px] font-black text-gray-800 uppercase tracking-wider flex items-center gap-1">
-                  <Sprout className="w-3.5 h-3.5 text-[#4f772d]" />
+                  <Sprout className="w-3.5 h-3.5 text-brand-medium" />
                   Organic Matter Trend
                 </span>
                 <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
@@ -402,7 +402,7 @@ export default function CropRotationPlanner() {
       </div>
 
       {/* AI Recommendations */}
-      <div className="bg-[#4f772d]/[0.06] border border-gray-300 rounded-2xl p-5 space-y-3">
+      <div className="bg-brand-medium/[0.06] border border-gray-300 rounded-2xl p-5 space-y-3">
         <h3 className="text-[11px] font-black text-[#132a13] uppercase tracking-wider flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-[#31572c]" />
           AI Rotation Advisory

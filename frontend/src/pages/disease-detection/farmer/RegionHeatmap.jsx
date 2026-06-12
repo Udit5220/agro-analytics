@@ -400,7 +400,7 @@
 //           </div>
 //           <button
 //             type="submit"
-//             className="px-3 py-1 bg-[#31572c] hover:bg-[#132a13] text-white font-extrabold text-[10px] uppercase tracking-wider rounded transition-colors flex items-center justify-center gap-1 h-[26px] cursor-pointer"
+//             className="px-3 py-1 bg-brand-dark hover:bg-[#132a13] text-white font-extrabold text-[10px] uppercase tracking-wider rounded transition-colors flex items-center justify-center gap-1 h-[26px] cursor-pointer"
 //           >
 //             <MapPin className="w-3 h-3 text-[#ecf39e]" />
 //             <span>Query</span>
@@ -1184,7 +1184,7 @@ export default function DiseaseHeatmap() {
           <button
             onClick={loadHeatmapData}
             disabled={isLoading}
-            className="px-4 py-2 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg font-black text-sm transition flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg font-black text-sm transition flex items-center gap-2 cursor-pointer"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -1221,7 +1221,7 @@ export default function DiseaseHeatmap() {
             onClick={() => setActiveLayer(layer)}
             className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all border cursor-pointer ${
               activeLayer === layer
-                ? "bg-[#31572c] border-[#31572c] text-white shadow-sm"
+                ? "bg-brand-dark border-[#31572c] text-white shadow-sm"
                 : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
             }`}
           >
@@ -1358,7 +1358,7 @@ export default function DiseaseHeatmap() {
                       type="button"
                       onClick={runSimulation}
                       disabled={isSimulating}
-                      className="w-full py-1.5 bg-[#31572c] hover:bg-[#132a13] disabled:opacity-50 text-white font-black text-xs uppercase tracking-wider rounded-lg transition-all cursor-pointer shadow-sm"
+                      className="w-full py-1.5 bg-brand-dark hover:bg-[#132a13] disabled:opacity-50 text-white font-black text-xs uppercase tracking-wider rounded-lg transition-all cursor-pointer shadow-sm"
                     >
                       {isSimulating ? `Running (${simTime}s)` : "Simulate Spread"}
                     </button>

@@ -287,7 +287,7 @@ export default function CommunicationIntelligence() {
                 </thead>
                 <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
                   {askedTopics.map((item, idx) => (
-                    <tr key={idx} className="hover:bg-[#4f772d]/5 transition-colors">
+                    <tr key={idx} className="hover:bg-brand-medium/5 transition-colors">
                       <td className="p-2 truncate max-w-[200px]">{item.topic}</td>
                       <td className="p-2 text-right font-mono text-gray-900">{item.volume}</td>
                       <td className="p-2 text-right font-mono text-gray-600">{item.confidence}</td>
@@ -321,7 +321,7 @@ export default function CommunicationIntelligence() {
                 </thead>
                 <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
                   {escalatedTopics.map((item, idx) => (
-                    <tr key={idx} className="hover:bg-[#4f772d]/5 transition-colors">
+                    <tr key={idx} className="hover:bg-brand-medium/5 transition-colors">
                       <td className="p-2 font-bold text-gray-900 truncate max-w-[150px]">{item.topic}</td>
                       <td className="p-2 text-right font-mono text-red-600">{item.escalations}</td>
                       <td className="p-2 text-gray-500 truncate max-w-[120px]">{item.reason}</td>

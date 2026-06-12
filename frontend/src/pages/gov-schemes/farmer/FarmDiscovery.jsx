@@ -118,7 +118,7 @@ const FarmDiscovery = () => {
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
           <div className="p-2 bg-[#132a13]/10 rounded-xl">
-            <Compass className="h-5 w-5 text-[#4f772d]" />
+            <Compass className="h-5 w-5 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#132a13]">
@@ -139,11 +139,11 @@ const FarmDiscovery = () => {
             className="w-full px-6 py-4 flex items-center justify-between border-b border-gray-100 hover:bg-[#f4f7f4]/15 transition-all"
           >
             <div className="flex items-center gap-2">
-              <Filter className="w-4 h-4 text-[#4f772d]" />
+              <Filter className="w-4 h-4 text-brand-medium" />
               <span className="font-bold text-[#132a13] text-sm">
                 Search Filters & Profile Matcher
               </span>
-              <span className="text-[10px] bg-[#4f772d]/10 text-[#4f772d] font-bold px-2 py-0.5 rounded-full">
+              <span className="text-[10px] bg-brand-medium/10 text-brand-medium font-bold px-2 py-0.5 rounded-full">
                 {filterOpen ? "Active" : "Click to customize"}
               </span>
             </div>
@@ -166,7 +166,7 @@ const FarmDiscovery = () => {
                   <select
                     value={selectedState}
                     onChange={(e) => setSelectedState(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#4f772d] bg-white text-gray-700 font-semibold"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-brand-medium bg-white text-gray-700 font-semibold"
                   >
                     {discoveryFilters.states.map((state) => (
                       <option key={state} value={state}>
@@ -184,7 +184,7 @@ const FarmDiscovery = () => {
                   <select
                     value={selectedDistrict}
                     onChange={(e) => setSelectedDistrict(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#4f772d] bg-white text-gray-700 font-semibold"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-brand-medium bg-white text-gray-700 font-semibold"
                   >
                     {discoveryFilters.districts.map((district) => (
                       <option key={district} value={district}>
@@ -199,7 +199,7 @@ const FarmDiscovery = () => {
                   <div className="flex justify-between items-center mb-1.5">
                     <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
                       Land Size:{" "}
-                      <span className="text-[#4f772d] font-bold">
+                      <span className="text-brand-medium font-bold">
                         {landSize} acres
                       </span>
                     </label>
@@ -227,7 +227,7 @@ const FarmDiscovery = () => {
                         onClick={() => setSelectedIrrigation(type)}
                         className={`text-[10px] font-bold px-3 py-1.5 rounded-lg border transition-all whitespace-nowrap ${
                           selectedIrrigation === type
-                            ? "bg-[#4f772d] text-white border-[#4f772d]"
+                            ? "bg-brand-medium text-white border-brand-medium"
                             : "bg-[#f4f7f4] text-gray-600 border-gray-200/60 hover:bg-gray-150"
                         }`}
                       >
@@ -257,7 +257,7 @@ const FarmDiscovery = () => {
                         }}
                         className={`text-[10px] font-bold px-3.5 py-2 rounded-lg border transition-all whitespace-nowrap ${
                           selectedCategories.includes(cat)
-                            ? "bg-[#4f772d] text-white border-[#4f772d] shadow-sm"
+                            ? "bg-brand-medium text-white border-brand-medium shadow-sm"
                             : "bg-[#f4f7f4] text-gray-600 border-gray-200/60 hover:bg-gray-150"
                         }`}
                       >
@@ -319,7 +319,7 @@ const FarmDiscovery = () => {
               <div className="pt-4 border-t border-gray-100 bg-[#f4f7f4]/25 p-4 rounded-xl border border-gray-100 flex flex-col md:flex-row gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-3">
-                    <TrendingUp className="w-4 h-4 text-[#4f772d]" />
+                    <TrendingUp className="w-4 h-4 text-brand-medium" />
                     <h4 className="font-bold text-[#132a13] text-xs uppercase tracking-wider">
                       AI Match Probability Index
                     </h4>
@@ -340,7 +340,7 @@ const FarmDiscovery = () => {
                         </div>
                         <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full rounded-full bg-[#4f772d]"
+                            className="h-full rounded-full bg-brand-medium"
                             style={{
                               width: `${(data.eligible / data.total) * 100}%`,
                             }}
@@ -383,7 +383,7 @@ const FarmDiscovery = () => {
               placeholder="Search PM Kisan, KCC, PMFBY, solar pump subsidy..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] shadow-sm text-sm"
+              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium shadow-sm text-sm"
             />
           </div>
 
@@ -401,7 +401,7 @@ const FarmDiscovery = () => {
             {filteredSchemes.map((scheme) => (
               <div
                 key={scheme.id}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md hover:border-[#4f772d]/10 transition-all duration-200"
+                className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md hover:border-brand-medium/10 transition-all duration-200"
               >
                 <div className="p-4">
                   <div className="flex justify-between items-start mb-3">
@@ -430,13 +430,13 @@ const FarmDiscovery = () => {
                       <span className="text-gray-500 font-medium">
                         Match Probability
                       </span>
-                      <span className="font-bold text-[#4f772d]">
+                      <span className="font-bold text-brand-medium">
                         {scheme.matchScore}%
                       </span>
                     </div>
                     <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-[#4f772d]"
+                        className="h-full rounded-full bg-brand-medium"
                         style={{
                           width: `${scheme.matchScore}%`,
                         }}
@@ -450,7 +450,7 @@ const FarmDiscovery = () => {
                       {scheme.deadline}
                     </span>
                     <span className="flex items-center gap-1 font-medium text-gray-600">
-                      <FileText className="w-3.5 h-3.5 text-[#4f772d]" />
+                      <FileText className="w-3.5 h-3.5 text-brand-medium" />
                       {scheme.docsUploaded}/{scheme.docsRequired} docs
                     </span>
                   </div>
@@ -465,7 +465,7 @@ const FarmDiscovery = () => {
                       className={`flex-1 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                         scheme.statusType !== "applied" &&
                         scheme.statusType !== "active"
-                          ? "bg-[#4f772d] text-white hover:bg-[#31572c] hover:shadow-sm"
+                          ? "bg-brand-medium text-white hover:bg-brand-dark hover:shadow-sm"
                           : "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-150"
                       }`}
                       disabled={
@@ -529,7 +529,7 @@ const FarmDiscovery = () => {
                   Please review the details below. Most fields are pre-filled
                   from your profile.
                 </p>
-                <div className="bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl p-3.5 mb-4">
+                <div className="bg-[#f4f7f4] border border-brand-medium/10 rounded-xl p-3.5 mb-4">
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
                     Selected Program
                   </p>
@@ -538,7 +538,7 @@ const FarmDiscovery = () => {
                   </p>
                   <p className="text-[11px] text-gray-600 mt-1">
                     Benefit Amount:{" "}
-                    <span className="font-bold text-[#4f772d]">
+                    <span className="font-bold text-brand-medium">
                       {applyScheme.benefit}
                     </span>
                   </p>
@@ -628,7 +628,7 @@ const FarmDiscovery = () => {
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 px-4 py-2.5 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-semibold transition"
+                      className="flex-1 px-4 py-2.5 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-semibold transition"
                     >
                       Submit Application
                     </button>

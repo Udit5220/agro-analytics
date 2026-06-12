@@ -291,7 +291,7 @@ export default function IntentAnalysis() {
             </thead>
             <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
               {heatmapRows.map((row, idx) => (
-                <tr key={idx} className="hover:bg-[#4f772d]/5 transition-colors">
+                <tr key={idx} className="hover:bg-brand-medium/5 transition-colors">
                   <td className="p-3 font-bold text-gray-900">{row.intent}</td>
                   <td className="p-3 text-center font-mono">{row.volume}</td>
                   <td className="p-3 text-center font-mono">{row.accuracy}</td>

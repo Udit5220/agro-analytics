@@ -236,7 +236,7 @@ export default function DiseaseRepository() {
               }}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-black uppercase transition duration-200 cursor-pointer ${
                 activeTab === tab.id
-                  ? "bg-[#31572c] text-white shadow"
+                  ? "bg-brand-dark text-white shadow"
                   : "bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-800"
               }`}
             >
@@ -286,7 +286,7 @@ export default function DiseaseRepository() {
                   <div>
                     <div className="flex justify-between items-start mb-2">
                       <span className="text-xs font-black text-gray-900 leading-snug">{item.name}</span>
-                      <span className="bg-[#31572c]/10 text-[#31572c] px-2.5 py-0.5 rounded-full font-black text-[9px] uppercase tracking-wide shrink-0">
+                      <span className="bg-brand-dark/10 text-[#31572c] px-2.5 py-0.5 rounded-full font-black text-[9px] uppercase tracking-wide shrink-0">
                         {item.crop}
                       </span>
                     </div>
@@ -381,7 +381,7 @@ export default function DiseaseRepository() {
                 </thead>
                 <tbody>
                   {historicalOutbreaks.map((row, idx) => (
-                    <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 font-semibold text-gray-700">
+                    <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 font-semibold text-gray-700">
                       <td className="p-3 pl-6 font-black text-gray-950">{row.disease}</td>
                       <td className="p-3 font-bold text-gray-800">{row.state}</td>
                       <td className="p-3">{row.crop}</td>
@@ -529,7 +529,7 @@ export default function DiseaseRepository() {
                   </thead>
                   <tbody>
                     {forecastArchive.map((row, idx) => (
-                      <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 font-semibold text-gray-700">
+                      <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 font-semibold text-gray-700">
                         <td className="p-3 font-mono text-gray-500">{row.date}</td>
                         <td className="p-3 font-bold text-gray-900">{row.disease}</td>
                         <td className="p-3">{row.region}</td>
@@ -575,7 +575,7 @@ export default function DiseaseRepository() {
                 onClick={() => setSelectedDisease(item)}
                 className={`w-full text-left p-3 rounded-xl border text-xs font-semibold leading-snug transition duration-200 cursor-pointer ${
                   selectedDisease?.id === item.id
-                    ? "bg-[#31572c]/10 border-[#31572c] text-[#31572c] font-black shadow-sm"
+                    ? "bg-brand-dark/10 border-[#31572c] text-[#31572c] font-black shadow-sm"
                     : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
                 }`}
               >

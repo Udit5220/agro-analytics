@@ -424,7 +424,7 @@
 //                 <span className="h-2.5 w-2.5 rounded bg-red-500" /> New Cases
 //               </span>
 //               <span className="flex items-center gap-1.5">
-//                 <span className="h-2.5 w-2.5 rounded bg-[#4f772d]" /> Resolved
+//                 <span className="h-2.5 w-2.5 rounded bg-brand-medium" /> Resolved
 //                 Cases
 //               </span>
 //             </div>
@@ -634,7 +634,7 @@
 //                   </p>
 //                   <button
 //                     type="button"
-//                     className="w-full py-1.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider text-[9px] cursor-pointer"
+//                     className="w-full py-1.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider text-[9px] cursor-pointer"
 //                   >
 //                     {action.btnText}
 //                   </button>
@@ -1029,7 +1029,7 @@ export default function ExecutiveDashboard() {
                 <span className="h-2.5 w-2.5 rounded bg-red-500" /> New Cases
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded bg-[#4f772d]" /> Resolved
+                <span className="h-2.5 w-2.5 rounded bg-brand-medium" /> Resolved
                 Cases
               </span>
             </div>
@@ -1241,7 +1241,7 @@ export default function ExecutiveDashboard() {
                 </p>
                 <button
                   type="button"
-                  className="w-full py-1.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider text-[9px] cursor-pointer transition-colors"
+                  className="w-full py-1.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider text-[9px] cursor-pointer transition-colors"
                 >
                   {action.btnText}
                 </button>

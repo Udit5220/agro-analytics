@@ -130,7 +130,7 @@ export default function KnowledgeBaseIntelligence() {
             Pest control inquiries spiked by <strong className="text-[#ecf39e]">35%</strong> this week. The search fails indicate a critical information gap regarding **Bio-rational chilli pesticides** in Guntur AP, requiring immediate article publication.
           </p>
         </div>
-        <div className="bg-[#4f772d]/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+        <div className="bg-brand-medium/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
           <span>KB Engine: Synced</span>
         </div>
@@ -220,7 +220,7 @@ export default function KnowledgeBaseIntelligence() {
             </thead>
             <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
               {filteredMissing.map((row) => (
-                <tr key={row.id} className="hover:bg-[#4f772d]/5 transition-colors duration-150">
+                <tr key={row.id} className="hover:bg-brand-medium/5 transition-colors duration-150">
                   <td className="p-3.5 font-mono text-gray-500">{row.id}</td>
                   <td className="p-3.5 font-black text-gray-900 tracking-tight">{row.topic}</td>
                   <td className="p-3.5 text-gray-600">{row.category}</td>

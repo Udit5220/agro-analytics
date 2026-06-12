@@ -140,7 +140,7 @@
 //         {/* ═══════════════════════════════════════════ */}
 //         <div className="bg-white rounded-2xl p-5 border border-gray-200/60 shadow-sm space-y-5">
 //           <h2 className="text-[#132a13] text-sm font-bold flex items-center gap-2 pb-2.5 border-b border-gray-100">
-//             <Coins className="h-4 w-4 text-[#4f772d]" />
+//             <Coins className="h-4 w-4 text-brand-medium" />
 //             <span>Simulation Parameters</span>
 //           </h2>
 
@@ -158,7 +158,7 @@
 //                     onClick={() => setSelectedCrop(crop)}
 //                     className={`p-2.5 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
 //                       selectedCrop.id === crop.id
-//                         ? "bg-[#31572c]/10 border-[#31572c] text-[#132a13] font-bold shadow-sm"
+//                         ? "bg-brand-dark/10 border-[#31572c] text-[#132a13] font-bold shadow-sm"
 //                         : "bg-white border-gray-200 text-gray-600 hover:border-[#90a955] hover:text-[#31572c]"
 //                     }`}
 //                   >
@@ -214,7 +214,7 @@
 //                     onClick={() => setSeedGrade(grade)}
 //                     className={`w-full p-2.5 rounded-xl border text-left flex justify-between items-center transition-all duration-200 cursor-pointer ${
 //                       seedGrade.label === grade.label
-//                         ? "bg-[#31572c] border-[#31572c] text-white shadow-sm font-bold"
+//                         ? "bg-brand-dark border-[#31572c] text-white shadow-sm font-bold"
 //                         : "bg-white border-gray-200 text-gray-600 hover:border-[#90a955] hover:text-[#31572c]"
 //                     }`}
 //                   >
@@ -269,7 +269,7 @@
 //               type="button"
 //               onClick={handleApplySimulation}
 //               disabled={isFetching}
-//               className="w-full bg-[#31572c] text-white hover:bg-[#132a13] font-bold py-2.5 px-4 rounded-xl shadow-sm transition-all duration-200 uppercase tracking-wider text-[10px] flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed mt-4"
+//               className="w-full bg-brand-dark text-white hover:bg-[#132a13] font-bold py-2.5 px-4 rounded-xl shadow-sm transition-all duration-200 uppercase tracking-wider text-[10px] flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed mt-4"
 //             >
 //               <TrendingUp
 //                 className={`h-3.5 w-3.5 ${isFetching ? "animate-pulse" : ""}`}
@@ -288,7 +288,7 @@
 //           {/* Top Row: Profitability Cards */}
 //           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 //             {/* Projected Net Profit Card */}
-//             <div className="bg-[#4f772d]/[0.08] border border-[#4f772d]/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
+//             <div className="bg-brand-medium/[0.08] border border-brand-medium/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
 //               <div className="flex items-start justify-between">
 //                 <div className="space-y-1">
 //                   <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
@@ -324,7 +324,7 @@
 //                     Base yield: {selectedCrop.baseYield} qtl/acre
 //                   </p>
 //                 </div>
-//                 <div className="p-2.5 bg-[#4f772d]/10 text-[#31572c] rounded-xl">
+//                 <div className="p-2.5 bg-brand-medium/10 text-[#31572c] rounded-xl">
 //                   <Wheat className="h-5 w-5" />
 //                 </div>
 //               </div>
@@ -353,7 +353,7 @@
 //           {/* Middle Row: Live Cost & Revenue Breakdown */}
 //           <div className="bg-white border border-gray-200/60 rounded-2xl p-5 shadow-sm space-y-4">
 //             <h3 className="text-xs font-bold text-gray-700 uppercase tracking-widest flex items-center gap-1.5">
-//               <BarChart3 className="h-4 w-4 text-[#4f772d]" />
+//               <BarChart3 className="h-4 w-4 text-brand-medium" />
 //               <span>Rotational ROI Ledger Summary</span>
 //             </h3>
 
@@ -463,12 +463,12 @@
 
 //           {/* New Display widget D: Rotational Subsidy Scheme Card */}
 //           {outputs.subsidy && (
-//             <div className="bg-white border border-[#4f772d]/20 rounded-2xl p-5 shadow-sm space-y-3">
+//             <div className="bg-white border border-brand-medium/20 rounded-2xl p-5 shadow-sm space-y-3">
 //               <h4 className="text-xs font-bold text-[#132a13] uppercase tracking-wider flex items-center gap-2">
 //                 <FileText className="h-4 w-4 text-[#31572c]" />
 //                 <span>Applicable Governmental Subsidy Scheme</span>
 //               </h4>
-//               <div className="bg-[#4f772d]/[0.03] border border-[#4f772d]/10 rounded-xl p-3.5 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+//               <div className="bg-brand-medium/[0.03] border border-brand-medium/10 rounded-xl p-3.5 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
 //                 <div>
 //                   <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest block">
 //                     Scheme
@@ -753,7 +753,7 @@ export default function YieldRoiPredictor() {
         {/* LEFT COLUMN: Input Matrix Form */}
         <div className="bg-white rounded-2xl p-5 border border-gray-300 shadow-sm space-y-5">
           <h2 className="text-[#132a13] text-sm font-bold flex items-center gap-2 pb-2.5 border-b border-gray-200">
-            <Coins className="h-4 w-4 text-[#4f772d]" />
+            <Coins className="h-4 w-4 text-brand-medium" />
             <span>Simulation Parameters</span>
           </h2>
 
@@ -771,7 +771,7 @@ export default function YieldRoiPredictor() {
                     onClick={() => setSelectedCrop(crop)}
                     className={`p-2 rounded-xl border text-left transition-all cursor-pointer ${
                       selectedCrop.id === crop.id
-                        ? "bg-[#31572c] border-[#31572c] text-white font-bold shadow-sm"
+                        ? "bg-brand-dark border-[#31572c] text-white font-bold shadow-sm"
                         : "bg-white border-gray-300 text-gray-800 hover:border-[#31572c]"
                     }`}
                   >
@@ -831,7 +831,7 @@ export default function YieldRoiPredictor() {
                     onClick={() => setSeedGrade(grade)}
                     className={`w-full p-2.5 rounded-xl border text-left flex justify-between items-center transition-all cursor-pointer ${
                       seedGrade.label === grade.label
-                        ? "bg-[#31572c] border-[#31572c] text-white shadow-sm font-bold"
+                        ? "bg-brand-dark border-[#31572c] text-white shadow-sm font-bold"
                         : "bg-white border-gray-300 text-gray-800 hover:border-[#31572c]"
                     }`}
                   >
@@ -885,7 +885,7 @@ export default function YieldRoiPredictor() {
               type="button"
               onClick={handleApplySimulation}
               disabled={isFetching}
-              className="w-full bg-[#31572c] text-white hover:bg-[#132a13] font-black py-2.5 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider text-[10px] flex items-center justify-center gap-2"
+              className="w-full bg-brand-dark text-white hover:bg-[#132a13] font-black py-2.5 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider text-[10px] flex items-center justify-center gap-2"
             >
               {isFetching ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -902,7 +902,7 @@ export default function YieldRoiPredictor() {
           className={`space-y-6 ${isFetching ? "opacity-40 pointer-events-none" : ""} transition-opacity duration-200`}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-[#4f772d]/[0.08] border border-[#4f772d]/30 rounded-2xl p-5 shadow-sm">
+            <div className="bg-brand-medium/[0.08] border border-brand-medium/30 rounded-2xl p-5 shadow-sm">
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
                   <span className="text-[10px] font-black text-gray-800 uppercase tracking-wider">
@@ -937,7 +937,7 @@ export default function YieldRoiPredictor() {
                     Base target: {selectedCrop.baseYield} qtl/acre
                   </p>
                 </div>
-                <div className="p-2.5 bg-[#4f772d]/10 text-[#31572c] rounded-xl">
+                <div className="p-2.5 bg-brand-medium/10 text-[#31572c] rounded-xl">
                   <Wheat className="h-5 w-5" />
                 </div>
               </div>
@@ -967,7 +967,7 @@ export default function YieldRoiPredictor() {
           {/* Ledger analysis board */}
           <div className="bg-white border border-gray-300 rounded-2xl p-5 shadow-sm space-y-4">
             <h3 className="text-xs font-bold text-gray-950 uppercase tracking-widest flex items-center gap-1.5">
-              <BarChart3 className="h-4 w-4 text-[#4f772d]" />
+              <BarChart3 className="h-4 w-4 text-brand-medium" />
               <span>Rotational ROI Ledger Summary</span>
             </h3>
 
@@ -1067,12 +1067,12 @@ export default function YieldRoiPredictor() {
 
           {/* Insurance Subsidies section layout */}
           {outputs.subsidy && (
-            <div className="bg-white border border-[#4f772d]/30 rounded-2xl p-5 shadow-sm space-y-3">
+            <div className="bg-white border border-brand-medium/30 rounded-2xl p-5 shadow-sm space-y-3">
               <h4 className="text-xs font-bold text-[#132a13] uppercase tracking-wider flex items-center gap-2">
                 <FileText className="h-4 w-4 text-[#31572c]" />{" "}
                 <span>Applicable Governmental Subsidy Scheme</span>
               </h4>
-              <div className="bg-[#4f772d]/[0.03] border border-gray-300 rounded-xl p-3.5 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="bg-brand-medium/[0.03] border border-gray-300 rounded-xl p-3.5 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div>
                   <span className="text-[8px] font-black text-gray-700 uppercase tracking-widest block">
                     Scheme

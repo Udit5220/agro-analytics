@@ -150,7 +150,7 @@
 
 //       {/* Success notification banner */}
 //       {successMessage && (
-//         <div className="bg-[#4f772d]/10 border border-[#90a955]/40 text-[#132a13] font-semibold text-xs py-3 px-4 rounded-xl flex items-center space-x-2.5 shadow-sm animate-pulse">
+//         <div className="bg-brand-medium/10 border border-[#90a955]/40 text-[#132a13] font-semibold text-xs py-3 px-4 rounded-xl flex items-center space-x-2.5 shadow-sm animate-pulse">
 //           <LucideIcons.CheckCircle2 className="h-4.5 w-4.5 text-[#31572c] shrink-0" />
 //           <span>{successMessage}</span>
 //         </div>
@@ -340,7 +340,7 @@
 //             <div className="sm:col-span-2 md:col-span-3 pt-2 text-right">
 //               <button
 //                 type="submit"
-//                 className="bg-[#31572c] hover:bg-[#132a13] text-[#ecf39e] text-xs font-bold uppercase tracking-wider px-5 py-3 rounded-xl shadow-sm transition-all duration-300 active:scale-[0.97] inline-flex items-center space-x-2 cursor-pointer"
+//                 className="bg-brand-dark hover:bg-[#132a13] text-[#ecf39e] text-xs font-bold uppercase tracking-wider px-5 py-3 rounded-xl shadow-sm transition-all duration-300 active:scale-[0.97] inline-flex items-center space-x-2 cursor-pointer"
 //               >
 //                 <LucideIcons.Save className="h-4 w-4" />
 //                 <span>Save Seasonal Entry</span>
@@ -364,7 +364,7 @@
 //               const bench = benchmarkYield(cropKey, 'Faridabad', myAvg);
 
 //               return (
-//                 <div key={cropKey} className="bg-[#4f772d]/20 border border-[#90a955]/20 rounded-xl p-3.5 space-y-2">
+//                 <div key={cropKey} className="bg-brand-medium/20 border border-[#90a955]/20 rounded-xl p-3.5 space-y-2">
 //                   <div className="flex justify-between items-center">
 //                     <span className="font-extrabold text-sm text-[#ecf39e]">{cropKey} Suitability</span>
 //                     {myAvg > 0 && (
@@ -446,7 +446,7 @@
 //             {/* Chart: Yield trends */}
 //             <div className="space-y-4 bg-[#f4f7f4]/40 border border-gray-100 rounded-xl p-4">
 //               <h3 className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1">
-//                 <LucideIcons.Activity className="h-4 w-4 text-[#4f772d]" />
+//                 <LucideIcons.Activity className="h-4 w-4 text-brand-medium" />
 //                 Yield Productivity Trends (qtl/acre)
 //               </h3>
 
@@ -472,7 +472,7 @@
 //             {/* Chart: Profit trends */}
 //             <div className="space-y-4 bg-[#f4f7f4]/40 border border-gray-100 rounded-xl p-4">
 //               <h3 className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1">
-//                 <LucideIcons.Coins className="h-4 w-4 text-[#4f772d]" />
+//                 <LucideIcons.Coins className="h-4 w-4 text-brand-medium" />
 //                 Net Profit Per Acre Trends (₹/acre)
 //               </h3>
 
@@ -546,7 +546,7 @@
 //                         </td>
 //                         <td className="py-3 px-3">
 //                           <span className="font-bold text-gray-900">{e.crop}</span>
-//                           <span className="text-[9px] font-bold bg-[#31572c]/10 text-[#31572c] rounded-md px-1.5 py-0.5 ml-1.5 uppercase tracking-wide">
+//                           <span className="text-[9px] font-bold bg-brand-dark/10 text-[#31572c] rounded-md px-1.5 py-0.5 ml-1.5 uppercase tracking-wide">
 //                             {e.season === 'Kharif' ? 'खरीफ' : e.season === 'Rabi' ? 'रबी' : 'जायद'}
 //                           </span>
 //                         </td>
@@ -608,7 +608,7 @@
 //           {soilTrendData.length >= 2 ? (
 //             <div className="space-y-4">
 //               <div className="flex justify-between text-[10px] text-gray-400 font-bold uppercase tracking-wider">
-//                 <span className="flex items-center gap-1 text-[#31572c]"><span className="h-2 w-2 rounded-full bg-[#31572c]" /> pH level</span>
+//                 <span className="flex items-center gap-1 text-[#31572c]"><span className="h-2 w-2 rounded-full bg-brand-dark" /> pH level</span>
 //                 <span className="flex items-center gap-1 text-[#15803d]"><span className="h-2 w-2 rounded-full bg-[#15803d]" /> Nitrogen (kg/ha)</span>
 //               </div>
 
@@ -910,7 +910,7 @@ export default function FarmJournal() {
 
       {/* Success notification banner */}
       {successMessage && (
-        <div className="bg-[#4f772d]/10 border border-[#90a955]/40 text-[#132a13] font-semibold text-xs py-3 px-4 rounded-xl flex items-center space-x-2.5 shadow-sm animate-pulse">
+        <div className="bg-brand-medium/10 border border-[#90a955]/40 text-[#132a13] font-semibold text-xs py-3 px-4 rounded-xl flex items-center space-x-2.5 shadow-sm animate-pulse">
           <LucideIcons.CheckCircle2 className="h-4.5 w-4.5 text-[#31572c] shrink-0" />
           <span>{successMessage}</span>
         </div>
@@ -1138,7 +1138,7 @@ export default function FarmJournal() {
             <div className="sm:col-span-2 md:col-span-3 pt-2 text-right">
               <button
                 type="submit"
-                className="bg-[#31572c] hover:bg-[#132a13] text-white text-xs font-black uppercase tracking-wider px-5 py-3 rounded-xl shadow-sm transition-all duration-300 active:scale-[0.97] inline-flex items-center space-x-2 cursor-pointer"
+                className="bg-brand-dark hover:bg-[#132a13] text-white text-xs font-black uppercase tracking-wider px-5 py-3 rounded-xl shadow-sm transition-all duration-300 active:scale-[0.97] inline-flex items-center space-x-2 cursor-pointer"
               >
                 <LucideIcons.Save className="h-4 w-4" />
                 <span>Save Seasonal Entry</span>
@@ -1162,7 +1162,7 @@ export default function FarmJournal() {
               return (
                 <div
                   key={cropKey}
-                  className="bg-[#4f772d]/20 border border-[#90a955]/20 rounded-xl p-3.5 space-y-2"
+                  className="bg-brand-medium/20 border border-[#90a955]/20 rounded-xl p-3.5 space-y-2"
                 >
                   <div className="flex justify-between items-center">
                     <span className="font-extrabold text-sm text-[#ecf39e]">
@@ -1268,7 +1268,7 @@ export default function FarmJournal() {
             {/* Chart: Yield trends */}
             <div className="space-y-4 bg-[#f4f7f4]/40 border border-gray-100 rounded-xl p-4">
               <h3 className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1">
-                <LucideIcons.Activity className="h-4 w-4 text-[#4f772d]" />
+                <LucideIcons.Activity className="h-4 w-4 text-brand-medium" />
                 Yield Productivity Trends (qtl/acre)
               </h3>
 
@@ -1300,7 +1300,7 @@ export default function FarmJournal() {
             {/* Chart: Profit trends */}
             <div className="space-y-4 bg-[#f4f7f4]/40 border border-gray-100 rounded-xl p-4">
               <h3 className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1">
-                <LucideIcons.Coins className="h-4 w-4 text-[#4f772d]" />
+                <LucideIcons.Coins className="h-4 w-4 text-brand-medium" />
                 Net Profit Per Acre Trends (₹/acre)
               </h3>
 
@@ -1394,7 +1394,7 @@ export default function FarmJournal() {
                           <span className="font-bold text-gray-900">
                             {e.crop}
                           </span>
-                          <span className="text-[9px] font-bold bg-[#31572c]/10 text-[#31572c] rounded-md px-1.5 py-0.5 ml-1.5 uppercase tracking-wide">
+                          <span className="text-[9px] font-bold bg-brand-dark/10 text-[#31572c] rounded-md px-1.5 py-0.5 ml-1.5 uppercase tracking-wide">
                             {e.season === "Kharif"
                               ? "खरीफ"
                               : e.season === "Rabi"
@@ -1491,7 +1491,7 @@ export default function FarmJournal() {
             <div className="space-y-4">
               <div className="flex justify-between text-[10px] text-gray-400 font-bold uppercase tracking-wider">
                 <span className="flex items-center gap-1 text-[#31572c]">
-                  <span className="h-2 w-2 rounded-full bg-[#31572c]" /> pH
+                  <span className="h-2 w-2 rounded-full bg-brand-dark" /> pH
                   level
                 </span>
                 <span className="flex items-center gap-1 text-[#15803d]">

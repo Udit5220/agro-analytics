@@ -227,7 +227,7 @@ Sow rust-resistant wheat seed varieties certified by ICAR. Spray Propiconazole a
       {/* Page Header */}
       <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
         <div className="flex items-start space-x-4 z-10">
-          <div className="p-3 bg-[#31572c]/10 text-[#31572c] rounded-xl mt-1 shrink-0">
+          <div className="p-3 bg-brand-dark/10 text-[#31572c] rounded-xl mt-1 shrink-0">
             <BookOpen className="w-6 h-6" />
           </div>
           <div>
@@ -256,7 +256,7 @@ Sow rust-resistant wheat seed varieties certified by ICAR. Spray Propiconazole a
           <button
             type="submit"
             disabled={consulting}
-            className="bg-[#31572c] hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
+            className="bg-brand-dark hover:bg-[#1a3018] text-white py-3 px-5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-xs shadow-xs shrink-0 disabled:opacity-60"
           >
             {consulting ? (
               <>
@@ -426,7 +426,7 @@ Sow rust-resistant wheat seed varieties certified by ICAR. Spray Propiconazole a
               
               <button 
                 onClick={() => setSelectedArticle(null)}
-                className="bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-2.5 px-6 rounded-xl text-xs transition-all shadow-xs"
+                className="bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-2.5 px-6 rounded-xl text-xs transition-all shadow-xs"
               >
                 Close Document
               </button>

@@ -135,7 +135,7 @@ export default function ImpactAnalytics() {
           <div className="flex justify-center gap-5 text-[8.5px] font-black uppercase text-slate-500 pt-0.5">
             <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded bg-red-500" /> Expected Loss</span>
             <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded bg-amber-500" /> Actual Loss</span>
-            <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded bg-[#31572c]" /> Prevented Loss</span>
+            <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded bg-brand-dark" /> Prevented Loss</span>
           </div>
         </div>
 
@@ -154,7 +154,7 @@ export default function ImpactAnalytics() {
               </div>
               <div className="w-full h-3 rounded-full overflow-hidden flex bg-red-500">
                 {/* Green represent saved segment */}
-                <div className="h-full bg-[#31572c]" style={{ width: "88%" }} />
+                <div className="h-full bg-brand-dark" style={{ width: "88%" }} />
               </div>
               <div className="flex justify-between text-[7.5px] font-black uppercase tracking-wider text-slate-450">
                 <span>Revenue Saved (88%)</span>
@@ -229,7 +229,7 @@ export default function ImpactAnalytics() {
                   <span className="text-[#31572c]">{v.loss} Yield Loss</span>
                 </div>
                 <div className="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full bg-[#31572c]" style={{ width: `${v.lossPct}%` }} />
+                  <div className="h-full rounded-full bg-brand-dark" style={{ width: `${v.lossPct}%` }} />
                 </div>
               </div>
             ))}
@@ -262,7 +262,7 @@ export default function ImpactAnalytics() {
                     <div className="space-y-1">
                       <span>{item.success}</span>
                       <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                        <div className="h-full rounded-full bg-[#31572c]" style={{ width: `${item.successRate}%` }} />
+                        <div className="h-full rounded-full bg-brand-dark" style={{ width: `${item.successRate}%` }} />
                       </div>
                     </div>
                   </td>

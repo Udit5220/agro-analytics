@@ -112,16 +112,16 @@ const INITIAL_CROP_RANKINGS = [
 
 function getBarColor(score) {
   if (score >= 85) return "bg-[#132a13]";
-  if (score >= 75) return "bg-[#31572c]";
-  if (score >= 60) return "bg-[#4f772d]";
+  if (score >= 75) return "bg-brand-dark";
+  if (score >= 60) return "bg-brand-medium";
   if (score >= 50) return "bg-[#90a955]";
   return "bg-[#90a955]/60";
 }
 
 function getRankBadgeColor(rank) {
   if (rank === 1) return "bg-[#132a13] text-[#ecf39e] border-[#31572c]";
-  if (rank === 2) return "bg-[#31572c] text-[#ecf39e] border-[#4f772d]";
-  if (rank === 3) return "bg-[#4f772d] text-white border-[#90a955]";
+  if (rank === 2) return "bg-brand-dark text-[#ecf39e] border-brand-medium";
+  if (rank === 3) return "bg-brand-medium text-white border-[#90a955]";
   return "bg-[#f4f7f4] text-[#31572c] border-gray-300";
 }
 
@@ -284,7 +284,7 @@ export default function CropRankingEngine() {
         {/* LEFT: Inputs Form */}
         <div className="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm space-y-5">
           <h2 className="text-[#132a13] text-sm font-bold flex items-center gap-2 pb-3 border-b border-gray-200">
-            <Leaf className="h-4 w-4 text-[#4f772d]" />
+            <Leaf className="h-4 w-4 text-brand-medium" />
             <span>Farm Inputs Matrix</span>
           </h2>
 
@@ -293,7 +293,7 @@ export default function CropRankingEngine() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-[10px] font-bold text-gray-800 uppercase tracking-wider flex items-center gap-1">
-                  <Droplets className="h-3.5 w-3.5 text-[#4f772d]" />
+                  <Droplets className="h-3.5 w-3.5 text-brand-medium" />
                   Annual Rainfall
                 </label>
                 <span className="text-[#31572c] font-black text-xs tracking-wide">
@@ -321,7 +321,7 @@ export default function CropRankingEngine() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-[10px] font-bold text-gray-800 uppercase tracking-wider flex items-center gap-1">
-                  <Thermometer className="h-3.5 w-3.5 text-[#4f772d]" />
+                  <Thermometer className="h-3.5 w-3.5 text-brand-medium" />
                   Avg. Temperature
                 </label>
                 <span className="text-[#31572c] font-black text-xs">
@@ -379,7 +379,7 @@ export default function CropRankingEngine() {
                     onClick={() => setWaterAvailability(level)}
                     className={`py-1.5 rounded-lg text-xs font-black transition-all border cursor-pointer ${
                       waterAvailability === level
-                        ? "bg-[#31572c] text-white border-[#31572c] shadow-sm"
+                        ? "bg-brand-dark text-white border-[#31572c] shadow-sm"
                         : "bg-white text-gray-800 border-gray-300 hover:border-[#31572c]"
                     }`}
                   >
@@ -420,7 +420,7 @@ export default function CropRankingEngine() {
             {/* District */}
             <div>
               <label className="text-[10px] font-bold text-gray-800 uppercase tracking-wider mb-1.5 block flex items-center gap-1">
-                <MapPin className="h-3.5 w-3.5 text-[#4f772d]" /> Target Region
+                <MapPin className="h-3.5 w-3.5 text-brand-medium" /> Target Region
               </label>
               <div className="relative">
                 <select
@@ -441,7 +441,7 @@ export default function CropRankingEngine() {
             {/* Season Banner */}
             <div className="flex items-center justify-between bg-[#f4f7f4] border border-gray-200 rounded-xl px-3.5 py-2">
               <span className="text-[10px] font-bold text-gray-800 uppercase tracking-wider flex items-center gap-1">
-                <Calendar className="h-3.5 w-3.5 text-[#4f772d]" /> Season
+                <Calendar className="h-3.5 w-3.5 text-brand-medium" /> Season
               </span>
               <span className="text-[#31572c] font-black text-xs">
                 {season}{" "}
@@ -521,7 +521,7 @@ export default function CropRankingEngine() {
               type="button"
               onClick={handleRecalculate}
               disabled={isLoading}
-              className="w-full bg-[#31572c] text-white hover:bg-[#132a13] font-black py-2.5 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider text-[10px] flex items-center justify-center gap-2 disabled:opacity-60"
+              className="w-full bg-brand-dark text-white hover:bg-[#132a13] font-black py-2.5 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider text-[10px] flex items-center justify-center gap-2 disabled:opacity-60"
             >
               <RefreshCw
                 className={`h-3.5 w-3.5 ${isLoading ? "animate-spin" : ""}`}
@@ -536,7 +536,7 @@ export default function CropRankingEngine() {
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-gray-200 mb-4">
               <h2 className="text-[#31572c] text-sm font-bold flex items-center gap-2">
-                <Award className="h-4.5 w-4.5 text-[#4f772d]" />
+                <Award className="h-4.5 w-4.5 text-brand-medium" />
                 <span>Ranked Crop Scores — {district}</span>
               </h2>
               <div className="flex items-center gap-2">
@@ -598,7 +598,7 @@ export default function CropRankingEngine() {
                     </div>
                   </div>
                   <p className="text-[11px] text-gray-900 font-bold italic flex items-center gap-1.5 leading-relaxed pl-9 border-l-2 border-gray-400">
-                    <Sparkles className="h-3 w-3 text-[#4f772d] shrink-0" />
+                    <Sparkles className="h-3 w-3 text-brand-medium shrink-0" />
                     <span>{crop.explanation}</span>
                   </p>
                 </div>
@@ -614,8 +614,8 @@ export default function CropRankingEngine() {
             <div className="flex items-center gap-3">
               {[
                 { label: "Excellent", color: "bg-[#132a13]" },
-                { label: "Good", color: "bg-[#31572c]" },
-                { label: "Fair", color: "bg-[#4f772d]" },
+                { label: "Good", color: "bg-brand-dark" },
+                { label: "Fair", color: "bg-brand-medium" },
                 { label: "Moderate", color: "bg-[#90a955]" },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-1">

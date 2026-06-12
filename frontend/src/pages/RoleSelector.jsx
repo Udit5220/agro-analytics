@@ -99,7 +99,7 @@ export default function RoleSelector() {
                   transition-colors duration-150 border-b border-gray-100 dark:border-brand-dark/10 last:border-b-0 cursor-pointer
                   ${
                     activeRole === role.id
-                      ? "bg-[#31572c]/10 dark:bg-[#31572c]/20 hover:bg-[#31572c]/15 dark:hover:bg-[#31572c]/25"
+                      ? "bg-brand-dark/10 dark:bg-brand-dark/20 hover:bg-brand-dark/15 dark:hover:bg-brand-dark/25"
                       : "hover:bg-gray-50 dark:hover:bg-brand-dark/10"
                   }
                 `}
@@ -110,7 +110,7 @@ export default function RoleSelector() {
                   w-9 h-9 rounded-xl flex items-center justify-center shrink-0
                   ${
                     activeRole === role.id
-                      ? "bg-[#31572c]/20 text-[#31572c] dark:text-[#ecf39e]"
+                      ? "bg-brand-dark/20 text-[#31572c] dark:text-[#ecf39e]"
                       : "bg-gray-100 dark:bg-brand-dark/30 text-gray-600 dark:text-slate-400"
                   }
                 `}

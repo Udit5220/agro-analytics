@@ -275,7 +275,7 @@ Make the tags short (1-3 words). Make the accuracy rating a number between 90 an
                             area: f.area,
                             message: `AI WARNING: High outbreak risk of ${f.disease} (${f.probability}% probability) predicted for the ${f.area} region around ${f.expectedDate}. Please deploy preventative spray controls immediately. Contact FPO technician for supply inputs.`
                           })}
-                          className="px-2.5 py-1 bg-[#31572c] hover:bg-[#132a13] text-white rounded font-black uppercase tracking-wider text-[9px] cursor-pointer transition-colors flex items-center gap-1.5"
+                          className="px-2.5 py-1 bg-brand-dark hover:bg-[#132a13] text-white rounded font-black uppercase tracking-wider text-[9px] cursor-pointer transition-colors flex items-center gap-1.5"
                           title="Broadcast alerts to farmers in risk area"
                         >
                           <Bell className="w-3 h-3" /> Alert
@@ -335,7 +335,7 @@ Make the tags short (1-3 words). Make the accuracy rating a number between 90 an
                     type="button"
                     onClick={() => setActiveTimelineTab(t)}
                     className={`px-3 py-1 rounded-xl text-[9px] font-black uppercase transition cursor-pointer ${
-                      activeTimelineTab === t ? "bg-[#31572c] text-white" : "bg-slate-50 text-slate-600 hover:bg-slate-200"
+                      activeTimelineTab === t ? "bg-brand-dark text-white" : "bg-slate-50 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
                     {t} Days
@@ -551,7 +551,7 @@ Make the tags short (1-3 words). Make the accuracy rating a number between 90 an
                   handleNotify(alertModalData.disease);
                   setAlertModalData(null);
                 }}
-                className="px-4 py-2 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg text-xs font-black uppercase tracking-wider cursor-pointer transition-colors flex items-center gap-1.5"
+                className="px-4 py-2 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg text-xs font-black uppercase tracking-wider cursor-pointer transition-colors flex items-center gap-1.5"
               >
                 <CheckCircle className="w-4 h-4" /> Send Alerts Now
               </button>

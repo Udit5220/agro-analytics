@@ -95,7 +95,7 @@ export default function SchemeMatcher() {
   return (
     <div className="space-y-6 animate-fadeIn antialiased">
       <div className="flex items-center gap-2.5 mb-8">
-        <div className="p-2 bg-[#31572c]/10 rounded-lg">
+        <div className="p-2 bg-brand-dark/10 rounded-lg">
           <FileText className="h-6 w-6 text-[#31572c]" />
         </div>
         <div>
@@ -163,7 +163,7 @@ export default function SchemeMatcher() {
             <button 
               type="submit" 
               disabled={analyzing}
-              className="w-full mt-6 bg-[#31572c] text-white py-3 rounded-xl font-bold hover:bg-[#1a3018] transition-colors flex items-center justify-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full mt-6 bg-brand-dark text-white py-3 rounded-xl font-bold hover:bg-[#1a3018] transition-colors flex items-center justify-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {analyzing ? (
                 <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -239,7 +239,7 @@ export default function SchemeMatcher() {
                           {match.description}
                         </p>
                         <div className="flex items-center gap-3 mt-4">
-                          <button className="px-4 py-1.5 bg-[#31572c] hover:bg-[#1a3018] text-white text-xs font-bold rounded-lg shadow-sm transition">
+                          <button className="px-4 py-1.5 bg-brand-dark hover:bg-[#1a3018] text-white text-xs font-bold rounded-lg shadow-sm transition">
                             {match.action}
                           </button>
                         </div>

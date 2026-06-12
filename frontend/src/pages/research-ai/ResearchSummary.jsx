@@ -196,7 +196,7 @@ export default function ResearchSummary() {
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
       <div className="flex items-center gap-2.5 mb-6">
-        <div className="p-2.5 bg-[#31572c]/10 rounded-xl">
+        <div className="p-2.5 bg-brand-dark/10 rounded-xl">
           <FileText className="h-6 w-6 text-[#31572c]" />
         </div>
         <div>
@@ -220,7 +220,7 @@ export default function ResearchSummary() {
                   onClick={() => handleSelectPaper(idx)}
                   className={`p-3.5 rounded-xl border text-left cursor-pointer transition-all ${
                     selectedPaperIdx === idx
-                      ? 'border-[#31572c] bg-[#31572c]/5 shadow-2xs'
+                      ? 'border-[#31572c] bg-brand-dark/5 shadow-2xs'
                       : 'border-gray-150 hover:bg-gray-50/50'
                   }`}
                 >
@@ -252,7 +252,7 @@ export default function ResearchSummary() {
             <button
               onClick={handleGenerateSummary}
               disabled={summarizing || !customAbstract.trim()}
-              className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-brand-dark hover:bg-[#1a3018] text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {summarizing ? (
                 <>
@@ -359,7 +359,7 @@ export default function ResearchSummary() {
               <div className="pt-4 border-t border-gray-100 flex justify-end">
                 <button
                   onClick={handleDownloadPDF}
-                  className="bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5"
+                  className="bg-brand-dark hover:bg-[#1a3018] text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5"
                 >
                   <Download className="h-4 w-4" /> Download Summary (PDF)
                 </button>

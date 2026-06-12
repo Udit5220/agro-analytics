@@ -174,7 +174,7 @@ export default function ContractCropHealthMonitor() {
                   <span className="text-[#31572c]">{item.score}%</span>
                 </div>
                 <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-[#31572c] h-full" style={{ width: `${item.score}%` }}></div>
+                  <div className="bg-brand-dark h-full" style={{ width: `${item.score}%` }}></div>
                 </div>
                 <span className="text-[9px] text-[#31572c] font-black uppercase tracking-wider block">{item.status}</span>
               </div>

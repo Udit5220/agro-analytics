@@ -95,7 +95,7 @@
 //           {selectedCrops.map((crop) => (
 //             <div
 //               key={crop.id}
-//               className="flex items-center gap-1.5 bg-[#31572c] text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-sm"
+//               className="flex items-center gap-1.5 bg-brand-dark text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-sm"
 //             >
 //               <span>{crop.name}</span>
 //               <button className="hover:text-[#ecf39e] transition-colors cursor-pointer">
@@ -122,7 +122,7 @@
 //                     <th className="p-4 text-xs font-bold text-[#31572c] tracking-wide uppercase max-w-[160px]">
 //                       Attribute
 //                     </th>
-//                     <th className="p-4 text-sm font-black text-[#4f772d] tracking-tight">
+//                     <th className="p-4 text-sm font-black text-brand-medium tracking-tight">
 //                       Wheat
 //                     </th>
 //                     <th className="p-4 text-sm font-black text-[#132a13] tracking-tight">
@@ -307,7 +307,7 @@
 //             {/* Micro Telemetry Legend System */}
 //             <div className="mt-6 pt-4 border-t border-gray-100 flex flex-col gap-2">
 //               <div className="flex items-center gap-2">
-//                 <span className="w-2.5 h-2.5 rounded-full bg-[#4f772d]"></span>
+//                 <span className="w-2.5 h-2.5 rounded-full bg-brand-medium"></span>
 //                 <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wider">
 //                   Wheat
 //                 </span>
@@ -627,7 +627,7 @@ export default function MultiCropCompare() {
                     onClick={() => setFocusedCropId(crop.id)}
                     className={`p-4 text-xs font-black tracking-tight text-center cursor-pointer transition-colors ${
                       focusedCropId === crop.id
-                        ? "bg-[#31572c]/10 text-[#132a13]"
+                        ? "bg-brand-dark/10 text-[#132a13]"
                         : "text-gray-950 hover:bg-gray-50"
                     }`}
                     style={{ borderTop: `4px solid ${crop.color}` }}
@@ -650,7 +650,7 @@ export default function MultiCropCompare() {
                 {ALL_REGION_CROPS.map((c) => (
                   <td
                     key={c.id}
-                    className={`p-4 text-sm text-center ${focusedCropId === c.id ? "bg-[#31572c]/5 font-extrabold" : ""}`}
+                    className={`p-4 text-sm text-center ${focusedCropId === c.id ? "bg-brand-dark/5 font-extrabold" : ""}`}
                   >
                     <span
                       className={`px-2.5 py-1 rounded-md text-xs font-bold inline-flex items-center gap-1 ${getBadgeStyle(c.status)}`}
@@ -671,7 +671,7 @@ export default function MultiCropCompare() {
                 {ALL_REGION_CROPS.map((c) => (
                   <td
                     key={c.id}
-                    className={`p-4 text-xs font-black text-center ${focusedCropId === c.id ? "bg-[#31572c]/5 text-[#132a13] text-sm" : "text-gray-950"}`}
+                    className={`p-4 text-xs font-black text-center ${focusedCropId === c.id ? "bg-brand-dark/5 text-[#132a13] text-sm" : "text-gray-950"}`}
                   >
                     {Math.round(c.baseYield * currentAcreage)} qtl
                   </td>
@@ -685,7 +685,7 @@ export default function MultiCropCompare() {
                 {ALL_REGION_CROPS.map((c) => (
                   <td
                     key={c.id}
-                    className={`p-4 text-xs font-black text-center ${focusedCropId === c.id ? "bg-[#31572c]/5 text-sm" : ""} ${c.status === "warning" ? "text-red-700" : "text-emerald-800"}`}
+                    className={`p-4 text-xs font-black text-center ${focusedCropId === c.id ? "bg-brand-dark/5 text-sm" : ""} ${c.status === "warning" ? "text-red-700" : "text-emerald-800"}`}
                   >
                     ₹
                     {Math.round(c.baseRoi * currentAcreage).toLocaleString(
@@ -702,7 +702,7 @@ export default function MultiCropCompare() {
                 {ALL_REGION_CROPS.map((c) => (
                   <td
                     key={c.id}
-                    className={`p-4 text-xs font-black text-center ${focusedCropId === c.id ? "bg-[#31572c]/5" : ""} ${c.trend.includes("+") ? "text-emerald-700" : "text-red-700"}`}
+                    className={`p-4 text-xs font-black text-center ${focusedCropId === c.id ? "bg-brand-dark/5" : ""} ${c.trend.includes("+") ? "text-emerald-700" : "text-red-700"}`}
                   >
                     {c.trend}
                   </td>
@@ -716,7 +716,7 @@ export default function MultiCropCompare() {
                 {ALL_REGION_CROPS.map((c) => (
                   <td
                     key={c.id}
-                    className={`p-4 text-xs font-bold text-center ${focusedCropId === c.id ? "bg-[#31572c]/5 text-gray-950 font-black" : "text-gray-900"}`}
+                    className={`p-4 text-xs font-bold text-center ${focusedCropId === c.id ? "bg-brand-dark/5 text-gray-950 font-black" : "text-gray-900"}`}
                   >
                     {c.waterLabel}
                   </td>
@@ -730,7 +730,7 @@ export default function MultiCropCompare() {
                 {ALL_REGION_CROPS.map((c) => (
                   <td
                     key={c.id}
-                    className={`p-4 text-xs font-bold text-center ${focusedCropId === c.id ? "bg-[#31572c]/5 text-gray-950 font-black" : "text-gray-900"}`}
+                    className={`p-4 text-xs font-bold text-center ${focusedCropId === c.id ? "bg-brand-dark/5 text-gray-950 font-black" : "text-gray-900"}`}
                   >
                     {c.pestLabel}
                   </td>
@@ -744,7 +744,7 @@ export default function MultiCropCompare() {
                 {ALL_REGION_CROPS.map((c) => (
                   <td
                     key={c.id}
-                    className={`p-4 text-xs font-bold text-center ${focusedCropId === c.id ? "bg-[#31572c]/5 text-gray-950 font-black" : "text-gray-900"}`}
+                    className={`p-4 text-xs font-bold text-center ${focusedCropId === c.id ? "bg-brand-dark/5 text-gray-950 font-black" : "text-gray-900"}`}
                   >
                     {c.harvest}
                   </td>

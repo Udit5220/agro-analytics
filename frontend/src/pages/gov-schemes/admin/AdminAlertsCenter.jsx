@@ -2,328 +2,421 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Bell,
-  AlertTriangle,
-  Clock,
+  Search,
+  Filter,
   CheckCircle,
-  Info,
-  ShieldAlert,
-  Sliders,
-  Check,
-  Building,
-  Mail,
-  UserCheck,
+  Clock,
+  AlertTriangle,
+  XCircle,
   ChevronRight,
-  Trash2,
+  X,
+  FileText,
+  Calendar,
+  DollarSign,
+  Download,
+  Send,
+  RefreshCw,
+  MoreVertical,
+  ArrowRight,
+  TrendingUp,
+  Bookmark,
+  Sparkles,
+  Info,
+  ShieldCheck,
+  Check,
+  Megaphone,
+  AlertCircle,
+  Eye,
+  Sliders,
 } from "lucide-react";
+import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
+
+/*
+// --- OLD ALERTS CENTER COMPONENT COMMENTED OUT ---
+export default function AdminAlertsCenter() {
+  return (
+    <div>Old Alerts Center Code</div>
+  );
+}
+*/
+
+// --- NEW REDESIGNED ALERTS & UPDATE CENTER COMPONENT ---
 
 export default function AdminAlertsCenter() {
   const navigate = useNavigate();
+  const [analytics, setAnalytics] = useState(getAnalyticsData());
+  const [toastMessage, setToastMessage] = useState("");
+  const [dismissedCount, setDismissedCount] = useState(0);
+  const [activeCategory, setActiveCategory] = useState("all");
 
-  // Active view tab: "inbox" (Alert Inbox Feed), "routing" (Alert Route Config)
-  const [activeTab, setActiveTab] = useState("inbox");
-  const [inboxFilter, setInboxFilter] = useState("all");
-
-  // Notifications State
-  const [notifications, setNotifications] = useState([
-    {
-      id: "NTF-981",
-      title: "MSME Udyam Credential Gap",
-      desc: "Haryana Capital Subsidy profile audit failed. Sync Udyam certificate to prevent matching score degradation.",
-      type: "critical",
-      category: "Profile Gaps",
-      date: "2 Hours ago",
-      targetPath: "/module/gov-schemes/admin/profile",
-      actionText: "Update Profile"
-    },
-    {
-      id: "NTF-980",
-      title: "Utilization Certificate (GFR 12-C) Overdue",
-      desc: "Agri-Infrastructure Fund Tranche 1 requires CA audit signs immediately to authorize Tranche 2 release.",
-      type: "warning",
-      category: "Compliance Deadlines",
-      date: "1 Day ago",
-      targetPath: "/module/gov-schemes/admin/compliance",
-      actionText: "Submit Audit Logs"
-    },
-    {
-      id: "NTF-979",
-      title: "Tranche Payout Credit Cleared",
-      desc: "SBI Corporate Account credited with ₹20,00,000 for AIF Tranche 1. Receipt validation code REC-104928 active.",
-      type: "info",
-      category: "Payment Approvals",
-      date: "3 Days ago",
-      targetPath: "/module/gov-schemes/admin/tracker",
-      actionText: "Check Transaction"
-    }
-  ]);
-
-  // Alert Routing Preferences
-  const [routingRules, setRoutingRules] = useState({
-    disbursements: "Finance (CFO)",
-    renewals: "Operations Manager",
-    compliance: "Compliance Auditor",
-    profileAlerts: "Operations Manager"
+  // Routing preferences configuration states
+  const [routing, setRouting] = useState({
+    deadlines: { mgmt: true, finance: true, comp: true, ops: true },
+    compliance: { mgmt: false, finance: true, comp: true, ops: false },
+    guidelines: { mgmt: true, finance: false, comp: true, ops: true },
   });
 
-  const handleDismiss = (id) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(""), 3000);
   };
 
-  const handleSnooze = (id) => {
-    setNotifications(prev => prev.map(n => {
-      if (n.id === id) {
-        return { ...n, date: "Snoozed for 24 hours" };
-      }
-      return n;
-    }));
+  const handleDismissAlert = (alertId) => {
+    const updated = { ...analytics };
+    updated.alerts = updated.alerts.filter((a) => a.id !== alertId);
+    saveAnalyticsData(updated);
+    setAnalytics(updated);
+    setDismissedCount((prev) => prev + 1);
+    showToast("Alert dismissed from dashboard feed.");
   };
 
-  const handleRuleChange = (key, value) => {
-    setRoutingRules(prev => ({ ...prev, [key]: value }));
+  const handleMarkAllRead = () => {
+    const updated = { ...analytics };
+    updated.alerts.forEach((a) => {
+      a.read = true;
+    });
+    saveAnalyticsData(updated);
+    setAnalytics(updated);
+    showToast("All alerts marked as read.");
   };
 
-  const filteredAlerts = notifications.filter(n => {
-    if (inboxFilter === "all") return true;
-    return n.type === inboxFilter;
-  });
+  const handleToggleRouting = (cat, team) => {
+    setRouting((prev) => {
+      const updatedCat = { ...prev[cat], [team]: !prev[cat][team] };
+      showToast("Alert routing criteria updated!");
+      return { ...prev, [cat]: updatedCat };
+    });
+  };
+
+  // Metric aggregates
+  const unreadAlertsCount = analytics.alerts.filter((a) => !a.read).length;
+  const criticalCount = analytics.alerts.filter(
+    (a) => a.priority === "Critical",
+  ).length;
+  const companySchemes = analytics.schemes.filter((s) => !s.isFarmerScheme);
+  const upcomingDeadlinesCount = companySchemes.filter(
+    (s) => s.daysLeft <= 30,
+  ).length;
+
+  const filteredAlerts = analytics.alerts.filter(
+    (a) => activeCategory === "all" || a.category === activeCategory,
+  );
 
   return (
-    <div className="space-y-5 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-[#2e4057] animate-fadeIn">
-      {/* Header section */}
-      <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-xl font-bold flex items-center gap-2">
-            <Bell className="w-5 h-5 text-[#28a745]" />
-            Scheme Alerts & Notification Center
+    <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-brand-darkest animate-fadeIn relative font-semibold">
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-5 right-5 bg-brand-darkest text-white px-4 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-2 text-xs border border-white/10 animate-bounce">
+          <Sparkles className="w-4 h-4 text-emerald-400" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Hero Header */}
+      <div className="bg-gradient-to-r from-brand-darkest to-brand-dark p-6 rounded-3xl text-white shadow-md relative overflow-hidden">
+        <div className="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-brand-medium/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="max-w-3xl space-y-2 relative z-10">
+          <span className="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
+            Government Communications Feed
+          </span>
+          <h1 className="text-2xl font-black tracking-tight">
+            Alerts & Government Update Center
           </h1>
-          <p className="text-xs text-gray-500 font-semibold">
-            Track urgent deadline alerts, payout validation warnings, profile audits, and route feeds to departments.
+          <p className="text-xs text-white/80 font-medium leading-relaxed">
+            Monitor public circular updates, customize internal recipient
+            alerts, and inspect critical program deadline notifications.
           </p>
         </div>
-
-        <span className="text-xs font-bold text-gray-500 bg-white border border-gray-150 px-3 py-1.5 rounded-xl shadow-sm">
-          {notifications.length} Pending Notifications
-        </span>
       </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200 bg-white p-2 rounded-xl border border-gray-150">
-        <button
-          onClick={() => setActiveTab("inbox")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "inbox" ? "bg-[#2e4057] text-white shadow-sm" : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Alerts Inbox ({notifications.length})
-        </button>
-        <button
-          onClick={() => setActiveTab("routing")}
-          className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-lg transition ${
-            activeTab === "routing" ? "bg-[#2e4057] text-white shadow-sm" : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          Alert Routing Settings
-        </button>
+      {/* Alert Analytics Strip */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
+          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Unread Alerts
+          </p>
+          <h3 className="text-xl font-black text-brand-darkest mt-1.5">
+            {unreadAlertsCount} Alerts
+          </h3>
+          <span className="text-[9px] text-gray-500 font-semibold block mt-1">
+            Inbox notifications
+          </span>
+        </div>
+
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
+          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Critical Alerts
+          </p>
+          <h3 className="text-xl font-black text-red-600 mt-1.5">
+            {criticalCount} Critical
+          </h3>
+          <span className="text-[9px] text-red-500 font-bold block mt-1">
+            Action required
+          </span>
+        </div>
+
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
+          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Resolved Alerts
+          </p>
+          <h3 className="text-xl font-black text-brand-darkest mt-1.5">
+            {dismissedCount} Resolved
+          </h3>
+          <span className="text-[9px] text-gray-500 font-semibold block mt-1">
+            Dismissed this session
+          </span>
+        </div>
+
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
+          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Upcoming Deadlines
+          </p>
+          <h3 className="text-xl font-black text-brand-darkest mt-1.5">
+            {upcomingDeadlinesCount} Deadlines
+          </h3>
+          <span className="text-[9px] text-gray-500 font-semibold block mt-1">
+            Matched schemes list
+          </span>
+        </div>
       </div>
 
-      {/* Tab 1: Alert Inbox Feed */}
-      {activeTab === "inbox" && (
-        <div className="space-y-4 animate-fadeIn">
-          
-          {/* Inbox Toolbar */}
-          <div className="bg-white p-3 rounded-xl border border-gray-150 shadow-sm flex items-center gap-2">
-            <span className="text-[10px] font-extrabold uppercase text-gray-400 mr-2">Filter Level:</span>
+      {/* Critical Alerts & Updates Feed Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        {/* Critical Alerts Inbox */}
+        <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+          <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+              <Bell className="w-4 h-4 text-brand-medium" /> Critical Alerts
+              Inbox
+            </h3>
+            {unreadAlertsCount > 0 && (
+              <button
+                onClick={handleMarkAllRead}
+                className="text-[10px] font-black text-brand-medium hover:underline uppercase tracking-wider"
+              >
+                Mark all as read
+              </button>
+            )}
+          </div>
+
+          {/* Sub category tabs */}
+          <div className="flex bg-gray-100 p-1 rounded-xl text-[10px] font-bold gap-1">
             <button
-              onClick={() => setInboxFilter("all")}
-              className={`text-xs font-bold px-3 py-1 rounded-lg transition ${
-                inboxFilter === "all" ? "bg-gray-100 text-gray-800" : "text-gray-500 hover:text-gray-700"
-              }`}
+              onClick={() => setActiveCategory("all")}
+              className={`flex-1 py-1.5 rounded-lg transition ${activeCategory === "all" ? "bg-brand-darkest text-white shadow-sm" : "text-gray-500 hover:text-gray-800"}`}
             >
-              All Alerts
+              All ({analytics.alerts.length})
             </button>
             <button
-              onClick={() => setInboxFilter("critical")}
-              className={`text-xs font-bold px-3 py-1 rounded-lg transition ${
-                inboxFilter === "critical" ? "bg-red-50 text-red-700" : "text-gray-500 hover:text-gray-700"
-              }`}
+              onClick={() => setActiveCategory("opportunity")}
+              className={`flex-1 py-1.5 rounded-lg transition ${activeCategory === "opportunity" ? "bg-brand-darkest text-white shadow-sm" : "text-gray-500 hover:text-gray-800"}`}
             >
-              Critical
+              Opportunity (
+              {
+                analytics.alerts.filter((a) => a.category === "opportunity")
+                  .length
+              }
+              )
             </button>
             <button
-              onClick={() => setInboxFilter("warning")}
-              className={`text-xs font-bold px-3 py-1 rounded-lg transition ${
-                inboxFilter === "warning" ? "bg-amber-50 text-amber-700" : "text-gray-500 hover:text-gray-700"
-              }`}
+              onClick={() => setActiveCategory("readiness")}
+              className={`flex-1 py-1.5 rounded-lg transition ${activeCategory === "readiness" ? "bg-brand-darkest text-white shadow-sm" : "text-gray-500 hover:text-gray-800"}`}
             >
-              Warnings
+              Readiness (
+              {
+                analytics.alerts.filter((a) => a.category === "readiness")
+                  .length
+              }
+              )
+            </button>
+            <button
+              onClick={() => setActiveCategory("farmer_interest")}
+              className={`flex-1 py-1.5 rounded-lg transition ${activeCategory === "farmer_interest" ? "bg-brand-darkest text-white shadow-sm" : "text-gray-500 hover:text-gray-800"}`}
+            >
+              Farmer Interest (
+              {
+                analytics.alerts.filter((a) => a.category === "farmer_interest")
+                  .length
+              }
+              )
             </button>
           </div>
 
-          {/* Cards Feed */}
           <div className="space-y-3">
             {filteredAlerts.length > 0 ? (
-              filteredAlerts.map((n) => (
+              filteredAlerts.map((a) => (
                 <div
-                  key={n.id}
-                  className={`bg-white border p-5 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-start justify-between gap-4 transition relative overflow-hidden ${
-                    n.type === "critical"
-                      ? "border-red-150 bg-red-50/10"
-                      : n.type === "warning"
-                      ? "border-amber-150 bg-amber-50/10"
-                      : "border-gray-150"
+                  key={a.id}
+                  className={`p-4 border rounded-2xl flex justify-between items-start gap-4 transition text-xs font-semibold ${
+                    !a.read
+                      ? "bg-amber-50/20 border-amber-200"
+                      : "bg-white border-gray-100"
                   }`}
                 >
-                  {/* Left part: icon, title, description */}
-                  <div className="flex items-start gap-4">
-                    <div className={`p-2.5 rounded-xl border ${
-                      n.type === "critical"
-                        ? "bg-red-50 text-red-700 border-red-100"
-                        : n.type === "warning"
-                        ? "bg-amber-50 text-amber-700 border-amber-100"
-                        : "bg-blue-50 text-blue-700 border-blue-100"
-                    }`}>
-                      {n.type === "critical" && <ShieldAlert className="w-5 h-5" />}
-                      {n.type === "warning" && <AlertTriangle className="w-5 h-5" />}
-                      {n.type === "info" && <Info className="w-5 h-5" />}
+                  <div className="flex gap-3 items-start">
+                    <div className="mt-0.5">
+                      {a.priority === "Critical" ? (
+                        <AlertTriangle className="w-4 h-4 text-red-500 shrink-0" />
+                      ) : a.priority === "Warning" ? (
+                        <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
+                      ) : (
+                        <Info className="w-4 h-4 text-gray-400 shrink-0" />
+                      )}
                     </div>
 
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[9px] font-black uppercase tracking-wider bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
-                          {n.category}
+                        <span className="font-black text-brand-darkest uppercase">
+                          {a.title}
                         </span>
-                        <span className="text-[10px] text-gray-400 font-semibold">{n.date}</span>
+                        <span
+                          className={`text-[8px] font-black uppercase px-2 py-0.2 rounded ${
+                            a.priority === "Critical"
+                              ? "bg-red-100 text-red-800"
+                              : a.priority === "Warning"
+                                ? "bg-amber-100 text-amber-800"
+                                : "bg-gray-100 text-gray-600"
+                          }`}
+                        >
+                          {a.priority}
+                        </span>
                       </div>
-                      <h3 className="text-sm font-black text-[#2e4057] uppercase tracking-wide">{n.title}</h3>
-                      <p className="text-xs text-gray-500 font-semibold leading-relaxed max-w-2xl">{n.desc}</p>
+                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+                        {a.type} • {a.date}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Right actions */}
-                  <div className="flex gap-2 shrink-0 md:self-center">
-                    <button
-                      onClick={() => handleSnooze(n.id)}
-                      className="text-xs font-bold text-gray-500 hover:text-black border border-gray-200 bg-white px-3 py-2 rounded-xl transition flex items-center gap-1"
-                    >
-                      <Clock className="w-3.5 h-3.5 text-gray-400" /> Snooze
-                    </button>
-                    
-                    <button
-                      onClick={() => navigate(n.targetPath)}
-                      className="text-xs font-bold text-white bg-[#2e4057] hover:bg-[#208837] px-3 py-2 rounded-xl transition flex items-center gap-1"
-                    >
-                      {n.actionText} <ChevronRight className="w-3.5 h-3.5" />
-                    </button>
-
-                    <button
-                      onClick={() => handleDismiss(n.id)}
-                      title="Dismiss Alert"
-                      className="text-gray-400 hover:text-red-600 border border-gray-200 bg-white p-2 rounded-xl transition"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => handleDismissAlert(a.id)}
+                    className="text-gray-400 hover:text-gray-700 transition shrink-0 p-1"
+                    title="Dismiss Alert"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
                 </div>
               ))
             ) : (
-              <div className="bg-white border border-gray-150 p-8 rounded-2xl text-center shadow-sm">
-                <CheckCircle className="w-10 h-10 mx-auto text-emerald-600 mb-2" />
-                <h4 className="text-xs font-black uppercase tracking-wider mb-1 text-gray-800">Clear Alerts Inbox</h4>
-                <p className="text-[11px] text-gray-400 font-semibold">No pending warnings. All compliance schedules and MSME credentials synchronized successfully.</p>
+              <div className="text-center py-6 text-gray-400">
+                <ShieldCheck className="w-8 h-8 mx-auto text-gray-200 mb-2" />
+                <p className="text-[11px] font-bold">
+                  No active warnings or unread updates in this category.
+                </p>
               </div>
             )}
           </div>
         </div>
-      )}
 
-      {/* Tab 2: Alert Routing preferences */}
-      {activeTab === "routing" && (
-        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 animate-fadeIn">
-          <div className="border-b border-gray-100 pb-3 flex items-center gap-1.5">
-            <Sliders className="w-4.5 h-4.5 text-[#28a745]" />
-            <div>
-              <h3 className="font-black text-xs uppercase tracking-wider text-[#2e4057]">Department Notification Rules</h3>
-              <p className="text-[10px] text-gray-400 font-bold uppercase">Map government notification alerts to target teams</p>
-            </div>
+        {/* Public Updates Feed */}
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+          <div className="border-b border-gray-100 pb-2">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+              <Megaphone className="w-4 h-4 text-brand-medium" /> Government
+              Updates Feed
+            </h3>
+            <span className="text-[8px] text-gray-400 font-bold uppercase block mt-1">
+              Sourced from public circulars & gazettes
+            </span>
           </div>
 
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex items-center justify-between">
-                <div>
-                  <span className="block text-xs font-bold text-gray-800">Disbursement & Credits</span>
-                  <span className="block text-[10px] text-gray-400 font-semibold">Tranche bank transfers payouts</span>
+          <div className="space-y-3.5 text-xs font-semibold leading-relaxed">
+            {analytics.updates.map((u) => (
+              <div
+                key={u.id}
+                className="border-b border-gray-100 pb-3 space-y-1.5 last:border-b-0 last:pb-0"
+              >
+                <div className="flex justify-between items-center">
+                  <span className="text-[8px] font-black uppercase tracking-wider bg-brand-darkest text-white px-2 py-0.5 rounded">
+                    {u.type}
+                  </span>
+                  <span className="text-[9px] text-gray-400">{u.date}</span>
                 </div>
-                <select
-                  value={routingRules.disbursements}
-                  onChange={(e) => handleRuleChange("disbursements", e.target.value)}
-                  className="bg-white border border-gray-200 text-xs p-2 rounded-xl text-gray-800 font-semibold focus:outline-none"
-                >
-                  <option value="Finance (CFO)">Finance (CFO)</option>
-                  <option value="Operations Manager">Operations Manager</option>
-                  <option value="Compliance Auditor">Compliance Auditor</option>
-                </select>
+                <h4 className="font-black text-brand-darkest uppercase tracking-wide">
+                  {u.title}
+                </h4>
+                <p className="text-gray-600 text-[11px] font-semibold">
+                  {u.summary}
+                </p>
               </div>
-
-              <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex items-center justify-between">
-                <div>
-                  <span className="block text-xs font-bold text-gray-800">Periodic Scheme Renewals</span>
-                  <span className="block text-[10px] text-gray-400 font-semibold">Annual/Quarterly filings alerts</span>
-                </div>
-                <select
-                  value={routingRules.renewals}
-                  onChange={(e) => handleRuleChange("renewals", e.target.value)}
-                  className="bg-white border border-gray-200 text-xs p-2 rounded-xl text-gray-800 font-semibold focus:outline-none"
-                >
-                  <option value="Finance (CFO)">Finance (CFO)</option>
-                  <option value="Operations Manager">Operations Manager</option>
-                  <option value="Compliance Auditor">Compliance Auditor</option>
-                </select>
-              </div>
-
-              <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex items-center justify-between">
-                <div>
-                  <span className="block text-xs font-bold text-gray-800">Utilization & Audit Filings</span>
-                  <span className="block text-[10px] text-gray-400 font-semibold">Statutory report templates alerts</span>
-                </div>
-                <select
-                  value={routingRules.compliance}
-                  onChange={(e) => handleRuleChange("compliance", e.target.value)}
-                  className="bg-white border border-gray-200 text-xs p-2 rounded-xl text-gray-800 font-semibold focus:outline-none"
-                >
-                  <option value="Finance (CFO)">Finance (CFO)</option>
-                  <option value="Operations Manager">Operations Manager</option>
-                  <option value="Compliance Auditor">Compliance Auditor</option>
-                </select>
-              </div>
-
-              <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl flex items-center justify-between">
-                <div>
-                  <span className="block text-xs font-bold text-gray-800">Profile Audit Gaps</span>
-                  <span className="block text-[10px] text-gray-400 font-semibold">Missing registration parameters warnings</span>
-                </div>
-                <select
-                  value={routingRules.profileAlerts}
-                  onChange={(e) => handleRuleChange("profileAlerts", e.target.value)}
-                  className="bg-white border border-gray-200 text-xs p-2 rounded-xl text-gray-800 font-semibold focus:outline-none"
-                >
-                  <option value="Finance (CFO)">Finance (CFO)</option>
-                  <option value="Operations Manager">Operations Manager</option>
-                  <option value="Compliance Auditor">Compliance Auditor</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="bg-[#f4f7f4] border border-gray-150 rounded-xl p-3.5 flex items-center gap-2 mt-2">
-              <Check className="w-4 h-4 text-[#28a745] shrink-0" />
-              <p className="text-[11px] text-gray-600 font-semibold leading-relaxed">
-                Rules are automatically enforced. Routed alerts will dispatch target SMS messages to the designated coordinator contact phone numbers.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
-      )}
+      </div>
 
+      {/* Alert Routing Configuration */}
+      {/* <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
+        <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2 flex items-center gap-1.5">
+          <Sliders className="w-4 h-4 text-brand-medium" /> Alert Routing Configuration
+        </h3>
+
+        <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+          Select checkbox items to route matched notification alerts dynamically to specific internal corporate coordinates:
+        </p>
+        <p className="text-[10px] text-gray-400 italic font-semibold mt-1">
+          * Note: Alert routing parameters are configured and executed strictly within your company organization (AgroIndia platform). No notifications are dispatched to government department portals, offices, or ministry administrators.
+        </p>
+
+        <div className="overflow-x-auto text-xs">
+          <table className="w-full text-left border border-gray-100 rounded-xl overflow-hidden font-semibold">
+            <thead className="bg-gray-50/50 text-[9px] text-gray-400 font-bold uppercase tracking-wider border-b border-gray-150">
+              <tr>
+                <th className="p-3">Category Type</th>
+                <th className="p-3 text-center">Management</th>
+                <th className="p-3 text-center">Finance Team</th>
+                <th className="p-3 text-center">Compliance Team</th>
+                <th className="p-3 text-center">Operations Team</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 font-semibold text-gray-700">
+              <tr>
+                <td className="p-3 font-bold text-brand-darkest">Deadlines Closing Soon</td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.deadlines.mgmt} onChange={() => handleToggleRouting("deadlines", "mgmt")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.deadlines.finance} onChange={() => handleToggleRouting("deadlines", "finance")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.deadlines.comp} onChange={() => handleToggleRouting("deadlines", "comp")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.deadlines.ops} onChange={() => handleToggleRouting("deadlines", "ops")} />
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3 font-bold text-brand-darkest">Document Expirations</td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.compliance.mgmt} onChange={() => handleToggleRouting("compliance", "mgmt")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.compliance.finance} onChange={() => handleToggleRouting("compliance", "finance")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.compliance.comp} onChange={() => handleToggleRouting("compliance", "comp")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.compliance.ops} onChange={() => handleToggleRouting("compliance", "ops")} />
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3 font-bold text-brand-darkest">Guideline Updates</td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.guidelines.mgmt} onChange={() => handleToggleRouting("guidelines", "mgmt")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.guidelines.finance} onChange={() => handleToggleRouting("guidelines", "finance")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.guidelines.comp} onChange={() => handleToggleRouting("guidelines", "comp")} />
+                </td>
+                <td className="p-3 text-center">
+                  <input type="checkbox" checked={routing.guidelines.ops} onChange={() => handleToggleRouting("guidelines", "ops")} />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> */}
     </div>
   );
 }

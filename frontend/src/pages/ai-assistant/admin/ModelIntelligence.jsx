@@ -70,7 +70,7 @@ export default function ModelIntelligence() {
             </svg>
             <span>Export Weights</span>
           </button>
-          <button className="bg-[#132a13] hover:bg-[#31572c] text-white font-bold text-[11px] uppercase tracking-wider px-4 py-2 rounded-xl shadow-sm transition">
+          <button className="bg-[#132a13] hover:bg-brand-dark text-white font-bold text-[11px] uppercase tracking-wider px-4 py-2 rounded-xl shadow-sm transition">
             Force Re-Training
           </button>
         </div>
@@ -136,7 +136,7 @@ export default function ModelIntelligence() {
             Inference accuracy on <strong className="text-[#ecf39e]">Pest Diagnosis</strong> increased by <strong>1.4%</strong> following the integration of custom Fine-Tuned LoRA weights on regional cotton field outbreaks. Latency remains optimal below safety thresholds.
           </p>
         </div>
-        <div className="bg-[#4f772d]/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+        <div className="bg-brand-medium/40 border border-[#90a955]/30 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5">
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
           <span>Inference Engine: Stable</span>
         </div>
@@ -223,7 +223,7 @@ export default function ModelIntelligence() {
             </thead>
             <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
               {filteredModels.map((row) => (
-                <tr key={row.id} className="hover:bg-[#4f772d]/5 transition-colors duration-150">
+                <tr key={row.id} className="hover:bg-brand-medium/5 transition-colors duration-150">
                   <td className="p-3.5 font-mono text-gray-500">{row.id}</td>
                   <td className="p-3.5 font-black text-gray-900 tracking-tight">{row.name}</td>
                   <td className="p-3.5">

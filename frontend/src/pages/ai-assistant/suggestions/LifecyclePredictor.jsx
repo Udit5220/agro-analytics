@@ -138,7 +138,7 @@
 //           <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
 //             <span>AI Lifecycle Guidance Engine</span>
 //             <span className="text-gray-300 font-light text-xl">|</span>
-//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-[#31572c]/8 px-2.5 py-0.5 rounded-md">
+//             <span className="text-[#31572c] font-bold text-xs md:text-sm bg-brand-dark/8 px-2.5 py-0.5 rounded-md">
 //               फसल चक्र पूर्वानुमान
 //             </span>
 //           </h1>
@@ -188,7 +188,7 @@
 //         <div className="bg-white border border-gray-200/60 rounded-2xl p-4 shadow-sm hover:shadow transition-all flex flex-col justify-between h-[105px]">
 //           <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">CURRENT PHASE</span>
 //           <h4 className="text-xl font-black text-gray-900 mt-1">{phases[expandedPhase - 1]?.name || "Tillering"}</h4>
-//           <span className="bg-[#31572c]/8 text-[#31572c] font-black text-[9px] px-2 py-0.5 rounded w-max mt-2 tracking-wider uppercase">
+//           <span className="bg-brand-dark/8 text-[#31572c] font-black text-[9px] px-2 py-0.5 rounded w-max mt-2 tracking-wider uppercase">
 //             STAGE {expandedPhase || 4} OF 8
 //           </span>
 //         </div>
@@ -356,7 +356,7 @@
 //                               className={`h-[36px] w-full text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5 border border-transparent ${
 //                                 isPhase4Complete
 //                                   ? "bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200 cursor-pointer"
-//                                   : "bg-[#31572c] hover:bg-[#132a13] text-[#ecf39e] active:scale-[0.98] cursor-pointer"
+//                                   : "bg-brand-dark hover:bg-[#132a13] text-[#ecf39e] active:scale-[0.98] cursor-pointer"
 //                               }`}
 //                             >
 //                               <Check className="w-4 h-4" />
@@ -1125,7 +1125,7 @@ export default function LifecycleGuidance() {
           <h1 className="text-base md:text-lg font-bold text-gray-900 flex items-center gap-2">
             <span>AI Lifecycle Guidance</span>
             <span className="text-gray-300 font-light">|</span>
-            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-[#31572c]/8 px-2 py-0.5 rounded-md">
+            <span className="text-[#31572c] font-bold text-[10px] md:text-xs bg-brand-dark/8 px-2 py-0.5 rounded-md">
               फसल चक्र पूर्वानुमान
             </span>
           </h1>
@@ -1191,7 +1191,7 @@ export default function LifecycleGuidance() {
       {/* Progress Bar */}
       <div className="bg-gray-100 rounded-full h-1.5 overflow-hidden">
         <div
-          className="bg-[#31572c] h-full rounded-full transition-all"
+          className="bg-brand-dark h-full rounded-full transition-all"
           style={{ width: `${(currentStage.stageId / 8) * 100}%` }}
         />
       </div>
@@ -1272,7 +1272,7 @@ export default function LifecycleGuidance() {
                       isCompleted
                         ? "bg-emerald-600 text-white"
                         : isCurrent
-                          ? "bg-[#31572c] text-white ring-4 ring-[#31572c]/20"
+                          ? "bg-brand-dark text-white ring-4 ring-[#31572c]/20"
                           : "bg-gray-100 text-gray-500"
                     }`}
                   >
@@ -1288,7 +1288,7 @@ export default function LifecycleGuidance() {
                           {phase.name}
                         </span>
                         {isCurrent && (
-                          <span className="ml-2 text-[8px] text-[#31572c] bg-[#31572c]/10 px-1.5 py-0.5 rounded">
+                          <span className="ml-2 text-[8px] text-[#31572c] bg-brand-dark/10 px-1.5 py-0.5 rounded">
                             Current
                           </span>
                         )}
@@ -1305,7 +1305,7 @@ export default function LifecycleGuidance() {
                         {phase.id === 4 && !isCompleted && (
                           <button
                             onClick={() => handleMarkComplete(4)}
-                            className="mt-2 w-full bg-[#31572c] text-white text-[9px] font-bold py-1.5 rounded-lg hover:bg-[#1e3a1a] transition-colors"
+                            className="mt-2 w-full bg-brand-dark text-white text-[9px] font-bold py-1.5 rounded-lg hover:bg-[#1e3a1a] transition-colors"
                           >
                             Mark Phase Complete
                           </button>

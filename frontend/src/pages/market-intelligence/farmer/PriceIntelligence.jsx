@@ -89,10 +89,10 @@ export default function PriceIntelligence() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Price Intelligence</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Price Intelligence</h1>
           <p className="text-xs text-gray-500 mt-1">Deep commodity price analysis and trends</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+        <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
           <RefreshCw className="w-4 h-4" /> Refresh Data
         </button>
       </div>
@@ -107,7 +107,7 @@ export default function PriceIntelligence() {
               onClick={() => setSelectedCommodity(commodity)}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
                 selectedCommodity === commodity
-                  ? "bg-[#2e4057] text-white"
+                  ? "bg-brand-darkest text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -121,12 +121,12 @@ export default function PriceIntelligence() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
           <div className="flex items-center gap-3 mb-3">
-            <div className="p-2.5 rounded-xl bg-[#28a745]/10 text-[#28a745]">
+            <div className="p-2.5 rounded-xl bg-brand-medium/10 text-brand-medium">
               <DollarSign className="w-5 h-5" />
             </div>
             <span className="text-xs text-gray-500 font-semibold">Current Price</span>
           </div>
-          <p className="text-2xl font-black text-[#2e4057]">₹{priceSummary.currentPrice}</p>
+          <p className="text-2xl font-black text-brand-darkest">₹{priceSummary.currentPrice}</p>
           <p className="text-xs text-gray-400 mt-1">per quintal</p>
         </div>
 
@@ -137,7 +137,7 @@ export default function PriceIntelligence() {
             </div>
             <span className="text-xs text-gray-500 font-semibold">National Average</span>
           </div>
-          <p className="text-2xl font-black text-[#2e4057]">₹{priceSummary.nationalAverage}</p>
+          <p className="text-2xl font-black text-brand-darkest">₹{priceSummary.nationalAverage}</p>
           <p className="text-xs text-gray-400 mt-1">per quintal</p>
         </div>
 
@@ -148,7 +148,7 @@ export default function PriceIntelligence() {
             </div>
             <span className="text-xs text-gray-500 font-semibold">State Average</span>
           </div>
-          <p className="text-2xl font-black text-[#2e4057]">₹{priceSummary.stateAverage}</p>
+          <p className="text-2xl font-black text-brand-darkest">₹{priceSummary.stateAverage}</p>
           <p className="text-xs text-gray-400 mt-1">per quintal</p>
         </div>
 
@@ -159,7 +159,7 @@ export default function PriceIntelligence() {
             </div>
             <span className="text-xs text-gray-500 font-semibold">MSP Reference</span>
           </div>
-          <p className="text-2xl font-black text-[#2e4057]">₹{priceSummary.mspReference}</p>
+          <p className="text-2xl font-black text-brand-darkest">₹{priceSummary.mspReference}</p>
           <p className="text-xs text-gray-400 mt-1">per quintal</p>
         </div>
       </div>
@@ -185,7 +185,7 @@ export default function PriceIntelligence() {
       {/* Advanced Price Charts */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Historical Price Trend</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Historical Price Trend</h2>
           <div className="flex items-center gap-1">
             {timeFilters.map((filter) => (
               <button
@@ -193,7 +193,7 @@ export default function PriceIntelligence() {
                 onClick={() => setSelectedTimeFilter(filter)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                   selectedTimeFilter === filter
-                    ? "bg-[#2e4057] text-white"
+                    ? "bg-brand-darkest text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -215,7 +215,7 @@ export default function PriceIntelligence() {
               }}
             />
             <Legend />
-            <Area type="monotone" dataKey="price" stroke="#28a745" fill="#28a745" fillOpacity={0.3} name="Price" />
+            <Area type="monotone" dataKey="price" stroke="var(--brand-medium)" fill="var(--brand-medium)" fillOpacity={0.3} name="Price" />
             <Line type="monotone" dataKey="movingAvg" stroke="#3b82f6" strokeWidth={2} dot={false} name="Moving Average" />
           </AreaChart>
         </ResponsiveContainer>
@@ -223,7 +223,7 @@ export default function PriceIntelligence() {
 
       {/* Seasonal Analysis */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Seasonal Analysis (12-Month Heatmap)</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Seasonal Analysis (12-Month Heatmap)</h2>
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {seasonalData.map((item) => (
             <div key={item.month} className="text-center">
@@ -253,7 +253,7 @@ export default function PriceIntelligence() {
 
       {/* Price Distribution Analytics */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Price Distribution Analytics</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Price Distribution Analytics</h2>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={volatilityData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -266,37 +266,37 @@ export default function PriceIntelligence() {
                 borderRadius: "8px",
               }}
             />
-            <Bar dataKey="count" fill="#28a745" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="count" fill="var(--brand-medium)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
         <div className="mt-4 grid grid-cols-3 gap-4">
           <div className="text-center p-3 bg-gray-50 rounded-xl">
             <p className="text-xs text-gray-500 font-semibold">Average Range</p>
-            <p className="text-lg font-black text-[#2e4057]">₹2,100-2,200</p>
+            <p className="text-lg font-black text-brand-darkest">₹2,100-2,200</p>
           </div>
           <div className="text-center p-3 bg-gray-50 rounded-xl">
             <p className="text-xs text-gray-500 font-semibold">Most Frequent</p>
-            <p className="text-lg font-black text-[#2e4057]">30 occurrences</p>
+            <p className="text-lg font-black text-brand-darkest">30 occurrences</p>
           </div>
           <div className="text-center p-3 bg-gray-50 rounded-xl">
             <p className="text-xs text-gray-500 font-semibold">Outliers</p>
-            <p className="text-lg font-black text-[#2e4057]">2.4%</p>
+            <p className="text-lg font-black text-brand-darkest">2.4%</p>
           </div>
         </div>
       </div>
 
       {/* Price Volatility Gauge */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Price Volatility Gauge</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Price Volatility Gauge</h2>
         <div className="flex items-center justify-center gap-8">
           <div className="relative w-48 h-48">
             <svg className="w-full h-full transform -rotate-90">
               <circle cx="96" cy="96" r="80" stroke="#e5e7eb" strokeWidth="16" fill="none" />
-              <circle cx="96" cy="96" r="80" stroke="#28a745" strokeWidth="16" fill="none" strokeDasharray="502" strokeDashoffset="351" strokeLinecap="round" />
+              <circle cx="96" cy="96" r="80" stroke="var(--brand-medium)" strokeWidth="16" fill="none" strokeDasharray="502" strokeDashoffset="351" strokeLinecap="round" />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <Gauge className="w-8 h-8 text-[#28a745] mb-1" />
-              <span className="text-3xl font-black text-[#2e4057]">Moderate</span>
+              <Gauge className="w-8 h-8 text-brand-medium mb-1" />
+              <span className="text-3xl font-black text-brand-darkest">Moderate</span>
               <span className="text-xs text-gray-500">Volatility</span>
             </div>
           </div>

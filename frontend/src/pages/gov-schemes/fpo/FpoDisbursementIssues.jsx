@@ -82,7 +82,7 @@ export default function FpoDisbursementIssues() {
           }}
           className={`px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-sm ${
             actionLabel === "Fix Now"
-              ? "bg-[#2e4057] hover:bg-[#3a5170] text-white"
+              ? "bg-brand-darkest hover:bg-brand-dark text-white"
               : actionLabel === "Contact Farmer"
               ? "bg-red-600 hover:bg-red-700 text-white"
               : "border border-amber-500 hover:bg-amber-50 text-amber-700"
@@ -170,7 +170,7 @@ export default function FpoDisbursementIssues() {
       {/* Scheme Disbursement Funnel Cards */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-black text-[#2e4057] uppercase tracking-wider">Active Scheme Disbursement Pipelines</h3>
+          <h3 className="text-xs font-black text-brand-darkest uppercase tracking-wider">Active Scheme Disbursement Pipelines</h3>
           {tableFilter !== "All" && (
             <button
               onClick={() => setTableFilter("All")}
@@ -190,7 +190,7 @@ export default function FpoDisbursementIssues() {
             </div>
             <div className="text-right">
               <span className="text-xs font-bold text-gray-500">Total Disbursed: </span>
-              <strong className="text-sm font-black text-[#2e4057]">₹11.16 Lakh</strong>
+              <strong className="text-sm font-black text-brand-darkest">₹11.16 Lakh</strong>
               <span className="mx-2 text-gray-300">|</span>
               <span className="text-xs font-bold text-gray-500">Stuck: </span>
               <strong className="text-sm font-black text-red-600">₹1.08 Lakh</strong>
@@ -300,7 +300,7 @@ export default function FpoDisbursementIssues() {
               <strong className="text-sm font-black text-gray-800">₹78,000 / Farmer</strong>
               <span className="mx-2 text-gray-300">|</span>
               <span className="text-xs font-bold text-gray-500">Total Outstanding: </span>
-              <strong className="text-sm font-black text-[#2e4057]">₹2.08 Cr</strong>
+              <strong className="text-sm font-black text-brand-darkest">₹2.08 Cr</strong>
             </div>
           </div>
 
@@ -433,7 +433,7 @@ export default function FpoDisbursementIssues() {
       {/* Monthly Benefit Flow Chart */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm relative">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-sm font-black text-[#2e4057]">Monthly Benefits Reaching Farmers — 2024</h3>
+          <h3 className="text-sm font-black text-brand-darkest">Monthly Benefits Reaching Farmers — 2024</h3>
           <span className="text-[10px] bg-green-50 text-green-700 border border-green-200 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1">
             <Clock className="w-3.5 h-3.5" />
             August Spike: PM-KISAN Kharif Installment

@@ -493,19 +493,19 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
-                  <tr className="hover:bg-[#4f772d]/5 transition-colors">
+                  <tr className="hover:bg-brand-medium/5 transition-colors">
                     <td className="p-2.5 text-red-600 font-bold uppercase">CRITICAL</td>
                     <td className="p-2.5">Wheat (Rust)</td>
                     <td className="p-2.5">Ferozepur, Punjab</td>
                     <td className="p-2.5 text-right font-mono text-gray-400">10 mins ago</td>
                   </tr>
-                  <tr className="hover:bg-[#4f772d]/5 transition-colors">
+                  <tr className="hover:bg-brand-medium/5 transition-colors">
                     <td className="p-2.5 text-amber-600 font-bold uppercase">HIGH</td>
                     <td className="p-2.5">Cotton (Whitefly)</td>
                     <td className="p-2.5">Rajkot, Gujarat</td>
                     <td className="p-2.5 text-right font-mono text-gray-400">22 mins ago</td>
                   </tr>
-                  <tr className="hover:bg-[#4f772d]/5 transition-colors">
+                  <tr className="hover:bg-brand-medium/5 transition-colors">
                     <td className="p-2.5 text-blue-600 font-bold uppercase">MEDIUM</td>
                     <td className="p-2.5">Sugarcane (Borer)</td>
                     <td className="p-2.5">Kolhapur, Maharashtra</td>
@@ -526,7 +526,7 @@ export default function AdminDashboard() {
                 </thead>
                 <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
                   {recentInteractions.map((item) => (
-                    <tr key={item.id} className="hover:bg-[#4f772d]/5 transition-colors">
+                    <tr key={item.id} className="hover:bg-brand-medium/5 transition-colors">
                       <td className="p-2.5 font-bold text-gray-955">{item.user}</td>
                       <td className="p-2.5 text-[10px] text-gray-500 uppercase">{item.role}</td>
                       <td className="p-2.5">

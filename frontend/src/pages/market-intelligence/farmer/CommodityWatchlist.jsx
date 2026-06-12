@@ -75,16 +75,16 @@ export default function CommodityWatchlist() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Commodity Watchlist</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Commodity Watchlist</h1>
           <p className="text-xs text-gray-500 mt-1">Track and monitor your important commodities</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+          <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
             <RefreshCw className="w-4 h-4" /> Refresh
           </button>
           <button 
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#28a745] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition"
+            className="flex items-center gap-2 px-4 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
           >
             <Plus className="w-4 h-4" /> Add Commodity
           </button>
@@ -102,7 +102,7 @@ export default function CommodityWatchlist() {
             )}
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h3 className="text-lg font-black text-[#2e4057]">{item.commodity}</h3>
+                <h3 className="text-lg font-black text-brand-darkest">{item.commodity}</h3>
                 <p className="text-xs text-gray-500">Current Price</p>
               </div>
               <div className="flex items-center gap-1">
@@ -122,7 +122,7 @@ export default function CommodityWatchlist() {
             </div>
 
             <div className="mb-4">
-              <p className="text-2xl font-black text-[#2e4057]">₹{item.currentPrice}</p>
+              <p className="text-2xl font-black text-brand-darkest">₹{item.currentPrice}</p>
               <p className="text-xs text-gray-400">per quintal</p>
             </div>
 
@@ -131,7 +131,7 @@ export default function CommodityWatchlist() {
                 <span className="text-xs text-gray-500 font-semibold">Demand Score</span>
                 <div className="flex items-center gap-2">
                   <div className="w-16 bg-gray-200 h-2 rounded-full overflow-hidden">
-                    <div className="bg-[#28a745] h-full" style={{ width: `${item.demandScore}%` }}></div>
+                    <div className="bg-brand-medium h-full" style={{ width: `${item.demandScore}%` }}></div>
                   </div>
                   <span className="text-xs font-bold text-gray-700">{item.demandScore}</span>
                 </div>
@@ -169,7 +169,7 @@ export default function CommodityWatchlist() {
 
       {/* Watchlist Performance Chart */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Watchlist Performance</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Watchlist Performance</h2>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={watchlistPerformanceData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -183,7 +183,7 @@ export default function CommodityWatchlist() {
               }}
             />
             <Legend />
-            <Line type="monotone" dataKey="wheat" stroke="#28a745" strokeWidth={2} dot={false} name="Wheat" />
+            <Line type="monotone" dataKey="wheat" stroke="var(--brand-medium)" strokeWidth={2} dot={false} name="Wheat" />
             <Line type="monotone" dataKey="rice" stroke="#3b82f6" strokeWidth={2} dot={false} name="Rice" />
             <Line type="monotone" dataKey="soybean" stroke="#f59e0b" strokeWidth={2} dot={false} name="Soybean" />
           </LineChart>
@@ -193,7 +193,7 @@ export default function CommodityWatchlist() {
       {/* Alert Status Panel */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Active Alerts</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Active Alerts</h2>
           <span className="text-xs text-gray-500">{activeAlerts.length} active alerts</span>
         </div>
         <div className="space-y-3">
@@ -204,7 +204,7 @@ export default function CommodityWatchlist() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xs font-bold text-[#2e4057]">{alert.commodity}</p>
+                  <p className="text-xs font-bold text-brand-darkest">{alert.commodity}</p>
                   <span className="text-[10px] text-gray-400">{alert.time}</span>
                 </div>
                 <p className="text-xs text-gray-600">{alert.message}</p>
@@ -219,7 +219,7 @@ export default function CommodityWatchlist() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-bold text-[#2e4057]">Add Commodity to Watchlist</h2>
+              <h2 className="text-sm font-bold text-brand-darkest">Add Commodity to Watchlist</h2>
               <button 
                 onClick={() => setShowAddModal(false)}
                 className="p-1 hover:bg-gray-100 rounded-lg"
@@ -230,7 +230,7 @@ export default function CommodityWatchlist() {
             <div className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-[10px] font-bold text-gray-500 uppercase">Select Commodity</label>
-                <select className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#28a745] text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold">
+                <select className="w-full bg-gray-50 border border-gray-200 focus:outline-none focus:border-brand-medium text-xs px-3 py-2 rounded-xl text-gray-800 font-semibold">
                   <option>Wheat</option>
                   <option>Rice</option>
                   <option>Cotton</option>
@@ -249,7 +249,7 @@ export default function CommodityWatchlist() {
                 </button>
                 <button 
                   onClick={() => setShowAddModal(false)}
-                  className="flex-1 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition"
+                  className="flex-1 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                 >
                   Add to Watchlist
                 </button>

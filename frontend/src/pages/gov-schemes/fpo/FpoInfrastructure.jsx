@@ -43,7 +43,7 @@ const FpoInfrastructure = () => {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <Building2 className="w-5 h-5 text-[#4f772d]" />
+          <Building2 className="w-5 h-5 text-brand-medium" />
           Infrastructure Support Planning
         </h1>
         <p className="text-xs text-gray-500 mt-1">Design post-harvest storage facilities, cold chain networks, and custom hiring hubs with central subsidies.</p>
@@ -81,7 +81,7 @@ const FpoInfrastructure = () => {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-1 flex items-center gap-1">
-              <Calculator className="w-4 h-4 text-[#4f772d]" />
+              <Calculator className="w-4 h-4 text-brand-medium" />
               Infrastructure ROI Calculator
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">Simulate capital investment requirements and expected payback under 35% subvention</p>
@@ -102,7 +102,7 @@ const FpoInfrastructure = () => {
                 />
               </div>
 
-              <div className="space-y-2 bg-[#f4f7f4]/45 border border-[#4f772d]/10 rounded-xl p-3.5 text-xs">
+              <div className="space-y-2 bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-xl p-3.5 text-xs">
                 <div className="flex justify-between font-bold">
                   <span className="text-gray-500">Government Share (35%):</span>
                   <span className="text-emerald-700 font-black">₹{calculatedSubsidy.toLocaleString()}</span>
@@ -121,7 +121,7 @@ const FpoInfrastructure = () => {
           <button 
             type="button" 
             onClick={() => setShowDprModal(true)}
-            className="w-full mt-4 text-xs font-bold text-center py-2.5 bg-[#132a13] text-white rounded-xl hover:bg-[#31572c] transition"
+            className="w-full mt-4 text-xs font-bold text-center py-2.5 bg-[#132a13] text-white rounded-xl hover:bg-brand-dark transition"
           >
             Generate Detailed Business DPR
           </button>
@@ -140,14 +140,14 @@ const FpoInfrastructure = () => {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-base font-black text-[#132a13] flex items-center gap-2 mb-2">
-              <Building2 className="w-5 h-5 text-[#4f772d]" />
+              <Building2 className="w-5 h-5 text-brand-medium" />
               Generate Detailed Project Report (DPR)
             </h2>
             <p className="text-xs text-gray-500 mb-4">Create a compliance-ready DPR document for Bank Appraisal and AIF subvention applications.</p>
 
             {dprProgress ? (
               <div className="space-y-4 py-6 text-center">
-                <div className="w-12 h-12 border-4 border-[#4f772d] border-t-transparent rounded-full animate-spin mx-auto"></div>
+                <div className="w-12 h-12 border-4 border-brand-medium border-t-transparent rounded-full animate-spin mx-auto"></div>
                 <div className="text-xs font-bold text-[#132a13]">
                   {dprStage === 1 && "Fetching cooperative registration records..."}
                   {dprStage === 2 && "Calculating dynamic amortizations and cashflows..."}
@@ -177,7 +177,7 @@ const FpoInfrastructure = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2 bg-[#f4f7f4]/45 border border-[#4f772d]/10 rounded-xl p-3.5 text-xs text-gray-650 font-semibold">
+                <div className="space-y-2 bg-[#f4f7f4]/45 border border-brand-medium/10 rounded-xl p-3.5 text-xs text-gray-650 font-semibold">
                   <div className="flex justify-between">
                     <span>Project Cost:</span>
                     <span className="font-bold text-gray-800">₹{costSlider.toLocaleString()}</span>
@@ -202,7 +202,7 @@ const FpoInfrastructure = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#4f772d] hover:bg-[#31572c] text-white rounded-xl text-xs font-bold transition"
+                    className="flex-1 py-2 bg-brand-medium hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition"
                   >
                     Compile DPR Draft
                   </button>

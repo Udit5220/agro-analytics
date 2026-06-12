@@ -145,7 +145,7 @@ const FarmCropInsurance = () => {
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
           <div className="p-2 bg-[#132a13]/10 rounded-xl">
-            <ShieldCheck className="h-5 w-5 text-[#4f772d]" />
+            <ShieldCheck className="h-5 w-5 text-brand-medium" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#132a13]">Crop Insurance Hub</h1>
@@ -159,25 +159,25 @@ const FarmCropInsurance = () => {
         <StatsCard
           title="Insured Crops"
           value={overviewCards.insuredCrops}
-          icon={<Wheat className="text-[#4f772d]" />}
+          icon={<Wheat className="text-brand-medium" />}
           subtext="Wheat + Rice + Cane"
         />
         <StatsCard
           title="Coverage Value"
           value={overviewCards.coverageValue}
-          icon={<ShieldCheck className="text-[#4f772d]" />}
+          icon={<ShieldCheck className="text-brand-medium" />}
           subtext="Total sum assured"
         />
         <StatsCard
           title="Premium Paid"
           value={overviewCards.premiumPaid}
-          icon={<IndianRupee className="text-[#4f772d]" />}
+          icon={<IndianRupee className="text-brand-medium" />}
           subtext="Kharif + Rabi total"
         />
         <StatsCard
           title="Claims Submitted"
           value={overviewCards.claimsSubmitted}
-          icon={<FileText className="text-[#4f772d]" />}
+          icon={<FileText className="text-brand-medium" />}
           subtext="1 Claim Settled"
         />
         <StatsCard
@@ -193,7 +193,7 @@ const FarmCropInsurance = () => {
         {coverageCards.map((crop, idx) => (
           <div
             key={idx}
-            className="bg-white rounded-2xl shadow-sm border border-gray-150 overflow-hidden hover:shadow-md hover:border-[#4f772d]/15 transition-all duration-200"
+            className="bg-white rounded-2xl shadow-sm border border-gray-150 overflow-hidden hover:shadow-md hover:border-brand-medium/15 transition-all duration-200"
           >
             <div className="p-5 flex flex-col justify-between h-full">
               <div>
@@ -202,7 +202,7 @@ const FarmCropInsurance = () => {
                     {crop.crop === "Wheat" ? (
                       <Wheat className="w-5 h-5 text-[#90a955]" />
                     ) : (
-                      <Leaf className="w-5 h-5 text-[#4f772d]" />
+                      <Leaf className="w-5 h-5 text-brand-medium" />
                     )}
                     <div>
                       <h3 className="font-bold text-[#132a13] text-sm leading-tight">
@@ -247,7 +247,7 @@ const FarmCropInsurance = () => {
 
               <button
                 onClick={() => setSelectedPolicy(crop)}
-                className="mt-4 w-full py-2 rounded-xl text-xs font-bold transition border border-gray-200 text-gray-650 hover:border-[#4f772d] hover:text-[#4f772d]"
+                className="mt-4 w-full py-2 rounded-xl text-xs font-bold transition border border-gray-200 text-gray-650 hover:border-brand-medium hover:text-brand-medium"
               >
                 View Policy details
               </button>
@@ -370,7 +370,7 @@ const FarmCropInsurance = () => {
                     <div
                       className={`w-8 h-8 rounded-full mx-auto flex items-center justify-center border z-10 relative ${
                         step.status === "completed"
-                          ? "bg-[#4f772d] border-[#4f772d] text-white"
+                          ? "bg-brand-medium border-brand-medium text-white"
                           : "bg-gray-100 border-gray-200 text-gray-400"
                       }`}
                     >
@@ -384,7 +384,7 @@ const FarmCropInsurance = () => {
                       <div
                         className={`absolute top-4 left-1/2 w-full h-0.5 -z-0 ${
                           step.status === "completed"
-                            ? "bg-[#4f772d]"
+                            ? "bg-brand-medium"
                             : "bg-gray-250"
                         }`}
                       ></div>
@@ -405,7 +405,7 @@ const FarmCropInsurance = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-150 overflow-hidden animate-fadeIn">
         <div className="px-6 py-4 border-b border-gray-100 bg-[#f4f7f4]/20">
           <div className="flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-[#4f772d]" />
+            <MapPin className="w-5 h-5 text-brand-medium" />
             <h3 className="font-bold text-[#132a13] text-sm">
               Geo-Risk Intelligence Matrix
             </h3>
@@ -434,15 +434,15 @@ const FarmCropInsurance = () => {
           </div>
 
           {/* Recommendations Callout */}
-          <div className="bg-[#f4f7f4] border border-[#4f772d]/10 rounded-2xl p-5">
+          <div className="bg-[#f4f7f4] border border-brand-medium/10 rounded-2xl p-5">
             <h4 className="text-xs font-bold text-[#132a13] mb-3 flex items-center gap-1.5">
-              <Shield className="w-4 h-4 text-[#4f772d]" />
+              <Shield className="w-4 h-4 text-brand-medium" />
               Agronomic Safety Recommendations
             </h4>
             <div className="space-y-2">
               {riskIntelligence.recommendations.map((rec, idx) => (
                 <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-700">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#4f772d] mt-1.5 shrink-0"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-brand-medium mt-1.5 shrink-0"></div>
                   <p className="leading-relaxed font-semibold">{rec}</p>
                 </div>
               ))}
@@ -470,8 +470,8 @@ const FarmCropInsurance = () => {
               </p>
 
               <div className="space-y-4">
-                <div className="bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl p-4 space-y-2 text-xs">
-                  <p className="font-bold text-[#132a13]">Crop Category: <span className="font-black text-[#4f772d]">{selectedPolicy.crop}</span></p>
+                <div className="bg-[#f4f7f4] border border-brand-medium/10 rounded-xl p-4 space-y-2 text-xs">
+                  <p className="font-bold text-[#132a13]">Crop Category: <span className="font-black text-brand-medium">{selectedPolicy.crop}</span></p>
                   <p className="text-gray-600">Season coverage: <span className="font-semibold">{selectedPolicy.season}</span></p>
                   <p className="text-gray-600">Sum Insured: <span className="font-bold text-gray-800">{selectedPolicy.sumInsured}</span></p>
                   <p className="text-gray-600 font-mono">Policy ID: PMFBY-{selectedPolicy.crop.toUpperCase()}-2026-00412</p>
@@ -486,7 +486,7 @@ const FarmCropInsurance = () => {
                 <div className="flex gap-2 justify-end pt-2">
                   <button
                     onClick={() => setSelectedPolicy(null)}
-                    className="px-4 py-2 bg-[#132a13] text-white rounded-xl text-xs font-semibold hover:bg-[#31572c] transition-all"
+                    className="px-4 py-2 bg-[#132a13] text-white rounded-xl text-xs font-semibold hover:bg-brand-dark transition-all"
                   >
                     Understood
                   </button>

@@ -191,7 +191,7 @@ export default function SavedInsights() {
           >
             {tab.name}
             {activeTab === tab.id && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#31572c] rounded-full animate-fadeIn" />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-dark rounded-full animate-fadeIn" />
             )}
           </button>
         ))}
@@ -279,7 +279,7 @@ export default function SavedInsights() {
             <div className="flex items-center gap-2 pt-3 border-t border-gray-50 mt-auto">
               <button
                 onClick={() => handlePrimaryAction(card)}
-                className="flex-1 bg-[#31572c] hover:bg-[#1e381b] text-white font-bold text-xs py-2 px-4 rounded-lg shadow-sm transition flex items-center justify-center gap-2"
+                className="flex-1 bg-brand-dark hover:bg-[#1e381b] text-white font-bold text-xs py-2 px-4 rounded-lg shadow-sm transition flex items-center justify-center gap-2"
               >
                 {card.type === "chats" && (
                   <svg
@@ -382,7 +382,7 @@ export default function SavedInsights() {
             {/* Modal Header */}
             <div className="p-5 border-b border-gray-100 bg-[#eef3eb]/45 flex justify-between items-start">
               <div>
-                <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-[#31572c]/10 text-[#31572c] uppercase tracking-wider">
+                <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-brand-dark/10 text-[#31572c] uppercase tracking-wider">
                   {activeViewReport.type}
                 </span>
                 <h3 className="text-base font-black text-gray-900 tracking-tight mt-1">
@@ -436,7 +436,7 @@ export default function SavedInsights() {
                   handleDownload(activeViewReport.id);
                   setActiveViewReport(null);
                 }}
-                className="bg-[#31572c] hover:bg-[#1e381b] text-white px-4 py-2 rounded-lg text-xs font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
+                className="bg-brand-dark hover:bg-[#1e381b] text-white px-4 py-2 rounded-lg text-xs font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -450,7 +450,7 @@ export default function SavedInsights() {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#31572c] text-[#ecf39e] border border-[#4f772d]/30 px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 animate-fadeIn font-semibold text-xs transition-all duration-300">
+        <div className="fixed bottom-6 right-6 z-50 bg-brand-dark text-[#ecf39e] border border-brand-medium/30 px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 animate-fadeIn font-semibold text-xs transition-all duration-300">
           <svg className="w-4 h-4 text-[#ecf39e] shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>

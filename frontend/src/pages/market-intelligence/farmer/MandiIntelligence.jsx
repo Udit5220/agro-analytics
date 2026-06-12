@@ -66,25 +66,25 @@ export default function MandiIntelligence() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#2e4057]">Mandi Intelligence</h1>
+          <h1 className="text-2xl font-black text-brand-darkest">Mandi Intelligence</h1>
           <p className="text-xs text-gray-500 mt-1">Compare mandis and find the best selling locations</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#2e4057] hover:bg-[#208837] text-white rounded-xl text-xs font-bold transition">
+        <button className="flex items-center gap-2 px-4 py-2 bg-brand-darkest hover:bg-brand-dark text-white rounded-xl text-xs font-bold transition">
           <RefreshCw className="w-4 h-4" /> Refresh Data
         </button>
       </div>
 
       {/* Interactive Mandi Map Placeholder */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Interactive Mandi Map</h2>
-        <div className="h-80 bg-gradient-to-br from-[#2e4057]/5 to-[#28a745]/10 rounded-xl flex items-center justify-center relative">
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Interactive Mandi Map</h2>
+        <div className="h-80 bg-gradient-to-br from-brand-darkest/5 to-brand-medium/10 rounded-xl flex items-center justify-center relative">
           <div className="text-center">
-            <MapPin className="w-12 h-12 text-[#28a745] mx-auto mb-2" />
+            <MapPin className="w-12 h-12 text-brand-medium mx-auto mb-2" />
             <p className="text-xs font-bold text-gray-500">Interactive Map</p>
             <p className="text-[10px] text-gray-400">MapTiler integration coming soon</p>
           </div>
           {/* Simulated markers */}
-          <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-[#28a745] rounded-full animate-pulse"></div>
+          <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-brand-medium rounded-full animate-pulse"></div>
           <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
           <div className="absolute bottom-1/3 left-1/2 w-4 h-4 bg-amber-500 rounded-full animate-pulse"></div>
         </div>
@@ -92,7 +92,7 @@ export default function MandiIntelligence() {
 
       {/* Nearby Markets Table */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-sm font-bold text-[#2e4057] mb-4">Nearby Markets</h2>
+        <h2 className="text-sm font-bold text-brand-darkest mb-4">Nearby Markets</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -108,7 +108,7 @@ export default function MandiIntelligence() {
             <tbody>
               {nearbyMarkets.map((market, index) => (
                 <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-2 text-sm font-bold text-[#2e4057]">{market.name}</td>
+                  <td className="py-3 px-2 text-sm font-bold text-brand-darkest">{market.name}</td>
                   <td className="py-3 px-2 text-sm font-semibold text-gray-700 flex items-center gap-1">
                     <Route className="w-3 h-3" /> {market.distance}
                   </td>
@@ -117,7 +117,7 @@ export default function MandiIntelligence() {
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-2">
                       <div className="w-16 bg-gray-200 h-2 rounded-full overflow-hidden">
-                        <div className="bg-[#28a745] h-full" style={{ width: `${market.buyerActivity}%` }}></div>
+                        <div className="bg-brand-medium h-full" style={{ width: `${market.buyerActivity}%` }}></div>
                       </div>
                       <span className="text-xs font-bold text-gray-700">{market.buyerActivity}</span>
                     </div>
@@ -138,7 +138,7 @@ export default function MandiIntelligence() {
       {/* Mandi Comparison Tool */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-[#2e4057]">Mandi Comparison Tool</h2>
+          <h2 className="text-sm font-bold text-brand-darkest">Mandi Comparison Tool</h2>
           <span className="text-xs text-gray-500">Compare up to 5 mandis</span>
         </div>
         <ResponsiveContainer width="100%" height={300}>
@@ -154,7 +154,7 @@ export default function MandiIntelligence() {
               }}
             />
             <Legend />
-            <Bar dataKey="price" fill="#28a745" name="Price (₹)" />
+            <Bar dataKey="price" fill="var(--brand-medium)" name="Price (₹)" />
             <Bar dataKey="arrival" fill="#3b82f6" name="Arrival (tons)" />
             <Bar dataKey="buyers" fill="#f59e0b" name="Buyer Activity" />
           </BarChart>
@@ -162,7 +162,7 @@ export default function MandiIntelligence() {
       </div>
 
       {/* Best Selling Market Card */}
-      <div className="bg-gradient-to-r from-[#2e4057] to-[#208837] rounded-2xl p-6 shadow-lg text-white">
+      <div className="bg-gradient-to-r from-brand-darkest to-[#208837] rounded-2xl p-6 shadow-lg text-white">
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2.5 bg-white/20 rounded-xl">
             <Star className="w-6 h-6" />
@@ -199,7 +199,7 @@ export default function MandiIntelligence() {
       {/* Buyer Activity Analytics */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-[#2e4057] mb-4">Buyer Activity Timeline</h2>
+          <h2 className="text-sm font-bold text-brand-darkest mb-4">Buyer Activity Timeline</h2>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={buyerActivityData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -212,20 +212,20 @@ export default function MandiIntelligence() {
                   borderRadius: "8px",
                 }}
               />
-              <Line type="monotone" dataKey="activity" stroke="#28a745" strokeWidth={2} dot={{ fill: "#28a745" }} name="Activity %" />
+              <Line type="monotone" dataKey="activity" stroke="var(--brand-medium)" strokeWidth={2} dot={{ fill: "var(--brand-medium)" }} name="Activity %" />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-[#2e4057] mb-4">Buyer Activity Summary</h2>
+          <h2 className="text-sm font-bold text-brand-darkest mb-4">Buyer Activity Summary</h2>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
               <div className="flex items-center gap-3">
-                <Users className="w-5 h-5 text-[#28a745]" />
+                <Users className="w-5 h-5 text-brand-medium" />
                 <div>
                   <p className="text-xs text-gray-500 font-semibold">Active Buyers</p>
-                  <p className="text-sm font-bold text-[#2e4057]">245 today</p>
+                  <p className="text-sm font-bold text-brand-darkest">245 today</p>
                 </div>
               </div>
               <span className="text-xs font-bold text-emerald-600">+12%</span>
@@ -235,7 +235,7 @@ export default function MandiIntelligence() {
                 <DollarSign className="w-5 h-5 text-blue-600" />
                 <div>
                   <p className="text-xs text-gray-500 font-semibold">Purchase Volume</p>
-                  <p className="text-sm font-bold text-[#2e4057]">1,850 tons</p>
+                  <p className="text-sm font-bold text-brand-darkest">1,850 tons</p>
                 </div>
               </div>
               <span className="text-xs font-bold text-emerald-600">+8%</span>
@@ -245,7 +245,7 @@ export default function MandiIntelligence() {
                 <TrendingUp className="w-5 h-5 text-amber-600" />
                 <div>
                   <p className="text-xs text-gray-500 font-semibold">Demand Intensity</p>
-                  <p className="text-sm font-bold text-[#2e4057]">Very High</p>
+                  <p className="text-sm font-bold text-brand-darkest">Very High</p>
                 </div>
               </div>
               <span className="text-xs font-bold text-emerald-600">Peak</span>

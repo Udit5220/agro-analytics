@@ -197,7 +197,7 @@ export default function ProblemDetection() {
                 </p>
 
                 <div className="flex gap-2 pt-1">
-                  <button className="bg-[#132a13] hover:bg-[#31572c] text-white font-bold text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-xl shadow-xs transition">
+                  <button className="bg-[#132a13] hover:bg-brand-dark text-white font-bold text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-xl shadow-xs transition">
                     Retrain Model
                   </button>
                   <button className="bg-white border border-gray-200 text-gray-700 font-bold text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-xl hover:bg-gray-50 transition">
@@ -233,7 +233,7 @@ export default function ProblemDetection() {
             </thead>
             <tbody className="divide-y divide-gray-50 font-semibold text-gray-700">
               {issueLog.map((row) => (
-                <tr key={row.id} className="hover:bg-[#4f772d]/5 transition-colors">
+                <tr key={row.id} className="hover:bg-brand-medium/5 transition-colors">
                   <td className="p-3 font-mono text-gray-500">{row.id}</td>
                   <td className="p-3 font-bold text-gray-900">{row.category}</td>
                   <td className="p-3 text-gray-600 truncate max-w-[200px]">{row.title}</td>

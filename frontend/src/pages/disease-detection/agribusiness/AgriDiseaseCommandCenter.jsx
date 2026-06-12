@@ -46,7 +46,7 @@ export default function AgriDiseaseCommandCenter() {
     <div className="space-y-6 animate-fadeIn text-left font-['Plus_Jakarta_Sans',_sans-serif]">
       {/* Header */}
       <div className="flex items-center gap-3.5 mb-1">
-        <div className="h-10 w-10 bg-[#31572c]/10 text-[#31572c] rounded-xl flex items-center justify-center">
+        <div className="h-10 w-10 bg-brand-dark/10 text-[#31572c] rounded-xl flex items-center justify-center">
           <Sprout className="w-5 h-5" />
         </div>
         <div>
@@ -238,7 +238,7 @@ export default function AgriDiseaseCommandCenter() {
             <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Executive Action Center</span>
             <button
               onClick={() => navigate("/module/disease-detection/contract-farming")}
-              className="w-full py-2.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+              className="w-full py-2.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
             >
               <FileText className="w-4 h-4" /> Evaluate Contract Risks
             </button>
@@ -278,7 +278,7 @@ export default function AgriDiseaseCommandCenter() {
                       <span>{val}%</span>
                     </div>
                     <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                      <div className="h-full rounded-full bg-[#31572c]" style={{ width: `${val}%` }} />
+                      <div className="h-full rounded-full bg-brand-dark" style={{ width: `${val}%` }} />
                     </div>
                   </div>
                 )

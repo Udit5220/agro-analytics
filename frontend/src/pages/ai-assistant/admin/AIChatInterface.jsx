@@ -67,7 +67,7 @@ function getDynamicFallback(query, role) {
 *(Note: Live Gemini inference is currently offline. Running local agronomist consultation engine)*`;
   }
 
-  if (role === "fpo") {
+  if (role === "fpo" || role === "fpo_manager") {
     if (q.includes("logistics") || q.includes("transport") || q.includes("delivery") || q.includes("vehicle") || q.includes("truck")) {
       return `### FPO Cluster Logistics & Dispatch Optimization (लॉजिस्टिक्स एवं परिवहन)
 • **Fleet Assessment**: Consolidated requirements for **Cluster B** require **120 Tons** of haulage capacity.
@@ -248,6 +248,25 @@ const roleHistoricalChatsMatrix = {
     },
   ],
   fpo: [
+    {
+      id: "chat_1",
+      title: "Bulk Fertilizer Pool Logistics",
+      pinned: true,
+      model: "AgroAI v4.2",
+      location: "Procurement Desk",
+      createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+      updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+      messages: [
+        {
+          id: "msg_1",
+          sender: "ai",
+          text: "Urea order requirements for **Cluster B** have been aggregated to 120 Tons. Ready for forward clearance allocations.",
+          timestamp: new Date().toISOString(),
+        },
+      ],
+    },
+  ],
+  fpo_manager: [
     {
       id: "chat_1",
       title: "Bulk Fertilizer Pool Logistics",
@@ -463,6 +482,7 @@ export default function AIChatInterface() {
     const roleLabels = {
       farmer: "Crop Optimization & Disease Diagnostics Workspace",
       fpo: "FPO Aggregation & Logistics Orchestration Console",
+      fpo_manager: "FPO Aggregation & Logistics Orchestration Console",
       trader: "Mandi Arbitrage & Price Forecasting Ledger",
       procurement: "Bulk Sourcing & Supply Chain Gate Pass Matrix",
       researcher: "Scientific Literature Summarization & Plot Analytics Engine",
@@ -933,7 +953,7 @@ export default function AIChatInterface() {
               placeholder="Search history stream..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full text-xs bg-gray-50 border border-gray-100 rounded-xl py-2.5 pl-8 pr-3 font-semibold focus:outline-none focus:border-[#4f772d]/40"
+              className="w-full text-xs bg-gray-50 border border-gray-100 rounded-xl py-2.5 pl-8 pr-3 font-semibold focus:outline-none focus:border-brand-medium/40"
             />
             <Search className="w-3.5 h-3.5 absolute left-3 top-3 text-gray-400" />
           </div>
@@ -979,7 +999,7 @@ export default function AIChatInterface() {
               <h1 className="text-sm font-black text-gray-900 tracking-tight flex items-center gap-2">
                 {activeChat.title}
                 {activeChat.pinned && (
-                  <Pin className="w-3.5 h-3.5 text-[#4f772d] fill-current" />
+                  <Pin className="w-3.5 h-3.5 text-brand-medium fill-current" />
                 )}
               </h1>
               <p className="text-[10px] font-bold text-gray-400 mt-0.5 uppercase tracking-wider flex items-center gap-1.5">
@@ -1007,7 +1027,7 @@ export default function AIChatInterface() {
                 className={`flex items-start gap-3.5 max-w-2xl ${m.sender === "user" ? "flex-row-reverse" : ""}`}
               >
                 <div
-                  className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs ${m.sender === "user" ? "bg-gray-100 border border-gray-200/50 text-gray-600" : "bg-[#31572c] text-white"}`}
+                  className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs ${m.sender === "user" ? "bg-gray-100 border border-gray-200/50 text-gray-600" : "bg-brand-dark text-white"}`}
                 >
                   {m.sender === "user" ? (
                     <User className="w-3.5 h-3.5" />
@@ -1042,7 +1062,7 @@ export default function AIChatInterface() {
                           onClick={() =>
                             handleQuickAction(act.action, act.label)
                           }
-                          className="text-[11px] font-bold bg-[#31572c]/5 hover:bg-[#31572c]/10 text-[#31572c] border border-[#31572c]/10 px-3.5 py-1.5 rounded-full transition duration-150 cursor-pointer flex items-center gap-0.5"
+                          className="text-[11px] font-bold bg-brand-dark/5 hover:bg-brand-dark/10 text-[#31572c] border border-[#31572c]/10 px-3.5 py-1.5 rounded-full transition duration-150 cursor-pointer flex items-center gap-0.5"
                         >
                           {act.label}
                           <ArrowUpRight className="w-3 h-3 opacity-60" />
@@ -1086,7 +1106,7 @@ export default function AIChatInterface() {
             <button
               onClick={handleSendMessage}
               disabled={!inputMessage.trim() || isTyping}
-              className="bg-[#132a13] hover:bg-[#31572c] disabled:opacity-40 text-white w-12 h-11 rounded-xl flex items-center justify-center transition flex-shrink-0 shadow-sm cursor-pointer"
+              className="bg-[#132a13] hover:bg-brand-dark disabled:opacity-40 text-white w-12 h-11 rounded-xl flex items-center justify-center transition flex-shrink-0 shadow-sm cursor-pointer"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -1105,7 +1125,7 @@ const HistoryItem = ({ chat, isActive, onClick, onPin, onDelete }) => {
     >
       <div className="flex items-center gap-2 min-w-0 flex-1">
         {chat.pinned && (
-          <Pin className="w-3 h-3 text-[#4f772d] flex-shrink-0 fill-current" />
+          <Pin className="w-3 h-3 text-brand-medium flex-shrink-0 fill-current" />
         )}
         <span className="truncate pr-1">{chat.title}</span>
       </div>

@@ -372,7 +372,7 @@ Ministry of Agriculture & Farmers Welfare, New Delhi
             </thead>
             <tbody>
               {paginatedData.map((row, idx) => (
-                <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60">
+                <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60">
                   <td className="p-3.5 pl-6 font-bold text-gray-950">{row.disease}</td>
                   <td className="p-3.5">{row.state}</td>
                   <td className="p-3.5">{row.crop}</td>
@@ -424,7 +424,7 @@ Ministry of Agriculture & Farmers Welfare, New Delhi
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-3 py-1 rounded-md text-[10px] uppercase tracking-wider ${
-                  activeTab === tab ? "bg-[#31572c] text-white font-extrabold" : "hover:text-gray-900"
+                  activeTab === tab ? "bg-brand-dark text-white font-extrabold" : "hover:text-gray-900"
                 }`}
               >
                 {tab}
@@ -569,7 +569,7 @@ Ministry of Agriculture & Farmers Welfare, New Delhi
               </thead>
               <tbody>
                 {FORECAST_ACCURACY.map((row, idx) => (
-                  <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60">
+                  <tr key={idx} className="text-xs font-semibold text-gray-700 hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60">
                     <td className="p-3 pl-4 font-bold text-gray-900">{row.disease}</td>
                     <td className="p-3">{row.prediction}</td>
                     <td className="p-3 uppercase font-bold text-gray-600">{row.actual}</td>
@@ -580,7 +580,7 @@ Ministry of Agriculture & Farmers Welfare, New Delhi
             </table>
           </div>
           <div className="p-3.5 bg-emerald-50 border-t border-emerald-100 text-center shrink-0">
-            <span className="bg-[#31572c] text-[#ecf39e] font-black px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">
+            <span className="bg-brand-dark text-[#ecf39e] font-black px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">
               Overall System Accuracy: 83.4% Accuracy
             </span>
           </div>
@@ -640,7 +640,7 @@ Ministry of Agriculture & Farmers Welfare, New Delhi
             <p className="text-xs font-black text-gray-400 uppercase tracking-wider">Projected Future Threats</p>
             <div className="space-y-3">
               {briefingData.threats.map((thr, idx) => (
-                <div key={idx} className="bg-[#31572c]/30 border border-[#90a955]/20 p-3 rounded-xl flex flex-col justify-between">
+                <div key={idx} className="bg-brand-dark/30 border border-[#90a955]/20 p-3 rounded-xl flex flex-col justify-between">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-xs font-black text-white">{thr.disease}</span>
                     {getThreatBadge(thr.risk)}

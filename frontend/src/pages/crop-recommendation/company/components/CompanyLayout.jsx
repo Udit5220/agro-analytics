@@ -279,7 +279,7 @@ export default function CompanyLayout({
           <button
             onClick={() => generateAiBriefing(true)}
             disabled={aiLoading}
-            className="bg-[#132a13] hover:bg-[#31572c] text-white text-xs font-bold px-3.5 py-1.5 rounded-xl transition active:scale-95 disabled:opacity-50 cursor-pointer shadow flex items-center gap-1"
+            className="bg-[#132a13] hover:bg-brand-dark text-white text-xs font-bold px-3.5 py-1.5 rounded-xl transition active:scale-95 disabled:opacity-50 cursor-pointer shadow flex items-center gap-1"
           >
             {aiLoading ? (
               <>

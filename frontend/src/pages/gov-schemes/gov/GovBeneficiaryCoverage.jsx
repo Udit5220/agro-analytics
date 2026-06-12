@@ -72,7 +72,7 @@ export default function GovBeneficiaryCoverage() {
       {/* Header */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
         <h1 className="text-xl font-bold text-[#132a13] flex items-center gap-2">
-          <Users className="w-5 h-5 text-[#4f772d]" />
+          <Users className="w-5 h-5 text-brand-medium" />
           Beneficiary Coverage Intelligence
         </h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -82,7 +82,7 @@ export default function GovBeneficiaryCoverage() {
 
       {/* Main KPI Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatsCard title="Eligible Population" value={coverageDetails.totalEligible} subtext="Total agricultural workers" icon={<Users className="text-[#4f772d]" />} />
+        <StatsCard title="Eligible Population" value={coverageDetails.totalEligible} subtext="Total agricultural workers" icon={<Users className="text-brand-medium" />} />
         <StatsCard title="Covered Beneficiaries" value={coverageDetails.covered} trend={coverageDetails.rate} trendType="success" subtext="Receiving active benefits" />
         <StatsCard title="Uncovered Farmers" value={coverageDetails.uncovered} trend="29.7% Gap" trendType="danger" subtext="Not linked to any schemes" />
         <StatsCard title="Inclusion Target" value="95%" trend="Active Campaign" trendType="success" subtext="Target threshold by year end" />
@@ -95,7 +95,7 @@ export default function GovBeneficiaryCoverage() {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <Layers className="w-4 h-4 text-[#4f772d]" /> Inclusion Segments
+              <Layers className="w-4 h-4 text-brand-medium" /> Inclusion Segments
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               Select a target segment to evaluate structural inclusion indexes and core operational recommendations.
@@ -108,19 +108,19 @@ export default function GovBeneficiaryCoverage() {
                   onClick={() => setActiveCategory(key)}
                   className={`p-3 rounded-xl border text-xs font-bold text-left transition-all ${
                     activeCategory === key 
-                      ? "bg-[#132a13]/10 border-[#4f772d]/45" 
+                      ? "bg-[#132a13]/10 border-brand-medium/45" 
                       : "bg-gray-50 border-gray-100 hover:bg-gray-100"
                   }`}
                 >
                   <p className="text-gray-500 text-[9px] uppercase tracking-wide">Category</p>
                   <p className="font-black mt-0.5 capitalize">{key}</p>
-                  <p className="text-xs text-[#4f772d] font-bold mt-1">{value.rate}% Covered</p>
+                  <p className="text-xs text-brand-medium font-bold mt-1">{value.rate}% Covered</p>
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="bg-[#f4f7f4] border border-[#4f772d]/10 rounded-xl p-3.5 space-y-2 text-xs">
+          <div className="bg-[#f4f7f4] border border-brand-medium/10 rounded-xl p-3.5 space-y-2 text-xs">
             <div className="flex justify-between items-center">
               <span className="font-bold text-[#132a13]">{demographicLayers[activeCategory].title}</span>
               <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
@@ -131,7 +131,7 @@ export default function GovBeneficiaryCoverage() {
               Covered: <span className="font-bold text-gray-800">{demographicLayers[activeCategory].covered}</span> of {demographicLayers[activeCategory].total}
             </p>
             <p className="text-[10px] text-gray-400 font-mono flex items-center gap-1 mt-1">
-              <Sparkles className="w-3.5 h-3.5 text-[#4f772d]" /> Recommendation: {demographicLayers[activeCategory].actionText}
+              <Sparkles className="w-3.5 h-3.5 text-brand-medium" /> Recommendation: {demographicLayers[activeCategory].actionText}
             </p>
           </div>
         </div>
@@ -140,7 +140,7 @@ export default function GovBeneficiaryCoverage() {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <AlertTriangle className="w-4 h-4 text-[#4f772d]" /> Opportunity Detection Engine
+              <AlertTriangle className="w-4 h-4 text-brand-medium" /> Opportunity Detection Engine
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               AI-driven triggers pointing to regions with severe policy mismatches and missing benefits.
@@ -160,7 +160,7 @@ export default function GovBeneficiaryCoverage() {
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-[#132a13] text-sm mb-3 flex items-center gap-1.5">
-              <Send className="w-4 h-4 text-[#4f772d]" /> Direct Service Outreach Center
+              <Send className="w-4 h-4 text-brand-medium" /> Direct Service Outreach Center
             </h3>
             <p className="text-[10px] text-gray-400 mb-4">
               Schedule direct broadcast campaigns (WhatsApp/SMS) targeted at unlinked farmers in selected blocks.
@@ -177,7 +177,7 @@ export default function GovBeneficiaryCoverage() {
                 </p>
                 <button 
                   onClick={() => setCampaignSuccess(false)}
-                  className="text-[10px] font-bold text-[#4f772d] hover:underline"
+                  className="text-[10px] font-bold text-brand-medium hover:underline"
                 >
                   Launch another campaign
                 </button>
@@ -189,7 +189,7 @@ export default function GovBeneficiaryCoverage() {
                   <select 
                     value={campaignSegment}
                     onChange={(e) => setCampaignSegment(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] bg-white"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                   >
                     <option>Crop Insurance</option>
                     <option>KCC Loans</option>
@@ -202,7 +202,7 @@ export default function GovBeneficiaryCoverage() {
                   <select 
                     value={campaignBlock}
                     onChange={(e) => setCampaignBlock(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-[#4f772d] bg-white"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-medium bg-white"
                   >
                     <option>Sonipat Sector A</option>
                     <option>Panipat Sector D</option>
@@ -220,7 +220,7 @@ export default function GovBeneficiaryCoverage() {
                 <button
                   type="submit"
                   disabled={campaignProgress}
-                  className="w-full text-xs font-bold text-center py-2.5 bg-[#132a13] hover:bg-[#31572c] text-white rounded-xl transition flex items-center justify-center gap-1.5"
+                  className="w-full text-xs font-bold text-center py-2.5 bg-[#132a13] hover:bg-brand-dark text-white rounded-xl transition flex items-center justify-center gap-1.5"
                 >
                   {campaignProgress ? (
                     <>
@@ -246,7 +246,7 @@ export default function GovBeneficiaryCoverage() {
             <div 
               key={idx}
               onClick={() => setSelectedVillage(village)}
-              className="p-4 rounded-xl border border-gray-100 bg-gray-50/50 hover:border-[#4f772d]/25 transition cursor-pointer flex flex-col justify-between h-28"
+              className="p-4 rounded-xl border border-gray-100 bg-gray-50/50 hover:border-brand-medium/25 transition cursor-pointer flex flex-col justify-between h-28"
             >
               <div>
                 <div className="flex justify-between items-center text-[10px] font-bold">
@@ -261,7 +261,7 @@ export default function GovBeneficiaryCoverage() {
                 <p className="text-sm font-black text-[#132a13]">{village.rate}% <span className="text-xs font-medium text-gray-400">coverage</span></p>
                 <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden mt-1">
                   <div className={`h-full ${
-                    village.rate >= 70 ? "bg-[#4f772d]" : village.rate >= 50 ? "bg-amber-500" : "bg-red-500"
+                    village.rate >= 70 ? "bg-brand-medium" : village.rate >= 50 ? "bg-amber-500" : "bg-red-500"
                   }`} style={{ width: `${village.rate}%` }} />
                 </div>
               </div>

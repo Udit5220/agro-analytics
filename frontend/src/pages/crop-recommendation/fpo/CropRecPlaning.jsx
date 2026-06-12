@@ -774,9 +774,9 @@ export default function CropRecPlaning() {
               </div>
 
               {/* 60% Preset */}
-              <div className="border border-[#4f772d]/30 rounded-xl p-3 bg-[#4f772d]/5 flex flex-col justify-between">
+              <div className="border border-brand-medium/30 rounded-xl p-3 bg-brand-medium/5 flex flex-col justify-between">
                 <div>
-                  <span className="text-[9px] font-black uppercase text-[#4f772d] tracking-wide block">Target Midpoint</span>
+                  <span className="text-[9px] font-black uppercase text-brand-medium tracking-wide block">Target Midpoint</span>
                   <span className="text-sm font-black text-[#31572c] mt-1 block">60% Preset</span>
                 </div>
                 <div className="mt-4 space-y-2 text-[10px] font-medium text-gray-600">
@@ -868,7 +868,7 @@ export default function CropRecPlaning() {
 
               {/* Simulation Output Cards */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="border rounded-xl p-3 bg-[#4f772d]/5 border-[#4f772d]/20">
+                <div className="border rounded-xl p-3 bg-brand-medium/5 border-brand-medium/20">
                   <span className="text-[10px] text-[#31572c] font-black uppercase tracking-wider block">Simulated FPO Revenue</span>
                   <span className="text-base font-black text-emerald-800 mt-1 block">
                     {formatINR(scenarioData.simulated.revenue)}
@@ -997,7 +997,7 @@ export default function CropRecPlaning() {
               <button
                 onClick={addCropToPlan}
                 disabled={!newCropName}
-                className="bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-[10px] font-black disabled:opacity-50 transition"
+                className="bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-[10px] font-black disabled:opacity-50 transition"
               >
                 <Plus className="w-3.5 h-3.5 inline mr-1" /> Add
               </button>

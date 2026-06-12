@@ -123,7 +123,7 @@ export default function PolicyInterventionAnalytics() {
             <div key={card.id} className="bg-white border border-gray-200/60 rounded-2xl shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{card.label}</span>
-                <div className="p-1.5 bg-[#4f772d]/10 rounded-lg text-[#31572c]">
+                <div className="p-1.5 bg-brand-medium/10 rounded-lg text-[#31572c]">
                   <Icon size={14} />
                 </div>
               </div>
@@ -192,7 +192,7 @@ export default function PolicyInterventionAnalytics() {
                 <span className="text-[#31572c]">Used: ₹{BUDGET_USED} Cr (76%)</span>
               </div>
               <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden flex">
-                <div className="bg-[#31572c] h-full" style={{ width: `${(BUDGET_USED / BUDGET_TOTAL) * 100}%` }} />
+                <div className="bg-brand-dark h-full" style={{ width: `${(BUDGET_USED / BUDGET_TOTAL) * 100}%` }} />
                 <div className="bg-amber-100 h-full flex-1" />
               </div>
               <div className="flex justify-between text-[9px] text-gray-400 font-bold mt-1">
@@ -209,7 +209,7 @@ export default function PolicyInterventionAnalytics() {
                     <span>₹{item.used} Cr / ₹{item.allocated} Cr</span>
                   </div>
                   <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                    <div className="bg-[#4f772d] h-full rounded-full" style={{ width: item.barWidth }} />
+                    <div className="bg-brand-medium h-full rounded-full" style={{ width: item.barWidth }} />
                   </div>
                 </div>
               ))}
@@ -261,7 +261,7 @@ export default function PolicyInterventionAnalytics() {
                     <span className="font-mono text-gray-950 font-black text-[10px]">{item.progress}%</span>
                   </div>
                   <div className="w-full bg-gray-100 h-1 mt-1 rounded-full overflow-hidden">
-                    <div className="bg-[#31572c] h-full rounded-full" style={{ width: `${item.progress}%` }} />
+                    <div className="bg-brand-dark h-full rounded-full" style={{ width: `${item.progress}%` }} />
                   </div>
                 </div>
               ))}
@@ -309,7 +309,7 @@ export default function PolicyInterventionAnalytics() {
                 <li className="flex items-start gap-1"><span className="text-[#31572c]">⤷</span> Mandate crop health reporting from FPOs in red-zone states.</li>
               </ul>
             </div>
-            <button className="w-full bg-white hover:bg-[#31572c] hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg transition active:scale-95 flex items-center justify-center gap-1">
+            <button className="w-full bg-white hover:bg-brand-dark hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg transition active:scale-95 flex items-center justify-center gap-1">
               <Send size={10} /> Send to Ministry
             </button>
           </div>
@@ -327,7 +327,7 @@ export default function PolicyInterventionAnalytics() {
                 <li className="flex items-start gap-1"><span className="text-[#31572c]">⤷</span> Farmer awareness campaigns in high-risk kharif paddy belts.</li>
               </ul>
             </div>
-            <button className="w-full bg-white hover:bg-[#31572c] hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg transition active:scale-95 flex items-center justify-center gap-1">
+            <button className="w-full bg-white hover:bg-brand-dark hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg transition active:scale-95 flex items-center justify-center gap-1">
               <Send size={10} /> Send to Ministry
             </button>
           </div>
@@ -345,7 +345,7 @@ export default function PolicyInterventionAnalytics() {
                 <li className="flex items-start gap-1"><span className="text-[#31572c]">⤷</span> Satellite monitoring engine licensing and NDVI sensor integration.</li>
               </ul>
             </div>
-            <button className="w-full bg-white hover:bg-[#31572c] hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg transition active:scale-95 flex items-center justify-center gap-1">
+            <button className="w-full bg-white hover:bg-brand-dark hover:text-white border border-gray-200 text-[#31572c] text-[10px] font-bold tracking-wider uppercase py-1.5 rounded-lg transition active:scale-95 flex items-center justify-center gap-1">
               <Send size={10} /> Send to Ministry
             </button>
           </div>

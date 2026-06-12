@@ -165,10 +165,10 @@
 //           Loading season data...
 //         </div>
 //       ) : (
-//         <div className="w-full bg-[#4f772d]/[0.08] border border-[#4f772d]/20 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all">
+//         <div className="w-full bg-brand-medium/[0.08] border border-brand-medium/20 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all">
 //           <div className="flex items-start gap-4">
 //             {/* Left Icon Panel */}
-//             <div className="p-3 bg-white rounded-xl border border-[#4f772d]/20 text-[#31572c] shadow-sm shrink-0">
+//             <div className="p-3 bg-white rounded-xl border border-brand-medium/20 text-[#31572c] shadow-sm shrink-0">
 //               <LucideIcons.CloudRainWind className="h-5 w-5" />
 //             </div>
 
@@ -219,7 +219,7 @@
 //       ) : (
 //         <div className="bg-white border border-gray-200/60 rounded-2xl p-5 shadow-sm">
 //           <h3 className="text-sm font-bold text-gray-800 uppercase tracking-wider mb-5 flex items-center gap-2">
-//             <LucideIcons.CloudSun className="h-5 w-5 text-[#4f772d]" />
+//             <LucideIcons.CloudSun className="h-5 w-5 text-brand-medium" />
 //             <span>Weather Sensor Array Summary</span>
 //           </h3>
 
@@ -318,7 +318,7 @@
 //                   key={crop.id || crop.name}
 //                   className={`relative bg-white border ${
 //                     isBestMatch
-//                       ? "border-[#4f772d]/40 shadow-xl"
+//                       ? "border-brand-medium/40 shadow-xl"
 //                       : "border-gray-200/60"
 //                   } rounded-2xl p-5 flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 mt-4`}
 //                 >
@@ -338,7 +338,7 @@
 //                             {crop.name}
 //                           </h3>
 //                         </div>
-//                         <span className="text-[10px] font-bold uppercase tracking-wide text-[#4f772d] mt-0.5 block">
+//                         <span className="text-[10px] font-bold uppercase tracking-wide text-brand-medium mt-0.5 block">
 //                           {crop.hindiName || "फसल"}
 //                         </span>
 //                       </div>
@@ -632,7 +632,7 @@ export default function CropRecommendationDashboard() {
           Syncing local crop data matrices...
         </div>
       ) : (
-        <div className="w-full bg-[#4f772d]/[0.06] border border-gray-300 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all">
+        <div className="w-full bg-brand-medium/[0.06] border border-gray-300 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-white rounded-xl border border-gray-300 text-[#31572c] shadow-sm shrink-0">
               <LucideIcons.CloudRainWind className="h-5 w-5" />
@@ -679,7 +679,7 @@ export default function CropRecommendationDashboard() {
       {!loading && (
         <div className="bg-white border border-gray-300 rounded-2xl p-5 shadow-sm">
           <h3 className="text-xs font-black text-gray-950 uppercase tracking-wider mb-5 flex items-center gap-2">
-            <LucideIcons.CloudSun className="h-5 w-5 text-[#4f772d]" />
+            <LucideIcons.CloudSun className="h-5 w-5 text-brand-medium" />
             <span>Weather Sensor Array Summary</span>
           </h3>
 
@@ -790,7 +790,7 @@ export default function CropRecommendationDashboard() {
                     key={crop.id || crop.name || idx}
                     className={`relative bg-white border ${
                       isBestMatch
-                        ? "border-[#4f772d]/50 shadow-md"
+                        ? "border-brand-medium/50 shadow-md"
                         : "border-gray-300"
                     } rounded-2xl p-5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
                   >
@@ -806,7 +806,7 @@ export default function CropRecommendationDashboard() {
                           <h3 className="text-lg font-black text-gray-950">
                             {crop.name}
                           </h3>
-                          <span className="text-[10px] font-black uppercase tracking-wide text-[#4f772d] mt-0.5 block">
+                          <span className="text-[10px] font-black uppercase tracking-wide text-brand-medium mt-0.5 block">
                             {crop.hindiName || crop.hindi || "फसल"}
                           </span>
                         </div>
@@ -849,7 +849,7 @@ export default function CropRecommendationDashboard() {
                       <div className="space-y-3 border-t border-gray-200 pt-4 mb-5">
                         <div className="flex justify-between items-center text-xs">
                           <span className="text-gray-700 font-semibold flex items-center gap-1.5">
-                            <LucideIcons.Wheat className="h-4 w-4 text-[#4f772d]" />{" "}
+                            <LucideIcons.Wheat className="h-4 w-4 text-brand-medium" />{" "}
                             Yield Prediction
                           </span>
                           <span className="font-black text-gray-950">
@@ -859,7 +859,7 @@ export default function CropRecommendationDashboard() {
 
                         <div className="flex justify-between items-center text-xs">
                           <span className="text-gray-700 font-semibold flex items-center gap-1.5">
-                            <LucideIcons.Coins className="h-4 w-4 text-[#4f772d]" />{" "}
+                            <LucideIcons.Coins className="h-4 w-4 text-brand-medium" />{" "}
                             Estimated Net Profit
                           </span>
                           <span className="font-black text-emerald-800">

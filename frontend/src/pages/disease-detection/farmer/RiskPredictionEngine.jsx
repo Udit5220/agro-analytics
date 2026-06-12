@@ -331,7 +331,7 @@
 //                       onClick={() => setGrowthStage(stage)}
 //                       className={`px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border ${
 //                         isActive
-//                           ? "bg-[#31572c] border-[#31572c] text-white shadow-sm"
+//                           ? "bg-brand-dark border-[#31572c] text-white shadow-sm"
 //                           : "bg-white border-gray-200 text-gray-600 hover:bg-[#f4f7f4]"
 //                       }`}
 //                     >
@@ -482,7 +482,7 @@
 //             <button
 //               onClick={handleRunInference}
 //               disabled={isLoading}
-//               className="w-full py-2.5 bg-[#31572c] hover:bg-[#132a13] disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 mt-2 active:scale-[0.98] cursor-pointer"
+//               className="w-full py-2.5 bg-brand-dark hover:bg-[#132a13] disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 mt-2 active:scale-[0.98] cursor-pointer"
 //             >
 //               {isLoading ? (
 //                 <Loader2 className="w-4 h-4 animate-spin text-[#ecf39e]" />
@@ -1368,7 +1368,7 @@ export default function RiskPredictionEngine() {
                     onClick={() => setGrowthStage(stage)}
                     className={`px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all border ${
                       growthStage === stage
-                        ? "bg-[#31572c] border-[#31572c] text-white shadow-sm"
+                        ? "bg-brand-dark border-[#31572c] text-white shadow-sm"
                         : "bg-white border-gray-200 text-gray-600 hover:bg-[#f4f7f4]"
                     }`}
                   >

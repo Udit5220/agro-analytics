@@ -237,7 +237,7 @@ export default function ModelPerformanceCenter() {
               </button>
               <button
                 onClick={() => alert(`Retraining queued for ${model.name}`)}
-                className="bg-[#31572c] hover:bg-[#4f772d] text-white text-[9px] font-black uppercase px-2.5 py-1.5 rounded-xl transition shadow active:scale-95"
+                className="bg-brand-dark hover:bg-brand-medium text-white text-[9px] font-black uppercase px-2.5 py-1.5 rounded-xl transition shadow active:scale-95"
               >
                 Retrain
               </button>
@@ -258,7 +258,7 @@ export default function ModelPerformanceCenter() {
                   key={r}
                   onClick={() => setTimeframe(r)}
                   className={`px-3 py-1.5 transition ${
-                    timeframe === r ? "bg-[#31572c] text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
+                    timeframe === r ? "bg-brand-dark text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"
                   }`}
                 >
                   {r}
@@ -304,7 +304,7 @@ export default function ModelPerformanceCenter() {
               </thead>
               <tbody>
                 {modelsList.map((row, idx) => (
-                  <tr key={idx} className="border-b border-gray-100 hover:bg-[#4f772d]/5 font-semibold text-gray-700">
+                  <tr key={idx} className="border-b border-gray-100 hover:bg-brand-medium/5 font-semibold text-gray-700">
                     <td className="p-3 font-bold text-gray-900">{row.name}</td>
                     <td className="p-3 text-right font-mono">{row.acc}%</td>
                     <td className="p-3 text-right font-mono">{row.acc + (row.drift === 'Stable' ? 0.5 : 4.5)}%</td>
@@ -364,7 +364,7 @@ export default function ModelPerformanceCenter() {
                   <span className="font-mono text-[#31572c] font-black">{trainingProgress}%</span>
                 </div>
                 <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden border border-gray-200">
-                  <div className="bg-[#31572c] h-full rounded-full transition-all duration-500" style={{ width: `${trainingProgress}%` }} />
+                  <div className="bg-brand-dark h-full rounded-full transition-all duration-500" style={{ width: `${trainingProgress}%` }} />
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-2 text-center text-[9px] font-black uppercase">
@@ -385,7 +385,7 @@ export default function ModelPerformanceCenter() {
           </div>
           <button
             onClick={() => setTrainingProgress(0)}
-            className="w-full bg-[#31572c] hover:bg-[#4f772d] text-white text-[10px] font-black uppercase py-2 rounded-xl transition active:scale-95 shadow-md flex items-center justify-center gap-1.5"
+            className="w-full bg-brand-dark hover:bg-brand-medium text-white text-[10px] font-black uppercase py-2 rounded-xl transition active:scale-95 shadow-md flex items-center justify-center gap-1.5"
           >
             <RefreshCw size={12} className="animate-spin" /> Schedule Retraining Job
           </button>
@@ -409,7 +409,7 @@ export default function ModelPerformanceCenter() {
             </thead>
             <tbody>
               {crops.map(crop => (
-                <tr key={crop} className="border-b border-gray-200 hover:bg-[#4f772d]/5 transition-colors font-semibold">
+                <tr key={crop} className="border-b border-gray-200 hover:bg-brand-medium/5 transition-colors font-semibold">
                   <td className="p-3 text-left border-r border-gray-200 font-black text-slate-800">{crop}</td>
                   {diseases.map(d => {
                     const val = heatmapData[crop]?.[d];

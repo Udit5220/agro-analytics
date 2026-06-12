@@ -288,7 +288,7 @@ export default function LeafScanner() {
         <div className="bg-white border border-gray-300 rounded-2xl p-5 shadow-sm space-y-5">
           
           <h2 className="text-[#132a13] text-sm font-bold flex items-center gap-2 pb-2.5 border-b border-gray-200">
-            <Upload className="h-4 w-4 text-[#4f772d]" />
+            <Upload className="h-4 w-4 text-brand-medium" />
             <span>Select Leaf Sample Source</span>
           </h2>
 
@@ -305,7 +305,7 @@ export default function LeafScanner() {
                   onClick={() => handleSelectPreset(p)}
                   className={`p-2.5 rounded-xl border text-left flex flex-col items-center justify-between gap-2.5 transition-all cursor-pointer ${
                     selectedPresetId === p.id
-                      ? "bg-[#31572c]/10 border-[#31572c] shadow-sm font-bold scale-[1.02]"
+                      ? "bg-brand-dark/10 border-[#31572c] shadow-sm font-bold scale-[1.02]"
                       : "bg-white border-gray-300 text-gray-800 hover:border-[#31572c]"
                   }`}
                 >
@@ -342,7 +342,7 @@ export default function LeafScanner() {
               onClick={triggerFileSelect}
               className="border-2 border-dashed border-gray-300 hover:border-[#31572c] hover:bg-[#f4f7f4]/25 transition-all rounded-2xl p-6 text-center cursor-pointer space-y-2 flex flex-col items-center justify-center min-h-[140px]"
             >
-              <div className="h-10 w-10 bg-[#31572c]/10 rounded-full flex items-center justify-center text-[#31572c]">
+              <div className="h-10 w-10 bg-brand-dark/10 rounded-full flex items-center justify-center text-[#31572c]">
                 <Camera className="w-5 h-5" />
               </div>
               <div>
@@ -368,7 +368,7 @@ export default function LeafScanner() {
             type="button"
             onClick={runAnalysis}
             disabled={!selectedImage || isScanning}
-            className="w-full bg-[#31572c] text-white hover:bg-[#132a13] disabled:opacity-50 disabled:cursor-not-allowed font-black py-3 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider text-xs flex items-center justify-center gap-2"
+            className="w-full bg-brand-dark text-white hover:bg-[#132a13] disabled:opacity-50 disabled:cursor-not-allowed font-black py-3 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider text-xs flex items-center justify-center gap-2"
           >
             {isScanning ? (
               <RefreshCw className="w-4 h-4 animate-spin" />
@@ -384,7 +384,7 @@ export default function LeafScanner() {
         <div className="bg-white border border-gray-300 rounded-2xl p-5 shadow-sm flex flex-col justify-between items-center relative overflow-hidden min-h-[380px]">
           
           <h2 className="text-[#132a13] text-sm font-bold flex items-center gap-2 pb-2.5 border-b border-gray-200 w-full">
-            <Activity className="h-4 w-4 text-[#4f772d]" />
+            <Activity className="h-4 w-4 text-brand-medium" />
             <span>Real-time Crop Cell Analyzer</span>
           </h2>
 
@@ -408,7 +408,7 @@ export default function LeafScanner() {
 
                 {/* Neon Laser Scanning Bar overlay */}
                 {isScanning && (
-                  <div className="absolute inset-x-0 h-1.5 bg-[#4f772d] shadow-[0_0_15px_#ecf39e] animate-scanBar z-20"></div>
+                  <div className="absolute inset-x-0 h-1.5 bg-brand-medium shadow-[0_0_15px_#ecf39e] animate-scanBar z-20"></div>
                 )}
 
                 {/* Clear selected file tag button */}
@@ -460,7 +460,7 @@ export default function LeafScanner() {
           
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-gray-200">
             <div>
-              <span className="text-[9px] font-black text-[#31572c] uppercase tracking-widest bg-[#31572c]/10 border border-[#31572c]/20 px-2.5 py-1 rounded-md">
+              <span className="text-[9px] font-black text-[#31572c] uppercase tracking-widest bg-brand-dark/10 border border-[#31572c]/20 px-2.5 py-1 rounded-md">
                 Diagnostic Report
               </span>
               <h3 className="text-lg font-black text-gray-950">
@@ -650,7 +650,7 @@ export default function LeafScanner() {
                 <ul className="space-y-2.5 text-xs font-semibold text-gray-800 leading-relaxed">
                   {(diagnosisReport.recovery_steps || []).map((step, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="bg-[#31572c]/10 text-[#31572c] font-black text-[9px] px-1.5 py-0.5 rounded shrink-0 mt-0.5">
+                      <span className="bg-brand-dark/10 text-[#31572c] font-black text-[9px] px-1.5 py-0.5 rounded shrink-0 mt-0.5">
                         {idx + 1}
                       </span>
                       <span>{step}</span>
@@ -659,7 +659,7 @@ export default function LeafScanner() {
                 </ul>
                 <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-[10px] font-bold text-gray-600 uppercase tracking-wider">
                   <span>Recovery Probability</span>
-                  <span className="bg-[#4f772d]/10 text-[#132a13] px-2 py-0.5 rounded border border-[#31572c]/20">
+                  <span className="bg-brand-medium/10 text-[#132a13] px-2 py-0.5 rounded border border-[#31572c]/20">
                     {diagnosisReport.recovery_probability}
                   </span>
                 </div>
@@ -710,7 +710,7 @@ export default function LeafScanner() {
           </div>
 
           {/* Simple Farmer Advice Block */}
-          <div className="bg-[#31572c]/[0.03] border border-[#31572c]/30 rounded-2xl p-5 space-y-2">
+          <div className="bg-brand-dark/[0.03] border border-[#31572c]/30 rounded-2xl p-5 space-y-2">
             <h4 className="text-xs font-black text-gray-950 uppercase tracking-widest flex items-center gap-2">
               <Sprout className="w-4 h-4 text-[#31572c]" />
               <span>Bilingual Farmer Advisory — किसान सलाह</span>

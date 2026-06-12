@@ -371,7 +371,7 @@ export default function CustomerRiskMonitor() {
                 return (
                   <tr
                     key={idx}
-                    className={`text-xs font-semibold hover:bg-[#4f772d]/5 transition-colors border-b border-gray-100/60 ${
+                    className={`text-xs font-semibold hover:bg-brand-medium/5 transition-colors border-b border-gray-100/60 ${
                       isCritical ? "bg-red-50/30 text-red-950" : isHigh ? "bg-amber-50/20 text-amber-950" : "text-gray-700"
                     }`}
                   >
@@ -482,7 +482,7 @@ export default function CustomerRiskMonitor() {
                   </div>
                   <button
                     onClick={() => alert(`Scheduling urgent intervention call with ${row.name}`)}
-                    className="bg-[#31572c] hover:bg-[#4f772d] text-white text-[9px] font-black uppercase px-2.5 py-1.5 rounded-lg transition active:scale-95"
+                    className="bg-brand-dark hover:bg-brand-medium text-white text-[9px] font-black uppercase px-2.5 py-1.5 rounded-lg transition active:scale-95"
                   >
                     Schedule Call
                   </button>

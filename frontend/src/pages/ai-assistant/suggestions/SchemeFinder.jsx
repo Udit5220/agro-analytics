@@ -96,7 +96,7 @@ export default function SchemeFinder() {
             Discover government schemes, financial subsidies, and developmental grants you qualify for.
           </p>
         </div>
-        <div className="flex items-center gap-1.5 self-start md:self-auto px-3 py-1.5 bg-[#31572c]/10 rounded-xl text-[#31572c] text-[10px] font-black tracking-wider uppercase font-mono border border-[#31572c]/20">
+        <div className="flex items-center gap-1.5 self-start md:self-auto px-3 py-1.5 bg-brand-dark/10 rounded-xl text-[#31572c] text-[10px] font-black tracking-wider uppercase font-mono border border-[#31572c]/20">
           <Award className="w-3.5 h-3.5" />
           <span>सरकारी योजनाएँ</span>
         </div>
@@ -111,7 +111,7 @@ export default function SchemeFinder() {
         <div className="lg:col-span-1 space-y-4">
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <h3 className="text-xs font-black text-gray-950 uppercase tracking-widest flex items-center gap-2 mb-4">
-              <User className="w-4 h-4 text-purple-600" />
+              <User className="w-4 h-4 text-brand-medium" />
               Farmer Profile
             </h3>
             <div className="space-y-3">
@@ -174,12 +174,12 @@ export default function SchemeFinder() {
           </div>
 
           {/* Quick Stats */}
-          <div className="bg-gradient-to-r from-purple-700 to-purple-600 rounded-xl p-5 text-white">
-            <p className="text-purple-100 text-sm">Your Eligibility Summary</p>
+          <div className="bg-gradient-to-r from-brand-darkest to-brand-medium rounded-xl p-5 text-white">
+            <p className="text-brand-lightest/90 text-sm">Your Eligibility Summary</p>
             <p className="text-2xl font-bold mt-1">
               {schemes?.data?.totalEligible || 0}+ Schemes
             </p>
-            <p className="text-xs text-purple-100 mt-1">
+            <p className="text-xs text-brand-lightest/90 mt-1">
               You may be eligible for multiple government schemes
             </p>
           </div>
@@ -189,7 +189,7 @@ export default function SchemeFinder() {
         <div className="lg:col-span-2 space-y-4">
           {loading ? (
             <div className="bg-white border border-gray-200 rounded-xl p-12 text-center">
-              <Loader2 className="w-10 h-10 animate-spin text-purple-600 mx-auto mb-3" />
+              <Loader2 className="w-10 h-10 animate-spin text-brand-medium mx-auto mb-3" />
               <p className="text-gray-500">
                 Finding schemes you're eligible for...
               </p>
@@ -224,7 +224,7 @@ export default function SchemeFinder() {
                         </div>
                         <button
                           onClick={() => handleApplyScheme(scheme)}
-                          className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700"
+                          className="px-4 py-2 bg-brand-medium text-white rounded-lg text-sm font-medium hover:bg-brand-dark transition-colors duration-200"
                         >
                           Apply
                         </button>
@@ -262,11 +262,11 @@ export default function SchemeFinder() {
                             ))}
                           </div>
                           <div className="flex gap-3">
-                            <button className="flex items-center gap-1 text-sm text-purple-600">
+                            <button className="flex items-center gap-1 text-sm text-brand-medium">
                               <FileText className="w-4 h-4" />
                               Download Form
                             </button>
-                            <button className="flex items-center gap-1 text-sm text-purple-600">
+                            <button className="flex items-center gap-1 text-sm text-brand-medium">
                               <ExternalLink className="w-4 h-4" />
                               Apply Online
                             </button>
@@ -287,7 +287,7 @@ export default function SchemeFinder() {
                         onClick={() =>
                           setSelectedScheme(isExpanded ? null : scheme)
                         }
-                        className="text-xs text-purple-600 font-medium"
+                        className="text-xs text-brand-medium font-semibold hover:text-brand-dark transition-colors"
                       >
                         {isExpanded ? "Show Less" : "Show Details"}
                       </button>

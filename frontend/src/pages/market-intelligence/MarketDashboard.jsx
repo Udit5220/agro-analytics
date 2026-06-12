@@ -10,7 +10,7 @@
 //       value: meta.length || summary.totalCommodities || '—',
 //       sub:   `${withTrend.length} with trend data`,
 //       icon:  Sprout,
-//       color: 'bg-[#31572c]/10 text-[#31572c]',
+//       color: 'bg-brand-dark/10 text-[#31572c]',
 //     },
 //     {
 //       label: 'Active Mandis',
@@ -49,7 +49,7 @@
 //     <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-center max-w-lg mx-auto mt-8 flex flex-col items-center gap-3">
 //       <AlertCircle className="h-8 w-8 text-red-400" />
 //       <p className="text-red-600 font-semibold text-sm">{error}</p>
-//       <button onClick={fetchAll} className="px-5 py-2 bg-[#31572c] text-white rounded-xl text-sm font-bold hover:bg-[#4a7c59] transition-colors">
+//       <button onClick={fetchAll} className="px-5 py-2 bg-brand-dark text-white rounded-xl text-sm font-bold hover:bg-[#4a7c59] transition-colors">
 //         Retry
 //       </button>
 //     </div>
@@ -70,7 +70,7 @@
 //         </div>
 //         <button
 //           onClick={fetchAll}
-//           className="flex items-center gap-1.5 px-3 py-1.5 bg-[#31572c]/10 hover:bg-[#31572c]/20 text-[#31572c] rounded-xl text-xs font-bold transition-colors"
+//           className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-dark/10 hover:bg-brand-dark/20 text-[#31572c] rounded-xl text-xs font-bold transition-colors"
 //         >
 //           <RefreshCw className="h-3.5 w-3.5" /> Refresh
 //         </button>
@@ -401,7 +401,7 @@
 //             sub:   'Multi-crop trend analysis',
 //             icon:  GitCompare,
 //             path:  'commodity-compare',
-//             color: 'bg-[#31572c]/10 text-[#31572c]',
+//             color: 'bg-brand-dark/10 text-[#31572c]',
 //             badge: `${withTrend.length} crops`,
 //           },
 //           {
@@ -440,7 +440,7 @@
 //               <p className="text-[10px] text-slate-400 truncate">{sub}</p>
 //             </div>
 //             {badge && (
-//               <span className="text-[9px] font-bold text-[#31572c] bg-[#31572c]/10 px-1.5 py-0.5 rounded-full whitespace-nowrap">
+//               <span className="text-[9px] font-bold text-[#31572c] bg-brand-dark/10 px-1.5 py-0.5 rounded-full whitespace-nowrap">
 //                 {badge}
 //               </span>
 //             )}
@@ -677,7 +677,7 @@ export default function MarketDashboard() {
       value: meta.length || summary.totalCommodities || "—",
       sub: `${withTrend.length} with trend data`,
       icon: Sprout,
-      color: "bg-[#31572c]/10 text-[#31572c]",
+      color: "bg-brand-dark/10 text-[#31572c]",
     },
     {
       label: "Active Mandis",
@@ -783,7 +783,7 @@ export default function MarketDashboard() {
         <p className="text-red-600 font-semibold text-sm">{error}</p>
         <button
           onClick={fetchAll}
-          className="px-5 py-2 bg-[#31572c] text-white rounded-xl text-sm font-bold hover:bg-[#4a7c59] transition-colors"
+          className="px-5 py-2 bg-brand-dark text-white rounded-xl text-sm font-bold hover:bg-[#4a7c59] transition-colors"
         >
           Retry
         </button>
@@ -817,7 +817,7 @@ export default function MarketDashboard() {
           </div>
           <button
             onClick={fetchAll}
-            className="inline-flex items-center gap-2 rounded-full bg-[#31572c] px-4 py-2 text-sm font-bold text-white hover:bg-[#4a7c59] transition-colors"
+            className="inline-flex items-center gap-2 rounded-full bg-brand-dark px-4 py-2 text-sm font-bold text-white hover:bg-[#4a7c59] transition-colors"
           >
             <RefreshCw className="h-4 w-4" /> Refresh
           </button>
@@ -1577,7 +1577,7 @@ export default function MarketDashboard() {
           </div>
           <button
             onClick={() => navigate("/module/market-intelligence/live-prices")}
-            className="inline-flex items-center gap-1 rounded-full bg-[#31572c]/10 px-4 py-2 text-xs font-bold text-[#31572c] hover:bg-[#31572c]/20 transition-colors"
+            className="inline-flex items-center gap-1 rounded-full bg-brand-dark/10 px-4 py-2 text-xs font-bold text-[#31572c] hover:bg-brand-dark/20 transition-colors"
           >
             View All <ArrowRight className="h-3 w-3" />
           </button>

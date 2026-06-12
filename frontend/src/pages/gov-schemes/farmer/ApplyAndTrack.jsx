@@ -1,160 +1,154 @@
 // src/pages/gov-schemes/farmer/ApplyAndTrack.jsx
-import React, { useState } from "react";
-import { createPortal } from "react-dom";
+import React from "react";
 import {
-  FolderKanban,
-  CheckCircle,
-  Clock,
-  AlertTriangle,
-  XCircle,
   FileText,
+  ExternalLink,
+  Info,
+  CheckCircle,
+  HelpCircle,
+  Building,
+  Key,
+  ShieldCheck,
   Calendar,
-  IndianRupee,
-  RefreshCw,
-  Eye,
-  X,
-  Upload,
-  Check,
-  Loader
+  Layers,
+  Search
 } from "lucide-react";
-import govtSchemeData from "../../../seed-json/govt_scheme.json";
+
+const PORTALS_DIRECTORY = [
+  {
+    name: "PM-KISAN Samman Nidhi Portal",
+    url: "https://pmkisan.gov.in/",
+    description: "Official portal for fresh farmer registration, checking Aadhaar seeding status, and updating bank accounts.",
+    authority: "Ministry of Agriculture & Farmers Welfare",
+    checklist: ["Aadhaar Card copy", "Land records (Khatauni)", "Bank passbook linked with Aadhaar"]
+  },
+  {
+    name: "PMFBY Crop Insurance Portal",
+    url: "https://pmfby.gov.in/",
+    description: "Submit crop sowing certificates, pay subsidized premiums, and calculate crop cover eligibility.",
+    authority: "Ministry of Agriculture & Farmers Welfare",
+    checklist: ["Land Jamabandi certificate", "Sowing Certificate from Patwari", "Active KCC / Bank details"]
+  },
+  {
+    name: "PM-KUSUM Solar Subsidy Portal",
+    url: "https://pmkusum.mnre.gov.in/",
+    description: "Apply for up to 60% capital subsidies for solar-powered water irrigation pumps up to 7.5 HP.",
+    authority: "Ministry of New & Renewable Energy",
+    checklist: ["Land title certificate", "Irrigation layout report", "Caste Certificate (for SC/ST subsidy)"]
+  },
+  {
+    name: "National Agriculture Market (e-NAM)",
+    url: "https://enam.gov.in/",
+    description: "Register to list your crop harvests directly for trade, view MSP floor prices, and trade with national buyers.",
+    authority: "SFAC / Ministry of Agriculture",
+    checklist: ["Farming license or Aadhaar", "Bank Account check copy", "Mobile number linked to Aadhaar"]
+  }
+];
+
+const GENERAL_GUIDELINE_STEPS = [
+  {
+    title: "1. Profile Authentication (UIDAI)",
+    description: "Ensure your mobile number is updated in your Aadhaar card. Almost all government portals verify your credentials via a single-use OTP (One Time Password) sent by UIDAI."
+  },
+  {
+    title: "2. Get Certified State Land Records (Jamabandi)",
+    description: "Do not upload raw sketches. Download a digitally signed copy of your Jamabandi/Khatauni land records from your state land records portal (e.g. jamabandi.nic.in for Haryana)."
+  },
+  {
+    title: "3. Complete Bank DBT NPCI Seeding",
+    description: "Your bank account must be actively seeded on the NPCI mapper. Payouts are made via Aadhaar-enabled Payment Systems (AePS). Visit your local bank manager to submit the seeding consent form."
+  },
+  {
+    title: "4. Register on myScheme Portal",
+    description: "Use the centralized government portal to automatically cross-verify details and receive application reference IDs."
+  }
+];
 
 export default function ApplyAndTrack() {
-  const { applicationsData } = govtSchemeData;
-  const [applications, setApplications] = useState(applicationsData.applicationsList);
-  const [selectedApp, setSelectedApp] = useState(null);
-  const [showReapply, setShowReapply] = useState(false);
-  const [reapplySuccess, setReapplySuccess] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState(null);
-
-  const rejection = applicationsData.rejectionAnalysis;
-
-  const getStatusBadge = (status, text) => {
-    if (status === "approved" || status === "active") {
-      return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">
-          <CheckCircle className="w-3 h-3" />
-          {text || "Approved"}
-        </span>
-      );
-    }
-    if (status === "rejected") {
-      return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-100">
-          <XCircle className="w-3 h-3" />
-          {text || "Rejected"}
-        </span>
-      );
-    }
-    if (status === "action_needed") {
-      return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-100">
-          <AlertTriangle className="w-3 h-3" />
-          {text || "Action Needed"}
-        </span>
-      );
-    }
-    return (
-      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100">
-        <Clock className="w-3 h-3" />
-        {text || "In Review"}
-      </span>
-    );
-  };
-
-  const handleReapplyClick = () => {
-    setShowReapply(true);
-  };
-
-  const handleReapplySubmit = (e) => {
-    e.preventDefault();
-    setReapplySuccess(true);
-    setTimeout(() => {
-      setApplications(prev =>
-        prev.map(app =>
-          app.id === rejection.applicationId
-            ? { ...app, status: "in_review", statusText: "Resubmitted", currentStage: "Document Audit" }
-            : app
-        )
-      );
-      setReapplySuccess(false);
-      setShowReapply(false);
-      alert("Application successfully resubmitted! Status is now 'In Review'.");
-    }, 1500);
-  };
-
   return (
-    <div className="p-1 sm:p-2 bg-[#f4f7f4]/40 min-h-screen font-sans animate-fadeIn">
+    <div className="p-6 overflow-y-auto h-full bg-[#f4f7f0]/40 animate-fadeIn">
       {/* Page Header */}
-      <div className="max-w-7xl mx-auto mb-2.5">
+      <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-[#2e4057]/10 rounded-xl">
-            <FolderKanban className="h-5 w-5 text-[#28a745]" />
+          <div className="p-2.5 bg-[#1A3A2A] text-[#C5F547] rounded-xl">
+            <FileText className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-[#2e4057]">Track Applications</h1>
-            <p className="text-xs text-gray-500">
-              Monitor milestones, expected approvals, and address blockers for active schemes.
+            <h1 className="text-xl font-extrabold text-[#0F2E1F]">Government Portal Application Guide</h1>
+            <p className="text-xs text-[#2d5a3d] font-medium">
+              Readiness checklists, citizen manuals, and official direct registration links for active central and state schemes.
             </p>
           </div>
         </div>
+
+        {/* Source citation */}
+        <div className="bg-[#1A3A2A]/5 border border-[#2d5a3d]/20 rounded-xl px-3 py-1.5 flex items-center gap-2 max-w-xs">
+          <Info className="h-4.5 w-4.5 text-[#2d5a3d] shrink-0" />
+          <span className="text-[10px] text-[#2d5a3d] font-semibold">
+            Sources: myScheme.gov.in & National e-Governance Division (NeGD)
+          </span>
+        </div>
       </div>
 
-      {/* Rejection Alert Box */}
-      {applications.some(a => a.id === rejection.applicationId && a.status === "rejected") && (
-        <div className="max-w-7xl mx-auto mb-2.5 bg-red-50/60 border border-red-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex gap-3 items-start">
-            <div className="p-2 bg-red-100 rounded-xl text-red-600 shrink-0">
-              <XCircle className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="text-xs font-bold text-red-900">
-                Action Required: Application Rejected for {rejection.schemeName}
-              </h3>
-              <p className="text-[11px] text-red-800 font-semibold mt-0.5">
-                Reason: {rejection.reason}
-              </p>
-              <p className="text-xs text-gray-600 mt-1 leading-relaxed max-w-2xl font-medium">
-                <strong>Suggested Fix:</strong> {rejection.suggestedFix} (Missing files: <span className="underline font-bold text-[#2e4057]">{rejection.missingDocuments}</span>)
-              </p>
-            </div>
-          </div>
-
-          <button
-            onClick={handleReapplyClick}
-            className="bg-[#2e4057] hover:bg-[#28a745] text-white px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 shrink-0 self-start sm:self-center"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>Re-Upload & Reapply</span>
-          </button>
+      {/* Privacy disclaimer */}
+      <div className="mb-6 bg-emerald-50/50 border border-emerald-200 rounded-xl p-4 flex gap-3.5 items-start">
+        <ShieldCheck className="h-5 w-5 text-[#2d5a3d] shrink-0 mt-0.5" />
+        <div className="text-xs text-[#0F2E1F] leading-relaxed font-semibold">
+          <p className="font-bold uppercase tracking-wider text-[#2d5a3d] mb-0.5">Privacy First Platform Architecture</p>
+          <p>
+            To protect your personal data, this analytics platform does not collect, host, or submit your private files (like Aadhaar, bank records, or land deeds). All registrations must be completed securely on the official government portals listed below.
+          </p>
         </div>
-      )}
+      </div>
 
-      {/* Submissions Pipeline Grid */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-3.5 mb-2.5">
-        <div className="lg:col-span-2 space-y-3">
-          <div className="bg-white border border-gray-150 rounded-xl p-4 shadow-sm">
-            <h3 className="text-xs font-bold text-[#2e4057] mb-2">Active Pipeline</h3>
-            <div className="divide-y divide-gray-100">
-              {applications.map((app) => (
-                <div key={app.id} className="py-3.5 first:pt-0 last:pb-0 flex items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <p className="text-xs font-bold text-[#2e4057]">{app.schemeName}</p>
-                    <div className="flex flex-wrap gap-x-2 gap-y-0.5 text-[10px] text-gray-500 font-semibold">
-                      <span>App ID: {app.id}</span>
-                      <span>•</span>
-                      <span>Stage: {app.currentStage}</span>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Portals Directory */}
+        <div className="lg:col-span-2 space-y-4">
+          <div className="bg-white rounded-xl border border-gray-150 p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-4 border-b border-gray-100 pb-3">
+              <Building className="h-4.5 w-4.5 text-[#2d5a3d]" />
+              <h2 className="text-xs font-extrabold text-[#0F2E1F] uppercase tracking-wider">Official Registration Portals</h2>
+            </div>
+
+            <div className="space-y-4">
+              {PORTALS_DIRECTORY.map((portal, idx) => (
+                <div
+                  key={idx}
+                  className="border border-gray-150 rounded-xl p-4 bg-white hover:shadow-md transition-all duration-200"
+                >
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
+                    <div>
+                      <h3 className="text-xs font-bold text-gray-900 leading-snug">{portal.name}</h3>
+                      <span className="text-[9px] text-[#2d5a3d] font-bold block uppercase tracking-wider mt-0.5">{portal.authority}</span>
                     </div>
+                    
+                    <a
+                      href={portal.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] text-white bg-[#1A3A2A] hover:bg-[#0F2E1F] font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition"
+                    >
+                      <span>Visit Portal</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    {getStatusBadge(app.status, app.statusText)}
-                    <button
-                      onClick={() => setSelectedApp(app)}
-                      className="p-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 text-gray-400 hover:text-[#28a745] transition"
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                    </button>
+                  <p className="text-[11px] text-gray-550 font-semibold mb-3 leading-relaxed">
+                    {portal.description}
+                  </p>
+
+                  <div className="pt-2 border-t border-gray-100">
+                    <span className="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider block mb-1">Required Documents Check:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {portal.checklist.map((item, idy) => (
+                        <span
+                          key={idy}
+                          className="bg-gray-100 text-gray-650 text-[10px] px-2 py-0.5 rounded font-semibold border border-gray-200"
+                        >
+                          ✓ {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -162,180 +156,48 @@ export default function ApplyAndTrack() {
           </div>
         </div>
 
-        {/* Calendar / Deadline Badges Widget */}
-        <div className="space-y-4">
-          <div className="bg-white border border-gray-150 rounded-xl p-4 shadow-sm">
-            <h3 className="text-xs font-bold text-[#2e4057] mb-2">Upcoming Cutoff Deadlines</h3>
-            <div className="space-y-2.5">
-              {applications.map((app) => {
-                const daysLeft = app.status === "approved" ? null : app.status === "rejected" ? 2 : 12;
-                if (daysLeft === null) return null;
-                const isUrgent = daysLeft < 7;
-                return (
-                  <div
-                    key={app.id}
-                    className={`p-2.5 rounded-lg border flex gap-2.5 items-start ${
-                      isUrgent
-                        ? "bg-red-50/70 border-red-200/50 text-red-800"
-                        : "bg-gray-50/70 border-gray-150 text-gray-700"
-                    }`}
-                  >
-                    <Calendar className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${isUrgent ? "text-red-500" : "text-gray-400"}`} />
-                    <div>
-                      <p className="text-[11px] font-bold leading-tight truncate max-w-[180px] text-gray-805">{app.schemeName}</p>
-                      <p className="text-[9px] font-bold mt-1">
-                        {isUrgent ? (
-                          <span className="text-red-650 font-black">CRITICAL: {daysLeft} days remaining!</span>
-                        ) : (
-                          <span className="text-gray-500">{daysLeft} days left to respond</span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+        {/* Step-by-Step Citizen Guidelines */}
+        <div className="space-y-6">
+          <div className="bg-white rounded-xl border border-gray-150 p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-4 border-b border-gray-100 pb-3">
+              <Key className="h-4.5 w-4.5 text-[#2d5a3d]" />
+              <h2 className="text-xs font-extrabold text-[#0F2E1F] uppercase tracking-wider">How to Apply Online</h2>
             </div>
+
+            <div className="space-y-4">
+              {GENERAL_GUIDELINE_STEPS.map((step, idx) => (
+                <div key={idx} className="space-y-1">
+                  <h3 className="text-xs font-bold text-gray-900">{step.title}</h3>
+                  <p className="text-[11px] text-gray-600 leading-relaxed font-semibold bg-gray-50/50 p-2.5 rounded border border-gray-100">
+                    {step.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Official Grievance PGPortal Guide */}
+          <div className="bg-white rounded-xl border border-gray-150 p-5 shadow-sm space-y-3">
+            <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
+              <HelpCircle className="h-4.5 w-4.5 text-amber-550" />
+              <h2 className="text-xs font-extrabold text-[#0F2E1F] uppercase tracking-wider">Official Status Check</h2>
+            </div>
+            
+            <p className="text-[11px] text-gray-600 leading-relaxed font-semibold">
+              To verify if your payment transactions or documents have been officially updated, you can search public registries securely using the Central DBT public link:
+            </p>
+            
+            <a
+              href="https://pfms.nic.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-2 border border-brand-medium/30 text-[#2d5a3d] hover:bg-[#2d5a3d]/5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition"
+            >
+              <span>Check Payment Status on PFMS ↗</span>
+            </a>
           </div>
         </div>
       </div>
-
-      {/* Details View Modal (Rendered with React Portal to fit viewport) */}
-      {selectedApp &&
-        createPortal(
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 animate-fadeIn">
-            <div className="bg-white rounded-2xl max-w-sm w-full p-5 border border-gray-100 shadow-xl relative animate-scaleUp max-h-[90vh] overflow-y-auto">
-              <button
-                onClick={() => setSelectedApp(null)}
-                className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <h3 className="text-base font-black text-[#2e4057] leading-tight">
-                Application Details
-              </h3>
-              <p className="text-[11px] text-gray-500 mt-0.5 font-bold">
-                Verification audit milestones
-              </p>
-
-              <div className="bg-[#f4f7f4] border border-[#28a745]/10 rounded-xl p-3 my-3">
-                <span className="text-[9px] font-bold text-gray-450 uppercase tracking-wider block">Scheme Name</span>
-                <p className="text-xs font-bold text-[#2e4057] leading-snug">{selectedApp.schemeName}</p>
-                
-                <div className="grid grid-cols-2 gap-4 mt-2 pt-2 border-t border-gray-200/50 text-[11px] font-semibold">
-                  <div>
-                    <span className="text-[9px] text-gray-405 font-bold block uppercase tracking-wider">Application ID</span>
-                    <span className="font-mono font-bold text-gray-750">{selectedApp.id}</span>
-                  </div>
-                  <div>
-                    <span className="text-[9px] text-gray-405 font-bold block uppercase tracking-wider">Benefit Worth</span>
-                    <span className="font-bold text-[#28a745]">{selectedApp.benefitAmount}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider block">Verification Steps</span>
-                
-                <div className="space-y-3.5 pl-3 border-l-2 border-gray-150 relative">
-                  <div className="relative">
-                    <div className="absolute -left-[17px] top-1 w-2 h-2 rounded-full bg-[#28a745] border border-white"></div>
-                    <p className="text-[11px] font-bold text-gray-805">Sowing / Land Sync</p>
-                    <p className="text-[9px] text-gray-450 mt-0.5">District land registry records matched successfully</p>
-                  </div>
-                  <div className="relative">
-                    <div className={`absolute -left-[17px] top-1 w-2 h-2 rounded-full border border-white ${
-                      selectedApp.status === "rejected" ? "bg-red-500" : "bg-[#28a745]"
-                    }`}></div>
-                    <p className="text-[11px] font-bold text-gray-800">Current Stage: {selectedApp.currentStage}</p>
-                    <p className="text-[9px] text-gray-400 mt-0.5">Expected Resolution: {selectedApp.expectedApproval}</p>
-                  </div>
-                  <div className="relative">
-                    <div className="absolute -left-[17px] top-1 w-2 h-2 rounded-full bg-gray-200 border border-white"></div>
-                    <p className="text-[11px] font-bold text-gray-800">DBT Release Approval</p>
-                    <p className="text-[9px] text-gray-400 mt-0.5">Pending stage validation authorization</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-5 pt-3.5 border-t border-gray-100 flex gap-2 justify-end">
-                <button
-                  onClick={() => setSelectedApp(null)}
-                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-xl transition"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>,
-          document.body
-        )}
-
-      {/* Reapply Submission Modal */}
-      {showReapply &&
-        createPortal(
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 animate-fadeIn">
-            <div className="bg-white rounded-2xl max-w-sm w-full p-5 border border-gray-100 shadow-xl relative animate-scaleUp max-h-[90vh] overflow-y-auto">
-              <button
-                onClick={() => setShowReapply(false)}
-                className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <h3 className="text-base font-black text-[#2e4057] leading-tight">
-                Reapply for {rejection.schemeName}
-              </h3>
-              <p className="text-xs text-gray-500 mt-1 font-semibold">
-                Please upload the requested documentation:
-              </p>
-
-              <form onSubmit={handleReapplySubmit} className="space-y-3.5 mt-3">
-                <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-xs space-y-2.5">
-                  <p className="font-bold text-[#2e4057]">Required File: {rejection.missingDocuments}</p>
-                  
-                  <div className="border-2 border-dashed border-gray-200 rounded-lg p-5 text-center hover:border-[#28a745] transition cursor-pointer relative bg-white">
-                    <input
-                      type="file"
-                      onChange={(e) => setUploadedFile(e.target.files[0]?.name || "Verified_Caste_Doc.pdf")}
-                      className="absolute inset-0 opacity-0 cursor-pointer"
-                    />
-                    <Upload className="w-6 h-6 text-gray-400 mx-auto mb-1.5" />
-                    <p className="text-[11px] font-bold text-gray-650">
-                      {uploadedFile ? uploadedFile : "Click to select or drag & drop file"}
-                    </p>
-                    <p className="text-[9px] text-gray-400 mt-0.5">PDF or JPG formats up to 2MB</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowReapply(false)}
-                    className="flex-1 py-1.5 text-xs font-bold border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-100 transition"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={!uploadedFile}
-                    className={`flex-1 py-1.5 text-xs font-bold text-white rounded-lg transition flex items-center justify-center gap-1.5 ${
-                      uploadedFile ? "bg-[#2e4057] hover:bg-[#28a745]" : "bg-gray-300 cursor-not-allowed"
-                    }`}
-                  >
-                    {reapplySuccess ? (
-                      <Loader className="w-3.5 h-3.5 animate-spin text-white" />
-                    ) : (
-                      <Check className="w-3.5 h-3.5" />
-                    )}
-                    <span>Submit & Reapply</span>
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>,
-          document.body
-        )}
     </div>
   );
 }

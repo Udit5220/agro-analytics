@@ -175,7 +175,7 @@
 //                       type="button"
 //                       onClick={() => setActiveQueueTab(tab)}
 //                       className={`px-3 py-1 rounded-full text-[10px] font-black uppercase transition-all flex items-center gap-1.5 cursor-pointer ${
-//                         activeQueueTab === tab ? "bg-[#31572c] text-white" : "bg-slate-50 text-slate-600 hover:bg-slate-200"
+//                         activeQueueTab === tab ? "bg-brand-dark text-white" : "bg-slate-50 text-slate-600 hover:bg-slate-200"
 //                       }`}
 //                     >
 //                       {tab}
@@ -209,7 +209,7 @@
 //                       key={c.id}
 //                       onClick={() => setSelectedCase(c)}
 //                       className={`cursor-pointer hover:bg-slate-50 transition-colors ${
-//                         selectedCase?.id === c.id ? "bg-[#31572c]/5" : ""
+//                         selectedCase?.id === c.id ? "bg-brand-dark/5" : ""
 //                       }`}
 //                     >
 //                       <td className="py-3.5 text-slate-900">{c.farmer}</td>
@@ -272,7 +272,7 @@
 
 //               {/* Profile Avatar structure */}
 //               <div className="flex items-center gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-//                 <div className="h-10 w-10 bg-[#31572c] text-[#ecf39e] rounded-full flex items-center justify-center text-sm font-black uppercase tracking-wider">
+//                 <div className="h-10 w-10 bg-brand-dark text-[#ecf39e] rounded-full flex items-center justify-center text-sm font-black uppercase tracking-wider">
 //                   {selectedCase.farmer.split(" ").map(n => n[0]).join("")}
 //                 </div>
 //                 <div>
@@ -311,7 +311,7 @@
 //                     return (
 //                       <div key={idx} className="flex gap-3 items-start relative">
 //                         <div className={`h-5 w-5 rounded-full border flex items-center justify-center text-[9px] font-black z-10 shrink-0 ${
-//                           isActive ? "bg-[#31572c] text-[#ecf39e] border-[#31572c]" : "bg-slate-50 text-slate-400 border-slate-200"
+//                           isActive ? "bg-brand-dark text-[#ecf39e] border-[#31572c]" : "bg-slate-50 text-slate-400 border-slate-200"
 //                         }`}>
 //                           {idx + 1}
 //                         </div>
@@ -371,7 +371,7 @@
 //                 <button
 //                   type="button"
 //                   onClick={() => updateCaseStatus(selectedCase.id, "Resolved")}
-//                   className="flex-1 py-1.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg text-[9px] font-black uppercase tracking-wider cursor-pointer"
+//                   className="flex-1 py-1.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-lg text-[9px] font-black uppercase tracking-wider cursor-pointer"
 //                 >
 //                   Mark Resolved
 //                 </button>
@@ -759,7 +759,7 @@ export default function FarmerCaseManagement() {
                   onClick={() => setActiveQueueTab(tab)}
                   className={`px-3 py-1 rounded-full text-[10px] font-black uppercase transition-all flex items-center gap-1.5 cursor-pointer ${
                     activeQueueTab === tab
-                      ? "bg-[#31572c] text-white"
+                      ? "bg-brand-dark text-white"
                       : "bg-slate-50 text-slate-600 hover:bg-slate-200"
                   }`}
                 >
@@ -829,7 +829,7 @@ export default function FarmerCaseManagement() {
                         e.stopPropagation();
                         openModal(c);
                       }}
-                      className="px-3 py-1.5 text-[10px] bg-[#31572c] hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider cursor-pointer transition-colors flex items-center gap-1.5 ml-auto"
+                      className="px-3 py-1.5 text-[10px] bg-brand-dark hover:bg-[#132a13] text-white rounded-lg font-black uppercase tracking-wider cursor-pointer transition-colors flex items-center gap-1.5 ml-auto"
                     >
                       <Eye className="w-3.5 h-3.5" />
                       View Details
@@ -948,7 +948,7 @@ export default function FarmerCaseManagement() {
                             key={idx}
                             className="flex gap-3 items-start p-3 bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
                           >
-                            <div className="h-5 w-5 rounded-full bg-[#31572c]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="h-5 w-5 rounded-full bg-brand-dark/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                               <Check className="w-3 h-3 text-[#31572c]" />
                             </div>
                             <span className="text-sm font-semibold text-slate-700">
@@ -971,7 +971,7 @@ export default function FarmerCaseManagement() {
                     </h3>
                     <div className="bg-gradient-to-r from-slate-50 to-white rounded-xl p-5 space-y-3 border border-slate-100">
                       <div className="flex items-center gap-3 text-sm group">
-                        <div className="h-8 w-8 rounded-lg bg-[#31572c]/10 flex items-center justify-center group-hover:bg-[#31572c]/20 transition-colors">
+                        <div className="h-8 w-8 rounded-lg bg-brand-dark/10 flex items-center justify-center group-hover:bg-brand-dark/20 transition-colors">
                           <Phone className="w-4 h-4 text-[#31572c]" />
                         </div>
                         <span className="text-slate-700 font-semibold">
@@ -979,7 +979,7 @@ export default function FarmerCaseManagement() {
                         </span>
                       </div>
                       <div className="flex items-center gap-3 text-sm group">
-                        <div className="h-8 w-8 rounded-lg bg-[#31572c]/10 flex items-center justify-center group-hover:bg-[#31572c]/20 transition-colors">
+                        <div className="h-8 w-8 rounded-lg bg-brand-dark/10 flex items-center justify-center group-hover:bg-brand-dark/20 transition-colors">
                           <Mail className="w-4 h-4 text-[#31572c]" />
                         </div>
                         <span className="text-slate-700 font-semibold">
@@ -1008,14 +1008,14 @@ export default function FarmerCaseManagement() {
                             {idx < 3 && (
                               <div
                                 className={`absolute left-5 top-10 bottom-0 w-0.5 -ml-px transition-colors duration-500 ${
-                                  stage.isCompleted ? "bg-[#31572c]" : "bg-slate-200"
+                                  stage.isCompleted ? "bg-brand-dark" : "bg-slate-200"
                                 }`}
                               />
                             )}
                             <div
                               className={`h-10 w-10 rounded-full border-2 flex items-center justify-center text-sm font-black z-10 shrink-0 transition-all ${
                                 stage.isCompleted
-                                  ? "bg-[#31572c] text-white border-[#31572c]"
+                                  ? "bg-brand-dark text-white border-[#31572c]"
                                   : stage.isActive
                                     ? "bg-amber-100 text-amber-700 border-amber-500 animate-pulse"
                                     : "bg-slate-50 text-slate-400 border-slate-200"
@@ -1057,7 +1057,7 @@ export default function FarmerCaseManagement() {
                       <div className="overflow-hidden h-3 text-xs flex rounded-full bg-slate-100">
                         <div
                           style={{ width: `${selectedCase.progress}%` }}
-                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#31572c] transition-all duration-500 rounded-full"
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-brand-dark transition-all duration-500 rounded-full"
                         />
                       </div>
                       <input
@@ -1121,7 +1121,7 @@ export default function FarmerCaseManagement() {
                 onClick={() =>
                   updateCaseStatus(selectedCase.id, "Resolved")
                 }
-                className="px-6 py-2.5 bg-[#31572c] hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer transition-colors flex items-center justify-center gap-2"
+                className="px-6 py-2.5 bg-brand-dark hover:bg-[#132a13] text-white rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer transition-colors flex items-center justify-center gap-2"
               >
                 <CheckCircle className="w-4 h-4" />
                 Mark Resolved
