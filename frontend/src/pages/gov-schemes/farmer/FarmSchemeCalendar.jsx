@@ -1,5 +1,4 @@
-// src/pages/gov-schemes/farmer/FarmSchemeCalendar.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Calendar,
   ChevronLeft,
@@ -19,6 +18,7 @@ import {
   Sprout,
   CheckSquare
 } from "lucide-react";
+import { govSchemesApi } from "../../../services/apiService";
 
 // Robust local mock events database (contains both upcoming and passed events for dynamic loss computation)
 const LOCAL_EVENTS_DB = [
@@ -35,7 +35,7 @@ const LOCAL_EVENTS_DB = [
     type: "deadline",
     priority: "high",
     description: "Submit crop sowing certificate and land verification to claim organic farming outlays.",
-    amount: "₹15,000 subsidy",
+    amount: "₹15,000",
     action: "Complete Upload"
   },
   {
@@ -50,7 +50,7 @@ const LOCAL_EVENTS_DB = [
     type: "deadline",
     priority: "urgent",
     description: "Submit Aadhaar seeding correction consent slip to bank branch for winter installment clearance.",
-    amount: "₹2,000 (DBT)",
+    amount: "₹2,000",
     action: "Link Account"
   },
   {
@@ -99,7 +99,7 @@ const LOCAL_EVENTS_DB = [
     type: "deadline",
     priority: "urgent",
     description: "Final deadline to submit crop sowing certificate and pay subsidized premium for paddy crop insurance.",
-    amount: "₹1,500 premium for ₹75,000 coverage",
+    amount: "₹75,000",
     action: "Renew Policy"
   },
   {
@@ -114,7 +114,7 @@ const LOCAL_EVENTS_DB = [
     type: "installment",
     priority: "high",
     description: "Scheduled release of ₹2,000 direct benefit transfer into Aadhaar-seeded bank accounts.",
-    amount: "₹2,000 (DBT)",
+    amount: "₹2,000",
     action: "Check Bank Status"
   },
   {
@@ -129,7 +129,7 @@ const LOCAL_EVENTS_DB = [
     type: "deadline",
     priority: "high",
     description: "Application window closes for 60% capital subsidy on solar water pumps up to 7.5 HP.",
-    amount: "₹1,20,000 subsidy",
+    amount: "₹1,20,000",
     action: "Complete Upload"
   },
   {
@@ -144,7 +144,7 @@ const LOCAL_EVENTS_DB = [
     type: "deadline",
     priority: "medium",
     description: "State-specific subsidy applications for borewell and tubewell electrification for SC category farmers.",
-    amount: "₹25,000 incentive",
+    amount: "₹25,000",
     action: "Submit Caste Certificate"
   },
   {
@@ -159,7 +159,7 @@ const LOCAL_EVENTS_DB = [
     type: "training",
     priority: "medium",
     description: "Distribution of high-yielding rice seed varieties at 50% subsidized rates at local block offices.",
-    amount: "50% seed discount",
+    amount: "50% Discount",
     location: "Block Dev Office, Sonipat",
     action: "Locate Center"
   }
@@ -178,11 +178,40 @@ const FarmSchemeCalendar = () => {
 
   // Checkbox state for applied schemes (ID -> Boolean)
   const [appliedEvents, setAppliedEvents] = useState({
-    // PM Kisan 16th installment seeding correction is unchecked by default to show as missed
     13: false,
-    10: true, // Marked as applied/completed
-    11: true, // Marked as applied/completed
+    10: true,
+    11: true,
   });
+
+  const [events, setEvents] = useState(LOCAL_EVENTS_DB);
+  const [loading, setLoading] = useState(true);
+
+  const loadCalendar = async () => {
+    try {
+      setLoading(true);
+      const res = await govSchemesApi.getFarmerCalendar();
+      if (res.success) {
+        if (res.events && res.events.length > 0) {
+          setEvents(res.events);
+        }
+        const appliedMap = {};
+        if (res.appliedEvents && Array.isArray(res.appliedEvents)) {
+          res.appliedEvents.forEach(id => {
+            appliedMap[id] = true;
+          });
+        }
+        setAppliedEvents(appliedMap);
+      }
+    } catch (err) {
+      console.error("Failed to load calendar events:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadCalendar();
+  }, []);
 
   const statesList = ["Haryana", "Punjab", "Uttar Pradesh", "Rajasthan"];
   const cropsList = ["All", "Wheat", "Rice", "Sugarcane", "Mustard"];
@@ -194,15 +223,36 @@ const FarmSchemeCalendar = () => {
     { code: "Zaid", name: "Zaid (May - June)" }
   ];
 
-  const handleApplyToggle = (eventId) => {
+  const handleApplyToggle = async (eventId) => {
+    const eventIdStr = String(eventId);
+    const nextAppliedState = !appliedEvents[eventIdStr];
     setAppliedEvents(prev => ({
       ...prev,
-      [eventId]: !prev[eventId]
+      [eventIdStr]: nextAppliedState
     }));
+    try {
+      const res = await govSchemesApi.toggleCalendarEvent(eventIdStr, nextAppliedState);
+      if (res.success) {
+        const appliedMap = {};
+        if (res.appliedEvents && Array.isArray(res.appliedEvents)) {
+          res.appliedEvents.forEach(id => {
+            appliedMap[id] = true;
+          });
+        }
+        setAppliedEvents(appliedMap);
+      }
+    } catch (err) {
+      console.error("Failed to toggle calendar event:", err);
+      // rollback
+      setAppliedEvents(prev => ({
+        ...prev,
+        [eventIdStr]: !nextAppliedState
+      }));
+    }
   };
 
   // Filter the events
-  const filteredEvents = LOCAL_EVENTS_DB.filter((event) => {
+  const filteredEvents = events.filter((event) => {
     const stateMatch = !selectedState || event.state === selectedState;
     const cropMatch = selectedCrop === "All" || event.crop === "All" || event.crop === selectedCrop;
     const categoryMatch = selectedCategory === "All" || event.category === selectedCategory;

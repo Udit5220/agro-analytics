@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import GenericTable from "../../../components/partials/GenericTable";
 import { PageHeader, StatsCard, SchemeStatusBadge } from "./FpoSharedComponents";
 import { FolderCheck, Upload, AlertTriangle, CheckCircle, ChevronRight, X, Clock, HelpCircle, Building2, ClipboardList, Info } from "lucide-react";
+import { govSchemesApi } from "../../../services/apiService";
 
 // DATA SECTION
 const INITIAL_APPLICATIONS = [
@@ -174,6 +175,44 @@ export default function FpoApplications() {
   const [corpDocs, setCorpDocs] = useState(INITIAL_CORP_DOCS);
   const [selectedApp, setSelectedApp] = useState(INITIAL_APPLICATIONS[0]);
   const [uploadModalDoc, setUploadModalDoc] = useState(null);
+  const [stats, setStats] = useState({
+    totalApps: 5,
+    inProgress: 4,
+    approved: 1,
+    totalPipeline: "₹3.05 Cr"
+  });
+  const [loading, setLoading] = useState(true);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const res = await govSchemesApi.getFpoApplications();
+      if (res.success) {
+        setApplications(res.applications || []);
+        setCorpDocs(res.corpDocs || []);
+        setStats(res.stats || {
+          totalApps: 0,
+          inProgress: 0,
+          approved: 0,
+          totalPipeline: "₹0"
+        });
+        if (res.applications && res.applications.length > 0) {
+          setSelectedApp(prev => {
+            const found = res.applications.find(a => a.id === prev?.id);
+            return found || res.applications[0];
+          });
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load applications:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const columnsGrants = useMemo(() => [
     {
@@ -266,42 +305,18 @@ export default function FpoApplications() {
     setUploadModalDoc(doc);
   };
 
-  const handleSimulateUpload = () => {
+  const handleSimulateUpload = async () => {
     if (!uploadModalDoc) return;
-    
-    // 1. Update Corporate Docs State
-    const updatedDocs = corpDocs.map((d) => {
-      if (d.id === uploadModalDoc.id) {
-        return { ...d, status: "Verified", risk: "—", validTill: "Verified Today" };
+    try {
+      const res = await govSchemesApi.uploadCorporateDocument(uploadModalDoc.id);
+      if (res.success) {
+        await loadData();
       }
-      return d;
-    });
-    setCorpDocs(updatedDocs);
-
-    // 2. Update Application checklists and alert statuses if relevant
-    const updatedApps = applications.map((app) => {
-      let changed = false;
-      const updatedChecklist = app.checklist.map((item) => {
-        // If audited financial is missing, and we uploaded audited financial doc
-        if (uploadModalDoc.id === "doc-audit" && item.name === "Audited Financial Statement") {
-          changed = true;
-          return { ...item, status: "Verified" };
-        }
-        return item;
-      });
-
-      if (changed) {
-        return { ...app, checklist: updatedChecklist };
-      }
-      return app;
-    });
-    setApplications(updatedApps);
-    
-    // Also update selectedApp reference if it was changed
-    const matchedSelected = updatedApps.find(a => a.id === selectedApp.id);
-    if (matchedSelected) setSelectedApp(matchedSelected);
-
-    setUploadModalDoc(null);
+    } catch (err) {
+      console.error("Failed to upload corporate document:", err);
+    } finally {
+      setUploadModalDoc(null);
+    }
   };
 
   return (

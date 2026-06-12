@@ -26,6 +26,9 @@ app.use((req, res, next) => {
   // Force campaigns endpoints to always use MONGO_URI_1 (secondary database, agro-india)
   if (req.path.includes('/campaigns') || dbSelect === 'mongo_uri_1') {
     useSecondary = true;
+  } else if (req.path.includes('/gov-schemes') || req.path.includes('/profile') || req.path.includes('/farmer')) {
+    // Keep government schemes and profiles consistently on MONGO_URI
+    useSecondary = false;
   } else {
     // Default to MONGO_URI
     if (req.method === 'GET') {

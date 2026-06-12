@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Bell,
@@ -29,7 +29,12 @@ import {
   Eye,
   Sliders,
 } from "lucide-react";
-import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
+import {
+  getAnalyticsData,
+  saveAnalyticsData,
+  fetchAnalyticsData,
+  syncAnalyticsData,
+} from "./govSchemesHelper";
 
 /*
 // --- OLD ALERTS CENTER COMPONENT COMMENTED OUT ---
@@ -56,6 +61,12 @@ export default function AdminAlertsCenter() {
     guidelines: { mgmt: true, finance: false, comp: true, ops: true },
   });
 
+  useEffect(() => {
+    fetchAnalyticsData()
+      .then((data) => setAnalytics(data))
+      .catch(console.error);
+  }, []);
+
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(""), 3000);
@@ -64,8 +75,7 @@ export default function AdminAlertsCenter() {
   const handleDismissAlert = (alertId) => {
     const updated = { ...analytics };
     updated.alerts = updated.alerts.filter((a) => a.id !== alertId);
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+    syncAnalyticsData(updated).then((data) => setAnalytics(data));
     setDismissedCount((prev) => prev + 1);
     showToast("Alert dismissed from dashboard feed.");
   };
@@ -75,8 +85,7 @@ export default function AdminAlertsCenter() {
     updated.alerts.forEach((a) => {
       a.read = true;
     });
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+    syncAnalyticsData(updated).then((data) => setAnalytics(data));
     showToast("All alerts marked as read.");
   };
 

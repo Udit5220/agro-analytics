@@ -1,3 +1,5 @@
+import { govSchemesApi } from "../../../services/apiService";
+
 // shared state and helper functions for government schemes admin pages
 
 export const defaultAnalyticsData = {
@@ -287,4 +289,28 @@ export const getAnalyticsData = () => {
 
 export const saveAnalyticsData = (data) => {
   localStorage.setItem("agroindia_analytics", JSON.stringify(data));
+};
+
+export const fetchAnalyticsData = async () => {
+  try {
+    const res = await govSchemesApi.getAdminAnalytics();
+    if (res && res.success) {
+      const { success, ...rest } = res;
+      localStorage.setItem("agroindia_analytics", JSON.stringify(rest));
+      return rest;
+    }
+  } catch (e) {
+    console.error("fetchAnalyticsData error, using cache:", e.message);
+  }
+  return getAnalyticsData();
+};
+
+export const syncAnalyticsData = async (data) => {
+  try {
+    localStorage.setItem("agroindia_analytics", JSON.stringify(data));
+    await govSchemesApi.saveAdminAnalytics(data);
+  } catch (e) {
+    console.error("syncAnalyticsData error:", e.message);
+  }
+  return data;
 };

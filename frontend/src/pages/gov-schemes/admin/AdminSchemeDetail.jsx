@@ -101,7 +101,8 @@ export default function AdminSchemeDetail() {
 
 // --- NEW REDESIGNED SCHEME DETAIL WORKSPACE COMPONENT ---
 
-import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
+import { getAnalyticsData, saveAnalyticsData, fetchAnalyticsData, syncAnalyticsData } from "./govSchemesHelper";
+import { govSchemesApi } from "../../../services/apiService";
 
 export default function AdminSchemeDetail() {
   const navigate = useNavigate();
@@ -136,18 +137,12 @@ export default function AdminSchemeDetail() {
 
   // Log viewed event for details
   useEffect(() => {
-    const updated = { ...analytics };
-    const matched = updated.schemes.find(s => s.id === scheme.id);
-    if (matched) {
-      matched.viewed = (matched.viewed || 0) + 1;
-    }
-    // Track guide open
-    const guideEvent = updated.events.find(e => e.type === "guide_open");
-    if (guideEvent) {
-      guideEvent.count += 1;
-    }
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+    fetchAnalyticsData().then(data => {
+      setAnalytics(data);
+      // Log telemetry interactions
+      govSchemesApi.interact(scheme.id, 'view').catch(console.error);
+      govSchemesApi.interact(scheme.id, 'guide_open').catch(console.error);
+    }).catch(console.error);
   }, [scheme.id]);
 
   const showToast = (msg) => {
@@ -165,8 +160,11 @@ export default function AdminSchemeDetail() {
       if (bookmarkEvent) {
         bookmarkEvent.count += matched.bookmarked ? 1 : -1;
       }
-      saveAnalyticsData(updated);
-      setAnalytics(updated);
+      
+      // Log bookmark telemetry interaction
+      govSchemesApi.interact(scheme.id, 'bookmark', matched.bookmarked).catch(console.error);
+
+      syncAnalyticsData(updated).then(data => setAnalytics(data));
       showToast(matched.bookmarked ? "Bookmarked opportunity!" : "Removed bookmark");
     }
   };
@@ -191,8 +189,11 @@ export default function AdminSchemeDetail() {
       matched.selfReportedApplied = true;
       matched.lastInteraction = new Date().toISOString().split("T")[0];
     }
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+    
+    // Log apply telemetry interaction
+    govSchemesApi.interact(scheme.id, 'apply_click').catch(console.error);
+
+    syncAnalyticsData(updated).then(data => setAnalytics(data));
   };
 
   // Define dynamic content for tabs based on scheme profile

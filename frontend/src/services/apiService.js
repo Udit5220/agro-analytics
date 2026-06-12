@@ -181,12 +181,27 @@ export const govSchemesApi = {
   getSchemeById:       (id)          => request(`/gov-schemes/${id}`),
   getDashboard:        ()            => request('/gov-schemes/dashboard'),
   chatWithSchemeAI:    (data)        => request('/gov-schemes/chat',  { method: 'POST',   body: JSON.stringify(data) }),
+  interact:            (id, type, value) => request(`/gov-schemes/${id}/interact`, { method: 'POST', body: JSON.stringify({ type, value }) }),
+  getAdminAnalytics:   ()            => request('/gov-schemes/admin/analytics'),
+  saveAdminAnalytics:  (data)        => request('/gov-schemes/admin/analytics', { method: 'POST', body: JSON.stringify(data) }),
   
   // FPO Dashboard Additions
   getFpoStats:         (params = {}) => request(`/gov-schemes/fpo/stats?${qs(params)}`),
   getFpoFarmers:       ()            => request('/gov-schemes/fpo/farmers'),
   updateFpoEnrollment: (id, schemes) => request(`/gov-schemes/fpo/farmers/${id}/enrollment`, { method: 'PATCH', body: JSON.stringify({ schemes }) }),
   syncFpoData:         ()            => request('/gov-schemes/fpo/sync', { method: 'POST' }),
+
+  // Farmer Role Gov-Schemes Endpoints
+  getFarmerDbtSubsidies: () => request('/gov-schemes/farmer/dbt-subsidies'),
+  getFarmerCalendar:     () => request('/gov-schemes/farmer/calendar'),
+  toggleCalendarEvent:   (eventId, applied) => request('/gov-schemes/farmer/calendar/apply', { method: 'POST', body: JSON.stringify({ eventId, applied }) }),
+
+  // FPO Roles Gov-Schemes Endpoints
+  getFpoDisbursements:   (params = {}) => request(`/gov-schemes/fpo/disbursements?${qs(params)}`),
+  resolveFpoDisbursement:(farmerId) => request('/gov-schemes/fpo/disbursements/resolve', { method: 'POST', body: JSON.stringify({ farmerId }) }),
+  getFpoApplications:   () => request('/gov-schemes/fpo/applications'),
+  uploadCorporateDocument:(docId) => request('/gov-schemes/fpo/applications/upload', { method: 'POST', body: JSON.stringify({ docId }) }),
+  getFpoBoardReport:     () => request('/gov-schemes/fpo/board-report'),
 };
 
 // ─── Campaign APIs (MongoDB) ───────────────────────────────────────────────

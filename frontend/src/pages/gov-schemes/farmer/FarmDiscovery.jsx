@@ -14,7 +14,7 @@ import {
   X,
   Check,
 } from "lucide-react";
-import govtSchemeData from "../../../seed-json/govt_scheme.json";
+import { govSchemesApi } from "../../../services/apiService";
 
 const FarmDiscovery = () => {
   const [filterOpen, setFilterOpen] = useState(true);
@@ -32,10 +32,20 @@ const FarmDiscovery = () => {
   const [applyScheme, setApplyScheme] = useState(null);
   const [applySuccess, setApplySuccess] = useState(false);
 
-  const { schemes, discoveryFilters, matchBreakdown, blockingFactors } =
-    govtSchemeData;
+  const [schemes, setSchemes] = useState([]);
+  const [discoveryFilters, setDiscoveryFilters] = useState({
+    states: [],
+    districts: [],
+    crops: [],
+    irrigationTypes: [],
+    farmerCategories: []
+  });
+  const [matchBreakdown, setMatchBreakdown] = useState({});
+  const [blockingFactors, setBlockingFactors] = useState([]);
+  const [farmerProfile, setFarmerProfile] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  // Load saved schemes from localStorage
+  // Load saved schemes and fetch DB data
   useEffect(() => {
     const saved = localStorage.getItem("farmerSavedSchemes");
     if (saved) {
@@ -45,17 +55,42 @@ const FarmDiscovery = () => {
         console.error(e);
       }
     }
+
+    govSchemesApi.getSchemes({ role: "farmer" })
+      .then(res => {
+        if (res && res.schemes) {
+          setSchemes(res.schemes);
+          if (res.discoveryFilters) setDiscoveryFilters(res.discoveryFilters);
+          if (res.matchBreakdown) setMatchBreakdown(res.matchBreakdown);
+          if (res.blockingFactors) setBlockingFactors(res.blockingFactors);
+          if (res.farmerProfile) setFarmerProfile(res.farmerProfile);
+
+          // Log view interactions for top 3 matching schemes
+          res.schemes.slice(0, 3).forEach(s => {
+            govSchemesApi.interact(s.id, "view").catch(console.error);
+          });
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch schemes:", err);
+        setLoading(false);
+      });
   }, []);
 
   const toggleSaveScheme = (schemeId) => {
+    const isSaved = savedSchemes.includes(schemeId);
     let updated;
-    if (savedSchemes.includes(schemeId)) {
+    if (isSaved) {
       updated = savedSchemes.filter((id) => id !== schemeId);
     } else {
       updated = [...savedSchemes, schemeId];
     }
     setSavedSchemes(updated);
     localStorage.setItem("farmerSavedSchemes", JSON.stringify(updated));
+
+    // Log bookmark telemetry interaction
+    govSchemesApi.interact(schemeId, "bookmark", !isSaved).catch(console.error);
   };
 
   const getStatusBadge = (status, statusType) => {
@@ -106,6 +141,12 @@ const FarmDiscovery = () => {
   const handleApplySubmit = (e) => {
     e.preventDefault();
     setApplySuccess(true);
+
+    // Log apply telemetry interaction
+    if (applyScheme) {
+      govSchemesApi.interact(applyScheme.id, "apply_click").catch(console.error);
+    }
+
     setTimeout(() => {
       setApplySuccess(false);
       setApplyScheme(null);
@@ -552,7 +593,7 @@ const FarmDiscovery = () => {
                     <input
                       type="text"
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs bg-gray-50 text-gray-600 cursor-not-allowed"
-                      value={govtSchemeData.farmerProfile.name}
+                      value={farmerProfile.name || ""}
                       readOnly
                     />
                   </div>
@@ -564,7 +605,7 @@ const FarmDiscovery = () => {
                       <input
                         type="text"
                         className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs bg-gray-50 text-gray-600 cursor-not-allowed"
-                        value={govtSchemeData.farmerProfile.state}
+                        value={farmerProfile.state || ""}
                         readOnly
                       />
                     </div>
@@ -575,7 +616,7 @@ const FarmDiscovery = () => {
                       <input
                         type="text"
                         className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs bg-gray-50 text-gray-600 cursor-not-allowed"
-                        value={govtSchemeData.farmerProfile.district}
+                        value={farmerProfile.district || ""}
                         readOnly
                       />
                     </div>
@@ -588,7 +629,7 @@ const FarmDiscovery = () => {
                       <input
                         type="text"
                         className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs bg-gray-50 text-gray-600 cursor-not-allowed"
-                        value={govtSchemeData.farmerProfile.farmingExperience}
+                        value={farmerProfile.farmingExperience || ""}
                         readOnly
                       />
                     </div>
@@ -599,7 +640,7 @@ const FarmDiscovery = () => {
                       <input
                         type="text"
                         className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs bg-gray-50 text-gray-600 cursor-not-allowed"
-                        value={govtSchemeData.farmerProfile.landSize}
+                        value={farmerProfile.landSize || ""}
                         readOnly
                       />
                     </div>
@@ -612,7 +653,7 @@ const FarmDiscovery = () => {
                       type="text"
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs bg-gray-50 text-gray-600 cursor-not-allowed font-mono"
                       value={
-                        govtSchemeData.farmerProfile.bankAccount ||
+                        farmerProfile.bankAccount ||
                         "[Configured Securely]"
                       }
                       readOnly

@@ -465,17 +465,30 @@ export const WhatsAppReminderModal = ({ scheme, targetFarmers = [], village, isO
 };
 
 // 8. IssueResolutionModal
-export const IssueResolutionModal = ({ farmer, isOpen, onClose }) => {
+export const IssueResolutionModal = ({ farmer, isOpen, onClose, onResolve }) => {
   const [success, setSuccess] = useState(false);
 
   if (!isOpen || !farmer) return null;
 
-  const handleResolve = () => {
-    setSuccess(true);
-    setTimeout(() => {
-      setSuccess(false);
-      onClose();
-    }, 1500);
+  const handleResolve = async () => {
+    if (onResolve) {
+      try {
+        await onResolve(farmer.farmerId);
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+          onClose();
+        }, 1500);
+      } catch (err) {
+        console.error("Failed to resolve:", err);
+      }
+    } else {
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        onClose();
+      }, 1500);
+    }
   };
 
   const getGuide = (issue) => {

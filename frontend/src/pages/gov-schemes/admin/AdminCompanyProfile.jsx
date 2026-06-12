@@ -29,7 +29,12 @@ import {
   ShieldCheck,
   Check,
 } from "lucide-react";
-import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
+import {
+  getAnalyticsData,
+  saveAnalyticsData,
+  fetchAnalyticsData,
+  syncAnalyticsData,
+} from "./govSchemesHelper";
 
 /*
 // --- OLD COMPANY PROFILE COMPONENT COMMENTED OUT ---
@@ -54,39 +59,124 @@ export default function AdminCompanyProfile() {
   const [dpiit, setDpiit] = useState(analytics.companyProfile.dpiit || "");
   const [pan, setPan] = useState(analytics.companyProfile.pan || "");
 
-  const [turnover, setTurnover] = useState(analytics.companyProfile.turnover || "");
-  const [employees, setEmployees] = useState(analytics.companyProfile.employees || "");
-  const [netWorth, setNetWorth] = useState(analytics.companyProfile.netWorth || "");
-  const [yearsInOperation, setYearsInOperation] = useState(analytics.companyProfile.yearsInOperation || "");
+  const [turnover, setTurnover] = useState(
+    analytics.companyProfile.turnover || "",
+  );
+  const [employees, setEmployees] = useState(
+    analytics.companyProfile.employees || "",
+  );
+  const [netWorth, setNetWorth] = useState(
+    analytics.companyProfile.netWorth || "",
+  );
+  const [yearsInOperation, setYearsInOperation] = useState(
+    analytics.companyProfile.yearsInOperation || "",
+  );
+  const [statesServed, setStatesServed] = useState(
+    Array.isArray(analytics.companyProfile.statesServed)
+      ? analytics.companyProfile.statesServed.join(", ")
+      : analytics.companyProfile.statesServed || "",
+  );
+  const [farmerNetwork, setFarmerNetwork] = useState(
+    analytics.companyProfile.farmerNetwork || "",
+  );
+  const [fpoPartnerships, setFpoPartnerships] = useState(
+    analytics.companyProfile.fpoPartnerships || "",
+  );
+  const [cropFocus, setCropFocus] = useState(
+    Array.isArray(analytics.companyProfile.cropFocus)
+      ? analytics.companyProfile.cropFocus.join(", ")
+      : analytics.companyProfile.cropFocus || "",
+  );
+  const [techStack, setTechStack] = useState(
+    analytics.companyProfile.techStack || "",
+  );
+  const [businessCategory, setBusinessCategory] = useState(
+    analytics.companyProfile.businessCategory || "",
+  );
+  const [growthStage, setGrowthStage] = useState(
+    analytics.companyProfile.growthStage || "",
+  );
+  const [fundingStage, setFundingStage] = useState(
+    analytics.companyProfile.fundingStage || "",
+  );
 
-  const [statesServed, setStatesServed] = useState((analytics.companyProfile.statesServed || []).join(", "));
-  const [farmerNetwork, setFarmerNetwork] = useState(analytics.companyProfile.farmerNetwork || "");
-  const [fpoPartnerships, setFpoPartnerships] = useState(analytics.companyProfile.fpoPartnerships || "");
-  const [cropFocus, setCropFocus] = useState((analytics.companyProfile.cropFocus || []).join(", "));
-  const [techStack, setTechStack] = useState(analytics.companyProfile.techStack || "");
-
-  const [businessCategory, setBusinessCategory] = useState(analytics.companyProfile.businessCategory || "");
-  const [growthStage, setGrowthStage] = useState(analytics.companyProfile.growthStage || "");
-  const [fundingStage, setFundingStage] = useState(analytics.companyProfile.fundingStage || "");
-
-  // Optional integrations toggles
-  const [tallyLinked, setTallyLinked] = useState(false);
+  // Integration nodes
+  const [tallyLinked, setTallyLinked] = useState(true);
   const [zohoLinked, setZohoLinked] = useState(false);
   const [erpLinked, setErpLinked] = useState(false);
+
+  useEffect(() => {
+    fetchAnalyticsData()
+      .then((data) => {
+        setAnalytics(data);
+        if (data.companyProfile) {
+          setGstin(data.companyProfile.gstin || "");
+          setCin(data.companyProfile.cin || "");
+          setUdyam(data.companyProfile.udyam || "");
+          setDpiit(data.companyProfile.dpiit || "");
+          setPan(data.companyProfile.pan || "");
+          setTurnover(data.companyProfile.turnover || "");
+          setEmployees(data.companyProfile.employees || "");
+          setNetWorth(data.companyProfile.netWorth || "");
+          setYearsInOperation(data.companyProfile.yearsInOperation || "");
+          setStatesServed(
+            Array.isArray(data.companyProfile.statesServed)
+              ? data.companyProfile.statesServed.join(", ")
+              : data.companyProfile.statesServed || "",
+          );
+          setFarmerNetwork(data.companyProfile.farmerNetwork || "");
+          setFpoPartnerships(data.companyProfile.fpoPartnerships || "");
+          setCropFocus(
+            Array.isArray(data.companyProfile.cropFocus)
+              ? data.companyProfile.cropFocus.join(", ")
+              : data.companyProfile.cropFocus || "",
+          );
+          setTechStack(data.companyProfile.techStack || "");
+          setBusinessCategory(data.companyProfile.businessCategory || "");
+          setGrowthStage(data.companyProfile.growthStage || "");
+          setFundingStage(data.companyProfile.fundingStage || "");
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(""), 3000);
   };
 
-  // Save changes
   const handleSaveProfile = (e) => {
-    e.preventDefault();
-    const updated = { ...analytics };
-    
-    // Update profile
-    updated.companyProfile = {
-      ...updated.companyProfile,
+    if (e && e.preventDefault) e.preventDefault();
+    const updated = {
+      ...analytics,
+      companyProfile: {
+        gstin,
+        cin,
+        udyam,
+        dpiit,
+        pan,
+        turnover,
+        employees,
+        netWorth,
+        yearsInOperation,
+        statesServed: typeof statesServed === "string"
+          ? statesServed.split(",").map((s) => s.trim()).filter(Boolean)
+          : statesServed || [],
+        farmerNetwork,
+        fpoPartnerships,
+        cropFocus: typeof cropFocus === "string"
+          ? cropFocus.split(",").map((s) => s.trim()).filter(Boolean)
+          : cropFocus || [],
+        techStack,
+        businessCategory,
+        growthStage,
+        fundingStage,
+      },
+    };
+
+    // Calculate Completion Score
+    let fieldsFilled = 0;
+    const fields = [
       gstin,
       cin,
       udyam,
@@ -96,50 +186,44 @@ export default function AdminCompanyProfile() {
       employees,
       netWorth,
       yearsInOperation,
-      statesServed: statesServed.split(",").map(s => s.trim()).filter(Boolean),
       farmerNetwork,
       fpoPartnerships,
-      cropFocus: cropFocus.split(",").map(c => c.trim()).filter(Boolean),
       techStack,
       businessCategory,
-      growthStage,
-      fundingStage,
-    };
-
-    // Calculate score based on linked indicators
-    let fieldsFilled = 0;
-    const fields = [gstin, cin, udyam, dpiit, pan, turnover, employees, netWorth, yearsInOperation, farmerNetwork, fpoPartnerships, techStack, businessCategory];
-    fields.forEach(f => {
+    ];
+    fields.forEach((f) => {
       if (f && f.length > 0) fieldsFilled += 1;
     });
 
     // Score weight
-    const rawScore = Math.round((fieldsFilled / fields.length) * 85) + (tallyLinked ? 5 : 0) + (zohoLinked ? 5 : 0) + (erpLinked ? 5 : 0);
+    const rawScore =
+      Math.round((fieldsFilled / fields.length) * 85) +
+      (tallyLinked ? 5 : 0) +
+      (zohoLinked ? 5 : 0) +
+      (erpLinked ? 5 : 0);
     updated.profileStrength = Math.min(rawScore, 100);
 
     // Sync scheme blockers if Udyam is added
     if (udyam) {
-      updated.schemes.forEach(s => {
-        s.missingRequirements = s.missingRequirements.filter(req => req !== "Udyam Registration Missing");
+      updated.schemes.forEach((s) => {
+        s.missingRequirements = s.missingRequirements.filter(
+          (req) => req !== "Udyam Registration Missing",
+        );
       });
     }
 
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+    syncAnalyticsData(updated).then((data) => setAnalytics(data));
     showToast("Corporate matching profile saved & matched score recalculated!");
   };
 
   useEffect(() => {
     // If integrations change, update overall matching score
     const updated = { ...analytics };
-    let basePct = analytics.profileStrength;
-    // Cap score at 100
-    saveAnalyticsData(updated);
+    syncAnalyticsData(updated);
   }, [tallyLinked, zohoLinked, erpLinked]);
 
   return (
     <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-brand-darkest animate-fadeIn relative font-semibold">
-      
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-5 right-5 bg-brand-darkest text-white px-4 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-2 text-xs border border-white/10 animate-bounce">
@@ -155,9 +239,12 @@ export default function AdminCompanyProfile() {
           <span className="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
             Recommendation Core
           </span>
-          <h1 className="text-2xl font-black tracking-tight">Company Profile & Matching Engine</h1>
+          <h1 className="text-2xl font-black tracking-tight">
+            Company Profile & Matching Engine
+          </h1>
           <p className="text-xs text-white/80 font-medium leading-relaxed">
-            Configure business registry credentials, financial indicators, and crop parameters to power the automated matching algorithm.
+            Configure business registry credentials, financial indicators, and
+            crop parameters to power the automated matching algorithm.
           </p>
         </div>
       </div>
@@ -165,26 +252,33 @@ export default function AdminCompanyProfile() {
       {/* Profile completion strip */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <span className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">Real-time matching accuracy</span>
-          <span className="text-lg font-black text-brand-darkest mt-1 block">Profile Completion Score</span>
+          <span className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Real-time matching accuracy
+          </span>
+          <span className="text-lg font-black text-brand-darkest mt-1 block">
+            Profile Completion Score
+          </span>
         </div>
 
         <div className="flex items-center gap-3 w-full sm:w-1/2">
           <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
-            <div 
+            <div
               className="bg-brand-medium h-full rounded-full transition-all"
               style={{ width: `${analytics.profileStrength}%` }}
             />
           </div>
-          <span className="text-lg font-black text-brand-darkest shrink-0">{analytics.profileStrength}%</span>
+          <span className="text-lg font-black text-brand-darkest shrink-0">
+            {analytics.profileStrength}%
+          </span>
         </div>
       </div>
 
-      <form onSubmit={handleSaveProfile} className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        
+      <form
+        onSubmit={handleSaveProfile}
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start"
+      >
         {/* Left 2 Columns: Profile Forms */}
         <div className="lg:col-span-2 space-y-6">
-          
           {/* Business Identity */}
           <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
             <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2">
@@ -193,52 +287,62 @@ export default function AdminCompanyProfile() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium">
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">GSTIN</label>
-                <input 
-                  type="text" 
-                  value={gstin} 
-                  onChange={(e) => setGstin(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  GSTIN
+                </label>
+                <input
+                  type="text"
+                  value={gstin}
+                  onChange={(e) => setGstin(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">CIN</label>
-                <input 
-                  type="text" 
-                  value={cin} 
-                  onChange={(e) => setCin(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  CIN
+                </label>
+                <input
+                  type="text"
+                  value={cin}
+                  onChange={(e) => setCin(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Udyam Registration</label>
-                <input 
-                  type="text" 
-                  value={udyam} 
-                  onChange={(e) => setUdyam(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Udyam Registration
+                </label>
+                <input
+                  type="text"
+                  value={udyam}
+                  onChange={(e) => setUdyam(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                   placeholder="Sync MSME Loans Udyam code"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">DPIIT Startup India Recognition Code</label>
-                <input 
-                  type="text" 
-                  value={dpiit} 
-                  onChange={(e) => setDpiit(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  DPIIT Startup India Recognition Code
+                </label>
+                <input
+                  type="text"
+                  value={dpiit}
+                  onChange={(e) => setDpiit(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">PAN</label>
-                <input 
-                  type="text" 
-                  value={pan} 
-                  onChange={(e) => setPan(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  PAN
+                </label>
+                <input
+                  type="text"
+                  value={pan}
+                  onChange={(e) => setPan(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
@@ -253,41 +357,49 @@ export default function AdminCompanyProfile() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium">
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Annual Turnover</label>
-                <input 
-                  type="text" 
-                  value={turnover} 
-                  onChange={(e) => setTurnover(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Annual Turnover
+                </label>
+                <input
+                  type="text"
+                  value={turnover}
+                  onChange={(e) => setTurnover(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Employee Count</label>
-                <input 
-                  type="text" 
-                  value={employees} 
-                  onChange={(e) => setEmployees(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Employee Count
+                </label>
+                <input
+                  type="text"
+                  value={employees}
+                  onChange={(e) => setEmployees(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Net Worth</label>
-                <input 
-                  type="text" 
-                  value={netWorth} 
-                  onChange={(e) => setNetWorth(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Net Worth
+                </label>
+                <input
+                  type="text"
+                  value={netWorth}
+                  onChange={(e) => setNetWorth(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Years in Operation</label>
-                <input 
-                  type="text" 
-                  value={yearsInOperation} 
-                  onChange={(e) => setYearsInOperation(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Years in Operation
+                </label>
+                <input
+                  type="text"
+                  value={yearsInOperation}
+                  onChange={(e) => setYearsInOperation(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
@@ -302,51 +414,61 @@ export default function AdminCompanyProfile() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium">
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">States Served (Comma separated)</label>
-                <input 
-                  type="text" 
-                  value={statesServed} 
-                  onChange={(e) => setStatesServed(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  States Served (Comma separated)
+                </label>
+                <input
+                  type="text"
+                  value={statesServed}
+                  onChange={(e) => setStatesServed(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Farmer Network Count</label>
-                <input 
-                  type="text" 
-                  value={farmerNetwork} 
-                  onChange={(e) => setFarmerNetwork(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Farmer Network Count
+                </label>
+                <input
+                  type="text"
+                  value={farmerNetwork}
+                  onChange={(e) => setFarmerNetwork(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">FPO Partnerships Count</label>
-                <input 
-                  type="text" 
-                  value={fpoPartnerships} 
-                  onChange={(e) => setFpoPartnerships(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  FPO Partnerships Count
+                </label>
+                <input
+                  type="text"
+                  value={fpoPartnerships}
+                  onChange={(e) => setFpoPartnerships(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Crop Focus Areas (Comma separated)</label>
-                <input 
-                  type="text" 
-                  value={cropFocus} 
-                  onChange={(e) => setCropFocus(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Crop Focus Areas (Comma separated)
+                </label>
+                <input
+                  type="text"
+                  value={cropFocus}
+                  onChange={(e) => setCropFocus(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1 sm:col-span-2">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Technology Stack Description</label>
-                <input 
-                  type="text" 
-                  value={techStack} 
-                  onChange={(e) => setTechStack(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Technology Stack Description
+                </label>
+                <input
+                  type="text"
+                  value={techStack}
+                  onChange={(e) => setTechStack(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
@@ -356,45 +478,65 @@ export default function AdminCompanyProfile() {
 
         {/* Right Column: Matching Settings & Integrations */}
         <div className="space-y-6">
-          
           {/* Profile Health Dashboard */}
           <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
             <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-brand-medium" /> Profile Health Dashboard
+              <ShieldCheck className="w-4 h-4 text-brand-medium" /> Profile
+              Health Dashboard
             </h3>
-            
+
             <div className="grid grid-cols-2 gap-3 text-xs">
               <div className="p-3 bg-[#f8faf8] rounded-xl border border-gray-100">
-                <span className="text-[8px] text-gray-400 font-black uppercase block tracking-wider">Verification Status</span>
-                <span className="font-black text-emerald-600 block mt-1 uppercase">Active & Attested</span>
+                <span className="text-[8px] text-gray-400 font-black uppercase block tracking-wider">
+                  Verification Status
+                </span>
+                <span className="font-black text-emerald-600 block mt-1 uppercase">
+                  Active & Attested
+                </span>
               </div>
               <div className="p-3 bg-[#f8faf8] rounded-xl border border-gray-100">
-                <span className="text-[8px] text-gray-400 font-black uppercase block tracking-wider">Data Freshness</span>
-                <span className="font-black text-brand-medium block mt-1 uppercase">Fresh (Synced Today)</span>
+                <span className="text-[8px] text-gray-400 font-black uppercase block tracking-wider">
+                  Data Freshness
+                </span>
+                <span className="font-black text-brand-medium block mt-1 uppercase">
+                  Fresh (Synced Today)
+                </span>
               </div>
             </div>
 
             <div className="space-y-2.5 text-xs text-gray-700">
-              <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider block">Recommended Updates</span>
-              
+              <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider block">
+                Recommended Updates
+              </span>
+
               {!udyam && (
                 <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-950 leading-relaxed font-semibold">
-                  <p className="font-black uppercase text-[8px] text-amber-850 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Udyam Code Missing</p>
-                  Link your Udyam MSME code to resolve blockers for the SIDBI Venture Fund.
+                  <p className="font-black uppercase text-[8px] text-amber-850 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" /> Udyam Code Missing
+                  </p>
+                  Link your Udyam MSME code to resolve blockers for the SIDBI
+                  Venture Fund.
                 </div>
               )}
-              
+
               {!turnover && (
                 <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-950 leading-relaxed font-semibold">
-                  <p className="font-black uppercase text-[8px] text-amber-850 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Financial Records Outdated</p>
-                  Upload audited CA financial statements to unlock cold chain export subsidies.
+                  <p className="font-black uppercase text-[8px] text-amber-850 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" /> Financial Records
+                    Outdated
+                  </p>
+                  Upload audited CA financial statements to unlock cold chain
+                  export subsidies.
                 </div>
               )}
 
               {udyam && (
                 <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-950 leading-relaxed font-semibold">
-                  <p className="font-black uppercase text-[8px] text-emerald-900 flex items-center gap-1"><Check className="w-3 h-3" /> Profile Health Excellent</p>
-                  All key registry items are synced. Keep state preferences updated to filter subventions.
+                  <p className="font-black uppercase text-[8px] text-emerald-900 flex items-center gap-1">
+                    <Check className="w-3 h-3" /> Profile Health Excellent
+                  </p>
+                  All key registry items are synced. Keep state preferences
+                  updated to filter subventions.
                 </div>
               )}
             </div>
@@ -408,38 +550,44 @@ export default function AdminCompanyProfile() {
 
             <div className="space-y-3 text-xs font-medium">
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Business Category</label>
-                <input 
-                  type="text" 
-                  value={businessCategory} 
-                  onChange={(e) => setBusinessCategory(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Business Category
+                </label>
+                <input
+                  type="text"
+                  value={businessCategory}
+                  onChange={(e) => setBusinessCategory(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Growth Stage</label>
-                <input 
-                  type="text" 
-                  value={growthStage} 
-                  onChange={(e) => setGrowthStage(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Growth Stage
+                </label>
+                <input
+                  type="text"
+                  value={growthStage}
+                  onChange={(e) => setGrowthStage(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Funding Stage</label>
-                <input 
-                  type="text" 
-                  value={fundingStage} 
-                  onChange={(e) => setFundingStage(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Funding Stage
+                </label>
+                <input
+                  type="text"
+                  value={fundingStage}
+                  onChange={(e) => setFundingStage(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 />
               </div>
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="w-full bg-brand-darkest hover:bg-brand-dark text-white py-3 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm"
             >
               <Save className="w-4 h-4" /> Save Profile Config
@@ -450,25 +598,38 @@ export default function AdminCompanyProfile() {
           <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
             <div>
               <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
-                <Cpu className="w-4 h-4 text-brand-medium" /> Optional Integration Hub
+                <Cpu className="w-4 h-4 text-brand-medium" /> Optional
+                Integration Hub
               </h3>
-              <p className="text-[10px] text-gray-400 font-bold uppercase mt-1">Connect systems to sync metrics</p>
+              <p className="text-[10px] text-gray-400 font-bold uppercase mt-1">
+                Connect systems to sync metrics
+              </p>
             </div>
 
             <div className="space-y-3.5 text-xs font-semibold">
               <div className="flex justify-between items-center p-3 rounded-xl bg-gray-50 border border-gray-100">
                 <div>
-                  <p className="font-bold text-brand-darkest">Tally Integration</p>
-                  <p className="text-[9px] text-gray-400">Sync turnover and audited reports</p>
+                  <p className="font-bold text-brand-darkest">
+                    Tally Integration
+                  </p>
+                  <p className="text-[9px] text-gray-400">
+                    Sync turnover and audited reports
+                  </p>
                 </div>
-                <button 
+                <button
                   type="button"
                   onClick={() => {
                     setTallyLinked(!tallyLinked);
-                    showToast(tallyLinked ? "Tally API disconnected" : "Tally API sync established!");
+                    showToast(
+                      tallyLinked
+                        ? "Tally API disconnected"
+                        : "Tally API sync established!",
+                    );
                   }}
                   className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition ${
-                    tallyLinked ? "bg-emerald-100 text-emerald-800" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
+                    tallyLinked
+                      ? "bg-emerald-100 text-emerald-800"
+                      : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
                   }`}
                 >
                   {tallyLinked ? "Connected" : "Link API"}
@@ -477,17 +638,27 @@ export default function AdminCompanyProfile() {
 
               <div className="flex justify-between items-center p-3 rounded-xl bg-gray-50 border border-gray-100">
                 <div>
-                  <p className="font-bold text-brand-darkest">Zoho Integration</p>
-                  <p className="text-[9px] text-gray-400">Sync corporate profile indicators</p>
+                  <p className="font-bold text-brand-darkest">
+                    Zoho Integration
+                  </p>
+                  <p className="text-[9px] text-gray-400">
+                    Sync corporate profile indicators
+                  </p>
                 </div>
-                <button 
+                <button
                   type="button"
                   onClick={() => {
                     setZohoLinked(!zohoLinked);
-                    showToast(zohoLinked ? "Zoho disconnected" : "Zoho database sync established!");
+                    showToast(
+                      zohoLinked
+                        ? "Zoho disconnected"
+                        : "Zoho database sync established!",
+                    );
                   }}
                   className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition ${
-                    zohoLinked ? "bg-emerald-100 text-emerald-800" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
+                    zohoLinked
+                      ? "bg-emerald-100 text-emerald-800"
+                      : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
                   }`}
                 >
                   {zohoLinked ? "Connected" : "Link API"}
@@ -496,17 +667,27 @@ export default function AdminCompanyProfile() {
 
               <div className="flex justify-between items-center p-3 rounded-xl bg-gray-50 border border-gray-100">
                 <div>
-                  <p className="font-bold text-brand-darkest">Internal CRM / ERP Link</p>
-                  <p className="text-[9px] text-gray-400">Sync operational states and FPO targets</p>
+                  <p className="font-bold text-brand-darkest">
+                    Internal CRM / ERP Link
+                  </p>
+                  <p className="text-[9px] text-gray-400">
+                    Sync operational states and FPO targets
+                  </p>
                 </div>
-                <button 
+                <button
                   type="button"
                   onClick={() => {
                     setErpLinked(!erpLinked);
-                    showToast(erpLinked ? "ERP disconnected" : "ERP data mapping established!");
+                    showToast(
+                      erpLinked
+                        ? "ERP disconnected"
+                        : "ERP data mapping established!",
+                    );
                   }}
                   className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition ${
-                    erpLinked ? "bg-emerald-100 text-emerald-800" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
+                    erpLinked
+                      ? "bg-emerald-100 text-emerald-800"
+                      : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-100"
                   }`}
                 >
                   {erpLinked ? "Connected" : "Link API"}
@@ -514,65 +695,89 @@ export default function AdminCompanyProfile() {
               </div>
             </div>
           </div>
-
         </div>
-
       </form>
 
       {/* Match Explanation Panel */}
       <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
         <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2 flex items-center gap-1.5">
-          <Database className="w-4 h-4 text-brand-medium" /> Match Explanation Panel
+          <Database className="w-4 h-4 text-brand-medium" /> Match Explanation
+          Panel
         </h3>
         <p className="text-xs text-gray-500 font-semibold leading-relaxed">
-          Detailed matching logic diagnostic index showing why your profile credentials align with or block recommended schemes. Sourced from AgroIndia's internal matching engine. 
+          Detailed matching logic diagnostic index showing why your profile
+          credentials align with or block recommended schemes. Sourced from
+          AgroIndia's internal matching engine.
           <span className="text-[10px] text-gray-400 italic block mt-1.5">
-            * Note: All matching checks represent automated rules evaluated against the self-reported profile data you configured above. AgroIndia does not query government databases or API registers for verification.
+            * Note: All matching checks represent automated rules evaluated
+            against the self-reported profile data you configured above.
+            AgroIndia does not query government databases or API registers for
+            verification.
           </span>
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          {analytics.schemes.filter(s => !s.isFarmerScheme).map(s => {
-            const isSidbi = s.id === "adm-04";
-            const isUdyamLinked = !!udyam;
-            return (
-              <div key={s.id} className="p-4 rounded-xl border border-gray-100 bg-gray-50/50 space-y-3">
-                <div className="flex justify-between items-center border-b border-gray-100 pb-1.5">
-                  <span className="font-black text-brand-darkest uppercase tracking-wide truncate max-w-[200px]">{s.name}</span>
-                  <span className="font-black text-brand-medium">{s.matchScore}% Match</span>
-                </div>
-                <div className="space-y-1.5 text-[11px] font-semibold text-gray-600">
-                  <div className="flex items-center gap-1.5 text-emerald-700">
-                    <Check className="w-3.5 h-3.5" /> <span>DPIIT Registered</span>
+          {analytics.schemes
+            .filter((s) => !s.isFarmerScheme)
+            .map((s) => {
+              const isSidbi = s.id === "adm-04";
+              const isUdyamLinked = !!udyam;
+              return (
+                <div
+                  key={s.id}
+                  className="p-4 rounded-xl border border-gray-100 bg-gray-50/50 space-y-3"
+                >
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-1.5">
+                    <span className="font-black text-brand-darkest uppercase tracking-wide truncate max-w-[200px]">
+                      {s.name}
+                    </span>
+                    <span className="font-black text-brand-medium">
+                      {s.matchScore}% Match
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-emerald-700">
-                    <Check className="w-3.5 h-3.5" /> <span>Agritech/Agribusiness Category Match</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-emerald-700">
-                    <Check className="w-3.5 h-3.5" /> <span>Eligible Turnover ({turnover || "₹18.5 Cr"} matches requirements)</span>
-                  </div>
-                  {isSidbi ? (
-                    isUdyamLinked ? (
-                      <div className="flex items-center gap-1.5 text-emerald-700">
-                        <Check className="w-3.5 h-3.5" /> <span>Udyam Registered ({udyam})</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-1.5 text-amber-600">
-                        <AlertTriangle className="w-3.5 h-3.5" /> <span>Missing Certification (Udyam MSME Registration Code Required)</span>
-                      </div>
-                    )
-                  ) : (
+                  <div className="space-y-1.5 text-[11px] font-semibold text-gray-600">
                     <div className="flex items-center gap-1.5 text-emerald-700">
-                      <Check className="w-3.5 h-3.5" /> <span>Registry Compliance Met</span>
+                      <Check className="w-3.5 h-3.5" />{" "}
+                      <span>DPIIT Registered</span>
                     </div>
-                  )}
+                    <div className="flex items-center gap-1.5 text-emerald-700">
+                      <Check className="w-3.5 h-3.5" />{" "}
+                      <span>Agritech/Agribusiness Category Match</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-emerald-700">
+                      <Check className="w-3.5 h-3.5" />{" "}
+                      <span>
+                        Eligible Turnover ({turnover || "₹18.5 Cr"} matches
+                        requirements)
+                      </span>
+                    </div>
+                    {isSidbi ? (
+                      isUdyamLinked ? (
+                        <div className="flex items-center gap-1.5 text-emerald-700">
+                          <Check className="w-3.5 h-3.5" />{" "}
+                          <span>Udyam Registered ({udyam})</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1.5 text-amber-600">
+                          <AlertTriangle className="w-3.5 h-3.5" />{" "}
+                          <span>
+                            Missing Certification (Udyam MSME Registration Code
+                            Required)
+                          </span>
+                        </div>
+                      )
+                    ) : (
+                      <div className="flex items-center gap-1.5 text-emerald-700">
+                        <Check className="w-3.5 h-3.5" />{" "}
+                        <span>Registry Compliance Met</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
-
     </div>
   );
 }

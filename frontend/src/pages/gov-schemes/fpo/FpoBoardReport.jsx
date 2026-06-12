@@ -4,6 +4,7 @@ import { PageHeader, StatsCard, SchemeStatusBadge } from "./FpoSharedComponents"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
 import { FileDown, Calendar, ArrowUpRight, ArrowDownRight, FolderPlus, Check, ChevronRight, AlertTriangle, Sparkles, Brain, Key } from "lucide-react";
 import { jsPDF } from "jspdf";
+import { govSchemesApi } from "../../../services/apiService";
 
 // DATA SECTION
 const STATS = [
@@ -91,26 +92,43 @@ const INITIAL_RECOMMENDATIONS = [
     priority: "MEDIUM",
     problem: "Only 89 of 312 eligible enrolled in pension. 223 marginal farmers missing lifetime pension security.",
     worstCase: "Members miss out on safety nets.",
-    action: "WhatsApp + field camp targeting Kharindwa (lowest enrollment). Cost: ₹8,000 for camp.",
+    action: "WhatsApp + field camp targeting Kharindwa (lowest enrollment). Cost: ₹8,00,000.",
     result: "Add 120 new pension enrollments in Q4.",
-    boardNeeds: "Approve Q4 outreach camp budget ₹8,000"
-  },
-  {
-    id: "rec_4",
-    title: "eNAM Farmer Registration",
-    priority: "LOW",
-    problem: "524 farmers selling at local mandi, missing out on 12% better price via eNAM.",
-    worstCase: "Loss of collective bargaining benefit.",
-    action: "One-day eNAM registration camp with APMC coordinator. Cost: ₹6,000.",
-    result: "Register 200 farmers, add ₹4-6 Lakh in FPO trade revenue per season.",
-    boardNeeds: "Approve eNAM camp + FSSAI license renewal"
+    boardNeeds: "Approve Q4 outreach camp budget"
   }
 ];
 
 export default function FpoBoardReport() {
-  const [recommendations, setRecommendations] = useState(
-    INITIAL_RECOMMENDATIONS.map((r) => ({ ...r, added: false }))
-  );
+  const [recommendations, setRecommendations] = useState([]);
+  const [stats, setStats] = useState(STATS);
+  const [schemePerformance, setSchemePerformance] = useState(SCHEME_PERFORMANCE);
+  const [loading, setLoading] = useState(true);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const res = await govSchemesApi.getFpoBoardReport();
+      if (res.success) {
+        if (res.stats && res.stats.length > 0) {
+          setStats(res.stats);
+        }
+        if (res.schemePerformance && res.schemePerformance.length > 0) {
+          setSchemePerformance(res.schemePerformance);
+        }
+        if (res.recommendations && res.recommendations.length > 0) {
+          setRecommendations(res.recommendations.map(r => ({ ...r, added: false })));
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load board report data:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const columns = useMemo(() => [
     { header: "Scheme", accessor: "scheme", cellClassName: "font-bold text-gray-900" },
@@ -210,7 +228,7 @@ export default function FpoBoardReport() {
   const handleExportCSV = () => {
     let csvContent = "data:text/csv;charset=utf-8,";
     csvContent += "Scheme,Eligible,Enrolled,Enrolled %,Received,Success %,Benefit Value,Health\n";
-    SCHEME_PERFORMANCE.forEach((row) => {
+    schemePerformance.forEach((row) => {
       csvContent += `${row.scheme},${row.eligible},${row.enrolled},${row.enrolledPct},${row.received},${row.successPct},${row.value.replace(/,/g, "")},${row.health}\n`;
     });
 
@@ -309,52 +327,52 @@ export default function FpoBoardReport() {
     doc.rect(15, 45, 85, 40, "FD");
     doc.setFontSize(10);
     doc.setFont("Helvetica", "bold");
-    doc.text("TOTAL BENEFIT UNLOCKED", 20, 55);
+    doc.text((stats[0]?.title || "TOTAL BENEFIT UNLOCKED").toUpperCase(), 20, 55);
     doc.setFontSize(18);
     doc.setTextColor(19, 42, 19);
-    doc.text("Rs. 42.3 Lakh", 20, 68);
+    doc.text(stats[0]?.value || "Rs. 42.3 Lakh", 20, 68);
     doc.setFontSize(9);
     doc.setTextColor(80, 80, 80);
-    doc.text("Across 8 active schemes (+18% Q-o-Q)", 20, 78);
+    doc.text(stats[0]?.sub || "Across 8 active schemes (+18% Q-o-Q)", 20, 78);
 
     // Box 2
     doc.setTextColor(50, 50, 50);
     doc.rect(110, 45, 85, 40, "FD");
     doc.setFontSize(10);
     doc.setFont("Helvetica", "bold");
-    doc.text("FARMER COVERAGE RATE", 115, 55);
+    doc.text((stats[1]?.title || "FARMER COVERAGE RATE").toUpperCase(), 115, 55);
     doc.setFontSize(18);
     doc.setTextColor(19, 42, 19);
-    doc.text("74.9%", 115, 68);
+    doc.text(stats[1]?.value || "74.9%", 115, 68);
     doc.setFontSize(9);
     doc.setTextColor(80, 80, 80);
-    doc.text("634 of 847 members enrolled in 1+ scheme", 115, 78);
+    doc.text(stats[1]?.sub || "634 of 847 members enrolled in 1+ scheme", 115, 78);
 
     // Box 3
     doc.setTextColor(50, 50, 50);
     doc.rect(15, 95, 85, 40, "FD");
     doc.setFontSize(10);
     doc.setFont("Helvetica", "bold");
-    doc.text("DISBURSEMENT SUCCESS RATE", 20, 105);
+    doc.text((stats[2]?.title || "DISBURSEMENT SUCCESS RATE").toUpperCase(), 20, 105);
     doc.setFontSize(18);
     doc.setTextColor(180, 20, 20);
-    doc.text("77.1%", 20, 118);
+    doc.text(stats[2]?.value || "77.1%", 20, 118);
     doc.setFontSize(9);
     doc.setTextColor(80, 80, 80);
-    doc.text("489/634 paid (-2%). 47 stuck benefits", 20, 128);
+    doc.text(stats[2]?.sub || "489/634 paid (-2%). 47 stuck benefits", 20, 128);
 
     // Box 4
     doc.setTextColor(50, 50, 50);
     doc.rect(110, 95, 85, 40, "FD");
     doc.setFontSize(10);
     doc.setFont("Helvetica", "bold");
-    doc.text("FPO GRANTS & INFRA PIPELINE", 115, 105);
+    doc.text((stats[3]?.title || "FPO GRANTS & INFRA PIPELINE").toUpperCase(), 115, 105);
     doc.setFontSize(18);
     doc.setTextColor(19, 42, 19);
-    doc.text("Rs. 1.2 Cr", 115, 118);
+    doc.text(stats[3]?.value || "Rs. 1.2 Cr", 115, 118);
     doc.setFontSize(9);
     doc.setTextColor(80, 80, 80);
-    doc.text("Dry Warehouse approved & in progress", 115, 128);
+    doc.text(stats[3]?.sub || "Dry Warehouse approved & in progress", 115, 128);
 
     // CEO Note
     doc.setTextColor(50, 50, 50);
@@ -363,12 +381,18 @@ export default function FpoBoardReport() {
     doc.text("Operational Narrative Review:", 15, 160);
     doc.setFontSize(10);
     doc.setFont("Helvetica", "normal");
-    doc.text("The FPO has recorded solid progress in farmer coverage, reaching 74.9% across our", 15, 170);
-    doc.text("commodity clusters. The approval of the AIF dry warehouse grant of Rs. 1.2 Crore", 15, 176);
-    doc.text("will add significant value to our storage assets. However, disbursement drop-offs", 15, 182);
-    doc.text("of 22.9% represent a major operational risk. Biometric Aadhaar-link failures and", 15, 188);
-    doc.text("inactive accounts are locking Rs. 3.84 Lakhs of direct benefit payouts to our", 15, 194);
-    doc.text("marginal member farmers. Urgent board resolution is requested.", 15, 200);
+    
+    const coverageText = `The FPO has recorded solid progress in farmer coverage, reaching ${stats[1]?.value || "74.9%"} across our`;
+    const warehouseText = `commodity clusters. The approval of the AIF dry warehouse grant of ${stats[3]?.value || "Rs. 1.2 Crore"}`;
+    const rateText = `will add significant value to our storage assets. However, disbursement success rate is at ${stats[2]?.value || "77.1%"}.`;
+    const alertText = stats[2]?.alert ? stats[2].alert : "Biometric Aadhaar-link failures and inactive accounts represent minor bottlenecks.";
+    const actionText = "Urgent field camp campaigns and bank coordination are recommended.";
+
+    doc.text(coverageText, 15, 170);
+    doc.text(warehouseText, 15, 176);
+    doc.text(rateText, 15, 182);
+    doc.text(alertText, 15, 188);
+    doc.text(actionText, 15, 194);
 
     drawFooter(2);
 
@@ -402,7 +426,7 @@ export default function FpoBoardReport() {
     // Table rows
     doc.setFont("Helvetica", "normal");
     let y = 52;
-    SCHEME_PERFORMANCE.forEach((row) => {
+    schemePerformance.forEach((row) => {
       doc.text(row.scheme, 17, y);
       doc.text(row.eligible, 45, y);
       doc.text(row.enrolled, 65, y);
@@ -585,7 +609,7 @@ export default function FpoBoardReport() {
 
       {/* Executive Summary Grid (2x2 Grid) using generic StatsCard */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {STATS.map((stat, idx) => (
+        {stats.map((stat, idx) => (
           <StatsCard
             key={idx}
             title={stat.title}
@@ -609,7 +633,7 @@ export default function FpoBoardReport() {
         <div className="p-4">
           <GenericTable
             columns={columns}
-            data={SCHEME_PERFORMANCE}
+            data={schemePerformance}
             showSearch={false}
             showSort={false}
             itemsPerPage={10}

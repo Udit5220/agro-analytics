@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import GenericTable from "../../../components/partials/GenericTable";
 import { PageHeader, StatsCard, IssueResolutionModal, SchemeStatusBadge } from "./FpoSharedComponents";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { AlertCircle, IndianRupee, ShieldCheck, UserX, AlertTriangle, Shield, Clock } from "lucide-react";
+import { govSchemesApi } from "../../../services/apiService";
 
 // DATA SECTION (Expanded to include many more rows for realistic filtering)
 const BLOCKED_FARMERS = [
@@ -45,6 +46,53 @@ export default function FpoDisbursementIssues() {
   const [selectedFarmer, setSelectedFarmer] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tableFilter, setTableFilter] = useState("All");
+  const [flowChartData, setFlowChartData] = useState(FLOW_CHART_DATA);
+  const [stats, setStats] = useState({
+    totalEnrolled: 634,
+    benefitsReceived: 489,
+    paymentPending: 98,
+    blockedFailed: 47
+  });
+  const [loading, setLoading] = useState(true);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const res = await govSchemesApi.getFpoDisbursements();
+      if (res.success) {
+        setBlockedList(res.blockedList || []);
+        setStats(res.stats || {
+          totalEnrolled: 0,
+          benefitsReceived: 0,
+          paymentPending: 0,
+          blockedFailed: 0
+        });
+        if (res.flowChartData && res.flowChartData.length > 0) {
+          setFlowChartData(res.flowChartData);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load FPO disbursements:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const handleResolveFarmer = async (farmerId) => {
+    try {
+      const res = await govSchemesApi.resolveFpoDisbursement(farmerId);
+      if (res.success) {
+        await loadData();
+      }
+    } catch (err) {
+      console.error("Failed to resolve farmer disbursement:", err);
+      throw err;
+    }
+  };
 
   const columns = useMemo(() => [
     { header: "Farmer Name", accessor: "name", cellClassName: "font-bold text-gray-900" },
@@ -81,7 +129,7 @@ export default function FpoDisbursementIssues() {
             handleFixClick(row);
           }}
           className={`px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-sm ${
-            actionLabel === "Fix Now"
+            actionLabel === "Fix Now" || actionLabel === "Seed Aadhaar"
               ? "bg-brand-darkest hover:bg-brand-dark text-white"
               : actionLabel === "Contact Farmer"
               ? "bg-red-600 hover:bg-red-700 text-white"
@@ -123,6 +171,16 @@ export default function FpoDisbursementIssues() {
     return f.scheme === tableFilter;
   });
 
+  const receivedPct = useMemo(() => {
+    if (!stats.totalEnrolled) return "0%";
+    return Math.round((stats.benefitsReceived / stats.totalEnrolled) * 100) + "%";
+  }, [stats]);
+
+  const pendingPct = useMemo(() => {
+    if (!stats.totalEnrolled) return "0%";
+    return Math.round((stats.paymentPending / stats.totalEnrolled) * 100) + "%";
+  }, [stats]);
+
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       {/* Page Header */}
@@ -135,34 +193,34 @@ export default function FpoDisbursementIssues() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <StatsCard
           title="Total Enrolled"
-          value="634"
+          value={stats.totalEnrolled}
           sub="Farmers active in individual direct benefit schemes"
           icon={Shield}
         />
 
         <StatsCard
           title="Benefits Received"
-          value="489"
+          value={stats.benefitsReceived}
           sub="Enrolled members successfully credited by DBT payouts"
-          trend="77%"
+          trend={receivedPct}
           isPositive={true}
           icon={ShieldCheck}
         />
 
         <StatsCard
           title="Payment Pending"
-          value="98"
+          value={stats.paymentPending}
           sub="Transactions processed but awaiting central bank settlement"
-          trend="15%"
+          trend={pendingPct}
           isPositive={true}
           icon={Clock}
         />
 
         <StatsCard
           title="Blocked / Failed"
-          value="47"
+          value={stats.blockedFailed}
           sub="Failed transfers due to profile KYC and document issues"
-          alert="47 transfers blocked — click View buttons below to inspect"
+          alert={stats.blockedFailed > 0 ? `${stats.blockedFailed} transfers blocked — click View buttons below to inspect` : null}
           icon={UserX}
         />
       </div>
@@ -442,7 +500,7 @@ export default function FpoDisbursementIssues() {
 
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={FLOW_CHART_DATA} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <LineChart data={flowChartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
               <XAxis dataKey="name" tick={{ fontSize: 11, fontWeight: "bold", fill: "#6b7280" }} />
               <YAxis yAxisId="left" tick={{ fontSize: 11, fontWeight: "bold", fill: "#6b7280" }} label={{ value: "Disbursed (₹ Lakh)", angle: -90, position: "insideLeft", offset: 10, style: { fontWeight: "bold", fill: "#6b7280", fontSize: 10 } }} />
@@ -463,6 +521,7 @@ export default function FpoDisbursementIssues() {
         farmer={selectedFarmer}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onResolve={handleResolveFarmer}
       />
     </div>
   );

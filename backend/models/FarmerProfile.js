@@ -26,6 +26,7 @@ const farmerProfileSchema = new mongoose.Schema({
   aadhaarSeedingStatus: { type: String, default: 'seeded' }, // 'seeded' or 'unseeded'
   bankSeedingStatus: { type: String, default: 'seeded' }, // 'seeded' or 'unseeded'
   irrigationMethod: { type: String, default: 'Drip' },
+  appliedCalendarEvents: [{ type: String, default: [] }],
 
   // For compatibility with legacy pages
   location: { type: String, default: 'Sonipat, Haryana' },

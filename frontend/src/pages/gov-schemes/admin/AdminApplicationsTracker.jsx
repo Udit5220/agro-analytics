@@ -29,7 +29,6 @@ import {
   Users,
   Eye,
 } from "lucide-react";
-import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
 
 /*
 // --- OLD IMPLEMENTATION COMMENTED OUT ---
@@ -74,6 +73,8 @@ export default function AdminApplicationsTracker() {
 }
 */
 
+import { getAnalyticsData, saveAnalyticsData, fetchAnalyticsData, syncAnalyticsData } from "./govSchemesHelper";
+
 // --- NEW REDESIGNED OPPORTUNITY TRACKER COMPONENT ---
 
 export default function AdminApplicationsTracker() {
@@ -84,6 +85,10 @@ export default function AdminApplicationsTracker() {
   const [activeSegment, setActiveSegment] = useState("company");
 
   const [toastMessage, setToastMessage] = useState("");
+
+  useEffect(() => {
+    fetchAnalyticsData().then(data => setAnalytics(data)).catch(console.error);
+  }, []);
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -107,8 +112,7 @@ export default function AdminApplicationsTracker() {
       } else {
         scheme.selfReportedApplied = false;
       }
-      saveAnalyticsData(updated);
-      setAnalytics(updated);
+      syncAnalyticsData(updated).then(data => setAnalytics(data));
       showToast(`Status updated to "${newStatus}" for ${scheme.name}`);
     }
   };

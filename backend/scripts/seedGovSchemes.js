@@ -4,6 +4,129 @@ import fs from 'fs';
 import path from 'path';
 import GovScheme from '../models/GovScheme.js';
 
+const corporateSchemes = [
+  {
+    id: "adm-01",
+    name: "RKVY-RAFTAAR Agritech Incubator Support",
+    ministry: "Ministry of Agriculture & Farmers Welfare",
+    category: "Agritech Programs",
+    level: "Central Government",
+    benefitType: "Grants",
+    benefitAmount: "₹25,00,000",
+    deadline: "2026-06-20",
+    daysLeft: 8,
+    matchScore: 92,
+    viewed: 15,
+    guideOpened: 6,
+    bookmarked: true,
+    applyClicked: 4,
+    selfReportedApplied: true,
+    lastInteraction: "2026-06-12",
+    status: "Applied (Self Reported)",
+    statusType: "applied",
+    description: "Direct grant-in-aid support for agritech startups demonstrating proof of concept and scalable MVP models.",
+    potValue: 2500000,
+    eligibilitySnapshot: "Registered agritech startup with functional prototype, DPIIT recognized, operational under 5 years.",
+    isFarmerScheme: false
+  },
+  {
+    id: "adm-02",
+    name: "DPIIT Agritech Tax Holiday under Startup India",
+    ministry: "DPIIT, Ministry of Commerce and Industry",
+    category: "Startup Programs",
+    level: "Central Government",
+    benefitType: "Tax Benefits",
+    benefitAmount: "₹45,00,000",
+    deadline: "2026-12-31",
+    daysLeft: 204,
+    matchScore: 88,
+    viewed: 12,
+    guideOpened: 4,
+    bookmarked: false,
+    applyClicked: 2,
+    selfReportedApplied: false,
+    lastInteraction: "2026-06-10",
+    status: "Researching",
+    statusType: "not_applied",
+    description: "Income tax exemption under section 80-IAC for eligible DPIIT-recognized agricultural technology startups.",
+    potValue: 4500000,
+    eligibilitySnapshot: "DPIIT Startup India certificate, incorporation post April 2016, turnover below 100cr.",
+    isFarmerScheme: false
+  },
+  {
+    id: "adm-03",
+    name: "Agri-Infrastructure Fund (AIF) Subvention",
+    ministry: "Ministry of Agriculture & State Depts",
+    category: "Agritech Programs",
+    level: "Both",
+    benefitType: "Subsidies",
+    benefitAmount: "₹40,00,000",
+    deadline: "2026-07-15",
+    daysLeft: 35,
+    matchScore: 85,
+    viewed: 9,
+    guideOpened: 3,
+    bookmarked: true,
+    applyClicked: 2,
+    selfReportedApplied: false,
+    lastInteraction: "2026-06-11",
+    status: "Ready To Apply",
+    statusType: "not_applied",
+    description: "Medium to long-term debt financing facility for investment in viable post-harvest management infrastructure.",
+    potValue: 4000000,
+    eligibilitySnapshot: "Agribusiness startups, FPOs, or entrepreneurs constructing post-harvest storage hubs.",
+    isFarmerScheme: false
+  },
+  {
+    id: "adm-04",
+    name: "SIDBI Venture Capital Fund for MSME Agritech",
+    ministry: "SIDBI",
+    category: "MSME Programs",
+    level: "Central Government",
+    benefitType: "Loans",
+    benefitAmount: "₹80,00,000",
+    deadline: "2026-08-30",
+    daysLeft: 81,
+    matchScore: 78,
+    viewed: 4,
+    guideOpened: 1,
+    bookmarked: false,
+    applyClicked: 1,
+    selfReportedApplied: false,
+    lastInteraction: "2026-06-05",
+    status: "Interested",
+    statusType: "not_applied",
+    description: "Collateral-free developmental funding support targeted at rural MSMEs operating technological processing hubs.",
+    potValue: 8000000,
+    eligibilitySnapshot: "Udyam registered MSME operating in agriculture value chain, minimum 3yr positive balance sheet.",
+    isFarmerScheme: false
+  },
+  {
+    id: "adm-05",
+    name: "Haryana Agribusiness Export Capital Subsidy",
+    ministry: "Haryana State Agriculture Department",
+    category: "Export Incentives",
+    level: "State Government",
+    benefitType: "Export Incentives",
+    benefitAmount: "₹50,00,000",
+    deadline: "2026-06-25",
+    daysLeft: 13,
+    matchScore: 95,
+    viewed: 2,
+    guideOpened: 4,
+    bookmarked: true,
+    applyClicked: 0,
+    selfReportedApplied: false,
+    lastInteraction: "2026-06-12",
+    status: "Ready To Apply",
+    statusType: "not_applied",
+    description: "Financial assistance for creating cold chain facilities, sorting lines, and primary processing for agro exports.",
+    potValue: 5000000,
+    eligibilitySnapshot: "Agribusiness registered in Haryana, actively exporting crops with valid APEDA certificates.",
+    isFarmerScheme: false
+  }
+];
+
 const seedDb = async (uri, dbName) => {
   console.log(`Connecting to MongoDB database: ${dbName}...`);
   const conn = await mongoose.createConnection(uri, { dbName }).asPromise();
@@ -26,6 +149,8 @@ const seedDb = async (uri, dbName) => {
     console.log(`Cleared existing government schemes from ${dbName}.`);
 
     let insertedCount = 0;
+
+    // Seed Farmer Schemes
     for (const scheme of schemes) {
       const fallbackDetails = {
         authority: scheme.dept || "Ministry of Agriculture",
@@ -69,7 +194,7 @@ const seedDb = async (uri, dbName) => {
       const faqsList = sourceDetails.faq || sourceDetails.faqs || fallbackDetails.faqs;
 
       const doc = {
-        id: scheme.id,
+        id: String(scheme.id),
         name: scheme.name,
         category: scheme.category,
         categoryColor: scheme.categoryColor || '#132a13',
@@ -82,6 +207,7 @@ const seedDb = async (uri, dbName) => {
         docsRequired: scheme.docsRequired || 0,
         docsUploaded: scheme.docsUploaded || 0,
         estApproval: scheme.estApproval || '15-30 days',
+        isFarmerScheme: true,
         details: {
           authority: sourceDetails.authority || fallbackDetails.authority,
           description: sourceDetails.description || fallbackDetails.description,
@@ -103,7 +229,58 @@ const seedDb = async (uri, dbName) => {
       insertedCount++;
     }
 
-    console.log(`✅ Seeded ${insertedCount} government schemes successfully in ${dbName}!`);
+    // Seed Corporate Schemes
+    for (const scheme of corporateSchemes) {
+      const doc = {
+        id: scheme.id,
+        name: scheme.name,
+        category: scheme.category,
+        categoryColor: '#31572c',
+        dept: scheme.ministry,
+        benefit: scheme.benefitAmount,
+        matchScore: scheme.matchScore,
+        status: scheme.status,
+        statusType: scheme.statusType,
+        deadline: scheme.deadline,
+        docsRequired: 5,
+        docsUploaded: 3,
+        estApproval: '30-45 days',
+        isFarmerScheme: false,
+        level: scheme.level,
+        benefitType: scheme.benefitType,
+        benefitAmount: scheme.benefitAmount,
+        daysLeft: scheme.daysLeft,
+        lastInteraction: scheme.lastInteraction,
+        potValue: scheme.potValue,
+        eligibilitySnapshot: scheme.eligibilitySnapshot,
+        selfReportedApplied: scheme.selfReportedApplied,
+        bookmarked: scheme.bookmarked,
+        viewed: scheme.viewed,
+        guideOpened: scheme.guideOpened,
+        applyClicked: scheme.applyClicked,
+        details: {
+          authority: scheme.ministry,
+          description: scheme.description,
+          benefits: { maximumBenefit: scheme.benefitAmount },
+          eligibilityMatrix: [
+            { criterion: "Status", requirement: "DPIIT Recognised Startup", status: true, value: "Verified" }
+          ],
+          exclusions: [],
+          documents: [],
+          timeline: { steps: [] },
+          faqs: [],
+          launchYear: 2023,
+          target: scheme.eligibilitySnapshot,
+          budget: "₹1,000 Cr",
+          ministry: scheme.ministry
+        }
+      };
+
+      await BoundGovScheme.create(doc);
+      insertedCount++;
+    }
+
+    console.log(`✅ Seeded ${insertedCount} government schemes (farmer & corporate) successfully in ${dbName}!`);
   } catch (error) {
     console.error(`❌ Seeding failed for ${dbName}:`, error);
   } finally {

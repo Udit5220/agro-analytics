@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   HelpCircle,
@@ -27,7 +27,12 @@ import {
   Check,
   Award,
 } from "lucide-react";
-import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
+import {
+  getAnalyticsData,
+  saveAnalyticsData,
+  fetchAnalyticsData,
+  syncAnalyticsData,
+} from "./govSchemesHelper";
 
 /*
 // --- OLD USER GUIDANCE COMPONENT COMMENTED OUT ---
@@ -49,12 +54,20 @@ export default function AdminUserGuidance() {
   const [campaignName, setCampaignName] = useState("");
   const [channel, setChannel] = useState("WhatsApp");
   const [segment, setSegment] = useState("Haryana Residents");
-  const [template, setTemplate] = useState("Hello {farmer_name}, you qualify for the capital subsidy scheme. Link your profile inside AgroIndia to learn more.");
+  const [template, setTemplate] = useState(
+    "Hello {farmer_name}, you qualify for the capital subsidy scheme. Link your profile inside AgroIndia to learn more.",
+  );
 
   // Segment builder states
   const [selState, setSelState] = useState("all");
   const [selCrop, setSelCrop] = useState("all");
   const [selSize, setSelSize] = useState("all");
+
+  useEffect(() => {
+    fetchAnalyticsData()
+      .then((data) => setAnalytics(data))
+      .catch(console.error);
+  }, []);
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -68,7 +81,7 @@ export default function AdminUserGuidance() {
       return;
     }
     const updated = { ...analytics };
-    
+
     // Create new campaign
     const newCamp = {
       id: `c-${updated.campaigns.length + 1}`,
@@ -78,7 +91,7 @@ export default function AdminUserGuidance() {
       opens: 0,
       clicks: 0,
       status: "Delivered",
-      date: new Date().toISOString().split("T")[0]
+      date: new Date().toISOString().split("T")[0],
     };
     newCamp.opens = Math.round(newCamp.sentCount * 0.82);
 
@@ -87,27 +100,26 @@ export default function AdminUserGuidance() {
     updated.outreach.campaignsSent += 1;
     updated.outreach.farmersReached += newCamp.sentCount;
 
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+    syncAnalyticsData(updated).then((data) => setAnalytics(data));
     setCampaignName("");
-    showToast(`Campaign "${newCamp.name}" dispatched to ${newCamp.sentCount} farmers!`);
+    showToast(
+      `Campaign "${newCamp.name}" dispatched to ${newCamp.sentCount} farmers!`,
+    );
   };
 
   const handleSingleOutreach = (farmerId) => {
     const updated = { ...analytics };
-    const farmer = updated.farmers.find(f => f.id === farmerId);
+    const farmer = updated.farmers.find((f) => f.id === farmerId);
     if (farmer) {
       farmer.outreachStatus = "Sent";
       farmer.lastComm = new Date().toISOString().split("T")[0];
-      saveAnalyticsData(updated);
-      setAnalytics(updated);
+      syncAnalyticsData(updated).then((data) => setAnalytics(data));
       showToast(`Outreach guidance message sent to ${farmer.name}!`);
     }
   };
 
   return (
     <div className="space-y-6 p-6 overflow-y-auto h-full bg-[#f4f7f4]/40 text-brand-darkest animate-fadeIn relative font-semibold">
-      
       {/* Toast Alert */}
       {toastMessage && (
         <div className="fixed bottom-5 right-5 bg-brand-darkest text-white px-4 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-2 text-xs border border-white/10 animate-bounce">
@@ -123,10 +135,13 @@ export default function AdminUserGuidance() {
           <span className="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
             Outreach Coordinator Terminal
           </span>
-          <h1 className="text-2xl font-black tracking-tight">Outreach & Guidance Center</h1>
+          <h1 className="text-2xl font-black tracking-tight">
+            Outreach & Guidance Center
+          </h1>
           <p className="text-xs text-white/80 font-medium leading-relaxed">
-            Coordinate crop support programs and dispatch notification alerts to matched farmers and cooperatives. 
-            All campaigns and metrics are tracked internally using platform databases.
+            Coordinate crop support programs and dispatch notification alerts to
+            matched farmers and cooperatives. All campaigns and metrics are
+            tracked internally using platform databases.
           </p>
         </div>
       </div>
@@ -134,27 +149,51 @@ export default function AdminUserGuidance() {
       {/* Outreach Overview Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">Farmers Reached</p>
-          <h3 className="text-xl font-black text-brand-darkest mt-1.5">{analytics.outreach.farmersReached.toLocaleString()} Farmers</h3>
-          <span className="text-[9px] text-gray-500 font-semibold block mt-1">Platform outreach aggregate</span>
+          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Farmers Reached
+          </p>
+          <h3 className="text-xl font-black text-brand-darkest mt-1.5">
+            {analytics.outreach.farmersReached.toLocaleString()} Farmers
+          </h3>
+          <span className="text-[9px] text-gray-500 font-semibold block mt-1">
+            Platform outreach aggregate
+          </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">Campaigns Sent</p>
-          <h3 className="text-xl font-black text-brand-darkest mt-1.5">{analytics.outreach.campaignsSent} Broadcasts</h3>
-          <span className="text-[9px] text-gray-500 font-semibold block mt-1">Direct-benefit matches</span>
+          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Campaigns Sent
+          </p>
+          <h3 className="text-xl font-black text-brand-darkest mt-1.5">
+            {analytics.outreach.campaignsSent} Broadcasts
+          </h3>
+          <span className="text-[9px] text-gray-500 font-semibold block mt-1">
+            Direct-benefit matches
+          </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">Notification Opens</p>
-          <h3 className="text-xl font-black text-brand-darkest mt-1.5">{analytics.outreach.notificationOpens.toLocaleString()} Opens</h3>
-          <span className="text-[9px] text-gray-500 font-semibold block mt-1">Open rate details: 82%</span>
+          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Notification Opens
+          </p>
+          <h3 className="text-xl font-black text-brand-darkest mt-1.5">
+            {analytics.outreach.notificationOpens.toLocaleString()} Opens
+          </h3>
+          <span className="text-[9px] text-gray-500 font-semibold block mt-1">
+            Open rate details: 82%
+          </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm">
-          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">Engagement Rate</p>
-          <h3 className="text-xl font-black text-emerald-600 mt-1.5">{analytics.outreach.engagementRate}% Rate</h3>
-          <span className="text-[9px] text-emerald-600 font-bold block mt-1">High conversion feedback</span>
+          <p className="text-[9px] text-gray-400 font-black uppercase tracking-wider block">
+            Engagement Rate
+          </p>
+          <h3 className="text-xl font-black text-emerald-600 mt-1.5">
+            {analytics.outreach.engagementRate}% Rate
+          </h3>
+          <span className="text-[9px] text-emerald-600 font-bold block mt-1">
+            High conversion feedback
+          </span>
         </div>
       </div>
 
@@ -162,76 +201,122 @@ export default function AdminUserGuidance() {
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
         <div className="flex justify-between items-center border-b border-gray-100 pb-2">
           <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
-            <TrendingUp className="w-4 h-4 text-brand-medium" /> Platform Outreach & Engagement Funnel
+            <TrendingUp className="w-4 h-4 text-brand-medium" /> Platform
+            Outreach & Engagement Funnel
           </h3>
-          <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider font-mono">Platform Analytics Sourced</span>
+          <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider font-mono">
+            Platform Analytics Sourced
+          </span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-semibold">
           <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl space-y-1 text-center">
-            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">Targeted Farmers</span>
-            <span className="text-base font-black text-brand-darkest block">{analytics.outreach.farmersReached.toLocaleString()}</span>
-            <span className="text-[8px] text-gray-400 font-bold block">100% of segment</span>
+            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">
+              Targeted Farmers
+            </span>
+            <span className="text-base font-black text-brand-darkest block">
+              {analytics.outreach.farmersReached.toLocaleString()}
+            </span>
+            <span className="text-[8px] text-gray-400 font-bold block">
+              100% of segment
+            </span>
           </div>
 
           <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl space-y-1 text-center">
-            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">Notifications Sent</span>
-            <span className="text-base font-black text-brand-darkest block">11,920</span>
-            <span className="text-[8px] text-brand-medium font-bold block">96.1% sent rate</span>
+            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">
+              Notifications Sent
+            </span>
+            <span className="text-base font-black text-brand-darkest block">
+              11,920
+            </span>
+            <span className="text-[8px] text-brand-medium font-bold block">
+              96.1% sent rate
+            </span>
           </div>
 
           <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl space-y-1 text-center">
-            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">Notifications Opened</span>
-            <span className="text-base font-black text-brand-darkest block">9,774</span>
-            <span className="text-[8px] text-emerald-600 font-bold block">82.0% open rate</span>
+            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">
+              Notifications Opened
+            </span>
+            <span className="text-base font-black text-brand-darkest block">
+              9,774
+            </span>
+            <span className="text-[8px] text-emerald-600 font-bold block">
+              82.0% open rate
+            </span>
           </div>
 
           <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl space-y-1 text-center">
-            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">Scheme Views</span>
-            <span className="text-base font-black text-brand-darkest block">{analytics.outreach.notificationOpens.toLocaleString()}</span>
-            <span className="text-[8px] text-emerald-600 font-bold block">43.3% view conversion</span>
+            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">
+              Scheme Views
+            </span>
+            <span className="text-base font-black text-brand-darkest block">
+              {analytics.outreach.notificationOpens.toLocaleString()}
+            </span>
+            <span className="text-[8px] text-emerald-600 font-bold block">
+              43.3% view conversion
+            </span>
           </div>
 
           <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl space-y-1 text-center">
-            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">Guide Opens</span>
-            <span className="text-base font-black text-brand-darkest block">1,820</span>
-            <span className="text-[8px] text-emerald-600 font-bold block">42.9% read guides</span>
+            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">
+              Guide Opens
+            </span>
+            <span className="text-base font-black text-brand-darkest block">
+              1,820
+            </span>
+            <span className="text-[8px] text-emerald-600 font-bold block">
+              42.9% read guides
+            </span>
           </div>
 
           <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl space-y-1 text-center">
-            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">Apply Clicks</span>
-            <span className="text-base font-black text-brand-darkest block">840</span>
-            <span className="text-[8px] text-emerald-650 font-bold block">46.1% apply intent</span>
+            <span className="text-[8px] text-gray-400 font-black uppercase tracking-wider block">
+              Apply Clicks
+            </span>
+            <span className="text-base font-black text-brand-darkest block">
+              840
+            </span>
+            <span className="text-[8px] text-emerald-650 font-bold block">
+              46.1% apply intent
+            </span>
           </div>
         </div>
       </div>
 
       {/* Composer & Segment Builder Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        
         {/* Broadcast Composer */}
         <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
           <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest border-b border-gray-100 pb-2 flex items-center gap-1.5">
-            <MessageSquare className="w-4 h-4 text-brand-medium" /> Broadcast Composer
+            <MessageSquare className="w-4 h-4 text-brand-medium" /> Broadcast
+            Composer
           </h3>
 
-          <form onSubmit={handleSendCampaign} className="space-y-4 text-xs font-medium">
+          <form
+            onSubmit={handleSendCampaign}
+            className="space-y-4 text-xs font-medium"
+          >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Campaign Title</label>
-                <input 
-                  type="text" 
-                  value={campaignName} 
-                  onChange={(e) => setCampaignName(e.target.value)} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Campaign Title
+                </label>
+                <input
+                  type="text"
+                  value={campaignName}
+                  onChange={(e) => setCampaignName(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                   placeholder="e.g. Kharif Crop Insurance Advisory"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Broadcast Channel</label>
-                <select 
-                  value={channel} 
+                <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                  Broadcast Channel
+                </label>
+                <select
+                  value={channel}
                   onChange={(e) => setChannel(e.target.value)}
                   className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
                 >
@@ -244,18 +329,22 @@ export default function AdminUserGuidance() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Message Template</label>
-              <textarea 
-                value={template} 
-                onChange={(e) => setTemplate(e.target.value)} 
+              <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                Message Template
+              </label>
+              <textarea
+                value={template}
+                onChange={(e) => setTemplate(e.target.value)}
                 rows="3"
                 className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
               />
-              <span className="text-[9px] text-gray-400 block font-semibold">Supports variables like {"{farmer_name}"} or {"{scheme_name}"}.</span>
+              <span className="text-[9px] text-gray-400 block font-semibold">
+                Supports variables like {"{farmer_name}"} or {"{scheme_name}"}.
+              </span>
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="bg-brand-darkest hover:bg-brand-dark text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1"
             >
               Send Broadcast Campaign <Send className="w-3.5 h-3.5" />
@@ -271,8 +360,14 @@ export default function AdminUserGuidance() {
 
           <div className="space-y-3.5 text-xs font-semibold">
             <div className="space-y-1">
-              <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Target Location</label>
-              <select value={selState} onChange={(e) => setSelState(e.target.value)} className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest">
+              <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                Target Location
+              </label>
+              <select
+                value={selState}
+                onChange={(e) => setSelState(e.target.value)}
+                className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+              >
                 <option value="all">All Operational States</option>
                 <option value="Haryana">Haryana Resident</option>
                 <option value="Punjab">Punjab Resident</option>
@@ -280,8 +375,14 @@ export default function AdminUserGuidance() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">Crop Cultivation</label>
-              <select value={selCrop} onChange={(e) => setSelCrop(e.target.value)} className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest">
+              <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block">
+                Crop Cultivation
+              </label>
+              <select
+                value={selCrop}
+                onChange={(e) => setSelCrop(e.target.value)}
+                className="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-brand-darkest"
+              >
                 <option value="all">All Crops</option>
                 <option value="Paddy">Paddy</option>
                 <option value="Wheat">Wheat</option>
@@ -289,19 +390,22 @@ export default function AdminUserGuidance() {
             </div>
 
             <div className="bg-emerald-50 border border-emerald-100 p-3 rounded-xl text-[10px] text-emerald-900 leading-relaxed font-semibold">
-              <span className="font-black block uppercase text-[8px] text-emerald-800">Dynamic Segment Size:</span>
-              3,450 Farmers match these criteria filters. Broadcasting will target only this subgroup.
+              <span className="font-black block uppercase text-[8px] text-emerald-800">
+                Dynamic Segment Size:
+              </span>
+              3,450 Farmers match these criteria filters. Broadcasting will
+              target only this subgroup.
             </div>
           </div>
         </div>
-
       </div>
 
       {/* Estimated Scheme Match Recommendations Table */}
       <div className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-gray-100">
           <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-2">
-            <Award className="w-4 h-4 text-brand-medium" /> Estimated Scheme Match Recommendations
+            <Award className="w-4 h-4 text-brand-medium" /> Estimated Scheme
+            Match Recommendations
           </h3>
         </div>
 
@@ -324,7 +428,9 @@ export default function AdminUserGuidance() {
                 <tr key={f.id} className="hover:bg-gray-50/30">
                   <td className="p-4">
                     <p className="font-black uppercase">{f.name}</p>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{f.fpo}</p>
+                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+                      {f.fpo}
+                    </p>
                   </td>
                   <td className="p-4 text-gray-700">{f.state}</td>
                   <td className="p-4 text-gray-700">{f.crop}</td>
@@ -332,26 +438,34 @@ export default function AdminUserGuidance() {
                     {f.id === "f-01" ? "95%" : f.id === "f-02" ? "92%" : "88%"}
                   </td>
                   <td className="p-4 text-gray-700">
-                    {(f.schemes || []).map(schemeName => {
-                      if (schemeName === "PM-Kisan") return "PM-KISAN Income Support";
-                      if (schemeName === "PMFBY") return "PMFBY Crop Risk Cover";
-                      return schemeName;
-                    }).join(", ")}
+                    {(f.schemes || [])
+                      .map((schemeName) => {
+                        if (schemeName === "PM-Kisan")
+                          return "PM-KISAN Income Support";
+                        if (schemeName === "PMFBY")
+                          return "PMFBY Crop Risk Cover";
+                        return schemeName;
+                      })
+                      .join(", ")}
                   </td>
                   <td className="p-4 text-center">
-                    <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${
-                      f.outreachStatus === "Sent" 
-                        ? "bg-brand-medium/10 text-brand-medium" 
-                        : f.outreachStatus === "Interacted" 
-                        ? "bg-emerald-50 text-emerald-800" 
-                        : "bg-gray-100 text-gray-600"
-                    }`}>
+                    <span
+                      className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${
+                        f.outreachStatus === "Sent"
+                          ? "bg-brand-medium/10 text-brand-medium"
+                          : f.outreachStatus === "Interacted"
+                            ? "bg-emerald-50 text-emerald-800"
+                            : "bg-gray-100 text-gray-600"
+                      }`}
+                    >
                       {f.outreachStatus}
                     </span>
                   </td>
-                  <td className="p-4 text-center text-gray-500">{f.lastComm}</td>
+                  <td className="p-4 text-center text-gray-500">
+                    {f.lastComm}
+                  </td>
                   <td className="p-4 text-right">
-                    <button 
+                    <button
                       onClick={() => handleSingleOutreach(f.id)}
                       className="text-[10px] font-black bg-brand-darkest hover:bg-brand-dark text-white px-3 py-1.5 rounded-xl transition uppercase tracking-wider"
                     >
@@ -368,12 +482,15 @@ export default function AdminUserGuidance() {
       {/* Awareness Analytics */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
         <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5 border-b border-gray-100 pb-2">
-          <HelpCircle className="w-4 h-4 text-brand-medium" /> Awareness Analytics
+          <HelpCircle className="w-4 h-4 text-brand-medium" /> Awareness
+          Analytics
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-xs font-semibold">
           <div className="space-y-2 bg-[#f8faf8] border border-gray-100 p-3.5 rounded-xl">
-            <span className="font-black text-brand-darkest uppercase text-[9px] block">Top Searched Schemes</span>
+            <span className="font-black text-brand-darkest uppercase text-[9px] block">
+              Top Searched Schemes
+            </span>
             <ul className="space-y-1 text-gray-700">
               <li>1. PM-Kisan Income</li>
               <li>2. KCC Interest Subvention</li>
@@ -382,7 +499,9 @@ export default function AdminUserGuidance() {
           </div>
 
           <div className="space-y-2 bg-[#f8faf8] border border-gray-100 p-3.5 rounded-xl">
-            <span className="font-black text-brand-darkest uppercase text-[9px] block">Top Viewed Schemes</span>
+            <span className="font-black text-brand-darkest uppercase text-[9px] block">
+              Top Viewed Schemes
+            </span>
             <ul className="space-y-1 text-gray-700">
               <li>1. PMFBY Crop Risk Cover</li>
               <li>2. Solar Pump Subvention</li>
@@ -391,7 +510,9 @@ export default function AdminUserGuidance() {
           </div>
 
           <div className="space-y-2 bg-[#f8faf8] border border-gray-100 p-3.5 rounded-xl">
-            <span className="font-black text-brand-darkest uppercase text-[9px] block">Top Questions</span>
+            <span className="font-black text-brand-darkest uppercase text-[9px] block">
+              Top Questions
+            </span>
             <ul className="space-y-1 text-gray-700 list-disc list-inside">
               <li>"How to seed Aadhaar?"</li>
               <li>"Timeline for payouts?"</li>
@@ -400,7 +521,9 @@ export default function AdminUserGuidance() {
           </div>
 
           <div className="space-y-2 bg-[#f8faf8] border border-gray-100 p-3.5 rounded-xl">
-            <span className="font-black text-brand-darkest uppercase text-[9px] block">Top Advisory Requests</span>
+            <span className="font-black text-brand-darkest uppercase text-[9px] block">
+              Top Advisory Requests
+            </span>
             <ul className="space-y-1 text-gray-700 list-disc list-inside">
               <li>Land registry uploads</li>
               <li>DBT bank mismatch links</li>
@@ -409,7 +532,9 @@ export default function AdminUserGuidance() {
           </div>
 
           <div className="space-y-2 bg-[#f8faf8] border border-gray-100 p-3.5 rounded-xl">
-            <span className="font-black text-brand-darkest uppercase text-[9px] block">Top Regions By Interest</span>
+            <span className="font-black text-brand-darkest uppercase text-[9px] block">
+              Top Regions By Interest
+            </span>
             <ul className="space-y-1 text-gray-700">
               <li>1. Haryana (Sonipat, Rohtak)</li>
               <li>2. Punjab (Amritsar, Patiala)</li>

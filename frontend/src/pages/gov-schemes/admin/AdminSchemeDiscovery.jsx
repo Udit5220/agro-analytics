@@ -16,13 +16,12 @@ import {
   Sparkles,
   ChevronRight,
   Tag,
-  AlertCircle,
-  Info,
   Bookmark,
+  AlertCircle,
   Share2,
   ExternalLink,
+  Info,
 } from "lucide-react";
-import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
 
 /*
 export default function AdminSchemeDiscovery() {
@@ -858,6 +857,14 @@ export const saveAnalyticsData = (data) => {
 };
 */
 
+import {
+  getAnalyticsData,
+  saveAnalyticsData,
+  fetchAnalyticsData,
+  syncAnalyticsData,
+} from "./govSchemesHelper";
+import { govSchemesApi } from "../../../services/apiService";
+
 export default function AdminSchemeDiscovery() {
   const navigate = useNavigate();
   const [analytics, setAnalytics] = useState(getAnalyticsData());
@@ -872,14 +879,16 @@ export default function AdminSchemeDiscovery() {
   const [redirectModal, setRedirectModal] = useState(null); // scheme info for redirect modal
 
   useEffect(() => {
-    // Sync viewed analytics event
-    const updated = { ...analytics };
-    const viewEvent = updated.events.find((e) => e.type === "scheme_view");
-    if (viewEvent) {
-      viewEvent.count += 1;
-    }
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+    fetchAnalyticsData()
+      .then((data) => {
+        const updated = { ...data };
+        const viewEvent = updated.events.find((e) => e.type === "scheme_view");
+        if (viewEvent) {
+          viewEvent.count += 1;
+        }
+        syncAnalyticsData(updated).then((res) => setAnalytics(res));
+      })
+      .catch(console.error);
   }, []);
 
   const handleResetFilters = () => {
@@ -921,15 +930,19 @@ export default function AdminSchemeDiscovery() {
 
   // Calculate Metrics Strip context-aware
   const potentialOpportunityValue = analytics.schemes
-    .filter((s) => (activeSegment === "company" ? !s.isFarmerScheme : s.isFarmerScheme))
+    .filter((s) =>
+      activeSegment === "company" ? !s.isFarmerScheme : s.isFarmerScheme,
+    )
     .reduce((sum, s) => sum + s.potValue, 0);
 
   const closingSoonCount = analytics.schemes
-    .filter((s) => (activeSegment === "company" ? !s.isFarmerScheme : s.isFarmerScheme))
+    .filter((s) =>
+      activeSegment === "company" ? !s.isFarmerScheme : s.isFarmerScheme,
+    )
     .filter((s) => s.daysLeft <= 30).length;
 
   const matchedCount = analytics.schemes.filter((s) =>
-    activeSegment === "company" ? !s.isFarmerScheme : s.isFarmerScheme
+    activeSegment === "company" ? !s.isFarmerScheme : s.isFarmerScheme,
   ).length;
 
   const showToast = (msg) => {
@@ -947,8 +960,13 @@ export default function AdminSchemeDiscovery() {
       if (bookmarkEvent) {
         bookmarkEvent.count += scheme.bookmarked ? 1 : -1;
       }
-      saveAnalyticsData(updated);
-      setAnalytics(updated);
+
+      // Log bookmark telemetry interaction
+      govSchemesApi
+        .interact(schemeId, "bookmark", scheme.bookmarked)
+        .catch(console.error);
+
+      syncAnalyticsData(updated).then((data) => setAnalytics(data));
       showToast(
         scheme.bookmarked
           ? `"${scheme.name}" bookmarked successfully!`
@@ -957,11 +975,13 @@ export default function AdminSchemeDiscovery() {
     }
   };
 
-  const handleShare = (schemeName) => {
+  const handleShare = (schemeName, schemeId) => {
     navigator.clipboard.writeText(window.location.href);
     const updated = { ...analytics };
-    // Track share in platform analytics (represented under scheme_view or overall engagement)
-    saveAnalyticsData(updated);
+    // Log view telemetry interaction
+    govSchemesApi.interact(schemeId, "view").catch(console.error);
+
+    syncAnalyticsData(updated).then((data) => setAnalytics(data));
     showToast(
       `Opportunity link for "${schemeName}" copied to clipboard! (Platform activity logged)`,
     );
@@ -983,8 +1003,11 @@ export default function AdminSchemeDiscovery() {
       matchedScheme.status = "Applied (Self Reported)";
       matchedScheme.selfReportedApplied = true;
     }
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+
+    // Log apply telemetry interaction
+    govSchemesApi.interact(scheme.id, "apply_click").catch(console.error);
+
+    syncAnalyticsData(updated).then((data) => setAnalytics(data));
   };
 
   return (
@@ -1071,7 +1094,10 @@ export default function AdminSchemeDiscovery() {
             {matchedCount} Schemes
           </h3>
           <p className="text-[10px] text-brand-medium font-bold mt-1.5 flex items-center gap-1">
-            <Sparkles className="w-3.5 h-3.5" /> {activeSegment === "company" ? "Derived from company profile matching" : "Derived from farmer network eligibility"}
+            <Sparkles className="w-3.5 h-3.5" />{" "}
+            {activeSegment === "company"
+              ? "Derived from company profile matching"
+              : "Derived from farmer network eligibility"}
           </p>
         </div>
 

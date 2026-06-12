@@ -28,7 +28,7 @@ import {
   UserCheck,
   Users,
 } from "lucide-react";
-import { getAnalyticsData, saveAnalyticsData } from "./govSchemesHelper";
+import { getAnalyticsData, saveAnalyticsData, fetchAnalyticsData, syncAnalyticsData } from "./govSchemesHelper";
 
 /*
 // --- OLD COMPLIANCE CENTER COMPONENT COMMENTED OUT ---
@@ -49,6 +49,10 @@ export default function AdminComplianceCenter() {
   const [analytics, setAnalytics] = useState(getAnalyticsData());
   const [toastMessage, setToastMessage] = useState("");
 
+  useEffect(() => {
+    fetchAnalyticsData().then(data => setAnalytics(data)).catch(console.error);
+  }, []);
+
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(""), 3000);
@@ -64,8 +68,7 @@ export default function AdminComplianceCenter() {
     // Set udyam value
     updated.companyProfile.udyam = "UDYAM-HR-12-0004567";
     updated.profileStrength = 95;
-    saveAnalyticsData(updated);
-    setAnalytics(updated);
+    syncAnalyticsData(updated).then(data => setAnalytics(data));
     showToast("Udyam MSME Registration linked! Profile matching score refreshed.");
   };
 
@@ -300,7 +303,7 @@ export default function AdminComplianceCenter() {
 
           <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 space-y-1">
             <span className="text-[9px] font-black uppercase text-gray-400 block tracking-wider">Common Missing Requirement</span>
-            <span className="text-lg font-black text-red-600">Bank Aadhaar Seeding</span>
+            <span className="text-lg font-black text-red-600">Land Record Verification</span>
             <span className="text-[9px] text-red-500 font-bold block">Sourced from self-reported farmer profiles in AgroIndia</span>
           </div>
 
