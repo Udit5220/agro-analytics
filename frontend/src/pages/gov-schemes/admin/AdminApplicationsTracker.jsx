@@ -476,18 +476,18 @@ export default function AdminApplicationsTracker() {
         </div>
 
         {/* Missed Opportunity Panel */}
-        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4">
-          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+        <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 flex flex-col justify-start">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5 shrink-0">
             <AlertTriangle className="w-4 h-4 text-red-600" /> Missed
             Opportunity Audit Log
           </h3>
-          <div className="space-y-2.5">
+          <div className="space-y-2.5 max-h-[220px] overflow-y-auto pr-1.5 custom-scrollbar flex-1">
             {analytics.missedOpportunities.map((m, i) => (
               <div
                 key={i}
-                className="border border-gray-150 rounded-xl p-3 bg-red-50/20 text-xs"
+                className="border border-gray-150 rounded-xl p-3 bg-red-50/20 hover:bg-red-50/40 transition text-xs"
               >
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-start gap-2">
                   <span className="font-black text-brand-darkest uppercase truncate pr-2">
                     {m.name}
                   </span>
@@ -495,16 +495,25 @@ export default function AdminApplicationsTracker() {
                     {m.potValue}
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-[10px] text-gray-400 mt-2 font-bold uppercase tracking-wider">
-                  <span>Expired: {m.expiredDate}</span>
-                  <span className="text-red-600 bg-red-100/60 px-2 py-0.5 rounded">
-                    {m.isFarmerScheme
-                      ? `${m.farmerCount} Farmers Missed (${m.reason})`
-                      : m.reason}
-                  </span>
+                <div className="mt-2 pt-2 border-t border-red-100/20 flex flex-col gap-1.5 text-[9px] font-black uppercase tracking-wider text-gray-400">
+                  <div className="flex justify-between items-center">
+                    <span>Expired Date</span>
+                    <span className="text-gray-600 font-black">{m.expiredDate}</span>
+                  </div>
+                  <div className="flex flex-col gap-1 mt-1">
+                    <span className="shrink-0">Audit Reason</span>
+                    <span className="text-red-700 bg-red-100/60 px-2 py-1 rounded text-[8px] font-black break-words block text-left">
+                      {m.isFarmerScheme
+                        ? `${m.farmerCount} Farmers Missed (${m.reason})`
+                        : m.reason}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
+            {analytics.missedOpportunities.length === 0 && (
+              <p className="text-gray-400 italic text-[11px] text-center py-4">No missed opportunities recorded.</p>
+            )}
           </div>
         </div>
       </div>

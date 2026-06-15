@@ -103,12 +103,13 @@ export default function FpoBoardReport() {
   const [stats, setStats] = useState(STATS);
   const [schemePerformance, setSchemePerformance] = useState(SCHEME_PERFORMANCE);
   const [loading, setLoading] = useState(true);
+  const [isUsingFallback, setIsUsingFallback] = useState(false);
 
   const loadData = async () => {
     try {
       setLoading(true);
       const res = await govSchemesApi.getFpoBoardReport();
-      if (res.success) {
+      if (res && res.success) {
         if (res.stats && res.stats.length > 0) {
           setStats(res.stats);
         }
@@ -118,12 +119,23 @@ export default function FpoBoardReport() {
         if (res.recommendations && res.recommendations.length > 0) {
           setRecommendations(res.recommendations.map(r => ({ ...r, added: false })));
         }
+        setIsUsingFallback(false);
+      } else {
+        triggerFallback();
       }
     } catch (err) {
-      console.error("Failed to load board report data:", err);
+      console.warn("Failed to load board report data, triggering fallback:", err);
+      triggerFallback();
     } finally {
       setLoading(false);
     }
+  };
+
+  const triggerFallback = () => {
+    setIsUsingFallback(true);
+    setStats(STATS);
+    setSchemePerformance(SCHEME_PERFORMANCE);
+    setRecommendations(INITIAL_RECOMMENDATIONS.map(r => ({ ...r, added: false })));
   };
 
   useEffect(() => {
@@ -157,27 +169,34 @@ export default function FpoBoardReport() {
     setLoadingAi(true);
     setAiResponse("");
 
+    const totalBenefit = stats[0]?.value || "₹42.3 Lakh";
+    const farmerCoverage = stats[1]?.value || "74.9%";
+    const readinessScore = stats[2]?.value || "77.1%";
+    const blockedCount = stats[2]?.alert ? (stats[2].alert.match(/\d+/) || ["47"])[0] : "0";
+    const warehouseVal = stats[3]?.value || "₹1.2 Cr";
+
     const dataPrompt = `
-      You are a Senior AgriTech Board Consultant. Here is the Q3 2024 performance report for Sonipat Farmer Producer Organization (FPO):
-      1. Total benefit unlocked: ₹42.3 Lakh across 8 active schemes (+18% Q-o-Q growth).
-      2. Farmer coverage rate: 74.9% (634 of 847 members enrolled in 1+ scheme).
-      3. Benefit disbursement success: 77.1% (489 of 634 enrolled actually received benefits). 47 farmers are blocked due to KYC/bank issues.
-      4. FPO-level infrastructure grant: AIF dry warehouse of ₹1.2 Cr approved, under construction.
-      Please write a professional, highly action-oriented boardroom executive brief of exactly 3 paragraphs. Focus on gaps (specifically the 47 blocked farmers) and steps to expand eNAM and PMFBY coverage.
+      You are a Senior AgriTech Board Consultant. Here is the latest performance report for Sonipat Farmer Producer Organization (FPO):
+      1. Total benefit unlocked (manual/self-reported): ${totalBenefit} across active schemes.
+      2. Farmer coverage rate: ${farmerCoverage} of members enrolled in 1+ scheme.
+      3. Shareholder profile readiness score: ${readinessScore}. ${blockedCount} farmers are marked with KYC or document discrepancies (Aadhaar seeding / mobile verification gaps).
+      4. FPO-level infrastructure pipeline: ${warehouseVal} (Dry Warehouse approved).
+      Please write a professional, highly action-oriented boardroom executive brief of exactly 3 paragraphs. Focus on gaps (specifically the ${blockedCount} farmers with mismatched records) and steps to expand campaign outreach for PMFBY and eNAM. Do NOT assume government DB integration; focus purely on co-op level readiness campaigns and verification audits.
     `;
 
     const key = getApiKey();
 
+    const offlineNarrative = `**Boardroom Analysis Brief (Generated via Local Insights):**
+        
+1. **Performance Overview:** Sonipat FPO has registered a robust quarterly progress in self-reported farmer benefits, totaling ${totalBenefit}. This progress is backed by a solid ${farmerCoverage} farmer coverage rate, showing that our cooperative members are increasingly engaged. The clearance of the ${warehouseVal} Agriculture Infrastructure Fund (AIF) dry warehouse represents a major capacity expansion that will enhance crop aggregation and holding times.
+        
+2. **Critical Gaps:** Despite high coverage, the shareholder benefit pipeline faces a verification bottleneck. Specifically, ${blockedCount} member farmers (mostly in Kharindwa and Bhadana) have their profiles marked with KYC discrepancies, biometric errors, or Aadhaar seeding failures. Additionally, eNAM and PMFBY campaign coverage needs active field drive support to link all eligible shareholders before crop sowing deadlines.
+        
+3. **Recommendations:** The board is requested to coordinate a joint CSC-Bank BC mobilization camp in Kharindwa next week to clear Aadhaar mismatches and seed bank accounts, resolving the document gaps for the ${blockedCount} affected farmers. We also recommend deploying FPO field facilitators to target uninsured members for the PMFBY drive before the deadline, ensuring comprehensive crop risk protection.`;
+
     if (!key) {
-      // Simulate premium local offline generation if key is missing
       setTimeout(() => {
-        setAiResponse(`**Boardroom Analysis Brief (Generated via Local Insights):**
-        
-1. **Performance Overview:** Sonipat FPO has registered a robust 18% quarterly growth in direct benefits unlocked, totaling ₹42.3 Lakhs. This progress is backed by a solid 74.9% farmer enrollment rate, showing that three-quarters of our cooperative members are linked to at least one state or central welfare scheme. The clearance of the ₹1.2 Crore Agriculture Infrastructure Fund (AIF) dry warehouse represents a major capacity expansion that will enhance crop holding times and reduce distress sales.
-        
-2. **Critical Gaps:** Despite high coverage, the benefit disbursement pipeline faces a major bottleneck with a 22.9% drop-off. Specifically, 47 member farmers (mostly in Kharindwa and Bhadana) have their DBT payments blocked due to biometric discrepancies, bank account dormancy, and Aadhaar seeding failures. This leaves approximately ₹3.84 Lakhs stuck in red tape. Additionally, eNAM adoption is low at 22.9%, meaning over 500 members are missing out on the 12% price premium offered on the online Mandi portal.
-        
-3. **Recommendations:** The board is requested to sanction a ₹12,000 budget to deploy LRP field coordinators to clear the PMFBY insurance enrollment gap before the July 31 deadline. Additionally, the FPO should coordinate a joint CSC-Bank BC mobilization camp in Kharindwa next week (cost: ₹5,000) to clear the Aadhaar mismatches and seed bank accounts, unlocking the stuck ₹3.84 Lakhs. Initiating APMC coordinator linkages for eNAM is recommended as a priority action for Q4.`);
+        setAiResponse(offlineNarrative);
         setLoadingAi(false);
       }, 1500);
       return;
@@ -207,13 +226,7 @@ export default function FpoBoardReport() {
       }
     } catch (err) {
       console.warn("Gemini API call failed, falling back to simulated insights:", err);
-      setAiResponse(`**Boardroom Analysis Brief (Generated via Local Insights):**
-      
-1. **Performance Overview:** Sonipat FPO has registered a robust 18% quarterly growth in direct benefits unlocked, totaling ₹42.3 Lakhs. This progress is backed by a solid 74.9% farmer enrollment rate, showing that three-quarters of our cooperative members are linked to at least one state or central welfare scheme. The clearance of the ₹1.2 Crore Agriculture Infrastructure Fund (AIF) dry warehouse represents a major capacity expansion that will enhance crop holding times and reduce distress sales.
-      
-2. **Critical Gaps:** Despite high coverage, the benefit disbursement pipeline faces a major bottleneck with a 22.9% drop-off. Specifically, 47 member farmers (mostly in Kharindwa and Bhadana) have their DBT payments blocked due to biometric discrepancies, bank account dormancy, and Aadhaar seeding failures. This leaves approximately ₹3.84 Lakhs stuck in red tape. Additionally, eNAM adoption is low at 22.9%, meaning over 500 members are missing out on the 12% price premium offered on the online Mandi portal.
-      
-3. **Recommendations:** The board is requested to sanction a ₹12,000 budget to deploy LRP field coordinators to clear the PMFBY insurance enrollment gap before the July 31 deadline. Additionally, the FPO should coordinate a joint CSC-Bank BC mobilization camp in Kharindwa next week (cost: ₹5,000) to clear the Aadhaar mismatches and seed bank accounts, unlocking the stuck ₹3.84 Lakhs. Initiating APMC coordinator linkages for eNAM is recommended as a priority action for Q4.`);
+      setAiResponse(offlineNarrative);
     } finally {
       setLoadingAi(false);
     }
@@ -564,6 +577,14 @@ export default function FpoBoardReport() {
           </>
         }
       />
+
+      {/* Demo Warning Banner */}
+      {isUsingFallback && (
+        <div className="bg-amber-50 border border-amber-250 text-amber-900 px-4 py-3 rounded-2xl text-xs font-bold flex items-center gap-2 animate-pulse shadow-3xs">
+          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+          <span>Using Demo Data (API Server Offline)</span>
+        </div>
+      )}
 
       {/* Gemini AI Boardroom Insights Section */}
       <div className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden p-5 space-y-4">

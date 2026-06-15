@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CheckCircle2, XCircle, Send, X, AlertTriangle, ChevronRight, ArrowUpRight, ArrowDownRight, ShieldCheck, Upload, HelpCircle, Check, Play, Eye, Coins, CreditCard, HeartHandshake, Building2, PiggyBank, Globe, Award, Sparkles, AlertCircle } from "lucide-react";
 
 // 1. PageHeader (Without breadcrumbs)
@@ -162,16 +162,16 @@ export const SchemeStatusBadge = ({ status }) => {
 
 // 5. FarmerSchemeCell
 export const FarmerSchemeCell = ({ status }) => {
-  if (status === "enrolled") {
+  if (status === "enrolled" || status === "self-reported-applied" || status === "self-reported-benefit-received") {
     return (
-      <div className="flex items-center justify-center animate-fadeIn" title="Enrolled">
+      <div className="flex items-center justify-center animate-fadeIn" title="Enrolled / Applied">
         <CheckCircle2 className="w-5 h-5 text-green-600" fill="#dcfce7" />
       </div>
     );
   }
-  if (status === "eligible-not-enrolled") {
+  if (status === "eligible-not-enrolled" || status === "recommended" || status === "interested" || status === "apply-link-shared" || status === "profile-complete") {
     return (
-      <div className="flex items-center justify-center cursor-help animate-pulse" title="Eligible but Not Enrolled (Action Needed)">
+      <div className="flex items-center justify-center cursor-help animate-pulse" title="Engaged / Recommended (Action Needed)">
         <AlertTriangle className="w-5 h-5 text-red-650" fill="#fee2e2" />
       </div>
     );
@@ -261,8 +261,8 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
 
   return (
     <div
-      className={`bg-white rounded-xl p-6 border border-gray-150 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer ${
-        isUrgent ? "ring-2 ring-amber-500/20 border-amber-300" : ""
+      className={`bg-white rounded-xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer ${
+        scheme.id === "pmfby" ? "" : "border border-gray-150"
       }`}
     >
       <div className="space-y-4">
@@ -317,7 +317,7 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
 
         {/* Warning / Deadline Info */}
         {scheme.status === "Enrollment Open" && scheme.deadline && !scheme.isFpoLevel && (
-          <div className="flex items-center justify-between text-xs font-bold text-red-700 bg-red-50 p-2.5 rounded-xl border border-red-100/60 shadow-3xs">
+          <div className="flex items-center justify-between text-xs font-bold text-red-750 bg-red-50 p-2.5 rounded-xl shadow-3xs">
             <span>Deadline: {scheme.deadline}</span>
             {scheme.daysLeft && (
               <span className="px-2 py-0.5 bg-red-100 text-red-800 rounded-md text-[9px] font-black uppercase tracking-wider">
@@ -328,7 +328,7 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
         )}
 
         {scheme.alert && !scheme.isFpoLevel && (
-          <div className="flex items-center gap-2 bg-rose-50 text-rose-700 border border-rose-100/60 p-2.5 rounded-xl text-xs font-bold animate-pulse shadow-3xs">
+          <div className="flex items-center gap-2 bg-rose-50 text-rose-700 p-2.5 rounded-xl text-xs font-bold animate-pulse shadow-3xs">
             <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0" />
             <span>{scheme.alert}</span>
           </div>
@@ -385,6 +385,14 @@ export const SchemeCard = ({ scheme, mult, onStartDrive, navigate }) => {
 // 7. WhatsAppReminderModal
 export const WhatsAppReminderModal = ({ scheme, targetFarmers = [], village, isOpen, onClose }) => {
   const [success, setSuccess] = useState(false);
+  const [messageText, setMessageText] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      const sampleName = targetFarmers.length > 0 ? targetFarmers[0].name || "Ramesh Kumar" : "Ramesh Kumar";
+      setMessageText(`Namaste ${sampleName}! Sonipat FPO ki taraf se — ${scheme || "PMFBY"} enrollment ka akhiri mauka. Last date: 31 Jul 2025. Suresh se mile: 9812XXXXXX`);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -396,7 +404,6 @@ export const WhatsAppReminderModal = ({ scheme, targetFarmers = [], village, isO
     }, 2000);
   };
 
-  const sampleName = targetFarmers.length > 0 ? targetFarmers[0].name || "Ramesh Kumar" : "Ramesh Kumar";
   const formattedCount = targetFarmers.length;
 
   return (
@@ -436,9 +443,11 @@ export const WhatsAppReminderModal = ({ scheme, targetFarmers = [], village, isO
 
             <div className="space-y-1.5">
               <label className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">Message Preview (Hinglish)</label>
-              <div className="bg-green-50/50 p-4 rounded-xl border border-green-150 text-xs text-gray-800 leading-relaxed font-mono whitespace-pre-wrap">
-                {`Namaste ${sampleName}! Sonipat FPO ki taraf se — ${scheme || "PMFBY"} enrollment ka akhiri mauka. Last date: 31 Jul 2025. Suresh se mile: 9812XXXXXX`}
-              </div>
+              <textarea
+                value={messageText}
+                onChange={(e) => setMessageText(e.target.value)}
+                className="w-full bg-green-50/50 p-4 rounded-xl border border-green-150 text-xs text-gray-800 leading-relaxed font-mono focus:outline-none focus:ring-1 focus:ring-green-600/30 resize-none h-28"
+              />
             </div>
 
             <div className="flex gap-3 pt-2">

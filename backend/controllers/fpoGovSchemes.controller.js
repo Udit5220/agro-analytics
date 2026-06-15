@@ -3,49 +3,67 @@ import DistrictAgriStats from '../models/DistrictAgriStats.js';
 import GovSchemeAdminAnalytics from '../models/GovSchemeAdminAnalytics.js';
 import mongoose from 'mongoose';
 
-export const getFpoSchemesStats = async (req, res) => {
+// Helper: Calculate Recommendation Engine fields for a farmer profile
+const calculateFarmerReadiness = (farmer) => {
+  let completedFields = 4; // name, village, landSizeNum, category are guaranteed by Mongoose default/rules
+  if (farmer.phone && farmer.phone.trim() !== '') completedFields++;
+  if (farmer.aadhaarSeeded) completedFields++;
+  if (farmer.mobileVerified) completedFields++;
+
+  const matchScore = Math.round((completedFields / 7) * 100);
+
+  const recommendedSchemes = [];
+  const missingRequirements = [];
+
+  const schemesList = ['pmKisan', 'pmfby', 'kcc', 'pmKmy', 'eNam'];
+  schemesList.forEach(key => {
+    const status = farmer.schemes?.[key];
+    if (status && status !== 'not-eligible') {
+      let displayName = key.toUpperCase();
+      if (key === 'pmKisan') displayName = 'PM-KISAN';
+      if (key === 'pmKmy') displayName = 'PM-KMY';
+      recommendedSchemes.push(displayName);
+    }
+  });
+
+  if (!farmer.aadhaarSeeded) {
+    missingRequirements.push("Bank-Aadhaar Link");
+  }
+  if (!farmer.mobileVerified) {
+    missingRequirements.push("Mobile Verification");
+  }
+  if (!farmer.phone || farmer.phone.trim() === '') {
+    missingRequirements.push("Phone Number");
+  }
+
+  return {
+    matchScore,
+    recommendedSchemes,
+    missingRequirements,
+    readinessPercent: matchScore
+  };
+};
+
+export const getFpoOverview = async (req, res) => {
   try {
     const { village } = req.query;
-    
-    // 1. Fetch district stats (e.g. for Sonipat)
-    const districtStats = await DistrictAgriStats.findOne({ districtName: 'Sonipat' }) || {
-      totalFarmers: 34500,
-      enrolledFarmers: 28400,
-      nonEnrollmentReasons: [
-        { reason: 'Lack of awareness of registration portals', percentage: 38, count: 2318 },
-        { reason: 'Land record / Aadhaar name linkage mismatch', percentage: 29, count: 1769 },
-        { reason: 'Eligibility exclusions (income tax payers/retired officials)', percentage: 18, count: 1098 },
-        { reason: 'Digital accessibility & document submission barriers', percentage: 15, count: 915 }
-      ],
-      villages: [
-        { name: 'Kharindwa', totalFarmers: 320, enrolledFarmers: 110, averageSchemesPerFarmer: 2.1, intensity: 'low' },
-        { name: 'Bhadana', totalFarmers: 287, enrolledFarmers: 180, averageSchemesPerFarmer: 3.4, intensity: 'medium' },
-        { name: 'Murthal', totalFarmers: 240, enrolledFarmers: 200, averageSchemesPerFarmer: 4.2, intensity: 'high' }
-      ]
-    };
-
-    // 2. Fetch FPO farmers filtered by village if applicable
     const query = {};
     if (village && village !== 'All') {
       query.village = village;
     }
     const farmers = await FpoFarmer.find(query);
 
-    // Calculate FPO member coverage stats
     const total = farmers.length;
     let covered = 0;
-    let uncovered = 0;
-    
-    // Scheme counts for FPO coverage
+
     const schemeCounts = {
-      pmKisan: { name: "PM Kisan Samman Nidhi", eligible: 0, applied: 0, approved: 0, pending: 0, rejected: 0 },
-      pmfby: { name: "Pradhan Mantri Fasal Bima Yojana", eligible: 0, applied: 0, approved: 0, pending: 0, rejected: 0 },
-      kcc: { name: "Kisan Credit Card (KCC)", eligible: 0, applied: 0, approved: 0, pending: 0, rejected: 0 },
-      pmKmy: { name: "Kisan Maan Dhan Yojana", eligible: 0, applied: 0, approved: 0, pending: 0, rejected: 0 },
-      eNam: { name: "National Agriculture Market", eligible: 0, applied: 0, approved: 0, pending: 0, rejected: 0 }
+      pmKisan: { name: "PM Kisan Samman Nidhi", eligible: 0, applied: 0, approved: 0, received: 0 },
+      pmfby: { name: "Pradhan Mantri Fasal Bima Yojana", eligible: 0, applied: 0, approved: 0, received: 0 },
+      kcc: { name: "Kisan Credit Card (KCC)", eligible: 0, applied: 0, approved: 0, received: 0 },
+      pmKmy: { name: "Kisan Maan Dhan Yojana", eligible: 0, applied: 0, approved: 0, received: 0 },
+      eNam: { name: "National Agriculture Market", eligible: 0, applied: 0, approved: 0, received: 0 }
     };
 
-    // Demographics
     const demographics = {
       gender: { male: 0, female: 0, total: 0 },
       categories: { SC: 0, ST: 0, OBC: 0, General: 0 },
@@ -53,7 +71,6 @@ export const getFpoSchemesStats = async (req, res) => {
       ageGroups: { "18-30": 0, "31-45": 0, "46-60": 0, "60+": 0 }
     };
 
-    // Critical issues
     const criticalIssues = {
       aadhaarNotSeeded: 0,
       mobileNotVerified: 0,
@@ -61,79 +78,77 @@ export const getFpoSchemesStats = async (req, res) => {
       benefitsOverdue: 0
     };
 
-    // Village-wise grouping
     const villageMap = {};
+    let potentialOpportunityValueSum = 0;
+    let unlockedBenefitValueSum = 0;
 
-    farmers.forEach((f) => {
-      let hasEnrolled = false;
-      let totalEnrolled = 0;
+    farmers.forEach(f => {
+      let isFarmerCovered = false;
+      const land = f.landSizeNum || 1.0;
 
-      // Check each scheme
       const schemesList = ['pmKisan', 'pmfby', 'kcc', 'pmKmy', 'eNam'];
       schemesList.forEach(key => {
-        const status = f.schemes?.[key] || 'eligible-not-enrolled';
+        const status = f.schemes?.[key] || 'recommended';
         if (status !== 'not-eligible') {
           schemeCounts[key].eligible++;
-          if (status === 'enrolled') {
-            schemeCounts[key].approved++;
+
+          // Potential benefit calculation
+          let benefitVal = 0;
+          if (key === 'pmKisan') benefitVal = 6000;
+          else if (key === 'pmfby') benefitVal = Math.round(land * 35000);
+          else if (key === 'kcc') benefitVal = Math.min(300000, Math.round(land * 120000));
+          else if (key === 'pmKmy') benefitVal = 36000;
+          else if (key === 'eNam') benefitVal = 10000;
+
+          potentialOpportunityValueSum += benefitVal;
+
+          // Reached or enrolled
+          const isEnrolled = ['self-reported-applied', 'self-reported-benefit-received'].includes(status);
+          const isReceived = status === 'self-reported-benefit-received';
+
+          if (isEnrolled) {
             schemeCounts[key].applied++;
-            hasEnrolled = true;
-            totalEnrolled++;
-          } else if (status === 'eligible-not-enrolled') {
-            // Deterministic mock logic: 15% are applied and pending
-            if ((f.farmerId.charCodeAt(2) + key.charCodeAt(0)) % 7 === 0) {
-              schemeCounts[key].applied++;
-              schemeCounts[key].pending++;
-            }
+            schemeCounts[key].approved++; // Mapping to enrolled on frontend
+            isFarmerCovered = true;
+          }
+
+          if (isReceived) {
+            schemeCounts[key].received++;
+            unlockedBenefitValueSum += benefitVal;
           }
         }
       });
 
-      if (hasEnrolled) {
+      if (isFarmerCovered) {
         covered++;
-      } else {
-        uncovered++;
       }
 
       // Demographics
-      // Generate gender deterministically from name
       const isFemale = (f.name.endsWith('Devi') || f.name.endsWith('Kumari') || f.name.endsWith('Priya') || f.name.endsWith('Sunita') || f.name.endsWith('Geeta') || f.name.endsWith('Poonam') || f.name.endsWith('Savitri'));
-      if (isFemale) {
-        demographics.gender.female++;
-      } else {
-        demographics.gender.male++;
-      }
+      if (isFemale) demographics.gender.female++;
+      else demographics.gender.male++;
       demographics.gender.total++;
 
-      // Category
       const cat = f.category || 'General';
-      if (demographics.categories[cat] !== undefined) {
-        demographics.categories[cat]++;
-      }
+      if (demographics.categories[cat] !== undefined) demographics.categories[cat]++;
 
-      // Land Size
-      const landSize = f.landSizeNum || 0.0;
-      if (landSize < 1.0) {
-        demographics.landSize.marginal++;
-      } else if (landSize < 2.0) {
-        demographics.landSize.small++;
-      } else if (landSize < 10.0) {
-        demographics.landSize.medium++;
-      } else {
-        demographics.landSize.large++;
-      }
+      if (land < 1.0) demographics.landSize.marginal++;
+      else if (land < 2.0) demographics.landSize.small++;
+      else if (land < 10.0) demographics.landSize.medium++;
+      else demographics.landSize.large++;
 
-      // Age Group (Deterministic mock based on name hash/ID)
-      const ageHash = (f.farmerId.charCodeAt(2) * 3) % 4;
+      const ageHash = (f.farmerId.charCodeAt(f.farmerId.length - 1) * 3) % 4;
       if (ageHash === 0) demographics.ageGroups["18-30"]++;
       else if (ageHash === 1) demographics.ageGroups["31-45"]++;
       else if (ageHash === 2) demographics.ageGroups["46-60"]++;
       else demographics.ageGroups["60+"]++;
 
-      // Critical Issues
+      // Critical Issues (missing profile verification)
       if (!f.aadhaarSeeded) criticalIssues.aadhaarNotSeeded++;
       if (!f.mobileVerified) criticalIssues.mobileNotVerified++;
-      if (totalEnrolled === 0) criticalIssues.noSchemesEnrolled++;
+
+      const hasEnrolledAny = Object.values(f.schemes || {}).some(st => ['self-reported-applied', 'self-reported-benefit-received'].includes(st));
+      if (!hasEnrolledAny) criticalIssues.noSchemesEnrolled++;
       if (f.pendingBenefits && f.pendingBenefits !== '₹0') criticalIssues.benefitsOverdue++;
 
       // Village group
@@ -141,32 +156,38 @@ export const getFpoSchemesStats = async (req, res) => {
         villageMap[f.village] = { name: f.village, covered: 0, total: 0 };
       }
       villageMap[f.village].total++;
-      if (hasEnrolled) {
+      if (isFarmerCovered) {
         villageMap[f.village].covered++;
       }
     });
 
-    // Formatting schemes list
-    const schemesData = Object.values(schemeCounts).map(s => {
+    const schemesData = Object.entries(schemeCounts).map(([key, s]) => {
       const percent = s.eligible > 0 ? Math.round((s.approved / s.eligible) * 100) : 0;
-      return { ...s, percent };
+      return { ...s, id: key, percent };
     });
 
-    // Formatting villages list
     const villagesData = Object.values(villageMap).map(v => {
       const percent = v.total > 0 ? (v.covered / v.total) : 0;
       const intensity = percent > 0.75 ? 'high' : percent > 0.40 ? 'medium' : 'low';
       return { ...v, intensity };
     });
 
+    const formatOutlay = (val) => {
+      if (val >= 10000000) return `₹${(val / 10000000).toFixed(2)} Cr`;
+      if (val >= 100000) return `₹${(val / 100000).toFixed(2)} Lakh`;
+      return `₹${val.toLocaleString('en-IN')}`;
+    };
+
     res.status(200).json({
       success: true,
-      districtTotalFarmers: districtStats.totalFarmers,
-      districtEnrolledFarmers: districtStats.enrolledFarmers,
+      districtTotalFarmers: 34500,
+      districtEnrolledFarmers: 28400,
+      totalDisbursedValue: formatOutlay(unlockedBenefitValueSum),
+      potentialOpportunityValue: formatOutlay(potentialOpportunityValueSum),
       memberCoverage: {
         total,
         covered,
-        uncovered,
+        uncovered: total - covered,
         coveragePercent: total > 0 ? Math.round((covered / total) * 100) : 0,
         potentialPercent: 92.0,
         schemes: schemesData,
@@ -178,7 +199,6 @@ export const getFpoSchemesStats = async (req, res) => {
         schemePerformance: schemesData
       }
     });
-
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -192,7 +212,20 @@ export const getFpoFarmers = async (req, res) => {
       query.village = village;
     }
     const farmers = await FpoFarmer.find(query);
-    res.status(200).json({ success: true, farmers });
+
+    // Enriched with Recommendation Engine details
+    const enrichedFarmers = farmers.map(f => {
+      const readiness = calculateFarmerReadiness(f);
+      return {
+        ...f.toObject(),
+        matchScore: readiness.matchScore,
+        recommendedSchemes: readiness.recommendedSchemes,
+        missingRequirements: readiness.missingRequirements,
+        readinessPercent: readiness.readinessPercent
+      };
+    });
+
+    res.status(200).json({ success: true, farmers: enrichedFarmers });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -202,18 +235,18 @@ export const updateFpoFarmerEnrollment = async (req, res) => {
   try {
     const { id } = req.params;
     const { schemes } = req.body;
-    
+
     const query = mongoose.Types.ObjectId.isValid(id) ? { _id: id } : { farmerId: id };
     const farmer = await FpoFarmer.findOneAndUpdate(
       query,
       { $set: { schemes } },
       { new: true }
     );
-    
+
     if (!farmer) {
       return res.status(404).json({ success: false, message: 'Farmer not found' });
     }
-    
+
     res.status(200).json({ success: true, farmer });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -250,7 +283,7 @@ export const syncFpoRealData = async (req, res) => {
   }
 };
 
-export const getFpoDisbursements = async (req, res) => {
+export const getFpoAnalytics = async (req, res) => {
   try {
     const { village } = req.query;
     const query = {};
@@ -262,76 +295,98 @@ export const getFpoDisbursements = async (req, res) => {
     let totalEnrolled = 0;
     let benefitsReceived = 0;
     let paymentPending = 0;
-    let blockedFailed = 0;
 
-    const blockedList = [];
+    let totalUnlockedValue = 0;
+    let totalPotentialValue = 0;
+
+    const schemeStats = {
+      pmKisan: { enrolled: 0, eligible: 0, verified: 0, processed: 0, received: 0, label: "PM-KISAN", desc: "Pradhan Mantri Kisan Samman Nidhi", totalDisbursed: "₹0" },
+      pmfby: { enrolled: 0, eligible: 0, verified: 0, processed: 0, received: 0, label: "PMFBY", desc: "Pradhan Mantri Fasal Bima Yojana", totalDisbursed: "₹0" },
+      kcc: { enrolled: 0, eligible: 0, verified: 0, processed: 0, received: 0, label: "KCC", desc: "Kisan Credit Card (Institutional Credit)", totalDisbursed: "₹0" },
+      pmKmy: { enrolled: 0, eligible: 0, verified: 0, processed: 0, received: 0, label: "PM-KMY", desc: "Pradhan Mantri Kisan Maan Dhan Yojana", totalDisbursed: "₹0" }
+    };
+
+    const schemesList = ['pmKisan', 'pmfby', 'kcc', 'pmKmy'];
 
     farmers.forEach(f => {
-      const enrolledSchemes = [];
-      const schemesList = ['pmKisan', 'pmfby', 'kcc', 'pmKmy', 'eNam'];
+      const land = f.landSizeNum || 1.0;
+
       schemesList.forEach(key => {
-        if (f.schemes?.[key] === 'enrolled') {
-          enrolledSchemes.push(key);
+        const status = f.schemes?.[key] || 'recommended';
+        if (status === 'not-eligible') return;
+
+        schemeStats[key].eligible++;
+
+        let benefitVal = 0;
+        if (key === 'pmKisan') benefitVal = 6000;
+        else if (key === 'pmfby') benefitVal = Math.round(land * 35000);
+        else if (key === 'kcc') benefitVal = Math.min(300000, Math.round(land * 120000));
+        else if (key === 'pmKmy') benefitVal = 36000;
+
+        totalPotentialValue += benefitVal;
+
+        // Map campaigns/readiness to stages for analytics:
+        // Enrolled status represents self-reported applied & received
+        const isRegistered = ['self-reported-applied', 'self-reported-benefit-received'].includes(status);
+        const isReceived = status === 'self-reported-benefit-received';
+
+        // Telemetry details:
+        // 1. Enrolled (Applied)
+        if (isRegistered) {
+          schemeStats[key].enrolled++;
+          totalEnrolled++;
+        }
+        // 2. Verified (Profile ready & complete)
+        if (isRegistered || status === 'profile-complete') {
+          schemeStats[key].verified++;
+        }
+        // 3. Processed (Link shared / interested)
+        if (isRegistered || ['apply-link-shared', 'profile-complete'].includes(status)) {
+          schemeStats[key].processed++;
+        }
+        // 4. Received (Self-reported payout cleared)
+        if (isReceived) {
+          schemeStats[key].received++;
+          benefitsReceived++;
+          totalUnlockedValue += benefitVal;
+        } else if (isRegistered) {
+          paymentPending++;
         }
       });
-
-      const isEnrolled = enrolledSchemes.length > 0;
-      if (isEnrolled) {
-        totalEnrolled++;
-        if (f.aadhaarSeeded && f.mobileVerified) {
-          const hash = f.farmerId.charCodeAt(2) % 100;
-          if (hash < 85) {
-            benefitsReceived++;
-          } else {
-            paymentPending++;
-          }
-        } else {
-          blockedFailed++;
-          
-          const firstScheme = enrolledSchemes[0] || 'pmKisan';
-          const schemeName = firstScheme === 'pmKisan' ? 'PM-KISAN' :
-                             firstScheme === 'pmfby' ? 'PMFBY' :
-                             firstScheme === 'kcc' ? 'KCC' :
-                             firstScheme === 'pmKmy' ? 'PM-KMY' : 'eNAM';
-                             
-          let issue = 'Aadhaar not seeded';
-          let actionLabel = 'Seed Aadhaar';
-          if (!f.aadhaarSeeded && !f.mobileVerified) {
-            issue = 'Aadhaar–bank mismatch';
-            actionLabel = 'Fix Now';
-          } else if (!f.mobileVerified) {
-            issue = 'Mobile not verified';
-            actionLabel = 'Fix Now';
-          }
-
-          blockedList.push({
-            farmerId: f.farmerId,
-            name: f.name,
-            village: f.village,
-            scheme: schemeName,
-            issue,
-            amountBlocked: f.pendingBenefits || '₹2,000',
-            daysStuck: (f.name.length * 7) % 60 + 10,
-            actionLabel
-          });
-        }
-      }
     });
 
-    const flowChartData = [
-      { name: "Jan", amount: 2.1, count: 120 },
-      { name: "Feb", amount: 1.8, count: 98 },
-      { name: "Mar", amount: 3.4, count: 187 },
-      { name: "Apr", amount: 2.9, count: 156 },
-      { name: "May", amount: 1.2, count: 67 },
-      { name: "Jun", amount: 1.8, count: 89 },
-      { name: "Jul", amount: 2.4, count: 134 },
-      { name: "Aug", amount: 8.7, count: 421 },
-      { name: "Sep", amount: 3.1, count: 178 },
-      { name: "Oct", amount: 2.6, count: 143 },
-      { name: "Nov", amount: 0, count: 0 },
-      { name: "Dec", amount: 0, count: 0 }
-    ];
+    const formatOutlay = (val) => {
+      if (val >= 10000000) return `₹${(val / 10000000).toFixed(2)} Cr`;
+      if (val >= 100000) return `₹${(val / 100000).toFixed(2)} Lakh`;
+      return `₹${val.toLocaleString('en-IN')}`;
+    };
+
+    schemesList.forEach(key => {
+      let schemeOutlay = 0;
+      farmers.forEach(f => {
+        if (f.schemes?.[key] === 'self-reported-benefit-received') {
+          const land = f.landSizeNum || 1.0;
+          if (key === 'pmKisan') schemeOutlay += 6000;
+          else if (key === 'pmfby') schemeOutlay += Math.round(land * 35000);
+          else if (key === 'kcc') schemeOutlay += Math.min(300000, Math.round(land * 120000));
+          else if (key === 'pmKmy') schemeOutlay += 36000;
+        }
+      });
+      schemeStats[key].totalDisbursed = formatOutlay(schemeOutlay);
+    });
+
+    // Monthly clicks/views flow telemetry
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const flowChartData = monthNames.map((name, index) => {
+      const seed = index + 1;
+      const count = Math.round((totalEnrolled / 12) * (1 + Math.sin(seed) * 0.3)) || 10;
+      const amountVal = (totalUnlockedValue / 12) * (1 + Math.cos(seed) * 0.2) || 5000;
+      return {
+        name,
+        amount: parseFloat((amountVal / 100000).toFixed(2)), // in Lakhs
+        count
+      };
+    });
 
     res.status(200).json({
       success: true,
@@ -339,13 +394,14 @@ export const getFpoDisbursements = async (req, res) => {
         totalEnrolled,
         benefitsReceived,
         paymentPending,
-        blockedFailed
+        totalDisbursedValue: formatOutlay(totalUnlockedValue),
+        potentialOpportunityValue: formatOutlay(totalPotentialValue),
+        schemeStats
       },
-      blockedList,
       flowChartData
     });
   } catch (err) {
-    res.status(550).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -361,13 +417,14 @@ export const resolveFpoDisbursement = async (req, res) => {
       return res.status(404).json({ success: false, message: "Farmer not found" });
     }
 
+    // Mark KYC details verified to clear document blocks
     farmer.aadhaarSeeded = true;
     farmer.mobileVerified = true;
     await farmer.save();
 
     res.status(200).json({
       success: true,
-      message: `Disbursement issue resolved successfully for ${farmer.name}`,
+      message: `Verification mismatch resolved successfully for ${farmer.name}`,
       farmer
     });
   } catch (err) {
@@ -548,6 +605,10 @@ export const getFpoApplications = async (req, res) => {
         return item;
       });
 
+      const totalCheck = updatedChecklist.length;
+      const verifiedCount = updatedChecklist.filter(i => i.status === "Verified").length;
+      const readinessScore = totalCheck > 0 ? Math.round((verifiedCount / totalCheck) * 100) : 0;
+
       const hasMissing = updatedChecklist.some(i => i.status === "Missing" || i.status === "Overdue");
       let stage = app.stage;
       let status = app.status;
@@ -560,7 +621,11 @@ export const getFpoApplications = async (req, res) => {
         ...app,
         checklist: updatedChecklist,
         stage,
-        status
+        status,
+        submissionWindow: app.scheme === "AIF" ? "1st Apr 2026 - 31st Dec 2026" : "1st Jun 2026 - 31st Oct 2026",
+        deadline: app.scheme === "AIF" ? "31 Dec 2026" : "31 Oct 2026",
+        readinessScore,
+        requiredDocuments: updatedChecklist.map(i => i.name)
       };
     });
 
@@ -629,39 +694,54 @@ export const uploadCorporateDocument = async (req, res) => {
 export const getFpoBoardReport = async (req, res) => {
   try {
     const farmers = await FpoFarmer.find({});
-    
     const totalFarmers = farmers.length;
     let covered = 0;
     let benefitsSum = 0;
     let blockedCount = 0;
+    let readinessPercentSum = 0;
 
     farmers.forEach(f => {
+      const land = f.landSizeNum || 1.0;
+      const readiness = calculateFarmerReadiness(f);
+      readinessPercentSum += readiness.readinessPercent;
+
+      let isFarmerCovered = false;
       const schemesList = ['pmKisan', 'pmfby', 'kcc', 'pmKmy', 'eNam'];
-      const enrolled = schemesList.filter(k => f.schemes?.[k] === 'enrolled');
-      if (enrolled.length > 0) {
-        covered++;
-        enrolled.forEach(s => {
-          if (s === 'pmKisan') benefitsSum += 6000;
-          else if (s === 'pmfby') benefitsSum += 12000;
-          else if (s === 'kcc') benefitsSum += 50000;
-          else if (s === 'pmKmy') benefitsSum += 36000;
-          else if (s === 'eNam') benefitsSum += 10000;
-        });
-        if (!f.aadhaarSeeded || !f.mobileVerified) {
-          blockedCount++;
+
+      schemesList.forEach(s => {
+        const status = f.schemes?.[s] || 'recommended';
+        if (['self-reported-applied', 'self-reported-benefit-received'].includes(status)) {
+          isFarmerCovered = true;
+
+          // Blocked due to document discrepancies
+          if (!f.aadhaarSeeded || !f.mobileVerified) {
+            blockedCount++;
+          }
+
+          if (status === 'self-reported-benefit-received') {
+            if (s === 'pmKisan') benefitsSum += 6000;
+            else if (s === 'pmfby') benefitsSum += Math.round(land * 35000);
+            else if (s === 'kcc') benefitsSum += Math.min(300000, Math.round(land * 120000));
+            else if (s === 'pmKmy') benefitsSum += 36000;
+            else if (s === 'eNam') benefitsSum += 10000;
+          }
         }
+      });
+
+      if (isFarmerCovered) {
+        covered++;
       }
     });
 
     const coveragePercent = totalFarmers > 0 ? Math.round((covered / totalFarmers) * 100) : 0;
-    const successRate = covered > 0 ? Math.round(((covered - blockedCount) / covered) * 100) : 0;
+    const avgReadiness = totalFarmers > 0 ? Math.round(readinessPercentSum / totalFarmers) : 0;
 
     const stats = [
       {
         title: "Total Benefit Unlocked",
         value: `₹${(benefitsSum / 100000).toFixed(1)} Lakh`,
-        sub: `Across 5 crop welfare schemes active in network`,
-        trend: "+18% vs last quarter",
+        sub: `Direct welfare benefits self-reported received by members`,
+        trend: "+12% vs last quarter",
         isPositive: true
       },
       {
@@ -672,63 +752,89 @@ export const getFpoBoardReport = async (req, res) => {
         isPositive: true
       },
       {
-        title: "Disbursement Success Rate",
-        value: `${successRate}%`,
-        sub: `${covered - blockedCount} of ${covered} enrolled actually received benefits`,
-        trend: "−2% vs last quarter",
-        isPositive: false,
-        alert: `${blockedCount} farmers blocked — needs board attention`
+        title: "Profile Readiness Score",
+        value: `${avgReadiness}%`,
+        sub: `Average shareholder profile completeness and document status`,
+        trend: "+4% vs last quarter",
+        isPositive: true,
+        alert: blockedCount > 0 ? `${blockedCount} farmers have verification gaps — coordinate field camp` : null
       },
       {
         title: "FPO Infrastructure Progress",
         value: "₹1.2 Cr",
-        sub: "Warehouse approved, construction ongoing",
-        trend: "₹3.05 Cr total pipeline active",
+        sub: "AIF Dry Warehouse approved & active in pipeline",
+        trend: "₹3.05 Cr total pipeline",
         isPositive: true
       }
     ];
 
+    // Build scheme performance mapping
+    const schemeCounts = {
+      pmKisan: { eligible: 0, enrolled: 0, received: 0, value: 0 },
+      pmfby: { eligible: 0, enrolled: 0, received: 0, value: 0 },
+      kcc: { eligible: 0, enrolled: 0, received: 0, value: 0 },
+      pmKmy: { eligible: 0, enrolled: 0, received: 0, value: 0 },
+      eNam: { eligible: 0, enrolled: 0, received: 0, value: 0 }
+    };
+
+    farmers.forEach(f => {
+      const land = f.landSizeNum || 1.0;
+      const schemesList = ['pmKisan', 'pmfby', 'kcc', 'pmKmy', 'eNam'];
+      schemesList.forEach(key => {
+        const status = f.schemes?.[key] || 'recommended';
+        if (status !== 'not-eligible') {
+          schemeCounts[key].eligible++;
+          if (['self-reported-applied', 'self-reported-benefit-received'].includes(status)) {
+            schemeCounts[key].enrolled++;
+          }
+          if (status === 'self-reported-benefit-received') {
+            schemeCounts[key].received++;
+            let val = 0;
+            if (key === 'pmKisan') val = 6000;
+            else if (key === 'pmfby') val = Math.round(land * 35000);
+            else if (key === 'kcc') val = Math.min(300000, Math.round(land * 120000));
+            else if (key === 'pmKmy') val = 36000;
+            else if (key === 'eNam') val = 10000;
+            schemeCounts[key].value += val;
+          }
+        }
+      });
+    });
+
+    const formatVal = (v) => {
+      if (v >= 100000) return `₹${(v / 100000).toFixed(2)} L`;
+      if (v > 0) return `₹${(v / 1000).toFixed(1)} K`;
+      return "₹0";
+    };
+
     const schemePerformance = [
-      { scheme: "PM-KISAN", eligible: "780", enrolled: "612", enrolledPct: "78.5%", received: "558", successPct: "91.2%", value: "₹11.16 L", health: "On Track" },
-      { scheme: "PMFBY", eligible: "847", enrolled: "423", enrolledPct: "49.9%", received: "398", successPct: "94.1%", value: "₹3.42 L", health: "Push Needed" },
-      { scheme: "KCC", eligible: "680", enrolled: "389", enrolledPct: "57.2%", received: "334", successPct: "85.9%", value: "₹2.08 Cr", health: "On Track" },
-      { scheme: "PM-KMY", eligible: "312", enrolled: "89", enrolledPct: "28.5%", received: "71", successPct: "79.8%", value: "₹85.2K", health: "Critical" },
-      { scheme: "eNAM", eligible: "680", enrolled: "156", enrolledPct: "22.9%", received: "156", successPct: "100%", value: "₹8.4 L", health: "Push Needed" },
-      { scheme: "AIF", eligible: "FPO", enrolled: "2 projects", enrolledPct: "—", received: "1 approved", successPct: "—", value: "₹1.2 Cr", health: "On Track" },
-      { scheme: "MIDH", eligible: "FPO", enrolled: "1 draft", enrolledPct: "—", received: "Pending", successPct: "—", value: "₹0", health: "In Progress" },
-      { scheme: "SMAM", eligible: "FPO", enrolled: "0", enrolledPct: "—", received: "Not started", successPct: "—", value: "₹0", health: "Not Started" }
+      { scheme: "PM-KISAN", eligible: String(schemeCounts.pmKisan.eligible), enrolled: String(schemeCounts.pmKisan.enrolled), enrolledPct: `${schemeCounts.pmKisan.eligible > 0 ? Math.round(schemeCounts.pmKisan.enrolled / schemeCounts.pmKisan.eligible * 100) : 0}%`, received: String(schemeCounts.pmKisan.received), successPct: `${schemeCounts.pmKisan.enrolled > 0 ? Math.round(schemeCounts.pmKisan.received / schemeCounts.pmKisan.enrolled * 100) : 0}%`, value: formatVal(schemeCounts.pmKisan.value), health: "On Track" },
+      { scheme: "PMFBY", eligible: String(schemeCounts.pmfby.eligible), enrolled: String(schemeCounts.pmfby.enrolled), enrolledPct: `${schemeCounts.pmfby.eligible > 0 ? Math.round(schemeCounts.pmfby.enrolled / schemeCounts.pmfby.eligible * 100) : 0}%`, received: String(schemeCounts.pmfby.received), successPct: `${schemeCounts.pmfby.enrolled > 0 ? Math.round(schemeCounts.pmfby.received / schemeCounts.pmfby.enrolled * 100) : 0}%`, value: formatVal(schemeCounts.pmfby.value), health: "Push Needed" },
+      { scheme: "KCC", eligible: String(schemeCounts.kcc.eligible), enrolled: String(schemeCounts.kcc.enrolled), enrolledPct: `${schemeCounts.kcc.eligible > 0 ? Math.round(schemeCounts.kcc.enrolled / schemeCounts.kcc.eligible * 100) : 0}%`, received: String(schemeCounts.kcc.received), successPct: `${schemeCounts.kcc.enrolled > 0 ? Math.round(schemeCounts.kcc.received / schemeCounts.kcc.enrolled * 100) : 0}%`, value: formatVal(schemeCounts.kcc.value), health: "On Track" },
+      { scheme: "PM-KMY", eligible: String(schemeCounts.pmKmy.eligible), enrolled: String(schemeCounts.pmKmy.enrolled), enrolledPct: `${schemeCounts.pmKmy.eligible > 0 ? Math.round(schemeCounts.pmKmy.enrolled / schemeCounts.pmKmy.eligible * 100) : 0}%`, received: String(schemeCounts.pmKmy.received), successPct: `${schemeCounts.pmKmy.enrolled > 0 ? Math.round(schemeCounts.pmKmy.received / schemeCounts.pmKmy.enrolled * 100) : 0}%`, value: formatVal(schemeCounts.pmKmy.value), health: "Critical" },
+      { scheme: "eNAM", eligible: String(schemeCounts.eNam.eligible), enrolled: String(schemeCounts.eNam.enrolled), enrolledPct: `${schemeCounts.eNam.eligible > 0 ? Math.round(schemeCounts.eNam.enrolled / schemeCounts.eNam.eligible * 100) : 0}%`, received: String(schemeCounts.eNam.received), successPct: `${schemeCounts.eNam.enrolled > 0 ? Math.round(schemeCounts.eNam.received / schemeCounts.eNam.enrolled * 100) : 0}%`, value: formatVal(schemeCounts.eNam.value), health: "Push Needed" }
     ];
 
     const recommendations = [
       {
         id: "rec_1",
-        title: "PMFBY Enrollment Drive",
+        title: "PMFBY Enrollment Campaign",
         priority: "HIGH",
-        problem: `Over 400 farmers uninsured. Deadline 31 Jul 2025.`,
-        worstCase: "Farmers face crop loss with no compensation.",
-        action: "Deploy 2 field officers to Kharindwa for 3 days. Cost: ₹12,000 field allowance.",
-        result: "Enroll 200+ farmers before deadline.",
-        boardNeeds: "Approve ₹12,000 field officer budget"
+        problem: `${schemeCounts.pmfby.eligible - schemeCounts.pmfby.enrolled} farmers eligible but not enrolled. Sowing deadline approaching.`,
+        worstCase: "Farmers exposed to climate risk and crop failure losses.",
+        action: "Deploy FPO field managers for a 3-day WhatsApp + cluster camp.",
+        result: "Onboard 150+ farmers into crop insurance.",
+        boardNeeds: "Approve field mobility campaign allowance (₹12,000)"
       },
       {
         id: "rec_2",
-        title: "Fix Blocked Disbursements",
+        title: "Resolve Profile Document Gaps",
         priority: "HIGH",
-        problem: `${blockedCount} farmers stuck due to Aadhaar/bank issues. Farmers waiting, some for 60+ days.`,
-        worstCase: "Farmer dissatisfaction and compliance drop-offs.",
-        action: "Arrange Bank BC agent visit + CSC camp in Kharindwa for 1 day. Cost: ₹5,000.",
-        result: "Unlock pending payouts within 30 days.",
-        boardNeeds: "Approve BC agent coordination"
-      },
-      {
-        id: "rec_3",
-        title: "PM-KMY Enrollment Push",
-        priority: "MEDIUM",
-        problem: "Only small fraction of eligible enrolled in pension. Marginal farmers missing lifetime pension security.",
-        worstCase: "Members miss out on safety nets.",
-        action: "WhatsApp + field camp targeting Kharindwa (lowest enrollment). Cost: ₹8,00,000.",
-        result: "Add 120 new pension enrollments in Q4.",
-        boardNeeds: "Approve Q4 outreach camp budget"
+        problem: `${blockedCount} farmers have mismatched Aadhaar-link or unverified phone records.`,
+        worstCase: "DBT benefits rejected due to verification audits.",
+        action: "Establish a village-level CSC correction kiosk next week.",
+        result: "Re-seed profiles and unlock pending benefits.",
+        boardNeeds: "Coordinate kiosk space at FPO office"
       }
     ];
 
@@ -737,6 +843,113 @@ export const getFpoBoardReport = async (req, res) => {
       stats,
       schemePerformance,
       recommendations
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+export const createFpoFarmer = async (req, res) => {
+  try {
+    const { name, phone, village, land, category, aadhaarSeeded, mobileVerified } = req.body;
+
+    if (!name || !village || !land) {
+      return res.status(400).json({ success: false, message: 'Name, village, and land holding size are required' });
+    }
+
+    const landSizeNum = parseFloat(land.replace(/[^0-9.]/g, '')) || 0;
+
+    const allFarmers = await FpoFarmer.find({}, 'farmerId').lean();
+    let maxIndex = 115;
+    allFarmers.forEach(f => {
+      if (f.farmerId && f.farmerId.startsWith('F-')) {
+        const num = parseInt(f.farmerId.replace('F-', ''), 10);
+        if (!isNaN(num) && num > maxIndex) {
+          maxIndex = num;
+        }
+      }
+    });
+    const farmerId = `F-${maxIndex + 1}`;
+
+    // Calculate Scheme Eligibility Rules (default to recommended if eligible, not-eligible otherwise)
+    const schemes = {
+      pmKisan: 'recommended',
+      pmfby: 'recommended',
+      kcc: landSizeNum >= 0.5 ? 'recommended' : 'not-eligible',
+      pmKmy: 'recommended',
+      eNam: landSizeNum >= 0.8 ? 'recommended' : 'not-eligible'
+    };
+
+    const newFarmer = await FpoFarmer.create({
+      farmerId,
+      name,
+      village,
+      land,
+      landSizeNum,
+      category: category || 'General',
+      phone: phone || '',
+      aadhaarSeeded: aadhaarSeeded !== undefined ? !!aadhaarSeeded : true,
+      mobileVerified: mobileVerified !== undefined ? !!mobileVerified : true,
+      schemes
+    });
+
+    res.status(201).json({ success: true, message: 'Farmer added successfully to FPO', farmer: newFarmer });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+export const bulkCreateFpoFarmers = async (req, res) => {
+  try {
+    const { farmers } = req.body;
+    if (!farmers || !Array.isArray(farmers)) {
+      return res.status(400).json({ success: false, message: 'Farmers array is required' });
+    }
+
+    const allFarmers = await FpoFarmer.find({}, 'farmerId').lean();
+    let maxIndex = 115;
+    allFarmers.forEach(f => {
+      if (f.farmerId && f.farmerId.startsWith('F-')) {
+        const num = parseInt(f.farmerId.replace('F-', ''), 10);
+        if (!isNaN(num) && num > maxIndex) {
+          maxIndex = num;
+        }
+      }
+    });
+    let nextIndex = maxIndex + 1;
+
+    const preparedFarmers = farmers.map((f, index) => {
+      const farmerId = `F-${nextIndex + index}`;
+      const landSizeNum = parseFloat(String(f.land || '').replace(/[^0-9.]/g, '')) || 0;
+
+      const schemes = {
+        pmKisan: 'recommended',
+        pmfby: 'recommended',
+        kcc: landSizeNum >= 0.5 ? 'recommended' : 'not-eligible',
+        pmKmy: 'recommended',
+        eNam: landSizeNum >= 0.8 ? 'recommended' : 'not-eligible'
+      };
+
+      return {
+        farmerId,
+        name: f.name,
+        village: f.village || 'Kharindwa',
+        land: f.land || '1.0 Ha',
+        landSizeNum,
+        category: f.category || 'General',
+        phone: f.phone || '',
+        aadhaarSeeded: f.aadhaarSeeded !== undefined ? !!f.aadhaarSeeded : true,
+        mobileVerified: f.mobileVerified !== undefined ? !!f.mobileVerified : true,
+        schemes
+      };
+    });
+
+    const result = await FpoFarmer.insertMany(preparedFarmers);
+
+    res.status(201).json({
+      success: true,
+      message: `Successfully onboarded ${result.length} farmers in bulk!`,
+      farmers: result
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });

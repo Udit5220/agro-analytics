@@ -183,11 +183,13 @@ export default function FpoApplications() {
   });
   const [loading, setLoading] = useState(true);
 
+  const [isUsingFallback, setIsUsingFallback] = useState(false);
+
   const loadData = async () => {
     try {
       setLoading(true);
       const res = await govSchemesApi.getFpoApplications();
-      if (res.success) {
+      if (res && res.success) {
         setApplications(res.applications || []);
         setCorpDocs(res.corpDocs || []);
         setStats(res.stats || {
@@ -196,18 +198,35 @@ export default function FpoApplications() {
           approved: 0,
           totalPipeline: "₹0"
         });
+        setIsUsingFallback(false);
         if (res.applications && res.applications.length > 0) {
           setSelectedApp(prev => {
             const found = res.applications.find(a => a.id === prev?.id);
             return found || res.applications[0];
           });
         }
+      } else {
+        triggerFallback();
       }
     } catch (err) {
-      console.error("Failed to load applications:", err);
+      console.warn("Failed to load applications via API, triggering fallback:", err);
+      triggerFallback();
     } finally {
       setLoading(false);
     }
+  };
+
+  const triggerFallback = () => {
+    setIsUsingFallback(true);
+    setApplications(INITIAL_APPLICATIONS);
+    setCorpDocs(INITIAL_CORP_DOCS);
+    setStats({
+      totalApps: 5,
+      inProgress: 4,
+      approved: 1,
+      totalPipeline: "₹3.05 Cr"
+    });
+    setSelectedApp(INITIAL_APPLICATIONS[0]);
   };
 
   useEffect(() => {
@@ -327,17 +346,23 @@ export default function FpoApplications() {
         subtitle="Manage capital grants, warehouse infrastructure financing, and institutional corporate files"
       />
 
+      {/* Demo Warning Banner */}
+      {isUsingFallback && (
+        <div className="bg-amber-50 border border-amber-250 text-amber-900 px-4 py-3 rounded-2xl text-xs font-bold flex items-center gap-2 animate-pulse shadow-3xs">
+          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+          <span>Using Demo Data (API Server Offline)</span>
+        </div>
+      )}
+
       {/* Explanatory Banner: "What this page does" */}
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-100 rounded-2xl p-5 shadow-sm flex items-start gap-4 animate-fadeIn">
         <div className="p-2 bg-green-100 rounded-xl text-green-700 shrink-0">
           <Info className="w-5 h-5" />
         </div>
         <div className="space-y-1.5">
-          <h4 className="text-sm font-black text-brand-darkest">What this page does</h4>
+          <h4 className="text-sm font-black text-brand-darkest">Pre-Submission Compliance Vault</h4>
           <p className="text-xs text-gray-600 leading-relaxed font-semibold">
-            This dashboard tracks the FPO's institutional grants, machinery subsidies, and infrastructure project clearances. 
-            Unlike individual farmer-level schemes, these are large-scale cooperative investments (such as Dry Warehouses, 
-            Cold Storages, and Custom Hiring pools) owned and run by the Sonipat FPO to improve crop aggregation and market bargaining power.
+            This dashboard serves as a <strong>pre-submission staging area and offline compliance audit vault</strong>. FPOs use it to aggregate and review necessary project paperwork before uploading it to official government sites. This prevents application rejections due to formatting, size, or signature issues. Documents are stored locally in your FPO database and are <strong>not</strong> submitted directly to government networks.
           </p>
         </div>
       </div>
@@ -432,6 +457,30 @@ export default function FpoApplications() {
               <p className="font-black text-brand-darkest mt-1">{selectedApp.subsidy}</p>
             </div>
 
+            <div>
+              <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">Submission Window</span>
+              <p className="font-bold text-gray-800 mt-1">{selectedApp.submissionWindow || "1st Apr 2026 - 31st Dec 2026"}</p>
+            </div>
+
+            <div>
+              <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">Submission Deadline</span>
+              <p className="font-black text-red-650 mt-1">{selectedApp.deadline || "31 Dec 2026"}</p>
+            </div>
+
+            {/* Readiness progress */}
+            <div className="space-y-1">
+              <div className="flex justify-between items-center text-[10px] font-black text-gray-400 uppercase tracking-wider">
+                <span>Compliance Readiness Score</span>
+                <span className="font-black text-brand-medium">{selectedApp.readinessScore || 60}%</span>
+              </div>
+              <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-brand-medium transition-all"
+                  style={{ width: `${selectedApp.readinessScore || 60}%` }}
+                />
+              </div>
+            </div>
+
             {/* Document Checklist */}
             <div className="space-y-1.5">
               <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">Requirement Checklist</span>
@@ -460,7 +509,7 @@ export default function FpoApplications() {
 
             {/* Timeline */}
             <div className="space-y-1.5">
-              <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">Processing Timeline</span>
+              <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">Internal File Timeline</span>
               <div className="space-y-2 relative pl-4 border-l border-gray-200 ml-1.5">
                 {selectedApp.timeline.map((event, idx) => (
                   <div key={idx} className="relative text-[11px] font-medium text-gray-600">
@@ -472,9 +521,29 @@ export default function FpoApplications() {
               </div>
             </div>
 
-            <div className="pt-3 border-t border-gray-100 text-[11px] font-bold flex justify-between">
-              <span className="text-gray-400">Assigned Officer:</span>
-              <span className="text-gray-800">{selectedApp.officer}</span>
+            <div className="pt-3 border-t border-gray-100 space-y-3">
+              <div className="text-[11px] font-bold flex justify-between">
+                <span className="text-gray-400">Vault Check:</span>
+                <span className="text-green-600 font-black">All Uploads Persistent</span>
+              </div>
+              <a
+                href={
+                  selectedApp.scheme === "AIF" ? "https://www.agriinfra.dac.gov.in/" :
+                  selectedApp.scheme === "MIDH" ? "https://midh.gov.in/" :
+                  selectedApp.scheme === "SMAM" ? "https://agrimachinery.nic.in/" :
+                  selectedApp.scheme === "NABARD" ? "https://www.nabard.org/" :
+                  "https://www.india.gov.in/"
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2 bg-[#1A3A2A] hover:bg-[#0F2E1F] text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center justify-center gap-1.5 text-center mt-2"
+              >
+                <Building2 className="w-4 h-4 text-emerald-400" />
+                Apply on Official {selectedApp.scheme} Portal ↗
+              </a>
+              <p className="text-[9px] text-gray-400 text-center font-bold">
+                * Submit the audited documents gathered here on the official government website.
+              </p>
             </div>
           </div>
         </div>

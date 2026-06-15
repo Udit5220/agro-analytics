@@ -288,7 +288,7 @@ export default function AdminComplianceCenter() {
         <p className="text-xs text-gray-500 font-semibold leading-relaxed">
           Aggregated diagnostic matches for farmers and FPOs in your cooperative network. All counts represent potential fit criteria before government portal verification.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
           <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 space-y-1">
             <span className="text-[9px] font-black uppercase text-gray-400 block tracking-wider">Estimated Farmer Match Count</span>
             <span className="text-lg font-black text-brand-darkest">{analytics.outreach.farmersReached.toLocaleString()} Farmers</span>
@@ -299,12 +299,6 @@ export default function AdminComplianceCenter() {
             <span className="text-[9px] font-black uppercase text-gray-400 block tracking-wider">Estimated FPO Match Count</span>
             <span className="text-lg font-black text-brand-darkest">{analytics.companyProfile.fpoPartnerships}</span>
             <span className="text-[9px] text-brand-medium font-bold block">Potential Fit</span>
-          </div>
-
-          <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 space-y-1">
-            <span className="text-[9px] font-black uppercase text-gray-400 block tracking-wider">Common Missing Requirement</span>
-            <span className="text-lg font-black text-red-600">Land Record Verification</span>
-            <span className="text-[9px] text-red-500 font-bold block">Sourced from self-reported farmer profiles in AgroIndia</span>
           </div>
 
           <div className="p-3.5 rounded-xl border border-gray-150 bg-gray-50/50 space-y-1">

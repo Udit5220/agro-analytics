@@ -11,11 +11,13 @@ import {
   toggleCalendarEvent
 } from '../controllers/govSchemes.controller.js';
 import { 
-  getFpoSchemesStats, 
+  getFpoOverview, 
   getFpoFarmers, 
+  createFpoFarmer,
+  bulkCreateFpoFarmers,
   updateFpoFarmerEnrollment,
   syncFpoRealData,
-  getFpoDisbursements,
+  getFpoAnalytics,
   resolveFpoDisbursement,
   getFpoApplications,
   uploadCorporateDocument,
@@ -37,11 +39,13 @@ router.get('/gov-schemes/farmer/calendar', getFarmerCalendar);
 router.post('/gov-schemes/farmer/calendar/apply', toggleCalendarEvent);
 
 // FPO Roles Gov-Schemes Endpoints
-router.get('/gov-schemes/fpo/stats', getFpoSchemesStats);
+router.get('/gov-schemes/fpo/overview', getFpoOverview);
 router.get('/gov-schemes/fpo/farmers', getFpoFarmers);
+router.post('/gov-schemes/fpo/farmers', createFpoFarmer);
+router.post('/gov-schemes/fpo/farmers/bulk', bulkCreateFpoFarmers);
 router.patch('/gov-schemes/fpo/farmers/:id/enrollment', updateFpoFarmerEnrollment);
 router.post('/gov-schemes/fpo/sync', syncFpoRealData);
-router.get('/gov-schemes/fpo/disbursements', getFpoDisbursements);
+router.get('/gov-schemes/fpo/analytics', getFpoAnalytics);
 router.post('/gov-schemes/fpo/disbursements/resolve', resolveFpoDisbursement);
 router.get('/gov-schemes/fpo/applications', getFpoApplications);
 router.post('/gov-schemes/fpo/applications/upload', uploadCorporateDocument);

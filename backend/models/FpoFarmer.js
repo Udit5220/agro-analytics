@@ -14,11 +14,11 @@ const fpoFarmerSchema = new mongoose.Schema({
   mobileVerified: { type: Boolean, default: true },
   pendingBenefits: { type: String, default: '₹0' },
   schemes: {
-    pmKisan: { type: String, enum: ['enrolled', 'eligible-not-enrolled', 'not-eligible'], default: 'eligible-not-enrolled' },
-    pmfby: { type: String, enum: ['enrolled', 'eligible-not-enrolled', 'not-eligible'], default: 'eligible-not-enrolled' },
-    kcc: { type: String, enum: ['enrolled', 'eligible-not-enrolled', 'not-eligible'], default: 'eligible-not-enrolled' },
-    pmKmy: { type: String, enum: ['enrolled', 'eligible-not-enrolled', 'not-eligible'], default: 'eligible-not-enrolled' },
-    eNam: { type: String, enum: ['enrolled', 'eligible-not-enrolled', 'not-eligible'], default: 'eligible-not-enrolled' }
+    pmKisan: { type: String, enum: ['recommended', 'interested', 'apply-link-shared', 'profile-complete', 'self-reported-applied', 'self-reported-benefit-received', 'not-eligible'], default: 'recommended' },
+    pmfby: { type: String, enum: ['recommended', 'interested', 'apply-link-shared', 'profile-complete', 'self-reported-applied', 'self-reported-benefit-received', 'not-eligible'], default: 'recommended' },
+    kcc: { type: String, enum: ['recommended', 'interested', 'apply-link-shared', 'profile-complete', 'self-reported-applied', 'self-reported-benefit-received', 'not-eligible'], default: 'recommended' },
+    pmKmy: { type: String, enum: ['recommended', 'interested', 'apply-link-shared', 'profile-complete', 'self-reported-applied', 'self-reported-benefit-received', 'not-eligible'], default: 'recommended' },
+    eNam: { type: String, enum: ['recommended', 'interested', 'apply-link-shared', 'profile-complete', 'self-reported-applied', 'self-reported-benefit-received', 'not-eligible'], default: 'recommended' }
   }
 }, { timestamps: true, collection: 'agroindia_fpo_farmers' });
 

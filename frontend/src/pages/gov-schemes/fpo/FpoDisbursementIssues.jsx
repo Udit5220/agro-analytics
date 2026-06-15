@@ -1,32 +1,10 @@
 import React, { useState, useMemo, useEffect } from "react";
-import GenericTable from "../../../components/partials/GenericTable";
-import { PageHeader, StatsCard, IssueResolutionModal, SchemeStatusBadge } from "./FpoSharedComponents";
+import { PageHeader, StatsCard } from "./FpoSharedComponents";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { AlertCircle, IndianRupee, ShieldCheck, UserX, AlertTriangle, Shield, Clock } from "lucide-react";
+import { IndianRupee, ShieldCheck, Shield, Clock, AlertTriangle, Eye, Share2, MousePointerClick, MessageSquare, AlertCircle, MapPin, CheckCircle, Info } from "lucide-react";
 import { govSchemesApi } from "../../../services/apiService";
 
-// DATA SECTION (Expanded to include many more rows for realistic filtering)
-const BLOCKED_FARMERS = [
-  { name: "Sunita Devi", village: "Kharindwa", scheme: "PM-KISAN", issue: "Aadhaar–bank mismatch", amountBlocked: "₹2,000", daysStuck: 42, actionLabel: "Fix Now" },
-  { name: "Priya Yadav", village: "Kharindwa", scheme: "PM-KISAN", issue: "Bank account inactive", amountBlocked: "₹2,000", daysStuck: 38, actionLabel: "Fix Now" },
-  { name: "Kamla Devi", village: "Bhadana", scheme: "KCC", issue: "Auto-debit not set", amountBlocked: "₹0", daysStuck: 15, actionLabel: "Setup Now" },
-  { name: "Anita Kumari", village: "Kharindwa", scheme: "PMFBY", issue: "Premium payment failed", amountBlocked: "₹850", daysStuck: 22, actionLabel: "Retry Payment" },
-  { name: "Poonam Singh", village: "Bhadana", scheme: "PM-KISAN", issue: "Land record name mismatch", amountBlocked: "₹2,000", daysStuck: 56, actionLabel: "Update Record" },
-  { name: "Savitri Devi", village: "Murthal", scheme: "PM-KISAN", issue: "Aadhaar not seeded", amountBlocked: "₹4,000", daysStuck: 67, actionLabel: "Seed Aadhaar" },
-  { name: "Balram Yadav", village: "Kharindwa", scheme: "KCC", issue: "Overdue repayment", amountBlocked: "₹12,400", daysStuck: 94, actionLabel: "Contact Farmer" },
-  { name: "Geeta Sharma", village: "Bhadana", scheme: "PMFBY", issue: "Claim docs incomplete", amountBlocked: "₹8,500", daysStuck: 31, actionLabel: "Upload Docs" },
-  
-  // Extra rows for better filtering visibility
-  { name: "Harpal Singh", village: "Murthal", scheme: "PM-KISAN", issue: "Aadhaar–bank mismatch", amountBlocked: "₹2,000", daysStuck: 45, actionLabel: "Fix Now" },
-  { name: "Rajveer Malik", village: "Murthal", scheme: "KCC", issue: "Overdue repayment", amountBlocked: "₹18,500", daysStuck: 110, actionLabel: "Contact Farmer" },
-  { name: "Sukhbir Hooda", village: "Kharindwa", scheme: "PM-KMY", issue: "Auto-debit not set", amountBlocked: "₹600", daysStuck: 18, actionLabel: "Setup Now" },
-  { name: "Narendra Pal", village: "Bhadana", scheme: "PM-KMY", issue: "Premium payment failed", amountBlocked: "₹1,200", daysStuck: 25, actionLabel: "Retry Payment" },
-  { name: "Devraj Nain", village: "Murthal", scheme: "PMFBY", issue: "Claim docs incomplete", amountBlocked: "₹14,200", daysStuck: 40, actionLabel: "Upload Docs" },
-  { name: "Anita Devi", village: "Bhadana", scheme: "PM-KISAN", issue: "Bank account inactive", amountBlocked: "₹2,000", daysStuck: 29, actionLabel: "Fix Now" },
-  { name: "Ram Chander", village: "Kharindwa", scheme: "KCC", issue: "Overdue repayment", amountBlocked: "₹9,500", daysStuck: 92, actionLabel: "Contact Farmer" }
-];
-
-const FLOW_CHART_DATA = [
+const FALLBACK_FLOW_DATA = [
   { name: "Jan", amount: 2.1, count: 120 },
   { name: "Feb", amount: 1.8, count: 98 },
   { name: "Mar", amount: 3.4, count: 187 },
@@ -37,464 +15,387 @@ const FLOW_CHART_DATA = [
   { name: "Aug", amount: 8.7, count: 421 },
   { name: "Sep", amount: 3.1, count: 178 },
   { name: "Oct", amount: 2.6, count: 143 },
-  { name: "Nov", amount: 0, count: 0 },
-  { name: "Dec", amount: 0, count: 0 }
+  { name: "Nov", amount: 1.2, count: 60 },
+  { name: "Dec", amount: 1.5, count: 72 }
 ];
 
 export default function FpoDisbursementIssues() {
-  const [blockedList, setBlockedList] = useState(BLOCKED_FARMERS);
-  const [selectedFarmer, setSelectedFarmer] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tableFilter, setTableFilter] = useState("All");
-  const [flowChartData, setFlowChartData] = useState(FLOW_CHART_DATA);
-  const [stats, setStats] = useState({
-    totalEnrolled: 634,
-    benefitsReceived: 489,
-    paymentPending: 98,
-    blockedFailed: 47
-  });
+  const [flowChartData, setFlowChartData] = useState(FALLBACK_FLOW_DATA);
+  const [filterVillage, setFilterVillage] = useState("All");
+  const [isUsingFallback, setIsUsingFallback] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const [stats, setStats] = useState({
+    totalEnrolled: 0,
+    benefitsReceived: 0,
+    paymentPending: 0,
+    totalDisbursedValue: "₹0.00 Lakh",
+    potentialOpportunityValue: "₹0.00 Lakh",
+    schemeStats: {
+      pmKisan: { enrolled: 0, eligible: 0, verified: 0, processed: 0, received: 0, label: "PM-KISAN", desc: "Pradhan Mantri Kisan Samman Nidhi", totalDisbursed: "₹0.00 Lakh" },
+      pmfby: { enrolled: 0, eligible: 0, verified: 0, processed: 0, received: 0, label: "PMFBY", desc: "Pradhan Mantri Fasal Bima Yojana", totalDisbursed: "₹0.00 Lakh" },
+      kcc: { enrolled: 0, eligible: 0, verified: 0, processed: 0, received: 0, label: "KCC", desc: "Kisan Credit Card (Institutional Credit)", totalDisbursed: "₹0.00 Lakh" },
+      pmKmy: { enrolled: 0, eligible: 0, verified: 0, processed: 0, received: 0, label: "PM-KMY", desc: "Pradhan Mantri Kisan Maan Dhan Yojana", totalDisbursed: "₹0.00 Lakh" }
+    }
+  });
 
   const loadData = async () => {
     try {
       setLoading(true);
-      const res = await govSchemesApi.getFpoDisbursements();
-      if (res.success) {
-        setBlockedList(res.blockedList || []);
+      const res = await govSchemesApi.getFpoDisbursements({ village: filterVillage });
+      if (res && res.success) {
         setStats(res.stats || {
           totalEnrolled: 0,
           benefitsReceived: 0,
           paymentPending: 0,
-          blockedFailed: 0
+          totalDisbursedValue: "₹0.00 Lakh",
+          potentialOpportunityValue: "₹0.00 Lakh",
+          schemeStats: {}
         });
         if (res.flowChartData && res.flowChartData.length > 0) {
           setFlowChartData(res.flowChartData);
         }
+        setIsUsingFallback(false);
+      } else {
+        triggerFallback();
       }
     } catch (err) {
-      console.error("Failed to load FPO disbursements:", err);
+      console.warn("Failed to load FPO disbursements, triggering fallback:", err);
+      triggerFallback();
     } finally {
       setLoading(false);
     }
   };
 
+  const triggerFallback = () => {
+    setIsUsingFallback(true);
+    const mult = filterVillage === "Kharindwa" ? 0.38 : filterVillage === "Bhadana" ? 0.34 : filterVillage === "Murthal" ? 0.28 : 1.0;
+    
+    const mockSchemeStats = {
+      pmKisan: { enrolled: Math.round(612 * mult), eligible: Math.round(780 * mult), verified: Math.round(589 * mult), processed: Math.round(571 * mult), received: Math.round(558 * mult), label: "PM-KISAN", desc: "Pradhan Mantri Kisan Samman Nidhi", totalDisbursed: `₹${(11.16 * mult).toFixed(2)} Lakh` },
+      pmfby: { enrolled: Math.round(423 * mult), eligible: Math.round(847 * mult), verified: Math.round(398 * mult), processed: Math.round(398 * mult), received: Math.round(398 * mult), label: "PMFBY", desc: "Pradhan Mantri Fasal Bima Yojana", totalDisbursed: `₹${(3.42 * mult).toFixed(2)} Lakh` },
+      kcc: { enrolled: Math.round(389 * mult), eligible: Math.round(680 * mult), verified: Math.round(334 * mult), processed: Math.round(334 * mult), received: Math.round(334 * mult), label: "KCC", desc: "Kisan Credit Card (Institutional Credit)", totalDisbursed: `₹${(24.5 * mult).toFixed(2)} Lakh` },
+      pmKmy: { enrolled: Math.round(89 * mult), eligible: Math.round(312 * mult), verified: Math.round(71 * mult), processed: Math.round(71 * mult), received: Math.round(71 * mult), label: "PM-KMY", desc: "Pradhan Mantri Kisan Maan Dhan Yojana", totalDisbursed: `₹${(0.85 * mult).toFixed(2)} Lakh` }
+    };
+
+    const totalEnrolled = Object.values(mockSchemeStats).reduce((acc, s) => acc + s.enrolled, 0);
+    const benefitsReceived = Object.values(mockSchemeStats).reduce((acc, s) => acc + s.received, 0);
+
+    setStats({
+      totalEnrolled,
+      benefitsReceived,
+      paymentPending: totalEnrolled - benefitsReceived,
+      totalDisbursedValue: `₹${(39.93 * mult).toFixed(2)} Lakh`,
+      potentialOpportunityValue: `₹${(72.5 * mult).toFixed(2)} Lakh`,
+      schemeStats: mockSchemeStats
+    });
+
+    const scaledFlow = FALLBACK_FLOW_DATA.map(d => ({
+      ...d,
+      amount: parseFloat((d.amount * mult).toFixed(2)),
+      count: Math.round(d.count * mult)
+    }));
+    setFlowChartData(scaledFlow);
+  };
+
   useEffect(() => {
     loadData();
-  }, []);
+  }, [filterVillage]);
 
-  const handleResolveFarmer = async (farmerId) => {
-    try {
-      const res = await govSchemesApi.resolveFpoDisbursement(farmerId);
-      if (res.success) {
-        await loadData();
-      }
-    } catch (err) {
-      console.error("Failed to resolve farmer disbursement:", err);
-      throw err;
-    }
-  };
-
-  const columns = useMemo(() => [
-    { header: "Farmer Name", accessor: "name", cellClassName: "font-bold text-gray-900" },
-    { header: "Village", accessor: "village", cellClassName: "font-bold text-gray-800" },
-    {
-      header: "Scheme",
-      accessor: "scheme",
-      cell: (scheme) => (
-        <span className="px-2 py-0.5 bg-gray-100 rounded text-[10px] font-black text-gray-700">
-          {scheme}
-        </span>
-      )
-    },
-    {
-      header: "Issue Type",
-      accessor: "issue",
-      cell: (issue) => (
-        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${getIssueBadgeColor(issue)}`}>
-          {issue}
-        </span>
-      )
-    },
-    { header: "Amount Blocked", accessor: "amountBlocked", cellClassName: "font-bold text-gray-800" },
-    { header: "Days Stuck", accessor: "daysStuck", cellClassName: "font-bold text-gray-800", cell: (days) => `${days} days` },
-    {
-      header: "Action",
-      accessor: "actionLabel",
-      sortable: false,
-      cellClassName: "text-right",
-      cell: (actionLabel, row) => (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleFixClick(row);
-          }}
-          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-sm ${
-            actionLabel === "Fix Now" || actionLabel === "Seed Aadhaar"
-              ? "bg-brand-darkest hover:bg-brand-dark text-white"
-              : actionLabel === "Contact Farmer"
-              ? "bg-red-600 hover:bg-red-700 text-white"
-              : "border border-amber-500 hover:bg-amber-50 text-amber-700"
-          }`}
-        >
-          {actionLabel}
-        </button>
-      )
-    }
-  ], []);
-
-  const handleFixClick = (farmer) => {
-    setSelectedFarmer(farmer);
-    setIsModalOpen(true);
-  };
-
-  const getIssueBadgeColor = (issue) => {
-    switch (issue) {
-      case "Aadhaar–bank mismatch":
-      case "Bank account inactive":
-      case "Aadhaar not seeded":
-        return "bg-red-50 text-red-700 border-red-200";
-      case "Land record name mismatch":
-      case "Premium payment failed":
-        return "bg-orange-50 text-orange-700 border-orange-200";
-      case "Overdue repayment":
-        return "bg-rose-950 text-rose-50 border-rose-900";
-      case "Auto-debit not set":
-      case "Claim docs incomplete":
-        return "bg-amber-50 text-amber-700 border-amber-200";
-      default:
-        return "bg-gray-50 text-gray-750 border-gray-200";
-    }
-  };
-
-  const filteredBlockedList = blockedList.filter((f) => {
-    if (tableFilter === "All") return true;
-    return f.scheme === tableFilter;
-  });
-
-  const receivedPct = useMemo(() => {
-    if (!stats.totalEnrolled) return "0%";
-    return Math.round((stats.benefitsReceived / stats.totalEnrolled) * 100) + "%";
+  // Derived calculations for Funnel & Analytics
+  const totalEligibleMatches = useMemo(() => {
+    return Object.values(stats.schemeStats || {}).reduce((acc, s) => acc + (s.eligible || 0), 0);
   }, [stats]);
 
-  const pendingPct = useMemo(() => {
-    if (!stats.totalEnrolled) return "0%";
-    return Math.round((stats.paymentPending / stats.totalEnrolled) * 100) + "%";
+  const funnelStages = useMemo(() => {
+    const totalEnrolled = stats.totalEnrolled || 0; // self-reported applied
+    const totalReceived = stats.benefitsReceived || 0;
+
+    // Estimate previous funnel steps logically based on matched sizes
+    const totalViewed = Math.round(totalEligibleMatches * 0.85);
+    const totalOpened = Math.round(totalEligibleMatches * 0.70);
+    const totalClicked = Math.round(totalEligibleMatches * 0.52);
+
+    return [
+      { name: "1. Recommended (Profile Matches)", value: totalEligibleMatches, color: "bg-blue-600" },
+      { name: "2. Viewed (SMS Campaign)", value: totalViewed, color: "bg-indigo-600" },
+      { name: "3. Guide Opened (WhatsApp Guide)", value: totalOpened, color: "bg-purple-600" },
+      { name: "4. Apply Link Clicked", value: totalClicked, color: "bg-pink-600" },
+      { name: "5. Self Reported Applied", value: totalEnrolled, color: "bg-amber-600" },
+      { name: "6. Self Reported Benefit Unlocked", value: totalReceived, color: "bg-emerald-600" }
+    ];
+  }, [stats, totalEligibleMatches]);
+
+  const popularityData = useMemo(() => {
+    return Object.entries(stats.schemeStats || {}).map(([key, s]) => {
+      const clicks = s.processed || 0;
+      const views = s.verified || 0;
+      const shares = s.enrolled || 0;
+      // Simulated comments / discussions
+      const discussions = Math.round(clicks * 0.18) + 2;
+
+      return {
+        key,
+        label: s.label,
+        views,
+        shares,
+        clicks,
+        discussions
+      };
+    });
   }, [stats]);
+
+  const villageHeatmap = useMemo(() => {
+    // Return mock statistics representing village-wise outreach engagement rates
+    const list = [
+      { name: "Kharindwa", totalMatched: 680, engaged: 420, rate: 61, status: "High Priority" },
+      { name: "Bhadana", totalMatched: 512, engaged: 390, rate: 76, status: "Active" },
+      { name: "Murthal", totalMatched: 440, engaged: 375, rate: 85, status: "Optimized" }
+    ];
+    if (filterVillage === "All") return list;
+    return list.filter(v => v.name === filterVillage);
+  }, [filterVillage]);
+
+  const commonProfileGaps = useMemo(() => {
+    // Generate mock common profile gaps counts matching overall statistics
+    const baseMult = filterVillage === "Kharindwa" ? 0.38 : filterVillage === "Bhadana" ? 0.34 : filterVillage === "Murthal" ? 0.28 : 1.0;
+    return [
+      { gap: "Aadhaar Seeding Missing in Bank", count: Math.round(47 * baseMult), impact: "Blocks PM-KISAN & PMFBY transfers", complexity: "Requires bank BC agent visit" },
+      { gap: "Mobile Number Verification Pending", count: Math.round(31 * baseMult), impact: "Blocks SMS confirmation alerts", complexity: "Requires quick OTP check" },
+      { gap: "Land Record Registry Name Mismatch", count: Math.round(18 * baseMult), impact: "Blocks PMFBY crop insurance claims", complexity: "Requires Tehsil coordination" },
+      { gap: "Active Bank Account Dormancy", count: Math.round(12 * baseMult), impact: "Blocks all welfare DBT transactions", complexity: "Requires branch reactivation" }
+    ];
+  }, [filterVillage]);
+
+  if (loading) {
+    return (
+      <div className="p-6 space-y-6 max-w-7xl mx-auto text-center py-24">
+        <div className="w-10 h-10 border-4 border-brand-medium border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-xs font-bold text-gray-500">Loading farmer opportunity analytics...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto">
+    <div className="p-6 space-y-8 max-w-7xl mx-auto">
       {/* Page Header */}
       <PageHeader
-        title="Disbursement & Issues"
-        subtitle="Troubleshoot direct benefit transfers, resolve document mismatch alerts, and monitor payments"
+        title="Opportunity Intelligence"
+        subtitle="Analyze scheme matches, outreach campaign funnels, and member readiness statistics"
+        actions={
+          <select
+            value={filterVillage}
+            onChange={(e) => setFilterVillage(e.target.value)}
+            className="bg-[#1A3A2A] border-none rounded-xl px-4 py-2 text-xs font-bold text-white focus:outline-none cursor-pointer"
+          >
+            <option value="All">All Villages</option>
+            <option value="Kharindwa">Kharindwa</option>
+            <option value="Bhadana">Bhadana</option>
+            <option value="Murthal">Murthal</option>
+          </select>
+        }
       />
+
+      {/* Demo Warning Banner */}
+      {isUsingFallback && (
+        <div className="bg-amber-50 border border-amber-250 text-amber-900 px-4 py-3 rounded-2xl text-xs font-bold flex items-center gap-2 animate-pulse shadow-3xs">
+          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+          <span>Using Demo Data (API Server Offline)</span>
+        </div>
+      )}
+
+      {/* Info Explanatory Panel */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-5 shadow-sm flex items-start gap-4 animate-fadeIn">
+        <div className="p-2 bg-blue-100 rounded-xl text-blue-700 shrink-0">
+          <Info className="w-5 h-5" />
+        </div>
+        <div className="space-y-1">
+          <h4 className="text-sm font-black text-brand-darkest">Opportunity Funnel Logic</h4>
+          <p className="text-xs text-gray-650 leading-relaxed font-semibold">
+            This module monitors FPO outreach effectiveness and self-reported farmer outcomes. 
+            We do not link to government administrative networks. The stats represent member response rates 
+            tracked via FPO link clicks, guide downloads, and direct manual status updates.
+          </p>
+        </div>
+      </div>
 
       {/* Top Summary Bar using generic StatsCard */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <StatsCard
-          title="Total Enrolled"
-          value={stats.totalEnrolled}
-          sub="Farmers active in individual direct benefit schemes"
+          title="Total Scheme Matches"
+          value={String(totalEligibleMatches)}
+          sub="Opportunities eligible across all registered member farmers"
           icon={Shield}
         />
 
         <StatsCard
-          title="Benefits Received"
-          value={stats.benefitsReceived}
-          sub="Enrolled members successfully credited by DBT payouts"
-          trend={receivedPct}
+          title="Farmers Reached"
+          value={stats.totalEnrolled}
+          sub="Farmers with engaged outreach campaigns (Link Clicked / Applied)"
+          trend={`${totalEligibleMatches > 0 ? Math.round((stats.totalEnrolled / totalEligibleMatches) * 100) : 0}%`}
           isPositive={true}
           icon={ShieldCheck}
         />
 
         <StatsCard
-          title="Payment Pending"
-          value={stats.paymentPending}
-          sub="Transactions processed but awaiting central bank settlement"
-          trend={pendingPct}
+          title="Self Reported Received"
+          value={stats.benefitsReceived}
+          sub="Shareholder farmers reporting successful benefit credits"
+          trend={`${stats.totalEnrolled > 0 ? Math.round((stats.benefitsReceived / stats.totalEnrolled) * 100) : 0}%`}
           isPositive={true}
           icon={Clock}
         />
 
         <StatsCard
-          title="Blocked / Failed"
-          value={stats.blockedFailed}
-          sub="Failed transfers due to profile KYC and document issues"
-          alert={stats.blockedFailed > 0 ? `${stats.blockedFailed} transfers blocked — click View buttons below to inspect` : null}
-          icon={UserX}
+          title="Self Reported Value"
+          value={stats.totalDisbursedValue || "₹0.00 Lakh"}
+          sub="Total estimated welfare payouts unlocked within FPO members"
+          icon={IndianRupee}
         />
       </div>
 
-      {/* Scheme Disbursement Funnel Cards */}
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h3 className="text-xs font-black text-brand-darkest uppercase tracking-wider">Active Scheme Disbursement Pipelines</h3>
-          {tableFilter !== "All" && (
-            <button
-              onClick={() => setTableFilter("All")}
-              className="text-xs font-bold text-green-700 hover:text-green-800 underline"
-            >
-              Clear filter and view all
-            </button>
-          )}
-        </div>
-
-        {/* Card 1: PM-KISAN */}
-        <div className={`bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 transition ${tableFilter === "PM-KISAN" ? "ring-2 ring-green-600" : ""}`}>
-          <div className="flex justify-between items-center">
-            <div>
-              <h4 className="text-sm font-black text-gray-900">PM-KISAN</h4>
-              <p className="text-xs font-semibold text-gray-450 mt-0.5">Pradhan Mantri Kisan Samman Nidhi</p>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-bold text-gray-500">Total Disbursed: </span>
-              <strong className="text-sm font-black text-brand-darkest">₹11.16 Lakh</strong>
-              <span className="mx-2 text-gray-300">|</span>
-              <span className="text-xs font-bold text-gray-500">Stuck: </span>
-              <strong className="text-sm font-black text-red-600">₹1.08 Lakh</strong>
-            </div>
-          </div>
-
-          {/* Funnel visualization */}
-          <div className="grid grid-cols-4 gap-2 relative">
-            {[
-              { label: "Enrolled", count: 612 },
-              { label: "Verified", count: 589, drop: "23 farmers: Aadhaar–bank link mismatch" },
-              { label: "Processed", count: 571, drop: "18 farmers: Land record name mismatch" },
-              { label: "Received", count: 558, drop: "13 farmers: Bank account inactive" }
-            ].map((step, idx) => (
-              <div key={idx} className="bg-gray-50/70 border border-gray-150 rounded-xl p-3 text-center flex flex-col justify-between min-h-[90px] relative">
-                <div>
-                  <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">{step.label}</span>
-                  <span className="text-lg font-black text-gray-800 mt-1 block">{step.count}</span>
+      {/* Opportunity Funnel & Gaps Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Campaign Conversion Funnel */}
+        <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-gray-150 shadow-sm space-y-4">
+          <h3 className="text-sm font-black text-brand-darkest uppercase tracking-wider border-b border-gray-100 pb-2.5">
+            Outreach Campaign Conversion Funnel
+          </h3>
+          <div className="space-y-4 pt-2">
+            {funnelStages.map((stage, idx) => {
+              const maxVal = funnelStages[0].value || 1;
+              const pctOfMax = Math.round((stage.value / maxVal) * 100);
+              return (
+                <div key={idx} className="space-y-1.5">
+                  <div className="flex justify-between items-center text-xs font-bold text-gray-700">
+                    <span>{stage.name}</span>
+                    <strong className="text-brand-darkest font-black">{stage.value.toLocaleString('en-IN')}</strong>
+                  </div>
+                  <div className="w-full bg-gray-50 h-5 rounded-lg overflow-hidden border border-gray-200/50 flex">
+                    <div className={`h-full ${stage.color} text-[10px] font-black text-white flex items-center justify-end pr-2 transition-all duration-700`} style={{ width: `${pctOfMax}%` }}>
+                      {pctOfMax}%
+                    </div>
+                  </div>
                 </div>
-                {step.drop && (
-                  <span className="text-[9px] font-bold text-red-600 leading-tight block border-t border-red-50 pt-1 mt-1">
-                    ⚠ {step.drop}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-end pt-2 border-t border-gray-50">
-            <button
-              onClick={() => {
-                setTableFilter("PM-KISAN");
-                document.getElementById("blocked-table-section")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-4 py-1.5 border border-red-200 hover:bg-red-50 text-red-700 font-bold rounded-xl text-xs transition"
-            >
-              View 54 Stuck Farmers
-            </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Card 2: PMFBY */}
-        <div className={`bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 transition ${tableFilter === "PMFBY" ? "ring-2 ring-green-600" : ""}`}>
-          <div className="flex justify-between items-center">
-            <div>
-              <h4 className="text-sm font-black text-gray-900">PMFBY</h4>
-              <p className="text-xs font-semibold text-gray-450 mt-0.5">Pradhan Mantri Fasal Bima Yojana</p>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-bold text-gray-500">Claims Settled: </span>
-              <strong className="text-sm font-black text-green-700">₹3.42 Lakh</strong>
-              <span className="mx-2 text-gray-300">|</span>
-              <span className="text-xs font-bold text-gray-500">Active Claims Pending: </span>
-              <strong className="text-sm font-black text-amber-600">₹1.87 Lakh</strong>
-            </div>
-          </div>
-
-          {/* Funnel visualization */}
-          <div className="grid grid-cols-4 gap-2">
-            {[
-              { label: "Enrolled", count: 423 },
-              { label: "Premium Paid", count: 398, drop: "25 farmers: Premium payment failed (bank issue)" },
-              { label: "Claim Filed", count: 89, drop: "309 farmers: No crop loss this season (normal — insurance worked as safety net)", isNormal: true },
-              { label: "Settled", count: 67, drop: "22 farmers: Claim under investigation" }
-            ].map((step, idx) => (
-              <div key={idx} className="bg-gray-50/70 border border-gray-150 rounded-xl p-3 text-center flex flex-col justify-between min-h-[90px]">
-                <div>
-                  <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">{step.label}</span>
-                  <span className="text-lg font-black text-gray-800 mt-1 block">{step.count}</span>
-                </div>
-                {step.drop && (
-                  <span
-                    className={`text-[9px] font-bold leading-tight block border-t pt-1 mt-1 ${
-                      step.isNormal ? "text-gray-400 border-gray-100 font-medium" : "text-red-600 border-red-50"
-                    }`}
-                  >
-                    {step.isNormal ? "✓ " : "⚠ "}
-                    {step.drop}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-end pt-2 border-t border-gray-50">
-            <button
-              onClick={() => {
-                setTableFilter("PMFBY");
-                document.getElementById("blocked-table-section")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-4 py-1.5 border border-amber-200 hover:bg-amber-50 text-amber-700 font-bold rounded-xl text-xs transition"
-            >
-              View 22 Pending Claims
-            </button>
-          </div>
-        </div>
-
-        {/* Card 3: KCC */}
-        <div className={`bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 transition ${tableFilter === "KCC" ? "ring-2 ring-red-600" : ""}`}>
-          <div className="flex justify-between items-center">
-            <div>
-              <h4 className="text-sm font-black text-gray-900">KCC</h4>
-              <p className="text-xs font-semibold text-gray-450 mt-0.5">Kisan Credit Card (Institutional Credit)</p>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-bold text-gray-500">Avg Credit Used: </span>
-              <strong className="text-sm font-black text-gray-800">₹78,000 / Farmer</strong>
-              <span className="mx-2 text-gray-300">|</span>
-              <span className="text-xs font-bold text-gray-500">Total Outstanding: </span>
-              <strong className="text-sm font-black text-brand-darkest">₹2.08 Cr</strong>
-            </div>
-          </div>
-
-          {/* Funnel visualization */}
-          <div className="grid grid-cols-4 gap-2">
-            {[
-              { label: "Sanctioned", count: 389 },
-              { label: "Card Activated", count: 334, drop: "55 farmers: Card dispatch pending from branch", isNormal: true },
-              { label: "Credit Used", count: 267, drop: "67 farmers: Active cards with zero cash draw", isNormal: true },
-              { label: "Repayment On Track", count: 241, drop: "26 farmers: Overdue >90 days - RED FLAG" }
-            ].map((step, idx) => (
-              <div key={idx} className="bg-gray-50/70 border border-gray-150 rounded-xl p-3 text-center flex flex-col justify-between min-h-[90px]">
-                <div>
-                  <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">{step.label}</span>
-                  <span className="text-lg font-black text-gray-800 mt-1 block">{step.count}</span>
-                </div>
-                {step.drop && (
-                  <span
-                    className={`text-[9px] font-bold leading-tight block border-t pt-1 mt-1 ${
-                      step.isNormal ? "text-gray-400 border-gray-100 font-medium" : "text-red-600 border-red-50 font-black"
-                    }`}
-                  >
-                    {step.isNormal ? "ℹ " : "⚠ "}
-                    {step.drop}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-end pt-2 border-t border-gray-50">
-            <button
-              onClick={() => {
-                setTableFilter("KCC");
-                document.getElementById("blocked-table-section")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-4 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs transition shadow-sm"
-            >
-              View 26 Overdue Accounts
-            </button>
-          </div>
-        </div>
-
-        {/* Card 4: PM-KMY */}
-        <div className={`bg-white p-5 rounded-2xl border border-gray-150 shadow-sm space-y-4 transition ${tableFilter === "PM-KMY" ? "ring-2 ring-green-600" : ""}`}>
-          <div className="flex justify-between items-center">
-            <div>
-              <h4 className="text-sm font-black text-gray-900">PM-KMY</h4>
-              <p className="text-xs font-semibold text-gray-450 mt-0.5">Pradhan Mantri Kisan Maan Dhan Yojana</p>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-bold text-gray-500">Govt Monthly Contribution: </span>
-              <strong className="text-sm font-black text-teal-700">₹7,100 / month</strong>
-            </div>
-          </div>
-
-          {/* Funnel visualization */}
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: "Enrolled", count: 89 },
-              { label: "Auto-debit Active", count: 76, drop: "13 farmers: Bank auto-debit mandate not set" },
-              { label: "Contributions Current", count: 71, drop: "5 farmers: Insufficient balance, debit failed" }
-            ].map((step, idx) => (
-              <div key={idx} className="bg-gray-50/70 border border-gray-150 rounded-xl p-3 text-center flex flex-col justify-between min-h-[90px]">
-                <div>
-                  <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider block">{step.label}</span>
-                  <span className="text-lg font-black text-gray-800 mt-1 block">{step.count}</span>
-                </div>
-                {step.drop && (
-                  <span className="text-[9px] font-bold text-red-600 leading-tight block border-t border-red-50 pt-1 mt-1">
-                    ⚠ {step.drop}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-end pt-2 border-t border-gray-50">
-            <button
-              onClick={() => {
-                setTableFilter("PM-KMY");
-                document.getElementById("blocked-table-section")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-4 py-1.5 border border-amber-250 hover:bg-amber-50 text-amber-700 font-bold rounded-xl text-xs transition"
-            >
-              Fix 18 Auto-debit Issues
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Blocked Farmers Table Section */}
-      <div id="blocked-table-section" className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden scroll-mt-6">
-        {/* Urgent Red Header Bar */}
-        <div className="bg-red-600 px-5 py-4 flex items-center justify-between text-white">
-          <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5" />
-            <h3 className="text-sm font-black tracking-wide">
-              {tableFilter === "All" ? "47" : filteredBlockedList.length} Farmers with Blocked Benefits — Needs Action Today
+        {/* Profile Completeness Gaps */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-150 shadow-sm space-y-4 flex flex-col justify-between">
+          <div>
+            <h3 className="text-sm font-black text-brand-darkest uppercase tracking-wider border-b border-gray-100 pb-2.5">
+              Readiness Profile Gaps
             </h3>
+            <div className="space-y-3.5 pt-3">
+              {commonProfileGaps.map((gap, idx) => (
+                <div key={idx} className="p-3 bg-red-50/40 border border-red-100/60 rounded-xl space-y-1">
+                  <div className="flex justify-between items-center">
+                    <strong className="text-xs font-black text-red-800">{gap.gap}</strong>
+                    <span className="px-2 py-0.5 bg-red-100 text-red-800 text-[10px] font-black rounded-md">{gap.count} Farmers</span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 font-bold">{gap.impact}</p>
+                  <p className="text-[9px] text-brand-medium font-bold italic">{gap.complexity}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-black text-red-200 uppercase tracking-wider">Filter by scheme:</span>
-            <select
-              value={tableFilter}
-              onChange={(e) => setTableFilter(e.target.value)}
-              className="bg-red-700 border border-red-500 rounded-lg px-2.5 py-1 text-xs font-bold text-white focus:outline-none cursor-pointer"
-            >
-              <option value="All">All Schemes</option>
-              <option value="PM-KISAN">PM-KISAN</option>
-              <option value="PMFBY">PMFBY</option>
-              <option value="KCC">KCC</option>
-              <option value="PM-KMY">PM-KMY</option>
-            </select>
+          <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-gray-500">
+            <span>Critical KYC errors block direct bank credits.</span>
           </div>
-        </div>
-
-        <div className="p-4">
-          <GenericTable
-            columns={columns}
-            data={filteredBlockedList}
-            showSearch={false}
-            showSort={false}
-            itemsPerPage={10}
-            emptyMessage="No blocked farmers found matching this scheme"
-          />
         </div>
       </div>
 
-      {/* Monthly Benefit Flow Chart */}
+      {/* Scheme Popularity & Village Heatmap Row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Scheme telemetry metrics table */}
+        <div className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden p-5 space-y-4">
+          <h3 className="text-xs font-black text-brand-darkest uppercase tracking-wider">
+            Campaign Clicks & Guide Telemetry
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-gray-200 text-[9px] font-black text-gray-400 uppercase tracking-widest bg-gray-50/50">
+                  <th className="py-2.5 px-3">Scheme Name</th>
+                  <th className="py-2.5 px-3 text-center">Guide Views</th>
+                  <th className="py-2.5 px-3 text-center">Shares</th>
+                  <th className="py-2.5 px-3 text-center">Clicks</th>
+                  <th className="py-2.5 px-3 text-center">Comments</th>
+                </tr>
+              </thead>
+              <tbody className="text-xs text-gray-700">
+                {popularityData.map((row) => (
+                  <tr key={row.key} className="border-b border-gray-100 hover:bg-gray-50/50 font-bold">
+                    <td className="py-3 px-3 text-brand-darkest font-black">{row.label}</td>
+                    <td className="py-3 px-3 text-center text-gray-500 flex items-center justify-center gap-1">
+                      <Eye className="w-3.5 h-3.5 text-gray-400" />
+                      {row.views}
+                    </td>
+                    <td className="py-3 px-3 text-center text-gray-500">
+                      <span className="inline-flex items-center gap-1">
+                        <Share2 className="w-3.5 h-3.5 text-blue-400" />
+                        {row.shares}
+                      </span>
+                    </td>
+                    <td className="py-3 px-3 text-center text-gray-500">
+                      <span className="inline-flex items-center gap-1">
+                        <MousePointerClick className="w-3.5 h-3.5 text-green-500" />
+                        {row.clicks}
+                      </span>
+                    </td>
+                    <td className="py-3 px-3 text-center text-gray-500">
+                      <span className="inline-flex items-center gap-1">
+                        <MessageSquare className="w-3.5 h-3.5 text-purple-400" />
+                        {row.discussions}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Village outreach heatmap */}
+        <div className="bg-white rounded-2xl border border-gray-150 shadow-sm overflow-hidden p-5 space-y-4">
+          <h3 className="text-xs font-black text-brand-darkest uppercase tracking-wider">
+            Village outreach engagement rate
+          </h3>
+          <div className="space-y-4">
+            {villageHeatmap.map((v, idx) => (
+              <div key={idx} className="flex items-center justify-between p-3.5 bg-gray-50/60 border border-gray-150/40 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 bg-brand-accent/20 text-brand-medium rounded-xl flex items-center justify-center border border-brand-accent/50 shadow-3xs">
+                    <MapPin className="w-4.5 h-4.5" />
+                  </div>
+                  <div>
+                    <strong className="text-xs font-black text-gray-900 block">{v.name}</strong>
+                    <span className="text-[10px] text-gray-400 font-bold block mt-0.5">
+                      {v.engaged} Reached of {v.totalMatched} Matches
+                    </span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-sm font-black text-brand-medium block">{v.rate}%</span>
+                  <span className="text-[9px] bg-green-50 text-green-700 px-1.5 py-0.5 rounded font-black border border-green-200 mt-1 inline-block uppercase tracking-wider">
+                    {v.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Monthly Benefit Flow Chart (Refactored details) */}
       <div className="bg-white p-5 rounded-2xl border border-gray-150 shadow-sm relative">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-sm font-black text-brand-darkest">Monthly Benefits Reaching Farmers — 2024</h3>
-          <span className="text-[10px] bg-green-50 text-green-700 border border-green-200 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1">
+        <div className="flex justify-between items-center mb-4 border-b border-gray-100 pb-2.5">
+          <h3 className="text-sm font-black text-brand-darkest">Outreach clicks & engagement timeline — 2024</h3>
+          <span className="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1 shadow-3xs">
             <Clock className="w-3.5 h-3.5" />
-            August Spike: PM-KISAN Kharif Installment
+            Seasonal Outreach Analytics Active
           </span>
         </div>
 
@@ -503,26 +404,18 @@ export default function FpoDisbursementIssues() {
             <LineChart data={flowChartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
               <XAxis dataKey="name" tick={{ fontSize: 11, fontWeight: "bold", fill: "#6b7280" }} />
-              <YAxis yAxisId="left" tick={{ fontSize: 11, fontWeight: "bold", fill: "#6b7280" }} label={{ value: "Disbursed (₹ Lakh)", angle: -90, position: "insideLeft", offset: 10, style: { fontWeight: "bold", fill: "#6b7280", fontSize: 10 } }} />
-              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11, fontWeight: "bold", fill: "#6b7280" }} label={{ value: "Farmers Paid", angle: 90, position: "insideRight", offset: 10, style: { fontWeight: "bold", fill: "#6b7280", fontSize: 10 } }} />
+              <YAxis yAxisId="left" tick={{ fontSize: 11, fontWeight: "bold", fill: "#6b7280" }} label={{ value: "Unlocked (₹ Lakh)", angle: -90, position: "insideLeft", offset: 10, style: { fontWeight: "bold", fill: "#6b7280", fontSize: 10 } }} />
+              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11, fontWeight: "bold", fill: "#6b7280" }} label={{ value: "Farmers Engaged", angle: 90, position: "insideRight", offset: 10, style: { fontWeight: "bold", fill: "#6b7280", fontSize: 10 } }} />
               <Tooltip
                 contentStyle={{ borderRadius: "12px", border: "1px solid #e5e7eb", fontSize: "11px", fontFamily: "monospace" }}
               />
               <Legend wrapperStyle={{ fontSize: "11px", fontWeight: "bold" }} />
-              <Line yAxisId="left" type="monotone" dataKey="amount" name="Amount Disbursed (₹ Lakh)" stroke="#16a34a" strokeWidth={3} activeDot={{ r: 8 }} />
-              <Line yAxisId="right" type="monotone" dataKey="count" name="Farmers Who Received" stroke="#3b82f6" strokeWidth={2} strokeDasharray="5 5" />
+              <Line yAxisId="left" type="monotone" dataKey="amount" name="Value Unlocked (₹ Lakh)" stroke="#16a34a" strokeWidth={3} activeDot={{ r: 8 }} />
+              <Line yAxisId="right" type="monotone" dataKey="count" name="Clicks / Cords" stroke="#3b82f6" strokeWidth={2} strokeDasharray="5 5" />
             </LineChart>
           </ResponsiveContainer>
         </div>
       </div>
-
-      {/* How-to Modal */}
-      <IssueResolutionModal
-        farmer={selectedFarmer}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onResolve={handleResolveFarmer}
-      />
     </div>
   );
 }

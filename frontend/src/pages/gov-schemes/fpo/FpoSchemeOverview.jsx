@@ -223,10 +223,10 @@ const mergeApiSchemesWithMetadata = (apiSchemes) => {
     });
     
     if (apiMatch) {
-      // Map API approved to enrolled, and set received to Math.round(approved * 0.9)
+      // Map API approved to enrolled, and set received to dynamic count if available
       const eligible = apiMatch.eligible !== undefined ? apiMatch.eligible : uiScheme.eligible;
       const enrolled = apiMatch.approved !== undefined ? apiMatch.approved : uiScheme.enrolled;
-      const received = apiMatch.approved !== undefined ? Math.round(apiMatch.approved * 0.9) : uiScheme.received;
+      const received = apiMatch.received !== undefined ? apiMatch.received : (apiMatch.approved !== undefined ? Math.round(apiMatch.approved * 0.9) : uiScheme.received);
       
       return {
         ...uiScheme,
@@ -252,6 +252,7 @@ export default function FpoSchemeOverview() {
   const [schemes, setSchemes] = useState([]);
   const [isSyncing, setIsSyncing] = useState(false);
   const [statsView, setStatsView] = useState("fpo");
+  const [isUsingFallback, setIsUsingFallback] = useState(false);
 
   // State for WhatsApp Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -280,6 +281,7 @@ export default function FpoSchemeOverview() {
             setStats(res);
             const merged = mergeApiSchemesWithMetadata(res.memberCoverage.schemes);
             setSchemes(merged);
+            setIsUsingFallback(false);
           } else {
             triggerFallback();
           }
@@ -295,12 +297,15 @@ export default function FpoSchemeOverview() {
     };
 
     const triggerFallback = () => {
+      setIsUsingFallback(true);
       const mult = getVillageMultiplier(filterVillage);
       const mockStats = {
         success: true,
         isFallback: true,
         districtTotalFarmers: 34500,
         districtEnrolledFarmers: 28400,
+        totalDisbursedValue: `₹${Math.round(634 * mult * 0.066).toFixed(1)} Lakh`,
+        potentialOpportunityValue: `₹${Math.round(847 * mult * 0.12).toFixed(1)} Lakh`,
         memberCoverage: {
           total: Math.round(847 * mult),
           covered: Math.round(634 * mult),
@@ -338,6 +343,7 @@ export default function FpoSchemeOverview() {
             setStats(updatedStats);
             const merged = mergeApiSchemesWithMetadata(updatedStats.memberCoverage.schemes);
             setSchemes(merged);
+            setIsUsingFallback(false);
           }
         } catch (loadErr) {
           console.warn("Reloading stats failed post-sync:", loadErr);
@@ -368,6 +374,7 @@ export default function FpoSchemeOverview() {
       },
       message: "Successfully synchronized district stats! Total Farmers: 34500, Enrolled: 28400, Gap: 6100"
     };
+    setIsUsingFallback(true);
     setSyncResult(mockResult);
     setIsSyncModalOpen(true);
   };
@@ -382,9 +389,12 @@ export default function FpoSchemeOverview() {
   const totalSchemes = schemes.length;
   const totalEligible = stats?.memberCoverage?.total || 0;
   const totalEnrolled = stats?.memberCoverage?.covered || 0;
-  const totalBenefitUnlocked = stats
+  const totalBenefitUnlocked = stats?.totalDisbursedValue || (stats
     ? `₹${(totalEnrolled * 0.066).toFixed(1)} Lakh`
-    : "₹0.0 Lakh";
+    : "₹0.0 Lakh");
+  const potentialOpportunityValue = stats?.potentialOpportunityValue || (stats
+    ? `₹${(totalEligible * 0.12).toFixed(1)} Lakh`
+    : "₹0.0 Lakh");
 
   const mult = getVillageMultiplier(filterVillage);
   const districtTotal = Math.round((stats?.districtTotalFarmers || 34500) * mult);
@@ -431,6 +441,14 @@ export default function FpoSchemeOverview() {
         }
       />
 
+      {/* Demo Warning Banner */}
+      {isUsingFallback && (
+        <div className="bg-amber-50 border border-amber-250 text-amber-900 px-4 py-3 rounded-2xl text-xs font-bold flex items-center gap-2 animate-pulse shadow-3xs">
+          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+          <span>Using Demo Data (API Server Offline)</span>
+        </div>
+      )}
+
       {/* Stats View Toggle Selector */}
       <div className="flex items-center gap-3">
         <div className="inline-flex bg-white p-1 rounded-xl border border-gray-150 shadow-sm">
@@ -473,14 +491,14 @@ export default function FpoSchemeOverview() {
         />
 
         <StatsCard
-          title={statsView === "district" ? "Total Farmers" : "Farmers Eligible"}
+          title={statsView === "district" ? "Total Farmers" : "Estimated Matches"}
           value={statsView === "district" ? districtTotal.toLocaleString('en-IN') : String(totalEligible)}
-          sub={statsView === "district" ? `Operational holdings in ${filterVillage === "All" ? "Sonipat district" : filterVillage + " village"}` : `Out of ${totalEligible} member farmers in crop clusters`}
+          sub={statsView === "district" ? `Operational holdings in ${filterVillage === "All" ? "Sonipat district" : filterVillage + " village"}` : `Eligible member farmers matched across crop categories`}
           icon={Users}
         />
 
         <StatsCard
-          title={statsView === "district" ? "Enrolled (PM-Kisan)" : "Farmers Enrolled"}
+          title={statsView === "district" ? "Enrolled (PM-Kisan)" : "Farmers Reached"}
           value={statsView === "district" ? districtEnrolled.toLocaleString('en-IN') : String(totalEnrolled)}
           sub={statsView === "district" ? `Coverage Rate: ${districtTotal > 0 ? Math.round((districtEnrolled / districtTotal) * 100) : 0}% of district` : `Coverage Rate: ${totalEligible > 0 ? Math.round((totalEnrolled / totalEligible) * 100) : 0}% of eligible members`}
           trend={statsView === "district" ? `${districtTotal > 0 ? Math.round((districtEnrolled / districtTotal) * 100) : 0}%` : `${totalEligible > 0 ? Math.round((totalEnrolled / totalEligible) * 100) : 0}%`}
@@ -489,14 +507,20 @@ export default function FpoSchemeOverview() {
         />
 
         <StatsCard
-          title={statsView === "district" ? "Non-Enrolled Gap" : "Total Benefit Unlocked"}
-          value={statsView === "district" ? districtGap.toLocaleString('en-IN') : totalBenefitUnlocked}
-          sub={statsView === "district" ? "Farmers eligible but not receiving benefits" : "Direct payouts & infrastructure grants secured this year"}
+          title={statsView === "district" ? "Non-Enrolled Gap" : "Potential Opportunity Value"}
+          value={statsView === "district" ? districtGap.toLocaleString('en-IN') : potentialOpportunityValue}
+          sub={statsView === "district" ? "Farmers eligible but not receiving benefits" : "Estimated total potential funding available for matched members"}
           trend={statsView === "district" ? `Gap: ${districtTotal > 0 ? Math.round((districtGap / districtTotal) * 100) : 0}%` : "+18%"}
           isPositive={statsView === "district" ? false : true}
           icon={statsView === "district" ? AlertCircle : IndianRupee}
         />
       </div>
+
+      {statsView === "fpo" && (
+        <p className="text-[10px] text-gray-400 font-bold -mt-2.5">
+          * Potential Opportunity Value is based on published government scheme benefits and matching farmer profiles. Not guaranteed funding.
+        </p>
+      )}
 
       {/* Filter Bar */}
       <div className="space-y-4">

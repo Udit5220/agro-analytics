@@ -268,20 +268,20 @@ export default function AdminFinancialImpact() {
                 </div>
               </div>
             ) : (
-              <div className="space-y-2 text-xs">
+              <div className="space-y-2.5 text-xs max-h-[380px] overflow-y-auto pr-1.5 custom-scrollbar">
                 {segmentSchemes.map((s) => (
-                  <div key={s.id} className="space-y-1">
-                    <div className="flex justify-between font-bold">
-                      <span className="truncate max-w-[170px]">{s.name}</span>
-                      <span>
-                        {s.benefitAmount.includes("year")
+                  <div key={s.id} className="space-y-1 bg-[#f8faf8] p-2 rounded-xl border border-gray-100 hover:border-gray-200 transition">
+                    <div className="flex justify-between items-center font-bold gap-2">
+                      <span className="truncate max-w-[160px] text-brand-darkest font-extrabold uppercase text-[10px]">{s.name}</span>
+                      <span className="text-brand-medium font-bold text-[9px] bg-white px-1.5 py-0.5 rounded border border-gray-150 shrink-0">
+                        {(s.benefitAmount || '').includes("year")
                           ? "₹6L/yr"
                           : "Risk Cover"}
                       </span>
                     </div>
-                    <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-gray-200 h-1 rounded-full overflow-hidden">
                       <div
-                        className="bg-brand-medium h-full rounded-full"
+                        className="bg-gradient-to-r from-brand-medium to-emerald-600 h-full rounded-full"
                         style={{
                           width: `${totalPotential ? (s.potValue / totalPotential) * 100 : 0}%`,
                         }}
@@ -295,8 +295,8 @@ export default function AdminFinancialImpact() {
         </div>
 
         {/* Platform Engagement Analytics */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4">
-          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5">
+        <div className="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm space-y-4 flex flex-col justify-start">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-brand-darkest flex items-center gap-1.5 shrink-0">
             <Activity className="w-4 h-4 text-brand-medium" /> {activeSegment === "company" ? "Platform Engagement Analytics" : "Farmer & FPO Engagement Analytics"}
           </h3>
 
@@ -349,38 +349,60 @@ export default function AdminFinancialImpact() {
               )}
             </div>
           ) : (
-            <div className="space-y-3.5 text-xs font-semibold">
-              {segmentSchemes.map((s) => (
-                <div key={s.id} className="p-3 bg-gray-50 border border-gray-100 rounded-xl flex justify-between items-center">
-                  <div>
-                    <span className="text-[8px] font-black uppercase text-gray-400 block tracking-wider">Scheme Engagement</span>
-                    <span className="font-bold text-brand-darkest truncate block max-w-[200px] uppercase">{s.name}</span>
+            <div className="space-y-3 text-xs font-semibold flex-grow flex flex-col min-h-0">
+              {/* Pinned Network Engagement Summary Card at the top */}
+              <div className="p-3 bg-[#e8f5e8]/70 border border-brand-medium/20 rounded-2xl shrink-0 mb-3">
+                <span className="text-[8px] font-black uppercase text-brand-darkest block tracking-wider mb-2">Network Engagement Summary</span>
+                <div className="flex items-center justify-between text-center gap-2">
+                  <div className="flex-1">
+                    <span className="text-sm font-black text-brand-darkest block">{analytics?.outreach?.farmersReached?.toLocaleString() || "12,400"}</span>
+                    <span className="text-[7.5px] text-gray-500 font-bold block uppercase tracking-wider">Farmers</span>
                   </div>
-                  <div className="text-right shrink-0 space-y-0.5">
-                    <span className="text-brand-medium font-bold block">{s.viewed} Views</span>
-                    <span className="text-gray-400 text-[9px] font-bold">{s.applyClicked} Apply Clicks • {s.guideOpened} Guides</span>
+                  <div className="w-px h-6 bg-gray-300 shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm font-black text-brand-darkest block">{analytics?.outreach?.engagementRate || 84.5}%</span>
+                    <span className="text-[7.5px] text-gray-500 font-bold block uppercase tracking-wider">Engagement</span>
                   </div>
-                </div>
-              ))}
-              {segmentSchemes.length === 0 && (
-                <p className="text-gray-400 italic text-[11px]">No farmer/FPO scheme engagement data available.</p>
-              )}
-              <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl">
-                <span className="text-[8px] font-black uppercase text-emerald-700 block tracking-wider">Network Engagement Summary</span>
-                <div className="flex items-center gap-4 mt-1.5">
-                  <div>
-                    <span className="text-lg font-black text-brand-darkest">{analytics?.outreach?.farmersReached?.toLocaleString() || "12,400"}</span>
-                    <span className="text-[9px] text-gray-500 font-bold block">Farmers Reached</span>
-                  </div>
-                  <div>
-                    <span className="text-lg font-black text-brand-darkest">{analytics?.outreach?.engagementRate || 84.5}%</span>
-                    <span className="text-[9px] text-gray-500 font-bold block">Engagement Rate</span>
-                  </div>
-                  <div>
-                    <span className="text-lg font-black text-brand-darkest">{analytics?.companyProfile?.fpoPartnerships || "8"}</span>
-                    <span className="text-[9px] text-gray-500 font-bold block">Active FPOs</span>
+                  <div className="w-px h-6 bg-gray-300 shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm font-black text-brand-darkest block">{analytics?.companyProfile?.fpoPartnerships || "8 Active FPOs"}</span>
+                    <span className="text-[7.5px] text-gray-500 font-bold block uppercase tracking-wider">FPOs</span>
                   </div>
                 </div>
+              </div>
+
+              {/* Scrollable list of scheme engagement metrics */}
+              <div className="space-y-2.5 max-h-[415px] overflow-y-auto pr-1.5 custom-scrollbar">
+                {segmentSchemes.map((s) => (
+                  <div key={s.id} className="p-3 bg-[#f8faf8] border border-gray-100 hover:border-brand-medium/30 rounded-xl space-y-2 transition">
+                    <div className="flex justify-between items-start gap-2">
+                      <div className="space-y-0.5 min-w-0">
+                        <span className="text-[7.5px] font-black uppercase text-gray-400 tracking-wider">Scheme Engagement</span>
+                        <h4 className="font-extrabold text-brand-darkest text-[10.5px] uppercase leading-tight truncate">{s.name}</h4>
+                      </div>
+                      <span className="text-[8px] font-bold text-brand-medium bg-emerald-50 border border-brand-medium/20 px-1.5 py-0.5 rounded shrink-0">
+                        Matched
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-1 pt-2 border-t border-gray-150/50 text-center">
+                      <div>
+                        <span className="text-[9.5px] font-black text-brand-darkest block">{s.viewed.toLocaleString()}</span>
+                        <span className="text-[7px] text-gray-400 font-bold uppercase block tracking-wider">Views</span>
+                      </div>
+                      <div className="border-x border-gray-200">
+                        <span className="text-[9.5px] font-black text-brand-medium block">{s.applyClicked.toLocaleString()}</span>
+                        <span className="text-[7px] text-gray-400 font-bold uppercase block tracking-wider">Clicks</span>
+                      </div>
+                      <div>
+                        <span className="text-[9.5px] font-black text-violet-600 block">{s.guideOpened.toLocaleString()}</span>
+                        <span className="text-[7px] text-gray-400 font-bold uppercase block tracking-wider">Guides</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {segmentSchemes.length === 0 && (
+                  <p className="text-gray-400 italic text-[11px]">No farmer/FPO scheme engagement data available.</p>
+                )}
               </div>
             </div>
           )}

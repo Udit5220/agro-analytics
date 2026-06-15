@@ -186,8 +186,10 @@ export const govSchemesApi = {
   saveAdminAnalytics:  (data)        => request('/gov-schemes/admin/analytics', { method: 'POST', body: JSON.stringify(data) }),
   
   // FPO Dashboard Additions
-  getFpoStats:         (params = {}) => request(`/gov-schemes/fpo/stats?${qs(params)}`),
+  getFpoStats:         (params = {}) => request(`/gov-schemes/fpo/overview?${qs(params)}`),
   getFpoFarmers:       ()            => request('/gov-schemes/fpo/farmers'),
+  createFpoFarmer:     (data)        => request('/gov-schemes/fpo/farmers', { method: 'POST', body: JSON.stringify(data) }),
+  bulkCreateFpoFarmers: (data)       => request('/gov-schemes/fpo/farmers/bulk', { method: 'POST', body: JSON.stringify(data) }),
   updateFpoEnrollment: (id, schemes) => request(`/gov-schemes/fpo/farmers/${id}/enrollment`, { method: 'PATCH', body: JSON.stringify({ schemes }) }),
   syncFpoData:         ()            => request('/gov-schemes/fpo/sync', { method: 'POST' }),
 
@@ -197,7 +199,7 @@ export const govSchemesApi = {
   toggleCalendarEvent:   (eventId, applied) => request('/gov-schemes/farmer/calendar/apply', { method: 'POST', body: JSON.stringify({ eventId, applied }) }),
 
   // FPO Roles Gov-Schemes Endpoints
-  getFpoDisbursements:   (params = {}) => request(`/gov-schemes/fpo/disbursements?${qs(params)}`),
+  getFpoDisbursements:   (params = {}) => request(`/gov-schemes/fpo/analytics?${qs(params)}`),
   resolveFpoDisbursement:(farmerId) => request('/gov-schemes/fpo/disbursements/resolve', { method: 'POST', body: JSON.stringify({ farmerId }) }),
   getFpoApplications:   () => request('/gov-schemes/fpo/applications'),
   uploadCorporateDocument:(docId) => request('/gov-schemes/fpo/applications/upload', { method: 'POST', body: JSON.stringify({ docId }) }),
