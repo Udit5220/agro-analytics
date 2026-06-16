@@ -6,6 +6,7 @@ import { homeContent } from "../../content/homeContent";
 import Aitoolcard from "../../components/partials/Aitoolcard";
 import FlowStep from "../../components/partials/FlowStep";
 import heroVideo from "../../assets/208521_medium.mp4";
+import { useRole } from "../../context/RoleContext";
 
 function AnimatedCounter({ value }) {
   const [displayValue, setDisplayValue] = useState("0");
@@ -70,6 +71,7 @@ const moduleImages = {
 export default function Home() {
   const navigate = useNavigate();
   const { hero, metrics, aiTools, platformFlow } = homeContent;
+  const { activeRole } = useRole();
 
   return (
     <div className="bg-white dark:bg-brand-darkest min-h-screen text-slate-800 dark:text-white font-sans transition-colors duration-300">
@@ -114,7 +116,13 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-10">
             <button
               type="button"
-              onClick={() => navigate('/module/crop-recommendation')}
+              onClick={() => {
+                if (activeRole === "farmer") {
+                  navigate("/module/crop-recommendation");
+                } else {
+                  navigate("/module/crop-recommendation-1");
+                }
+              }}
               className={`${uiConfig.styles.buttonAccent} w-full sm:w-auto flex items-center justify-center space-x-2 cursor-pointer`}
             >
               <span>{hero.ctaPrimary}</span>
@@ -123,8 +131,8 @@ export default function Home() {
             <button
               type="button"
               onClick={() => {
-                const el = document.getElementById('platform');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                const el = document.getElementById("platform");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
               className={`${uiConfig.styles.buttonOutline} w-full sm:w-auto flex items-center justify-center space-x-2 cursor-pointer`}
             >
@@ -209,19 +217,28 @@ export default function Home() {
 
           {/* Grid Layout of Cards - Wider professional layout */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
-            {aiTools.map((card) => (
-              <Aitoolcard
-                key={card.id}
-                icon={card.icon}
-                title={card.title}
-                description={card.description}
-                badgeText={card.badgeText}
-                badgeColor={card.badgeColor}
-                linkUrl={card.linkUrl}
-                highlighted={card.highlighted}
-                image={moduleImages[card.id]}
-              />
-            ))}
+            {aiTools.map((card) => {
+              let resolvedLink = card.linkUrl;
+              if (card.id === "crop-rec") {
+                resolvedLink =
+                  activeRole === "farmer"
+                    ? "/module/crop-recommendation"
+                    : "/module/crop-recommendation-1";
+              }
+              return (
+                <Aitoolcard
+                  key={card.id}
+                  icon={card.icon}
+                  title={card.title}
+                  description={card.description}
+                  badgeText={card.badgeText}
+                  badgeColor={card.badgeColor}
+                  linkUrl={resolvedLink}
+                  highlighted={card.highlighted}
+                  image={moduleImages[card.id]}
+                />
+              );
+            })}
           </div>
         </div>
       </section>
@@ -241,7 +258,7 @@ export default function Home() {
               From Data to Yield
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-              See the direct data sequence behind Agricola\'s
+              See the direct data sequence behind AgroIndia\'s
               insights—aggregating atmospheric parameters, compiling agronomic
               recommendations, and prompting timely delivery.
             </p>

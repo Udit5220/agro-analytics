@@ -27,9 +27,9 @@ export default function AgriTechTrends() {
       title: "Drone-Based Precision Spraying Approved in Punjab",
       category: "AUTOMATION",
       icon: Cpu,
-      color: "bg-blue-500",
-      iconColor: "text-blue-500",
-      bgLight: "bg-blue-50/50",
+      color: "bg-emerald-500",
+      iconColor: "text-emerald-500",
+      bgLight: "bg-emerald-50/50",
       description: "State government releases new subsidies for agricultural drones, aiming to reduce pesticide usage by 20% and improve coverage efficiency in large wheat farms.",
       date: "May 29, 2026",
       details: {
@@ -102,9 +102,9 @@ export default function AgriTechTrends() {
         id: Date.now(),
         date: "Today",
         icon: Cpu,
-        color: "bg-purple-500",
-        iconColor: "text-purple-650",
-        bgLight: "bg-purple-50/50",
+        color: "bg-emerald-500",
+        iconColor: "text-emerald-650",
+        bgLight: "bg-emerald-50/50",
         ...parsed
       };
 
@@ -122,14 +122,14 @@ export default function AgriTechTrends() {
   return (
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
+      <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
         <div className="flex items-start space-x-4 z-10">
           <div className="p-3 bg-[#31572c]/10 text-[#31572c] rounded-xl mt-1 shrink-0">
             <Cpu className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">AgriTech Innovations</h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-emerald-900">AgriTech Innovations</h1>
+            <p className="text-sm text-emerald-500 mt-1">
               Latest technological advancements transforming Indian agriculture (AI Powered)
             </p>
           </div>
@@ -168,7 +168,7 @@ export default function AgriTechTrends() {
         </form>
 
         {errorMsg && (
-          <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl flex items-center gap-2 text-xs font-bold">
+          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl flex items-center gap-2 text-xs font-bold">
             <AlertCircle className="h-4 w-4 shrink-0" />
             <span>{errorMsg}</span>
           </div>
@@ -182,29 +182,29 @@ export default function AgriTechTrends() {
           return (
             <div 
               key={trend.id} 
-              className="bg-white border border-slate-150 rounded-2xl p-6 shadow-xs hover:-translate-y-1 hover:shadow-md hover:border-slate-200 transition-all duration-200 group flex flex-col justify-between h-full"
+              className="bg-white border border-emerald-150 rounded-2xl p-6 shadow-xs hover:-translate-y-1 hover:shadow-md hover:border-emerald-200 transition-all duration-200 group flex flex-col justify-between h-full"
             >
               <div>
                 <div className="flex items-start justify-between mb-4">
                   <div className={`p-3 rounded-xl ${trend.bgLight} ${trend.iconColor}`}>
                     <Icon className="h-6 w-6" />
                   </div>
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">
                     {trend.category}
                   </span>
                 </div>
                 
-                <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#31572c] transition-colors mb-3 leading-snug">
+                <h3 className="text-base font-extrabold text-emerald-900 group-hover:text-[#31572c] transition-colors mb-3 leading-snug">
                   {trend.title}
                 </h3>
                 
-                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                <p className="text-xs sm:text-sm text-emerald-500 leading-relaxed">
                   {trend.description}
                 </p>
               </div>
               
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[10px] font-extrabold text-slate-450 tracking-wider">
+              <div className="mt-6 pt-4 border-t border-emerald-100 flex items-center justify-between">
+                <span className="text-[10px] font-extrabold text-emerald-450 tracking-wider">
                   {trend.date}
                 </span>
                 
@@ -223,19 +223,19 @@ export default function AgriTechTrends() {
 
       {/* Detailed Technical Report Slide-out Panel */}
       {selectedReport && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-end z-50 animate-fadeIn">
+        <div className="fixed inset-0 bg-emerald-900/60 backdrop-blur-xs flex items-center justify-end z-50 animate-fadeIn">
           <div className="absolute inset-0" onClick={() => setSelectedReport(null)} />
           
-          <div className="bg-white h-full max-w-xl w-full border-l border-slate-100 shadow-2xl relative z-10 flex flex-col justify-between p-6 sm:p-8 animate-slideOver">
+          <div className="bg-white h-full max-w-xl w-full border-l border-emerald-100 shadow-2xl relative z-10 flex flex-col justify-between p-6 sm:p-8 animate-slideOver">
             <div>
               {/* Close Button */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+              <div className="flex items-center justify-between pb-4 border-b border-emerald-100 mb-6">
                 <span className="text-[10px] font-black uppercase tracking-wider text-emerald-850 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-100">
                   {selectedReport.category} REPORT NODE
                 </span>
                 <button 
                   onClick={() => setSelectedReport(null)}
-                  className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                  className="text-emerald-400 hover:text-emerald-600 p-1.5 rounded-lg hover:bg-emerald-100 transition-colors"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -243,35 +243,35 @@ export default function AgriTechTrends() {
 
               {/* Title */}
               <div className="mb-6">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{selectedReport.date}</span>
-                <h3 className="text-lg sm:text-xl font-bold text-slate-900 mt-1 leading-snug">{selectedReport.title}</h3>
+                <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">{selectedReport.date}</span>
+                <h3 className="text-lg sm:text-xl font-bold text-emerald-900 mt-1 leading-snug">{selectedReport.title}</h3>
               </div>
 
               {/* Report Body Sections */}
               <div className="space-y-5 overflow-y-auto max-h-[60vh] pr-2">
                 
                 {/* Cost Profiles */}
-                <div className="p-4 bg-slate-50 border border-slate-150 rounded-xl space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wider">
+                <div className="p-4 bg-emerald-50 border border-emerald-150 rounded-xl space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-emerald-800 uppercase tracking-wider">
                     <DollarSign className="w-4 h-4 text-emerald-700" />
                     <span>Implementation Costing</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-semibold">
+                  <p className="text-xs sm:text-sm text-emerald-600 leading-relaxed font-semibold">
                     {selectedReport.details.cost}
                   </p>
                 </div>
 
                 {/* Approved Vendors */}
-                <div className="p-4 bg-slate-50 border border-slate-150 rounded-xl space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wider">
-                    <Users className="w-4 h-4 text-blue-700" />
+                <div className="p-4 bg-emerald-50 border border-emerald-150 rounded-xl space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-emerald-800 uppercase tracking-wider">
+                    <Users className="w-4 h-4 text-emerald-700" />
                     <span>Approved Technology Vendors</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {selectedReport.details.vendors.map((vendor, idx) => (
                       <span 
                         key={idx} 
-                        className="bg-white border border-slate-200 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-lg"
+                        className="bg-white border border-emerald-200 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-lg"
                       >
                         {vendor}
                       </span>
@@ -280,34 +280,34 @@ export default function AgriTechTrends() {
                 </div>
 
                 {/* Regional Case Study */}
-                <div className="p-4 bg-slate-50 border border-slate-150 rounded-xl space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wider">
-                    <Compass className="w-4 h-4 text-purple-700" />
+                <div className="p-4 bg-emerald-50 border border-emerald-150 rounded-xl space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-emerald-800 uppercase tracking-wider">
+                    <Compass className="w-4 h-4 text-emerald-700" />
                     <span>Regional Case Study / Trials</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-semibold">
+                  <p className="text-xs sm:text-sm text-emerald-600 leading-relaxed font-semibold">
                     {selectedReport.details.caseStudy}
                   </p>
                 </div>
 
                 {/* ROI Forecast */}
-                <div className="p-4 bg-slate-50 border border-slate-150 rounded-xl space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wider">
-                    <ShieldCheck className="w-4 h-4 text-teal-700" />
+                <div className="p-4 bg-emerald-50 border border-emerald-150 rounded-xl space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-emerald-800 uppercase tracking-wider">
+                    <ShieldCheck className="w-4 h-4 text-emerald-700" />
                     <span>Yield ROI Forecast</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-650 leading-relaxed font-semibold">
+                  <p className="text-xs sm:text-sm text-emerald-650 leading-relaxed font-semibold">
                     {selectedReport.details.roi}
                   </p>
                 </div>
 
                 {/* Technical Specs */}
-                <div className="p-4 bg-slate-50 border border-slate-150 rounded-xl space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wider">
-                    <FileText className="w-4 h-4 text-orange-700" />
+                <div className="p-4 bg-emerald-50 border border-emerald-150 rounded-xl space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-emerald-800 uppercase tracking-wider">
+                    <FileText className="w-4 h-4 text-emerald-700" />
                     <span>Technical Architecture Specs</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-650 leading-relaxed font-mono">
+                  <p className="text-xs sm:text-sm text-emerald-650 leading-relaxed font-mono">
                     {selectedReport.details.specs}
                   </p>
                 </div>
@@ -316,7 +316,7 @@ export default function AgriTechTrends() {
             </div>
 
             {/* Bottom Close/Acknowledge trigger */}
-            <div className="pt-4 border-t border-slate-100 mt-6">
+            <div className="pt-4 border-t border-emerald-100 mt-6">
               <button 
                 onClick={() => setSelectedReport(null)}
                 className="w-full bg-[#31572c] hover:bg-[#1a3018] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-1.5"

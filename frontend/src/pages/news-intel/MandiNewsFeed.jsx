@@ -14,7 +14,7 @@ export default function MandiNewsFeed() {
       excerpt: "Local mandis across Rohtak and Hisar report a massive influx of wheat, leading to temporary storage shortages. Authorities are working on emergency procurement measures.",
       category: "Supply Chain",
       impact: "High Supply", 
-      impactColor: "text-blue-600 bg-blue-50 border-blue-100",
+      impactColor: "text-emerald-600 bg-emerald-50 border-emerald-100",
       rating: "Price Stabilized", 
       time: "2 hours ago",
       location: "Haryana",
@@ -26,7 +26,7 @@ export default function MandiNewsFeed() {
       excerpt: "Meteorological department confirms early arrival of monsoon in MP and Maharashtra. Farmers advised to prepare fields for early Kharif sowing.",
       category: "Weather",
       impact: "Atmospheric", 
-      impactColor: "text-indigo-600 bg-indigo-50 border-indigo-100",
+      impactColor: "text-emerald-600 bg-emerald-50 border-emerald-100",
       rating: "Early Sowing Alert", 
       time: "1 day ago",
       location: "Central India",
@@ -38,7 +38,7 @@ export default function MandiNewsFeed() {
       excerpt: "International demand pushes soybean prices past previous resistance levels. Traders anticipate continued volatility throughout the week.",
       category: "Prices",
       impact: "Price Alert", 
-      impactColor: "text-rose-600 bg-rose-50 border-rose-100",
+      impactColor: "text-emerald-600 bg-emerald-50 border-emerald-100",
       rating: "High Volatility", 
       time: "3 hours ago",
       location: "Indore, MP",
@@ -50,7 +50,7 @@ export default function MandiNewsFeed() {
       excerpt: "Lasalgaon mandi moves to fully digital auctioning starting next week. Registration camps set up for farmers.",
       category: "Policy",
       impact: "Regulation", 
-      impactColor: "text-amber-600 bg-amber-50 border-amber-100",
+      impactColor: "text-emerald-600 bg-emerald-50 border-emerald-100",
       rating: "Process Change", 
       time: "5 hours ago",
       location: "Lasalgaon, MH",
@@ -97,10 +97,10 @@ export default function MandiNewsFeed() {
       
       const updatedNews = parsedArray.map((item, idx) => {
         let impactColor = "text-gray-600 bg-gray-50 border-gray-100";
-        if (item.category === 'Prices') impactColor = "text-rose-600 bg-rose-50 border-rose-100";
-        else if (item.category === 'Supply Chain') impactColor = "text-blue-600 bg-blue-50 border-blue-100";
-        else if (item.category === 'Weather') impactColor = "text-indigo-600 bg-indigo-50 border-indigo-100";
-        else if (item.category === 'Policy') impactColor = "text-amber-600 bg-amber-50 border-amber-100";
+        if (item.category === 'Prices') impactColor = "text-emerald-600 bg-emerald-50 border-emerald-100";
+        else if (item.category === 'Supply Chain') impactColor = "text-emerald-600 bg-emerald-50 border-emerald-100";
+        else if (item.category === 'Weather') impactColor = "text-emerald-600 bg-emerald-50 border-emerald-100";
+        else if (item.category === 'Policy') impactColor = "text-emerald-600 bg-emerald-50 border-emerald-100";
         
         return {
           id: Date.now() + idx,
@@ -171,7 +171,7 @@ export default function MandiNewsFeed() {
         </form>
 
         {errorMsg && (
-          <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl flex items-center gap-2 text-xs font-bold">
+          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl flex items-center gap-2 text-xs font-bold">
             <AlertCircle className="h-4 w-4 shrink-0" />
             <span>{errorMsg}</span>
           </div>
@@ -237,7 +237,7 @@ export default function MandiNewsFeed() {
                   <span className="text-sm font-black text-gray-800">{item.rating}</span>
                 </div>
                 <div className={`p-3 rounded-full ${
-                  item.trend === 'up' ? 'bg-rose-50 text-rose-600' : 
+                  item.trend === 'up' ? 'bg-emerald-50 text-emerald-600' : 
                   item.trend === 'down' ? 'bg-green-50 text-green-600' : 'bg-gray-50 text-gray-600'
                 }`}>
                   {item.trend === 'up' ? <TrendingUp className="h-6 w-6" /> : 

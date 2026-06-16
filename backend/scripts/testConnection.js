@@ -1,6 +1,12 @@
+import 'dotenv/config';
 import mongoose from 'mongoose';
 
-const uri = process.env.MONGO_URI || 'mongodb+srv://greenleaf_dev_user:43bXacJ4atD65ek2@cluster0.niaur5h.mongodb.net/greenleaf-dev';
+const uri = process.env.MONGO_URI;
+
+if (!uri) {
+  console.error('❌ Error: MONGO_URI is not defined in environment variables.');
+  process.exit(1);
+}
 
 async function test() {
   try {

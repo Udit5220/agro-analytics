@@ -86,14 +86,14 @@ export default function CommodityExportTrends() {
   return (
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
+      <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
         <div className="flex items-start space-x-4 z-10">
           <div className="p-3 bg-[#31572c]/10 text-[#31572c] rounded-xl mt-1 shrink-0">
             <Ship className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">Commodity Export Trends</h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-emerald-900">Commodity Export Trends</h1>
+            <p className="text-sm text-emerald-500 mt-1">
               Global trade analytics and port status predictions (Data: APEDA)
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function CommodityExportTrends() {
         </form>
 
         {errorMsg && (
-          <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl flex items-center gap-2 text-xs font-bold">
+          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl flex items-center gap-2 text-xs font-bold">
             <AlertCircle className="h-4 w-4 shrink-0" />
             <span>{errorMsg}</span>
           </div>
@@ -147,26 +147,26 @@ export default function CommodityExportTrends() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Left Card: Composed Chart (2/3 width) */}
-        <div className="lg:col-span-2 bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-emerald-100 pb-4 mb-6">
               <div>
-                <h2 className="text-base font-bold text-slate-900 tracking-tight">
+                <h2 className="text-base font-bold text-emerald-900 tracking-tight">
                   {commodity} Export Volume vs International Price
                 </h2>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-emerald-500 mt-1">
                   Tracking volume (in '000 MT) against average FOB price ($/MT)
                 </p>
               </div>
 
               {/* Custom Legend Indicators */}
-              <div className="flex items-center gap-4 text-[11px] font-extrabold text-slate-600">
+              <div className="flex items-center gap-4 text-[11px] font-extrabold text-emerald-600">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-800" />
                   <span>Export Vol ('000 MT)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
                   <span>Avg FOB Price ($/MT)</span>
                 </div>
               </div>
@@ -215,10 +215,10 @@ export default function CommodityExportTrends() {
                     yAxisId="right" 
                     type="monotone" 
                     dataKey="price" 
-                    stroke="#fbbf24" 
+                    stroke="#34d399" 
                     strokeWidth={3} 
-                    dot={{ stroke: '#fbbf24', strokeWidth: 3, r: 4, fill: '#fff' }} 
-                    activeDot={{ r: 6, stroke: '#fbbf24', strokeWidth: 2, fill: '#fff' }} 
+                    dot={{ stroke: '#34d399', strokeWidth: 3, r: 4, fill: '#fff' }} 
+                    activeDot={{ r: 6, stroke: '#34d399', strokeWidth: 2, fill: '#fff' }} 
                   />
                 </ComposedChart>
               </ResponsiveContainer>
@@ -234,7 +234,7 @@ export default function CommodityExportTrends() {
           <div className="relative z-10 space-y-3">
             <div className="flex items-center gap-2 text-white/80">
               <Anchor className="h-4.5 w-4.5 text-emerald-450" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-200">
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-200">
                 ⚓ KANDLA PORT STATUS
               </span>
             </div>
@@ -263,7 +263,7 @@ export default function CommodityExportTrends() {
                 <h4 className="text-white text-xs font-extrabold tracking-tight">
                   Customs Clearance
                 </h4>
-                <p className="text-slate-200 text-[11px] leading-relaxed">
+                <p className="text-emerald-200 text-[11px] leading-relaxed">
                   Currently averaging {clearanceTime} (Fast Track active)
                 </p>
               </div>
@@ -282,24 +282,24 @@ function CustomComposedTooltip({ active, payload, label }) {
     const volume = payload.find(p => p.dataKey === 'volume')?.value || 0;
     const price = payload.find(p => p.dataKey === 'price')?.value || 0;
     return (
-      <div className="bg-slate-900 border border-slate-800 text-white p-3.5 rounded-xl shadow-xl space-y-1.5 max-w-[200px] font-sans">
-        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-1 mb-1">
+      <div className="bg-emerald-900 border border-emerald-800 text-white p-3.5 rounded-xl shadow-xl space-y-1.5 max-w-[200px] font-sans">
+        <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest border-b border-emerald-800 pb-1 mb-1">
           {label} Trade Report
         </div>
         <div className="space-y-1 text-xs">
           <div className="flex items-center justify-between gap-3">
-            <span className="text-slate-400 font-semibold flex items-center gap-1.5">
+            <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-650" />
               Volume:
             </span>
             <span className="font-extrabold text-white font-mono">{volume}k MT</span>
           </div>
           <div className="flex items-center justify-between gap-3">
-            <span className="text-slate-400 font-semibold flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-450" />
+            <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-450" />
               FOB Price:
             </span>
-            <span className="font-extrabold text-amber-400 font-mono">${price} / MT</span>
+            <span className="font-extrabold text-emerald-400 font-mono">${price} / MT</span>
           </div>
         </div>
       </div>

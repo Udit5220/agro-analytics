@@ -2,15 +2,17 @@
  * Static Data Layer for AgroSense Dashboard Modules
  * Decouples navigation sidebar links, user profiles, and mock crop telemetry details from layout code.
  */
+const userRole = localStorage.getItem('userRole') || 'Farmer';
+
 export const dashboardContent = {
   // User Profile details displayed in sidebar bottom
   userProfile: {
-    name: "Suresh Kumar",
+    name: userRole === 'Farmer' ? "Suresh Kumar" : "System User",
     hindiName: "सुरेश कुमार",
-    role: "Farmer",
-    hindiRole: "किसान",
+    role: userRole,
+    hindiRole: "उपयोगकर्ता",
     location: "Faridabad, Haryana",
-    avatar: "SK",
+    avatar: userRole === 'Farmer' ? "SK" : "SU",
   },
 
   // Sidebar menus dynamically mapped per active AI Tool module ID
@@ -25,24 +27,23 @@ export const dashboardContent = {
       },
       { label: "Yield & ROI", path: "yield-roi", icon: "CircleDollarSign" },
       { label: "Multi-crop Compare", path: "crop-compare", icon: "Columns" },
+      { label: "Crop Rotation Planner", path: "crop-rotation", icon: "RefreshCcw" },
+      { label: "Water Intelligence", path: "water-intelligence", icon: "Droplets" },
+      { label: "Climate Risk Simulator", path: "climate-risk", icon: "CloudLightning" },
       // { label: "Pest & Disease Risk", path: "pest-risk", icon: "ShieldAlert" },
       // { label: "Market Demand", path: "market-demand", icon: "TrendingUp" },
       { label: "Farm Journal", path: "farm-journal", icon: "BookOpen" },
       // { label: 'Settings', path: 'settings', icon: 'Settings' }
     ],
     "disease-detection": [
-      { label: "Overview Dashboard", path: "", icon: "LayoutDashboard" },
-      { label: "AI Leaf Scanner", path: "leaf-scanner", icon: "Camera" },
-      {
-        label: "Risk Prediction Engine",
-        path: "risk-prediction",
-        icon: "AlertTriangle",
-      },
-      { label: "Region Heatmap", path: "heatmap", icon: "Map" },
-      // { label: "Alert Management", path: "alerts", icon: "Bell" },
-      // { label: "Treatment Advisor", path: "treatment", icon: "ShieldPlus" },
-      // { label: "Crop Lifecycle", path: "lifecycle", icon: "Sprout" },
-      { label: "Outbreak History", path: "history", icon: "History" },
+      { label: "Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "Leaf Scanner", path: "leaf-scanner", icon: "Camera" },
+      { label: "Risk Prediction", path: "risk-prediction", icon: "AlertTriangle" },
+      { label: "Regional Heatmap", path: "heatmap", icon: "Map" },
+      { label: "Treatment & Spray Advisor", path: "treatment", icon: "Shield" },
+      { label: "Crop Lifecycle Risks", path: "lifecycle", icon: "Sprout" },
+      { label: "Historical Outbreaks", path: "history", icon: "History" },
+      { label: "Disease Alert Center", path: "alerts", icon: "Bell" },
     ],
     "ai-suggestion": [
       { label: "AI Assistant", path: "", icon: "MessageSquare" },
@@ -56,6 +57,15 @@ export const dashboardContent = {
       },
       { label: "Lifecycle Guidance", path: "lifecycle", icon: "Sprout" },
       // { label: "Scheme Finder", path: "scheme-finder", icon: "Award" },
+    ],
+    "ai-assistant-1": [
+      { label: "Dashboard", path: "", icon: "LayoutDashboard" },
+      { label: "Chat Workspace", path: "chat-workspace", icon: "MessageSquare" },
+      { label: "Prompt Library", path: "prompt-library", icon: "BookOpen" },
+      { label: "Recommendation", path: "recommendation", icon: "Sparkles" },
+      { label: "Chat History", path: "chat-history", icon: "History" },
+      { label: "Saved Insight", path: "saved-insight", icon: "Bookmark" },
+      { label: "Reports Center", path: "reports-center", icon: "FileText" },
     ],
     "market-intelligence": [
       { label: "Market Dashboard", path: "", icon: "LayoutDashboard" },
@@ -196,8 +206,6 @@ export const dashboardContent = {
       humiditySub: "Adequate Moisture",
       rainfall: "12 mm",
       rainfallSub: "Mild showers forecast",
-      windSpeed: "14 km/h",
-      windSpeedSub: "Gentle Westerly Wind",
     },
   },
 };

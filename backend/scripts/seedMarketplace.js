@@ -6,8 +6,9 @@ import Offer from '../models/Offer.js';
 import Order from '../models/Order.js';
 import Invoice from '../models/Invoice.js';
 
-await mongoose.connect(process.env.MONGO_URI, { dbName: 'greenleaf-dev' });
-console.log('✅ Connected to MongoDB');
+const dbName = process.env.MONGO_URI_1 ? 'agro-india' : 'greenleaf-dev';
+await mongoose.connect(process.env.MONGO_URI_1 || process.env.MONGO_URI, { dbName });
+console.log(`✅ Connected to MongoDB (${process.env.MONGO_URI_1 ? 'Secondary' : 'Primary'}/Seeding) to database: ${dbName}`);
 
 // ─── Marketplace Listings ─────────────────────────────────────────────────────
 const listings = [

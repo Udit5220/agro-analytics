@@ -15,11 +15,21 @@
     "seed:all": "node scripts/seedCommodities.js && node scripts/seedMandiPrices.js && node scripts/seedWeather.js && node scripts/seedReservoirs.js && node scripts/seedMarketplace.js"
   },
   "dependencies": {
+    "@google/genai": "^2.8.0",
+    "@langchain/community": "^1.1.29",
+    "@langchain/core": "^1.1.48",
+    "@langchain/google-genai": "^2.1.31",
+    "@langchain/textsplitters": "^1.0.1",
     "axios": "^1.7.2",
+    "chromadb": "^3.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongoose": "^8.4.1"
+    "langchain": "^1.4.2",
+    "mammoth": "^1.12.0",
+    "mongoose": "^8.4.1",
+    "multer": "^2.1.1",
+    "pdf-parse": "^2.4.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

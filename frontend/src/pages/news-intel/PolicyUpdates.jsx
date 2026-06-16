@@ -60,8 +60,8 @@ export default function PolicyUpdates() {
       description: "Madhya Pradesh government reintroduces the price deficit financing scheme specifically for garlic and onion to protect farmers from distress sales.",
       impact: "MEDIUM IMPACT",
       icon: Building,
-      iconColor: "text-blue-700 bg-blue-50 border-blue-100",
-      dotColor: "bg-blue-500",
+      iconColor: "text-emerald-700 bg-emerald-50 border-emerald-100",
+      dotColor: "bg-emerald-500",
       gazetteMeta: {
         ministry: "Department of Agriculture & Farmer Welfare",
         department: "Government of Madhya Pradesh",
@@ -147,14 +147,14 @@ export default function PolicyUpdates() {
   return (
     <div className="space-y-6 animate-fadeIn antialiased">
       {/* Page Header */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
+      <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between">
         <div className="flex items-start space-x-4 z-10">
           <div className="p-3 bg-[#31572c]/10 text-[#31572c] rounded-xl mt-1 shrink-0">
             <Globe className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">Policy & Regulation Updates</h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-emerald-900">Policy & Regulation Updates</h1>
+            <p className="text-sm text-emerald-500 mt-1">
               Timeline of state and central agricultural governance (Now with AI Gazette Analytics)
             </p>
           </div>
@@ -193,7 +193,7 @@ export default function PolicyUpdates() {
         </form>
 
         {errorMsg && (
-          <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl flex items-center gap-2 text-xs font-bold">
+          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl flex items-center gap-2 text-xs font-bold">
             <AlertCircle className="h-4 w-4 shrink-0" />
             <span>{errorMsg}</span>
           </div>
@@ -201,9 +201,9 @@ export default function PolicyUpdates() {
       </div>
 
       {/* Main Single Column Card Container */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm">
+      <div className="bg-white border border-emerald-100 rounded-3xl p-6 sm:p-8 shadow-sm">
         {/* Vertical Timeline Pipeline */}
-        <div className="relative pl-4 sm:pl-8 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100">
+        <div className="relative pl-4 sm:pl-8 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-emerald-100">
           {policies.map((policy) => {
             return (
               <div key={policy.id} className="relative mb-12 last:mb-0 group">
@@ -214,24 +214,24 @@ export default function PolicyUpdates() {
                   {/* Date & Badges */}
                   <div className="flex flex-wrap items-center gap-2 mb-2.5">
                     <span className="text-xs font-extrabold text-[#31572c] tracking-tight">{policy.date}</span>
-                    <span className="text-slate-300 hidden sm:inline">•</span>
+                    <span className="text-emerald-300 hidden sm:inline">•</span>
                     
-                    <span className="text-[9px] font-bold tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700 uppercase border border-slate-200">
+                    <span className="text-[9px] font-bold tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 uppercase border border-emerald-200">
                       {policy.tag}
                     </span>
                     
-                    <span className="text-[9px] font-bold tracking-wider px-2 py-0.5 rounded bg-amber-50 text-amber-700 uppercase border border-amber-100">
+                    <span className="text-[9px] font-bold tracking-wider px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 uppercase border border-emerald-100">
                       {policy.impact}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight group-hover:text-emerald-800 transition-colors mb-2">
+                  <h3 className="text-base sm:text-lg font-bold text-emerald-900 tracking-tight group-hover:text-emerald-800 transition-colors mb-2">
                     {policy.title}
                   </h3>
 
                   {/* Body Text */}
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed mb-4 max-w-3xl">
+                  <p className="text-xs sm:text-sm text-emerald-500 leading-relaxed mb-4 max-w-3xl">
                     {policy.description}
                   </p>
 
@@ -252,74 +252,74 @@ export default function PolicyUpdates() {
 
       {/* Gazette Bulletin Summary Drawer */}
       {selectedPolicy && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-end z-50 animate-fadeIn">
+        <div className="fixed inset-0 bg-emerald-900/60 backdrop-blur-xs flex items-center justify-end z-50 animate-fadeIn">
           <div className="absolute inset-0" onClick={() => setSelectedPolicy(null)} />
           
-          <div className="bg-white h-full max-w-2xl w-full border-l border-slate-100 shadow-2xl relative z-10 flex flex-col justify-between animate-slideOver">
+          <div className="bg-white h-full max-w-2xl w-full border-l border-emerald-100 shadow-2xl relative z-10 flex flex-col justify-between animate-slideOver">
             {/* Header */}
-            <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div className="p-6 border-b border-emerald-100 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <FileText className="w-5 h-5 text-emerald-800" />
-                <span className="text-xs font-black uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-400">
                   Official Gazette Bureau
                 </span>
               </div>
               <button 
                 onClick={() => setSelectedPolicy(null)}
-                className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                className="text-emerald-400 hover:text-emerald-600 p-1.5 rounded-lg hover:bg-emerald-100 transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Document Content Box */}
-            <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6 bg-slate-50/50">
-              <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-xs relative overflow-hidden font-sans">
+            <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6 bg-emerald-50/50">
+              <div className="bg-white border border-emerald-200/80 rounded-2xl p-6 sm:p-8 shadow-xs relative overflow-hidden font-sans">
                 {/* Government Watermark */}
-                <div className="text-center pb-6 border-b border-double border-slate-300">
-                  <div className="text-[10px] tracking-widest font-black uppercase text-slate-400 mb-1">
+                <div className="text-center pb-6 border-b border-double border-emerald-300">
+                  <div className="text-[10px] tracking-widest font-black uppercase text-emerald-400 mb-1">
                     THE GAZETTE OF INDIA / भारत का राजपत्र
                   </div>
-                  <div className="text-xs font-bold text-slate-800">
+                  <div className="text-xs font-bold text-emerald-800">
                     EXTRAORDINARY / असाधारण
                   </div>
-                  <div className="text-[9px] text-slate-400 uppercase tracking-widest mt-1">
+                  <div className="text-[9px] text-emerald-400 uppercase tracking-widest mt-1">
                     PUBLISHED BY AUTHORITY / प्राधिकार से प्रकाशित
                   </div>
                 </div>
 
                 <div className="mt-6 space-y-4">
                   <div className="text-center space-y-1">
-                    <h4 className="text-sm font-extrabold text-slate-900 uppercase">
+                    <h4 className="text-sm font-extrabold text-emerald-900 uppercase">
                       {selectedPolicy.gazetteMeta.ministry}
                     </h4>
-                    <p className="text-xs text-slate-500 font-medium">
+                    <p className="text-xs text-emerald-500 font-medium">
                       {selectedPolicy.gazetteMeta.department}
                     </p>
-                    <div className="text-[10px] text-slate-400 font-mono mt-1">
+                    <div className="text-[10px] text-emerald-400 font-mono mt-1">
                       Ref No: {selectedPolicy.gazetteMeta.refNo}
                     </div>
                   </div>
 
-                  <div className="h-px bg-slate-200 my-4" />
+                  <div className="h-px bg-emerald-200 my-4" />
 
                   <div className="space-y-1.5">
                     <span className="text-[10px] font-bold text-emerald-800 tracking-wider uppercase block">
                       Subject Notification
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 leading-snug">
+                    <h3 className="text-base font-bold text-emerald-900 leading-snug">
                       {selectedPolicy.title}
                     </h3>
                   </div>
 
                   {/* Highlights Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-100 my-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-emerald-50 p-4 rounded-xl border border-emerald-100 my-4">
                     {selectedPolicy.gazetteMeta.details.map((detail, idx) => (
                       <div key={idx} className="space-y-0.5">
-                        <span className="text-[9px] font-bold uppercase text-slate-400 block tracking-wider">
+                        <span className="text-[9px] font-bold uppercase text-emerald-400 block tracking-wider">
                           {detail.label}
                         </span>
-                        <span className="text-xs font-bold text-slate-800">
+                        <span className="text-xs font-bold text-emerald-800">
                           {detail.value}
                         </span>
                       </div>
@@ -328,22 +328,22 @@ export default function PolicyUpdates() {
 
                   {/* Background Info */}
                   <div className="space-y-2">
-                    <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase block">
+                    <span className="text-[10px] font-bold text-emerald-400 tracking-widest uppercase block">
                       1. PREAMBLE & STATEMENT OF OBJECTIVES
                     </span>
-                    <p className="text-xs text-slate-600 leading-relaxed">
+                    <p className="text-xs text-emerald-600 leading-relaxed">
                       {selectedPolicy.gazetteMeta.background}
                     </p>
                   </div>
 
                   {/* Directives / Mandates */}
                   <div className="space-y-2 pt-2">
-                    <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase block">
+                    <span className="text-[10px] font-bold text-emerald-400 tracking-widest uppercase block">
                       2. LEGISLATIVE DIRECTIVES & MANDATES
                     </span>
                     <ul className="space-y-2">
                       {selectedPolicy.gazetteMeta.directives.map((directive, index) => (
-                        <li key={index} className="flex gap-2 text-xs text-slate-600 items-start font-semibold">
+                        <li key={index} className="flex gap-2 text-xs text-emerald-600 items-start font-semibold">
                           <span className="font-bold text-emerald-800 shrink-0 mt-0.5">{index + 1}.</span>
                           <span className="leading-relaxed">{directive}</span>
                         </li>
@@ -353,13 +353,13 @@ export default function PolicyUpdates() {
 
                   {/* Sign off */}
                   <div className="pt-8 text-right space-y-1">
-                    <p className="text-xs font-extrabold text-slate-800">
+                    <p className="text-xs font-extrabold text-emerald-800">
                       By Order of the President,
                     </p>
-                    <p className="text-xs font-bold text-slate-900 italic">
+                    <p className="text-xs font-bold text-emerald-900 italic">
                       {selectedPolicy.gazetteMeta.signedBy}
                     </p>
-                    <p className="text-[10px] text-slate-400 font-bold">
+                    <p className="text-[10px] text-emerald-400 font-bold">
                       Authenticated Electronic Record
                     </p>
                   </div>
@@ -368,18 +368,18 @@ export default function PolicyUpdates() {
             </div>
 
             {/* Bottom Actions bar */}
-            <div className="p-6 border-t border-slate-100 flex items-center justify-between gap-3 bg-white">
+            <div className="p-6 border-t border-emerald-100 flex items-center justify-between gap-3 bg-white">
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => alert('Simulating PDF Download...')}
-                  className="flex items-center gap-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-2xs"
+                  className="flex items-center gap-1.5 border border-emerald-200 hover:bg-emerald-50 text-emerald-700 font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-2xs"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download PDF</span>
                 </button>
                 <button 
                   onClick={() => window.print()}
-                  className="flex items-center gap-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-2xs"
+                  className="flex items-center gap-1.5 border border-emerald-200 hover:bg-emerald-50 text-emerald-700 font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-2xs"
                 >
                   <Printer className="w-4 h-4" />
                   <span>Print Document</span>

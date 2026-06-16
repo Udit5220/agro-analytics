@@ -305,7 +305,7 @@ export default function YieldPredictorModels() {
       )}
 
       {errorMsg && (
-        <div className="p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-2xl flex items-center gap-2 text-xs font-bold">
+        <div className="p-4 bg-teal-50 border border-teal-200 text-teal-700 rounded-2xl flex items-center gap-2 text-xs font-bold">
           <AlertCircle className="w-5 h-5 shrink-0" />
           <span>{errorMsg}</span>
         </div>

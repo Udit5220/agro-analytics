@@ -124,7 +124,7 @@ function CustomDropdown({
   );
 }
 
-export default function LocationSelector({ value, onChange }) {
+export default function LocationSelector({ value, onChange, onCropSelect, selectedCropId }) {
   // --- DATABASE STATE ---
   const [farms, setFarms] = useState([]);
   const [selectedFarmId, setSelectedFarmId] = useState("");
@@ -141,6 +141,15 @@ export default function LocationSelector({ value, onChange }) {
     getSoilDataByPincode("121001"),
   );
   const [errorMsg, setErrorMsg] = useState("");
+
+  // Currently selected farm item helper
+  const activeFarm = farms.find((f) => (f._id || f.id) === selectedFarmId);
+  const unallocatedLand = activeFarm
+    ? Number(activeFarm.totalLand) -
+      (activeFarm.crops
+        ? activeFarm.crops.reduce((sum, c) => sum + Number(c.sownArea || 0), 0)
+        : 0)
+    : 0;
 
   // --- SYNC WITH API DIRECTLY ---
   const loadFarmsFromProfile = async () => {
@@ -221,9 +230,10 @@ export default function LocationSelector({ value, onChange }) {
         latitude,
         longitude,
         soilData,
+        activeFarm: selectedFarmId !== "custom" ? activeFarm : null,
       });
     }
-  }, [selectedState, selectedDistrict, pincode, latitude, longitude, soilData]);
+  }, [selectedState, selectedDistrict, pincode, latitude, longitude, soilData, activeFarm, selectedFarmId]);
 
   // Synchronize state overrides from GPS Fetch location triggers in parent
   useEffect(() => {
@@ -290,14 +300,7 @@ export default function LocationSelector({ value, onChange }) {
     setErrorMsg("");
   };
 
-  // Currently selected farm item helper
-  const activeFarm = farms.find((f) => (f._id || f.id) === selectedFarmId);
-  const unallocatedLand = activeFarm
-    ? Number(activeFarm.totalLand) -
-      (activeFarm.crops
-        ? activeFarm.crops.reduce((sum, c) => sum + Number(c.sownArea || 0), 0)
-        : 0)
-    : 0;
+
 
   // Build options dataset for custom dropdown picker
   const farmOptions = farms.map((f) => ({
@@ -385,21 +388,57 @@ export default function LocationSelector({ value, onChange }) {
                 {/* Crops display */}
                 <div className="space-y-1.5">
                   <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">
-                    Registered Crops in Plot
+                    Registered Crops in Plot {onCropSelect && "(Click to View Advisory)"}
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {activeFarm.crops && activeFarm.crops.length > 0 ? (
-                      activeFarm.crops.map((cr, idx) => (
-                        <span
-                          key={idx}
-                          className="text-[10px] font-bold uppercase bg-white text-[#132a13] border border-[#90a955]/20 px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-sm"
-                        >
-                          <span>🌾 {cr.name}</span>
-                          <span className="text-[9px] bg-[#31572c]/8 text-[#31572c] px-1.5 py-0.5 rounded font-black ml-0.5">
-                            {cr.sownArea || 0} Ac
+                      activeFarm.crops.map((cr, idx) => {
+                        const cropKey = cr.name.toLowerCase().includes("rice")
+                          ? "rice"
+                          : cr.name.toLowerCase().includes("wheat")
+                            ? "wheat"
+                            : cr.name.toLowerCase().includes("mustard")
+                              ? "mustard"
+                              : cr.name.toLowerCase().includes("potato")
+                                ? "potato"
+                                : cr.name.toLowerCase();
+
+                        const isSelected = selectedCropId === cropKey;
+
+                        if (onCropSelect) {
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => onCropSelect(cropKey)}
+                              className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-sm transition-all cursor-pointer border ${
+                                isSelected
+                                  ? "bg-[#31572c] text-white border-[#31572c]"
+                                  : "bg-white text-[#132a13] border-[#90a955]/20 hover:bg-[#31572c]/10"
+                              }`}
+                            >
+                              <span>🌾 {cr.name}</span>
+                              <span className={`text-[9px] px-1.5 py-0.5 rounded font-black ml-0.5 ${
+                                isSelected ? "bg-white/20 text-white" : "bg-[#31572c]/8 text-[#31572c]"
+                              }`}>
+                                {cr.sownArea || 0} Ac
+                              </span>
+                            </button>
+                          );
+                        }
+
+                        return (
+                          <span
+                            key={idx}
+                            className="text-[10px] font-bold uppercase bg-white text-[#132a13] border border-[#90a955]/20 px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-sm"
+                          >
+                            <span>🌾 {cr.name}</span>
+                            <span className="text-[9px] bg-[#31572c]/8 text-[#31572c] px-1.5 py-0.5 rounded font-black ml-0.5">
+                              {cr.sownArea || 0} Ac
+                            </span>
                           </span>
-                        </span>
-                      ))
+                        );
+                      })
                     ) : (
                       <span className="text-xs text-gray-400 font-medium italic">
                         No crops currently sown.
@@ -434,7 +473,7 @@ export default function LocationSelector({ value, onChange }) {
             </div>
           ) : (
             // Fallback Manual Override controls
-            <div className="space-y-4 text-left p-1 h-full flex flex-col justify-center">
+            <div className="space-y-4 text-left p-1 h-full flex flex-col justify-center animate-fadeIn">
               <span className="text-[9px] font-black uppercase text-amber-700 bg-amber-50 px-2.5 py-1 rounded border border-amber-100 tracking-wider self-start">
                 MANUAL TELEMETRY OVERRIDE
               </span>
@@ -473,6 +512,38 @@ export default function LocationSelector({ value, onChange }) {
                   )}
                 </div>
               </div>
+
+              {onCropSelect && (
+                <div className="space-y-1.5 pt-3 border-t border-gray-100">
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">
+                    Select Target Crop to View Advisory
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { id: "rice", name: "Rice (Paddy)" },
+                      { id: "wheat", name: "Wheat" },
+                      { id: "mustard", name: "Mustard" },
+                      { id: "potato", name: "Potato" },
+                    ].map((cr) => {
+                      const isSelected = selectedCropId === cr.id;
+                      return (
+                        <button
+                          key={cr.id}
+                          type="button"
+                          onClick={() => onCropSelect(cr.id)}
+                          className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-sm transition-all cursor-pointer border ${
+                            isSelected
+                              ? "bg-[#31572c] text-white border-[#31572c]"
+                              : "bg-white text-[#132a13] border-[#90a955]/20 hover:bg-[#31572c]/10"
+                          }`}
+                        >
+                          <span>🌾 {cr.name}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
